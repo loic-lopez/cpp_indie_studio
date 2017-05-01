@@ -12,4 +12,5 @@
 # include <iostream>
 # include "MinimalOgre.h"
 
+
 #endif //CPP_INDIE_STUDIO_INDIE_HPP

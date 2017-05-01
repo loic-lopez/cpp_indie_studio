@@ -40,6 +40,7 @@ fclean          :       clean
 re              :       fclean all
 
 install		:
-			echo "export LD_LIBRARY_PATH=$$LD_LIBRARY_PATH:$$PWD/Ogre3Dlibrary/lib:$$PWD/OISlibrary/lib64" >> $$HOME/.bashrc
-			echo "export LD_LIBRARY_PATH=$$LD_LIBRARY_PATH:$$PWD/Ogre3Dlibrary/Dependencies/Freetype/lib64:$$PWD/Ogre3Dlibrary/Dependencies/zzip/lib" >> $$HOME/.bashrc
+			@echo -e "\n" >> $$HOME/.bashrc
+			@echo "# Paths to libraries for cpp_indie_studio" >> $$HOME/.bashrc
+			@echo "export LD_LIBRARY_PATH="$$LD_LIBRARY_PATH:$$PWD/Ogre3Dlibrary/lib:$$PWD/OISlibrary/lib64:$$PWD/Ogre3Dlibrary/Dependencies/Freetype/lib64:$$PWD/Ogre3Dlibrary/Dependencies/zzip/lib"" >> $$HOME/.bashrc
 			@echo "Don't forget to restart your terminal or source $$HOME/.bashrc"

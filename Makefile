@@ -10,7 +10,8 @@
 
 NAME            =       indie_studio
 
-SRC             =       sources/main.cpp
+SRC             =       sources/main.cpp		\
+			sources/MinimalOgre.cpp
 
 OBJ             =       $(SRC:.cpp=.o)
 

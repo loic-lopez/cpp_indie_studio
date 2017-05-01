@@ -10,5 +10,6 @@
 #ifndef CPP_INDIE_STUDIO_INDIE_HPP
 #define CPP_INDIE_STUDIO_INDIE_HPP
 # include <iostream>
+# include "MinimalOgre.h"
 
 #endif //CPP_INDIE_STUDIO_INDIE_HPP

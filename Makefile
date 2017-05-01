@@ -13,14 +13,15 @@ NAME            =       indie_studio
 SRC             =       sources/main.cpp
 OBJ             =       $(SRC:.cpp=.o)
 
-CXXFLAGS	+=	-L./Ogre3Dlibrary/lib -L./OISlibrary/lib64 -L./SDL/lib64 -lOgreOverlay -lOgrePaging -lOIS -lOgreMain -lpthread -lboost_system
-CXXFLAGS        +=      -Iinclude -IOgre3Dlibrary/Dependencies/zzip/include -Iinclude -IOgre3Dlibrary/Dependencies/Freetype/include
+CXXFLAGS	+=      -Iinclude -IOgre3Dlibrary/Dependencies/zzip/include -Iinclude -IOgre3Dlibrary/Dependencies/Freetype/include
 CXXFLAGS	+=	-IOgre3Dlibrary/include/OGRE/Bites -IOgre3Dlibrary/include/OGRE -IOgre3Dlibrary/include/OGRE/Overlay -IOISlibrary/include/OIS -ISDL/include/SDL2
 CXXFLAGS	+=	-IOgre3Dlibrary/include/OGRE/HLMS -IOgre3Dlibrary/include/OGRE/MeshLodGenerator -IOgre3Dlibrary/include/OGRE/Paging
 CXXFLAGS	+=	-IOgre3Dlibrary/include/OGRE/Plugins/BSPSceneManager -IOgre3Dlibrary/include/OGRE/Plugins/OctreeSceneManager -IOgre3Dlibrary/include/OGRE/Plugins/OctreeZone
 CXXFLAGS	+=	-IOgre3Dlibrary/include/OGRE/Plugins/ParticleFX -IOgre3Dlibrary/include/OGRE/Plugins/PCZSceneManager -IOgre3Dlibrary/include/OGRE/Property
 CXXFLAGS	+=	-IOgre3Dlibrary/include/OGRE/RTShaderSystem -IOgre3Dlibrary/include/OGRE/Terrain -IOgre3Dlibrary/include/OGRE/Threading
 CXXFLAGS	+=	-IOgre3Dlibrary/include/OGRE/Volume
+
+CXXFLAGS	+=	-L./Ogre3Dlibrary/lib -L./OISlibrary/lib64 -L./Ogre3Dlibrary/Dependencies/zzip/lib -L./Ogre3Dlibrary/Dependencies/Freetype/lib64 -L./SDL/lib64 -lOgreOverlay -lOgrePaging -lOIS -lOgreMain -lpthread -lboost_system
 
 CXX             =       g++
 RM              =       rm -f

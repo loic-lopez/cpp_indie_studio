@@ -5,7 +5,7 @@
 ## Login   <jabbar_y@epitech.net>
 ## 
 ## Started on  Mon May  1 12:13:34 2017 Jabbari Yassir
-## Last update Tue May  2 11:43:40 2017 Stanislas Deneubourg
+## Last update Tue May  2 18:45:22 2017 Stanislas Deneubourg
 ##
 
 NAME            =       indie_studio
@@ -14,7 +14,9 @@ SRC             =       sources/main.cpp
 
 OBJ             =       $(SRC:.cpp=.o)
 
-CXXFLAGS	+=	-I./irrlicht/include -L./irrlicht/lib/Linux -lIrrlicht -lGL -lXxf86vm -lXext -lX11 -lXcursor
+CXXFLAGS	+=	 -I./bullet/include/bullet -I./irrlicht/include -L./irrlicht/lib/Linux -L./bullet/lib
+
+CXXFLAGS	+=	-lIrrlicht -lGL -lGLU -lXrandr -lXxf86vm -lXext -lX11 -lXcursor -lBulletSoftBody -lBulletDynamics -lBulletCollision -lLinearMath
 
 CXXFLAGS	+=	-lpthread -lboost_system
 

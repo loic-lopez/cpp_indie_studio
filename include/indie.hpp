@@ -5,12 +5,11 @@
 ** Login   <yassir.jabbari@epitech.eu>
 **
 ** Started on  Mon May 01 12:23:49 2017 Yassir Jabbari
-** Last update Mon May 01 12:23:49 2017 Yassir Jabbari
+// Last update Wed May  3 16:45:35 2017 Loïc Dupil
 */
 #ifndef CPP_INDIE_STUDIO_INDIE_HPP
 #define CPP_INDIE_STUDIO_INDIE_HPP
 # include <iostream>
-# include "MinimalOgre.h"
 
 
 #endif //CPP_INDIE_STUDIO_INDIE_HPP

@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:51:01 2017 Loïc Dupil
-// Last update Wed May  3 17:33:49 2017 Loïc Dupil
+// Last update Wed May  3 18:02:25 2017 Loïc Dupil
 //
 
 #include "Core.hpp"
@@ -100,4 +100,42 @@ void						Core::fillSoundLib()
 	}
     }
   Encap::c_closedir(dir);  
+}
+
+std::vector<std::string>			Core::loadDir(const std::string &path)
+{
+  DIR				*dir;
+  struct dirent			*direntp;
+  std::vector<std::string>	content;
+
+  if ((dir = Encap::c_opendir(path.c_str())) == NULL)
+    {
+      std::cerr << path << ": No such file or directory directory" << std::endl;
+      return (content);
+    }
+  while ((direntp = Encap::c_readdir(dir)) != NULL)
+    {
+      if (direntp->d_name[0] != '.')
+	{
+	  if (direntp->d_type != 4)
+	    content.push_back(direntp->d_name);
+	}
+    }
+  Encap::c_closedir(dir);
+  return (content);
+}
+
+void						Core::launchSplashScreen()
+{
+  return ;
+}
+
+void						Core::launchMenu()
+{
+  return ;
+}
+
+void						Core::launchGame()
+{
+  return ;
 }

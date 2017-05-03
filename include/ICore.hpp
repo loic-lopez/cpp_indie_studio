@@ -5,7 +5,7 @@
 ** Login   <yassir.jabbari@epitech.eu>
 **
 ** Started on  Wed May 03 13:24:18 2017 Yassir Jabbari
-// Last update Wed May  3 17:13:45 2017 Loïc Dupil
+// Last update Wed May  3 17:57:36 2017 Loïc Dupil
 */
 
 #ifndef CPP_INDIE_STUDIO_ICORE_HPP
@@ -27,7 +27,9 @@ class ICore
   virtual void fillSoundLib() = 0;
   virtual std::vector<std::string> getSoundLib() const = 0;
   virtual std::vector<std::string> loadDir(const std::string &) = 0;
-  virtual void lauchSplashScreen() = 0;
+  virtual void launchSplashScreen() = 0;
+  virtual void launchMenu() = 0;
+  virtual void launchGame() = 0;
 };
 
 #endif //CPP_INDIE_STUDIO_ICORE_HPP

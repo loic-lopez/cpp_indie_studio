@@ -14,11 +14,11 @@ SRC             =       sources/main.cpp
 
 OBJ             =       $(SRC:.cpp=.o)
 
-CXXFLAGS	+=	 -I./bullet/include/bullet -I./irrlicht/include -L./irrlicht/lib/Linux -L./bullet/lib
+CXXFLAGS	+=	 -I./bullet/include/bullet -I./irrlicht/include -L./irrlicht/lib/Linux -L./bullet/lib -Wall -Werror
 
 CXXFLAGS	+=	-lIrrlicht -lGL -lGLU -lXrandr -lXxf86vm -lXext -lX11 -lXcursor -lBulletSoftBody -lBulletDynamics -lBulletCollision -lLinearMath
 
-CXXFLAGS	+=	-lpthread -lboost_system
+CXXFLAGS	+=
 
 CXX             =       g++
 

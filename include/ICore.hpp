@@ -5,7 +5,7 @@
 ** Login   <yassir.jabbari@epitech.eu>
 **
 ** Started on  Wed May 03 13:24:18 2017 Yassir Jabbari
-// Last update Wed May  3 17:57:36 2017 Loïc Dupil
+// Last update Wed May  3 18:41:53 2017 Stanislas Deneubourg
 */
 
 #ifndef CPP_INDIE_STUDIO_ICORE_HPP
@@ -30,6 +30,7 @@ class ICore
   virtual void launchSplashScreen() = 0;
   virtual void launchMenu() = 0;
   virtual void launchGame() = 0;
+  virtual void launch() = 0;
 };
 
 #endif //CPP_INDIE_STUDIO_ICORE_HPP

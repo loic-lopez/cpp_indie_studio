@@ -5,12 +5,13 @@
 ** Login   <yassir.jabbari@epitech.eu>
 **
 ** Started on  Mon May 01 12:23:49 2017 Yassir Jabbari
-// Last update Wed May  3 18:00:45 2017 Stanislas Deneubourg
+// Last update Wed May  3 18:46:08 2017 Stanislas Deneubourg
 */
 #ifndef CPP_INDIE_STUDIO_INDIE_HPP
 #define CPP_INDIE_STUDIO_INDIE_HPP
-# include <iostream>
-#include <irrlicht.h>
+
+#include <iostream>
+#include "Core.hpp"
 
 
 #endif //CPP_INDIE_STUDIO_INDIE_HPP

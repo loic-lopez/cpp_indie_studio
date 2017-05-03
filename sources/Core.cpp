@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:51:01 2017 Loïc Dupil
-// Last update Wed May  3 18:30:52 2017 Jabbari Yassir
+// Last update Wed May  3 18:56:04 2017 Stanislas Deneubourg
 //
 
 #include "Core.hpp"
@@ -140,7 +140,9 @@ std::vector<std::string>			Core::loadDir(const std::string &path)
 
 void						Core::launchSplashScreen()
 {
-  return ;
+  std::unique_ptr<IModel>			splashScreen(new SplashScreen);
+
+  
 }
 
 void						Core::launchMenu()
@@ -151,4 +153,9 @@ void						Core::launchMenu()
 void						Core::launchGame()
 {
   return ;
+}
+
+void						Core::launch()
+{
+
 }

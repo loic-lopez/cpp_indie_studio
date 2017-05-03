@@ -27,6 +27,7 @@ class ICore
   virtual void fillSoundLib() = 0;
   virtual std::vector<std::string> getSoundLib() const = 0;
   virtual std::vector<std::string> loadDir(const std::string &) = 0;
+  virtual void lauchSplashScreen() = 0;
 };
 
 #endif //CPP_INDIE_STUDIO_ICORE_HPP

@@ -5,11 +5,24 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:51:01 2017 Loïc Dupil
-// Last update Wed May  3 18:24:54 2017 Stanislas Deneubourg
+// Last update Wed May  3 18:30:52 2017 Jabbari Yassir
 //
 
 #include "Core.hpp"
 #include "Encap.hpp"
+
+int		check_extension_file(std::string filename, std::string extension)
+{
+  std::string   tmp = filename;
+  std::size_t   pos = tmp.find_last_of(".");
+
+  if (pos == std::string::npos || tmp.substr(pos, tmp.size()) != extension)
+    {
+      std::cout << "Error: Bad file extension." << std::endl;
+      return (-1);
+    }
+  return (0);
+}
 
 Core::Core()
 {
@@ -57,7 +70,7 @@ void				Core::fillSaves()
       file = direntp->d_name;
       if (direntp->d_name[0] != '.')
 	{
-	  if (direntp->d_type != 4 && (file.find(".xml") != std::string::npos))
+	  if (direntp->d_type != 4 && (check_extension_file(file, ".xml") == 0))
 	    this->saves.push_back(direntp->d_name);
 	}
     }
@@ -95,7 +108,7 @@ void						Core::fillSoundLib()
       file = direntp->d_name;
       if (direntp->d_name[0] != '.')
 	{
-	  if (direntp->d_type != 4 && (file.find(".wav") != std::string::npos))
+	  if (direntp->d_type != 4 && (check_extension_file(file, ".wav") == 0))
 	    this->saves.push_back(direntp->d_name);
 	}
     }

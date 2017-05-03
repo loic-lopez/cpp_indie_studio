@@ -5,7 +5,7 @@
 ## Login   <jabbar_y@epitech.net>
 ## 
 ## Started on  Mon May  1 12:13:34 2017 Jabbari Yassir
-## Last update Wed May  3 16:44:45 2017 Loïc Dupil
+## Last update Wed May  3 17:27:05 2017 Loïc Dupil
 ##
 
 NAME            =       indie_studio
@@ -22,7 +22,7 @@ CXXFLAGS	+=	-lIrrlicht -lGL -lGLU -lXrandr -lXxf86vm -lXext -lX11 -lXcursor -lBu
 
 CXXFLAGS	+=
 
-CXX             =       g++
+CXX             =       g++ -g
 
 RM              =       rm -f
 

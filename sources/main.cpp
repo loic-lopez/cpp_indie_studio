@@ -5,15 +5,16 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 16:39:31 2017 Loïc Dupil
-// Last update Wed May  3 17:16:16 2017 Loïc Dupil
+// Last update Wed May  3 17:38:34 2017 Loïc Dupil
 //
 
+#include <memory>
 #include "Core.hpp"
 #include "indie.hpp"
 
 int	main()
 {
-  ICore	*bite = new Core;
+  std::unique_ptr<ICore>	bite(new Core);
   std::vector<std::string> saves;
 
   bite->fillSaves();

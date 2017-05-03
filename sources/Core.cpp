@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:51:01 2017 Loïc Dupil
-// Last update Wed May  3 18:02:25 2017 Loïc Dupil
+// Last update Wed May  3 18:24:54 2017 Stanislas Deneubourg
 //
 
 #include "Core.hpp"
@@ -95,7 +95,7 @@ void						Core::fillSoundLib()
       file = direntp->d_name;
       if (direntp->d_name[0] != '.')
 	{
-	  if (direntp->d_type != 4 && (file.find(".oav") != std::string::npos))
+	  if (direntp->d_type != 4 && (file.find(".wav") != std::string::npos))
 	    this->saves.push_back(direntp->d_name);
 	}
     }

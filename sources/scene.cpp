@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 16:44:06 2017 Stanislas Deneubourg
-// Last update Wed May  3 17:46:24 2017 Stanislas Deneubourg
+// Last update Wed May  3 18:04:45 2017 Stanislas Deneubourg
 //
 
 #include "indie.hpp"
@@ -21,26 +21,26 @@ int main()
   if (device == 0)
     return 1; // could not create selected driver.
 
-  video::IVideoDriver* driver = device->getVideoDriver();
-  scene::ISceneManager* smgr = device->getSceneManager();
-  gui::IGUIEnvironment* env = device->getGUIEnvironment();
+  irr::video::IVideoDriver* driver = device->getVideoDriver();
+  irr::scene::ISceneManager* smgr = device->getSceneManager();
+  //  irr::gui::IGUIEnvironment* env = device->getGUIEnvironment();
   // load and display animated fairy mesh
 
-  scene::IAnimatedMeshSceneNode* fairy = smgr->addAnimatedMeshSceneNode(
+  irr::scene::IAnimatedMeshSceneNode* fairy = smgr->addAnimatedMeshSceneNode(
 									smgr->getMesh("./Rock_1.dae"));
   
   if (fairy)
     {
       fairy->setMaterialTexture(0,
 				driver->getTexture("./ground.bmp")); // set diffuse texture
-      fairy->setMaterialFlag(video::EMF_LIGHTING, true); // enable dynamic lighting
+      fairy->setMaterialFlag(irr::video::EMF_LIGHTING, true); // enable dynamic lighting
       fairy->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
-      fairy->setPosition(core::vector3df(0,0,0));
-      fairy->setMD2Animation ( scene::EMAT_STAND );
+      fairy->setPosition(irr::core::vector3df(0,0,0));
+      fairy->setMD2Animation (irr::scene::EMAT_STAND);
     }
 
   // set ambient light
-  smgr->setAmbientLight(video::SColor(200,200,200,0));
+  smgr->setAmbientLight(irr::video::SColor(200,200,200,0));
 
   // CAMERA PROPERTIES
 
@@ -65,7 +65,7 @@ int main()
   // set window caption
   device->setWindowCaption(L"Irrlicht Engine - Render to Texture and Specular Highlights example");
   // add fps camera
-  scene::ICameraSceneNode* fpsCamera = smgr->addCameraSceneNodeFPS(0, 0.0f /* vitesse de rotation */, 0.03f /* vitesse de déplacement */, -1 /* pas d'ID */, keyMap /* assigner la keymap */, 5 /* taille de 5 */); fpsCamera->setPosition(core::vector3df(0,0,-75));
+  irr::scene::ICameraSceneNode* fpsCamera = smgr->addCameraSceneNodeFPS(0, 0.0f /* vitesse de rotation */, 0.03f /* vitesse de déplacement */, -1 /* pas d'ID */, keyMap /* assigner la keymap */, 5 /* taille de 5 */); fpsCamera->setPosition(irr::core::vector3df(0,0,-75));
 
   // disable mouse cursor
   device->getCursorControl()->setVisible(false);
@@ -79,8 +79,9 @@ int main()
 
    
         // draw scene normally
-        smgr->drawAll();
-        env->drawAll();
+	smgr->drawAll();
+	
+	//        env->drawAll();
 
         driver->endScene();
 
@@ -88,7 +89,7 @@ int main()
         int fps = driver->getFPS();
         if (lastFPS != fps)
 	  {
-            core::stringw str = "Irrlicht Engine - Render to Texture and Specular Highlights example";
+	    irr::core::stringw str = "Irrlicht Engine - Render to Texture and Specular Highlights example";
             str += " FPS:";
             str += fps;
 

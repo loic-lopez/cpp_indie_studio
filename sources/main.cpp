@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 16:39:31 2017 Loïc Dupil
-// Last update Wed May  3 17:06:28 2017 Loïc Dupil
+// Last update Wed May  3 17:16:16 2017 Loïc Dupil
 //
 
 #include "Core.hpp"
@@ -17,6 +17,7 @@ int	main()
   std::vector<std::string> saves;
 
   bite->fillSaves();
+  bite->fillSoundLib();
   saves = bite->getSaves();
   for (size_t i = 0; i < saves.size() ; i++)
       std::cout << "sauvegarde nommée : \"" << saves[i] << "\" à été trouvée." << std::endl;

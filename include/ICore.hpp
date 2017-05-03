@@ -24,6 +24,8 @@ class ICore
   virtual void fillSaves() = 0;
   virtual void fillTextures() = 0;
   virtual std::vector<irr::video::IImage *> &getTextures() const = 0;
+  virtual void setSound(const std::string &) = 0;
+  virtual std::vector<std::string> getSound() const = 0;
 };
 
 #endif //CPP_INDIE_STUDIO_ICORE_HPP

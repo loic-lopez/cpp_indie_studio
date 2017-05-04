@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:58:37 2017 Stanislas Deneubourg
-// Last update Wed May  3 18:59:41 2017 Stanislas Deneubourg
+// Last update Thu May  4 17:02:53 2017 Stanislas Deneubourg
 //
 
 #include "SplashScreen.hpp"
@@ -26,7 +26,8 @@ void	SplashScreen::init()
 
 }
 
-void	SplashScreen::setModelProperties()
+void	SplashScreen::setModelProperties(int x, int y)
 {
-
+  (void)x;
+  (void)y;
 }

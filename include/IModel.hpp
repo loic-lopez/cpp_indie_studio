@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:13:18 2017 Stanislas Deneubourg
-// Last update Thu May  4 13:23:45 2017 Stanislas Deneubourg
+// Last update Thu May  4 16:59:47 2017 Stanislas Deneubourg
 //
 
 #ifndef	IMODEL_HPP__
@@ -17,7 +17,7 @@ class	IModel
 {
 public:
   virtual	~IModel() {};
-  virtual void	setModelProperties() = 0;
+  virtual void	setModelProperties(int, int) = 0;
 };
 
 #endif

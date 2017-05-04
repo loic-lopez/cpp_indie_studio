@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:56:42 2017 Stanislas Deneubourg
-// Last update Wed May  3 19:01:04 2017 Stanislas Deneubourg
+// Last update Thu May  4 17:02:22 2017 Stanislas Deneubourg
 //
 
 #ifndef	SPLASH_SCREEN_HPP__
@@ -19,7 +19,7 @@ public:
   SplashScreen();
   virtual	~SplashScreen();
   virtual void	init();
-  virtual void	setModelProperties();
+  virtual void	setModelProperties(int, int);
 };
 
 #endif

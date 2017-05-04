@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:51:01 2017 Loïc Dupil
-// Last update Thu May  4 14:13:41 2017 Stanislas Deneubourg
+// Last update Thu May  4 17:04:15 2017 Stanislas Deneubourg
 //
 
 #include "Core.hpp"
@@ -160,8 +160,8 @@ void						Core::launchSplashScreen()
 void						Core::launchMenu()
 {
   this->device->getCursorControl()->setVisible(true);
-  this->gameEngine = new GameEngine(this->smgr, this->driver,
-				    this->loadDir("./ressources/textures/", ".bmp").size(),
+  this->gameEngine = new GameNamespace::GameEngine(this->smgr, this->driver,
+				    this->loadDir("./ressources/textures/ground/", ".bmp").size(),
 				    this->loadDir("./ressources/shapes/", ".dae").size());
   return ;
 }

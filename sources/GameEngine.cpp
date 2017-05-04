@@ -5,39 +5,59 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Thu May  4 14:42:53 2017 Stanislas Deneubourg
+// Last update Thu May  4 17:24:21 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine.hpp"
 
-GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
-		       const size_t &nb_textures, const size_t &nb_shapes)
+GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
+				      const size_t &nb_textures, const size_t &nb_shapes) : smgr(smgr), driver(driver), nb_shapes(nb_shapes)
 {
-  int	i = 0;
-
+  
   srand(time(NULL));
-  std::string file_texture = "./ressources/textures/ground" + std::to_string(rand() % nb_textures) + ".bmp";
-  float	old_pos = 0;
-  while (i < 20)
+  this->file_texture = "./ressources/textures/ground/ground" + std::to_string(rand() % nb_textures) + ".bmp";
+  this->old_pos = 0;
+  for (size_t i = 0; i < 30; i++)
     {
-      std::string file_shape = "./ressources/shapes/Rock_" + std::to_string(rand() % nb_shapes) + ".dae";
-      irr::scene::IAnimatedMeshSceneNode *groundObject = smgr->addAnimatedMeshSceneNode(smgr->getMesh(file_shape.c_str()));
-      
-      if (groundObject)
+      for (size_t j = 0; j < 30; j++)
 	{
-	  groundObject->setMaterialTexture(0,
-				    driver->getTexture(file_texture.c_str())); // set diffuse texture
-	  groundObject->setMaterialFlag(irr::video::EMF_LIGHTING, true); // enable dynamic lighting
-	  smgr->getMeshManipulator()->makePlanarTextureMapping(groundObject->getMesh(), 1.0f);
-	  groundObject->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
-	  //	  irr::core::vector3d<float> vector[8];
-	  //	  groundObject->getTransformedBoundingBox().getEdges(vector);
-	  irr::f32 minRadius = groundObject->getMesh()->getBoundingBox().getExtent().getLength() * 0.5f;
-	  groundObject->setPosition(irr::core::vector3df(old_pos + minRadius,0,0));
-	  old_pos += minRadius;
-	  this->groundObjects.push_back(groundObject);
+	  GameMap tmp;
+
+	  tmp.x = j;
+	  tmp.y = i;
+	  tmp.terrain = GameNamespace::TerrainType::AIR;
+	  this->gameMap.push_back(tmp);
 	}
-      i++;
+    }
+
+  for (size_t i = 0; i < 2; i = i)
+    {
+      int start_x = rand() % 30;
+      int start_y = rand() % 30;
+
+      if ((this->gameMap.at(start_x + 30 * start_y).terrain) != GameNamespace::TerrainType::GROUND)
+	{
+	  this->gameMap.at(start_x + 30 * start_y).terrain = GameNamespace::TerrainType::GROUND;
+	  i++;
+	}
+    }
+  for (size_t i = 0; i < 30 * 30; i++)
+    {
+      if ((this->gameMap.at(i).terrain) == GameNamespace::TerrainType::GROUND)
+	{
+	  size_t	pos = i % 30;
+	  for (size_t j = i; j - pos > 0; j--)
+	    this->gameMap.at(j).terrain = GameNamespace::TerrainType::GROUND;
+	}
+    }
+  for (size_t i = 0; i < 30 * 30; i++)
+    {
+      if ((this->gameMap.at(i).terrain) == GameNamespace::TerrainType::GROUND)
+	{
+	  if (this->old_pos == 0)
+	    this->old_pos = this->gameMap.at(i).x;
+	  this->setModelProperties(this->gameMap.at(i).x, this->gameMap.at(i).y);
+	}
     }
   this->cameraActions[0].Action = irr::EKA_MOVE_FORWARD;
   this->cameraActions[0].KeyCode = irr::KEY_KEY_Z;
@@ -54,7 +74,25 @@ GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver
 
 }
 
-void	GameEngine::setModelProperties()
+void	GameNamespace::GameEngine::setModelProperties(int x, int y)
 {
-
+  
+  this->file_shape = "./ressources/shapes/Rock_" + std::to_string(rand() % this->nb_shapes) + ".dae";
+  irr::scene::IAnimatedMeshSceneNode *groundObject = this->smgr->addAnimatedMeshSceneNode(smgr->getMesh(file_shape.c_str()));
+  
+  if (groundObject)
+    {
+      groundObject->setMaterialTexture(0,
+				       this->driver->getTexture(file_texture.c_str())); // set diffuse texture
+      groundObject->setMaterialFlag(irr::video::EMF_LIGHTING, true); // enable dynamic lighting
+      smgr->getMeshManipulator()->makePlanarTextureMapping(groundObject->getMesh(), 1.0f);
+      groundObject->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
+      irr::f32 minRadius = groundObject->getMesh()->getBoundingBox().getExtent().getLength() * 0.7f;
+      //      groundObject->setPosition(irr::core::vector3df(old_pos + minRadius,0,0));
+      groundObject->setPosition(irr::core::vector3df(this->old_pos + minRadius, y, 0));
+      if (x == 0)
+	this->old_pos = 0;
+      this->old_pos += minRadius;
+      this->groundObjects.push_back(groundObject);
+    }
 }

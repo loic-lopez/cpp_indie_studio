@@ -5,12 +5,12 @@
 ## Login   <jabbar_y@epitech.net>
 ## 
 ## Started on  Mon May  1 12:13:34 2017 Jabbari Yassir
-## Last update Thu May  4 09:44:30 2017 Stanislas Deneubourg
+## Last update Thu May  4 13:43:15 2017 Stanislas Deneubourg
 ##
 
 NAME            =       indie_studio
 
-SRC             =       sources/scene.cpp	\
+SRC             =       sources/main.cpp	\
 			sources/Core.cpp	\
 			sources/Encap.cpp	\
 			sources/GameEngine.cpp  \

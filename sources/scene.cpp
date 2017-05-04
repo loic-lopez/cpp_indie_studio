@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 16:44:06 2017 Stanislas Deneubourg
-// Last update Thu May  4 09:45:29 2017 Stanislas Deneubourg
+// Last update Thu May  4 13:41:09 2017 Stanislas Deneubourg
 //
 
 #include "indie.hpp"
@@ -26,21 +26,32 @@ int main()
   //  irr::gui::IGUIEnvironment* env = device->getGUIEnvironment();
   // load and display animated fairy mesh
 
-  irr::scene::IAnimatedMeshSceneNode* fairy = smgr->addAnimatedMeshSceneNode(
-									smgr->getMesh("./ressources/shapes/Rock_1.dae"));
-  
-  if (fairy)
+  std::vector<irr::scene::IAnimatedMeshSceneNode *> fairys;
+  size_t i = 0;
+
+  while (i < 20)
     {
-      fairy->setMaterialTexture(0,
-				driver->getTexture("./ressources/textures/ground.bmp")); // set diffuse texture
-      fairy->setMaterialFlag(irr::video::EMF_LIGHTING, true); // enable dynamic lighting
-      fairy->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
-      fairy->setPosition(irr::core::vector3df(0,0,0));
-      fairy->setMD2Animation (irr::scene::EMAT_STAND);
+      irr::scene::IAnimatedMeshSceneNode *fairy = smgr->addAnimatedMeshSceneNode(smgr->getMesh("./ressources/shapes/Rock_1.dae"));
+      
+      
+      if (fairy)
+	{
+	  std::string file = "./ressources/textures/ground" + std::to_string(rand() % 2) + ".bmp";
+	  fairy->setMaterialTexture(0,
+				    driver->getTexture(file.c_str())); // set diffuse texture
+	  fairy->setMaterialFlag(irr::video::EMF_LIGHTING, true); // enable dynamic lighting
+	  smgr->getMeshManipulator()->makePlanarTextureMapping(fairy->getMesh(), 1.0f);
+	  fairy->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
+	  irr::core::vector3d<float> vector[8];
+	  fairy->getBoundingBox().getEdges(vector);
+	  fairy->setPosition(irr::core::vector3df(static_cast<float>(i) * (vector[0].X * vector[4].X),0,0));
+	  fairy->setMD2Animation (irr::scene::EMAT_STAND);
+	  fairys.emplace_back(fairy);
+	}
+      i++;
     }
 
   // set ambient light
-  smgr->setAmbientLight(irr::video::SColor(200,200,200,0));
 
   // CAMERA PROPERTIES
 

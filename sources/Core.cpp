@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:51:01 2017 Loïc Dupil
-// Last update Wed May  3 18:56:04 2017 Stanislas Deneubourg
+// Last update Thu May  4 13:49:42 2017 Stanislas Deneubourg
 //
 
 #include "Core.hpp"
@@ -26,7 +26,17 @@ int		check_extension_file(std::string filename, std::string extension)
 
 Core::Core()
 {
-
+  this->device = irr::createDevice(irr::video::EDT_OPENGL,
+                                                  irr::core::dimension2d<irr::u32>(1920,1080), 32);
+  this->driver = device->getVideoDriver();
+  this->smgr = device->getSceneManager();
+  this->smgr->addLightSceneNode(0, irr::core::vector3df(-15,5,-105),
+			  irr::video::SColorf(0.5f, 0.5f, 0.5f));
+  
+  // set ambient light
+  this->smgr->setAmbientLight(irr::video::SColor(0,60,60,60));
+  this->device->setWindowCaption(L"Irrlicht Engine - Worms3D");
+  this->device->getCursorControl()->setVisible(false);
 }
 
 Core::Core(Core const &obj)
@@ -41,7 +51,7 @@ Core				&Core::operator=(Core const &obj)
 
 Core::~Core()
 {
-
+  this->device->drop();
 }
 
 std::vector<std::string>	Core::getSaves() const
@@ -142,11 +152,13 @@ void						Core::launchSplashScreen()
 {
   std::unique_ptr<IModel>			splashScreen(new SplashScreen);
 
-  
+  return;
 }
 
 void						Core::launchMenu()
 {
+  this->device->getCursorControl()->setVisible(true);
+  this->gameEngine = new GameEngine(this->smgr, this->driver);
   return ;
 }
 
@@ -157,5 +169,22 @@ void						Core::launchGame()
 
 void						Core::launch()
 {
+  this->launchSplashScreen();
+  this->launchMenu();
+  this->launchGame();
+  while(device->run())
+    if (device->isWindowActive())
+      {
+        driver->beginScene(true, true, 0);
 
+	
+        // draw scene normally
+	smgr->drawAll();
+	
+	//        env->drawAll();
+
+        driver->endScene();
+
+        // display frames per second in window title
+      }  
 }

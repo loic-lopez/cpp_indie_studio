@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:51:01 2017 Loïc Dupil
-// Last update Thu May  4 13:49:42 2017 Stanislas Deneubourg
+// Last update Thu May  4 14:13:41 2017 Stanislas Deneubourg
 //
 
 #include "Core.hpp"
@@ -52,6 +52,7 @@ Core				&Core::operator=(Core const &obj)
 Core::~Core()
 {
   this->device->drop();
+  delete this->gameEngine;
 }
 
 std::vector<std::string>	Core::getSaves() const
@@ -125,7 +126,7 @@ void						Core::fillSoundLib()
   Encap::c_closedir(dir);  
 }
 
-std::vector<std::string>			Core::loadDir(const std::string &path)
+std::vector<std::string>			Core::loadDir(const std::string &path, const std::string &file_extension)
 {
   DIR				*dir;
   struct dirent			*direntp;
@@ -138,9 +139,10 @@ std::vector<std::string>			Core::loadDir(const std::string &path)
     }
   while ((direntp = Encap::c_readdir(dir)) != NULL)
     {
+      
       if (direntp->d_name[0] != '.')
 	{
-	  if (direntp->d_type != 4)
+	  if (direntp->d_type != 4 && (check_extension_file(direntp->d_name, file_extension) == 0))
 	    content.push_back(direntp->d_name);
 	}
     }
@@ -158,7 +160,9 @@ void						Core::launchSplashScreen()
 void						Core::launchMenu()
 {
   this->device->getCursorControl()->setVisible(true);
-  this->gameEngine = new GameEngine(this->smgr, this->driver);
+  this->gameEngine = new GameEngine(this->smgr, this->driver,
+				    this->loadDir("./ressources/textures/", ".bmp").size(),
+				    this->loadDir("./ressources/shapes/", ".dae").size());
   return ;
 }
 

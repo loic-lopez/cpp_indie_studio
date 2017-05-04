@@ -5,7 +5,7 @@
 ** Login   <yassir.jabbari@epitech.eu>
 **
 ** Started on  Wed May 03 13:24:18 2017 Yassir Jabbari
-// Last update Wed May  3 18:41:53 2017 Stanislas Deneubourg
+// Last update Thu May  4 14:05:44 2017 Stanislas Deneubourg
 */
 
 #ifndef CPP_INDIE_STUDIO_ICORE_HPP
@@ -26,7 +26,7 @@ class ICore
   virtual std::vector<irr::video::IImage *> getTextures() const = 0;
   virtual void fillSoundLib() = 0;
   virtual std::vector<std::string> getSoundLib() const = 0;
-  virtual std::vector<std::string> loadDir(const std::string &) = 0;
+  virtual std::vector<std::string> loadDir(const std::string &, const std::string &) = 0;
   virtual void launchSplashScreen() = 0;
   virtual void launchMenu() = 0;
   virtual void launchGame() = 0;

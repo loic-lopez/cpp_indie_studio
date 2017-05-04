@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:21:55 2017 Loïc Dupil
-// Last update Thu May  4 13:46:19 2017 Stanislas Deneubourg
+// Last update Thu May  4 14:00:15 2017 Stanislas Deneubourg
 //
 
 #ifndef CORE_HPP
@@ -44,7 +44,7 @@ public:
   virtual void						fillTextures();
   virtual std::vector<std::string>			getSoundLib() const;
   virtual void						fillSoundLib();
-  virtual std::vector<std::string>			loadDir(const std::string &);
+  virtual std::vector<std::string>			loadDir(const std::string &, const std::string &file_extension);
   virtual void						launchSplashScreen();
   virtual void						launchMenu();
   virtual void						launchGame();

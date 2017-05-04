@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Thu May  4 13:49:17 2017 Stanislas Deneubourg
+// Last update Thu May  4 14:15:45 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -23,7 +23,8 @@ private:
   irr::scene::ICameraSceneNode				*gameCamera;
   
 public:
-  GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver);
+  GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
+	     const size_t &, const size_t &);
   virtual	~GameEngine() {};
   virtual void	setModelProperties();
 };

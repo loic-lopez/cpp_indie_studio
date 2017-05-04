@@ -5,33 +5,36 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Thu May  4 13:48:42 2017 Stanislas Deneubourg
+// Last update Thu May  4 14:42:53 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine.hpp"
 
-GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver)
+GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
+		       const size_t &nb_textures, const size_t &nb_shapes)
 {
   int	i = 0;
 
-  
+  srand(time(NULL));
+  std::string file_texture = "./ressources/textures/ground" + std::to_string(rand() % nb_textures) + ".bmp";
+  float	old_pos = 0;
   while (i < 20)
     {
-      irr::scene::IAnimatedMeshSceneNode *groundObject = smgr->addAnimatedMeshSceneNode(smgr->getMesh("./ressources/shapes/Rock_1.dae"));
-      
+      std::string file_shape = "./ressources/shapes/Rock_" + std::to_string(rand() % nb_shapes) + ".dae";
+      irr::scene::IAnimatedMeshSceneNode *groundObject = smgr->addAnimatedMeshSceneNode(smgr->getMesh(file_shape.c_str()));
       
       if (groundObject)
 	{
-	  std::string file = "./ressources/textures/ground" + std::to_string(rand() % 2) + ".bmp";
 	  groundObject->setMaterialTexture(0,
-				    driver->getTexture(file.c_str())); // set diffuse texture
+				    driver->getTexture(file_texture.c_str())); // set diffuse texture
 	  groundObject->setMaterialFlag(irr::video::EMF_LIGHTING, true); // enable dynamic lighting
 	  smgr->getMeshManipulator()->makePlanarTextureMapping(groundObject->getMesh(), 1.0f);
 	  groundObject->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
-	  irr::core::vector3d<float> vector[8];
-	  groundObject->getBoundingBox().getEdges(vector);
-	  groundObject->setPosition(irr::core::vector3df(static_cast<float>(i)
-							 * (vector[0].X * vector[4].X),0,0));
+	  //	  irr::core::vector3d<float> vector[8];
+	  //	  groundObject->getTransformedBoundingBox().getEdges(vector);
+	  irr::f32 minRadius = groundObject->getMesh()->getBoundingBox().getExtent().getLength() * 0.5f;
+	  groundObject->setPosition(irr::core::vector3df(old_pos + minRadius,0,0));
+	  old_pos += minRadius;
 	  this->groundObjects.push_back(groundObject);
 	}
       i++;

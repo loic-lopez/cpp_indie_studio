@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:58:37 2017 Stanislas Deneubourg
-// Last update Thu May  4 17:02:53 2017 Stanislas Deneubourg
+// Last update Thu May  4 17:34:34 2017 Stanislas Deneubourg
 //
 
 #include "SplashScreen.hpp"
@@ -18,11 +18,6 @@ SplashScreen::SplashScreen()
 SplashScreen::~SplashScreen()
 {
 
-
-}
-
-void	SplashScreen::init()
-{
 
 }
 

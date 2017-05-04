@@ -5,15 +5,16 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Thu May  4 17:55:57 2017 Stanislas Deneubourg
+// Last update Thu May  4 18:22:26 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine.hpp"
+#include <iostream>
 
 GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
 				      const size_t &nb_textures, const size_t &nb_shapes) : smgr(smgr), driver(driver), nb_shapes(nb_shapes)
 {
-  
+
   srand(time(NULL));
   this->file_texture = "./ressources/textures/ground/ground" + std::to_string(rand() % nb_textures) + ".bmp";
   this->old_pos = 0;
@@ -30,17 +31,32 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
 	}
     }
 
+      int start_x;
+      int start_y;
+      int end_x;
+      int end_y;
+  
   for (size_t i = 0; i < 2; i = i)
     {
-      int start_x = rand() % 30;
-      int start_y = rand() % 30;
-
+      start_x = rand() % 30;
+      start_y = rand() % 30;
+      end_x = rand() % 30;
+      end_y = rand() % 30;
+      
       if ((this->gameMap.at(start_x + 30 * start_y).terrain) != GameNamespace::TerrainType::GROUND)
 	{
 	  this->gameMap.at(start_x + 30 * start_y).terrain = GameNamespace::TerrainType::GROUND;
 	  i++;
 	}
+      if ((this->gameMap.at(end_x + 30 * end_y).terrain) != GameNamespace::TerrainType::GROUND)
+        {
+          this->gameMap.at(end_x + 30 * end_y).terrain = GameNamespace::TerrainType::GROUND;
+          i++;
+        }
     }
+  this->initialCameraPositionX = start_x + ((end_x - start_x) / 2);
+  this->initialCameraPositionY = start_y + ((end_y - start_y) / 2);
+  std::cout << this->initialCameraPositionX << std::endl;
   for (size_t i = 0; i < 30 * 30; i++)
     {
       if ((this->gameMap.at(i).terrain) == GameNamespace::TerrainType::GROUND)
@@ -54,8 +70,8 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
     {
       if ((this->gameMap.at(i).terrain) == GameNamespace::TerrainType::GROUND)
 	{
-	  if (this->old_pos == 0)
-	    this->old_pos = this->gameMap.at(i).x;
+	  //if (this->old_pos == 0)
+	    //	    this->old_pos = this->gameMap.at(i).x;
 	  this->setModelProperties(this->gameMap.at(i).x, this->gameMap.at(i).y);
 	}
     }
@@ -74,7 +90,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
   
   this->gameCamera = smgr->addCameraSceneNodeFPS(0, 0.0f /* vitesse de rotation */, 0.03f /* vitesse de déplacement */,
 						 -1 /* pas d'ID */, this->cameraActions /* assigner la keymap */, 5 /* taille de 5 */);
-  this->gameCamera->setPosition(irr::core::vector3df(0,0,-75));
+  this->gameCamera->setPosition(irr::core::vector3df(0, 0, -75));
 
 }
 

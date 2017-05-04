@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 16:44:06 2017 Stanislas Deneubourg
-// Last update Wed May  3 18:04:45 2017 Stanislas Deneubourg
+// Last update Thu May  4 09:45:29 2017 Stanislas Deneubourg
 //
 
 #include "indie.hpp"
@@ -27,12 +27,12 @@ int main()
   // load and display animated fairy mesh
 
   irr::scene::IAnimatedMeshSceneNode* fairy = smgr->addAnimatedMeshSceneNode(
-									smgr->getMesh("./Rock_1.dae"));
+									smgr->getMesh("./ressources/shapes/Rock_1.dae"));
   
   if (fairy)
     {
       fairy->setMaterialTexture(0,
-				driver->getTexture("./ground.bmp")); // set diffuse texture
+				driver->getTexture("./ressources/textures/ground.bmp")); // set diffuse texture
       fairy->setMaterialFlag(irr::video::EMF_LIGHTING, true); // enable dynamic lighting
       fairy->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
       fairy->setPosition(irr::core::vector3df(0,0,0));

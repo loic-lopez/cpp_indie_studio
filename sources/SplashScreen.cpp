@@ -21,11 +21,6 @@ SplashScreen::~SplashScreen()
 
 }
 
-void	SplashScreen::init()
-{
-
-}
-
 void	SplashScreen::setModelProperties()
 {
 

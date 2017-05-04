@@ -18,7 +18,6 @@ class	SplashScreen : public IModel
 public:
   SplashScreen();
   virtual	~SplashScreen();
-  virtual void	init();
   virtual void	setModelProperties();
 };
 

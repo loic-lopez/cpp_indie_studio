@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Thu May  4 17:15:46 2017 Stanislas Deneubourg
+// Last update Thu May  4 17:37:08 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -35,7 +35,7 @@ namespace	GameNamespace
   {
   private:
     std::vector<irr::scene::IAnimatedMeshSceneNode *>	groundObjects;
-    irr::SKeyMap					cameraActions[4];
+    irr::SKeyMap					cameraActions[6];
     irr::scene::ICameraSceneNode			*gameCamera;
     std::vector<GameMap>				gameMap;
     irr::scene::ISceneManager				*smgr;

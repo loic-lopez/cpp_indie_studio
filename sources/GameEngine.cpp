@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Thu May  4 17:24:21 2017 Stanislas Deneubourg
+// Last update Thu May  4 17:55:57 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine.hpp"
@@ -67,6 +67,10 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
   this->cameraActions[2].KeyCode = irr::KEY_KEY_Q;
   this->cameraActions[3].Action = irr::EKA_STRAFE_RIGHT;
   this->cameraActions[3].KeyCode = irr::KEY_KEY_D;
+  this->cameraActions[4].Action = irr::EKA_JUMP_UP;
+  this->cameraActions[4].KeyCode = irr::KEY_KEY_A;
+  this->cameraActions[5].Action = irr::EKA_CROUCH;
+  this->cameraActions[5].KeyCode = irr::KEY_KEY_E;
   
   this->gameCamera = smgr->addCameraSceneNodeFPS(0, 0.0f /* vitesse de rotation */, 0.03f /* vitesse de déplacement */,
 						 -1 /* pas d'ID */, this->cameraActions /* assigner la keymap */, 5 /* taille de 5 */);
@@ -87,9 +91,10 @@ void	GameNamespace::GameEngine::setModelProperties(int x, int y)
       groundObject->setMaterialFlag(irr::video::EMF_LIGHTING, true); // enable dynamic lighting
       smgr->getMeshManipulator()->makePlanarTextureMapping(groundObject->getMesh(), 1.0f);
       groundObject->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
-      irr::f32 minRadius = groundObject->getMesh()->getBoundingBox().getExtent().getLength() * 0.7f;
+      irr::f32 minRadius = groundObject->getMesh()->getBoundingBox().getExtent().getLength() * 0.70f;
       //      groundObject->setPosition(irr::core::vector3df(old_pos + minRadius,0,0));
-      groundObject->setPosition(irr::core::vector3df(this->old_pos + minRadius, y, 0));
+      groundObject->setPosition(irr::core::vector3df(this->old_pos + minRadius, y + minRadius, 0));
+      groundObject->setRotation(irr::core::vector3df(rand() % 360, rand() % 360, 0));
       if (x == 0)
 	this->old_pos = 0;
       this->old_pos += minRadius;

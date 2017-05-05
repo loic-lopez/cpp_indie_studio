@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:51:01 2017 Loïc Dupil
-// Last update Fri May  5 18:24:38 2017 Stanislas Deneubourg
+// Last update Fri May  5 20:03:19 2017 Stanislas Deneubourg
 //
 
 #include "Core.hpp"
@@ -35,7 +35,6 @@ Core::Core()
   
   // set ambient light
   this->smgr->setAmbientLight(irr::video::SColor(0,60,60,60));
-  this->device->setWindowCaption(L"Irrlicht Engine - Worms3D");
   this->device->getCursorControl()->setVisible(false);
 }
 

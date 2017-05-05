@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Fri May  5 18:24:14 2017 Stanislas Deneubourg
+// Last update Fri May  5 19:55:18 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -48,6 +48,7 @@ namespace	GameNamespace
     float						old_pos;
     std::vector<float>			       		max_pos_x_tab;
     float						final_pos_x_avg;
+    float						the_farthest_map_point;
     irr::u32						lastFrame;
     irr::f32						cameraMovementSpeed;
     EventReceiver					receiver;

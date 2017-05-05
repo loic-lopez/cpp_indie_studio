@@ -26,3 +26,8 @@ void	SplashScreen::setModelProperties(int x, int y)
   (void)x;
   (void)y;
 }
+
+void	SplashScreen::launchModel(irr::IrrlichtDevice *device)
+{
+  (void)device;
+}

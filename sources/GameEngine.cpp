@@ -126,3 +126,22 @@ void	GameNamespace::GameEngine::setModelProperties(int x, int y)
       this->groundObjects.push_back(groundObject);
     }
 }
+
+void	GameNamespace::GameEngine::launchModel(irr::IrrlichtDevice *device)
+{
+  while(device->run())
+    if (device->isWindowActive())
+      {
+	this->driver->beginScene(true, true, 0);
+
+
+	// draw scene normally
+	this->smgr->drawAll();
+
+	//        env->drawAll();
+
+	this->driver->endScene();
+
+	// display frames per second in window title
+      }
+}

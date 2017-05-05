@@ -46,15 +46,13 @@ namespace	GameNamespace
     float						old_pos;
     std::vector<float>			       		max_pos_x_tab;
     float						final_pos_x_avg;
-    float						initialCameraPositionX;
-    float						initialCameraPositionY;
-    
   
   public:
     GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
 	       const size_t &, const size_t &);
     virtual	~GameEngine() {};
     virtual void	setModelProperties(int, int);
+    virtual void	launchModel(irr::IrrlichtDevice *);
   };
 };
 

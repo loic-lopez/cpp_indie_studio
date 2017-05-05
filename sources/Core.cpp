@@ -168,27 +168,16 @@ void						Core::launchMenu()
 
 void						Core::launchGame()
 {
-  return ;
+  this->device->getCursorControl()->setVisible(false);
+  this->gameEngine->launchModel(this->device);
 }
 
 void						Core::launch()
 {
   this->launchSplashScreen();
-  this->launchMenu();
-  this->launchGame();
   while(device->run())
-    if (device->isWindowActive())
-      {
-        driver->beginScene(true, true, 0);
-
-	
-        // draw scene normally
-	smgr->drawAll();
-	
-	//        env->drawAll();
-
-        driver->endScene();
-
-        // display frames per second in window title
-      }  
+    {
+      this->launchMenu();
+      this->launchGame();
+    }
 }

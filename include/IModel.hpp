@@ -18,6 +18,7 @@ class	IModel
 public:
   virtual	~IModel() {};
   virtual void	setModelProperties(int, int) = 0;
+  virtual void	launchModel(irr::IrrlichtDevice *) = 0;
 };
 
 #endif

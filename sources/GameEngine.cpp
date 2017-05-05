@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Fri May  5 09:46:00 2017 Stanislas Deneubourg
+// Last update Fri May  5 17:19:31 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine.hpp"
@@ -85,16 +85,19 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
   this->cameraActions[5].Action = irr::EKA_CROUCH;
   this->cameraActions[5].KeyCode = irr::KEY_KEY_E;
   
-  this->gameCamera = smgr->addCameraSceneNodeFPS(0, 0.0f /* vitesse de rotation */, 0.03f /* vitesse de déplacement */,
-						 -1 /* pas d'ID */, this->cameraActions /* assigner la keymap */, 5 /* taille de 5 */);
+  /*  this->gameCamera = smgr->addCameraSceneNodeFPS(0, 0.0f, 0.03f, -1, this->cameraActions, 5, false, 0.0f, false, true); */
 
   for (size_t i = 0; i < this->max_pos_x_tab.size(); i++)
-    {
-      this->final_pos_x_avg += this->max_pos_x_tab[i];
-    }
+    this->final_pos_x_avg += this->max_pos_x_tab[i];
   this->final_pos_x_avg = final_pos_x_avg / this->max_pos_x_tab.size();
   std::cout << "Average final position : " << this->final_pos_x_avg << std::endl;
-  this->gameCamera->setPosition(irr::core::vector3df(this->final_pos_x_avg, 0, -100));
+  //  this->gameCamera->setPosition(irr::core::vector3df(this->final_pos_x_avg, 0, -100));
+  this->gameCamera = smgr->addCameraSceneNode(0,
+					      irr::core::vector3df(this->final_pos_x_avg / 2,
+								   0, -100),
+					      irr::core::vector3df(this->final_pos_x_avg / 2,
+                                                                   0, 0),
+					      -1, true);
 }
 
 void	GameNamespace::GameEngine::setModelProperties(int x, int y)

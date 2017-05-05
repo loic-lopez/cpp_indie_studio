@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Thu May  4 18:06:00 2017 Stanislas Deneubourg
+// Last update Fri May  5 09:45:44 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -44,6 +44,8 @@ namespace	GameNamespace
     std::string						file_shape;
     const size_t					nb_shapes;
     float						old_pos;
+    std::vector<float>			       		max_pos_x_tab;
+    float						final_pos_x_avg;
     float						initialCameraPositionX;
     float						initialCameraPositionY;
     

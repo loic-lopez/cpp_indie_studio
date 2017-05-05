@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Thu May  4 18:22:26 2017 Stanislas Deneubourg
+// Last update Fri May  5 09:46:00 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine.hpp"
@@ -54,9 +54,6 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
           i++;
         }
     }
-  this->initialCameraPositionX = start_x + ((end_x - start_x) / 2);
-  this->initialCameraPositionY = start_y + ((end_y - start_y) / 2);
-  std::cout << this->initialCameraPositionX << std::endl;
   for (size_t i = 0; i < 30 * 30; i++)
     {
       if ((this->gameMap.at(i).terrain) == GameNamespace::TerrainType::GROUND)
@@ -90,8 +87,14 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
   
   this->gameCamera = smgr->addCameraSceneNodeFPS(0, 0.0f /* vitesse de rotation */, 0.03f /* vitesse de déplacement */,
 						 -1 /* pas d'ID */, this->cameraActions /* assigner la keymap */, 5 /* taille de 5 */);
-  this->gameCamera->setPosition(irr::core::vector3df(0, 0, -75));
 
+  for (size_t i = 0; i < this->max_pos_x_tab.size(); i++)
+    {
+      this->final_pos_x_avg += this->max_pos_x_tab[i];
+    }
+  this->final_pos_x_avg = final_pos_x_avg / this->max_pos_x_tab.size();
+  std::cout << "Average final position : " << this->final_pos_x_avg << std::endl;
+  this->gameCamera->setPosition(irr::core::vector3df(this->final_pos_x_avg, 0, -100));
 }
 
 void	GameNamespace::GameEngine::setModelProperties(int x, int y)
@@ -99,7 +102,6 @@ void	GameNamespace::GameEngine::setModelProperties(int x, int y)
   
   this->file_shape = "./ressources/shapes/Rock_" + std::to_string(rand() % this->nb_shapes) + ".dae";
   irr::scene::IAnimatedMeshSceneNode *groundObject = this->smgr->addAnimatedMeshSceneNode(smgr->getMesh(file_shape.c_str()));
-  
   if (groundObject)
     {
       groundObject->setMaterialTexture(0,
@@ -112,7 +114,11 @@ void	GameNamespace::GameEngine::setModelProperties(int x, int y)
       groundObject->setPosition(irr::core::vector3df(this->old_pos + minRadius, y + minRadius, 0));
       groundObject->setRotation(irr::core::vector3df(rand() % 360, rand() % 360, 0));
       if (x == 0)
-	this->old_pos = 0;
+	{
+	  std::cout << this->old_pos << std::endl;
+	  this->max_pos_x_tab.push_back(old_pos);
+	  this->old_pos = 0;
+	}
       this->old_pos += minRadius;
       this->groundObjects.push_back(groundObject);
     }

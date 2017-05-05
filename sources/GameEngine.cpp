@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Fri May  5 20:24:12 2017 Stanislas Deneubourg
+// Last update Fri May  5 21:05:32 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine.hpp"
@@ -193,7 +193,6 @@ void	GameNamespace::GameEngine::launchModel(irr::IrrlichtDevice *device)
 	this->gameCamera->setPosition(realTimeCameraPosition);
 	this->gameCamera->setTarget(realTimeCameraTarget);
 	this->driver->beginScene(true, true, 0);
-
 
 	// draw scene normally
 	this->smgr->drawAll();

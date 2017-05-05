@@ -5,16 +5,18 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Fri May  5 17:19:31 2017 Stanislas Deneubourg
+// Last update Fri May  5 18:56:09 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine.hpp"
 #include <iostream>
 
 GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
-				      const size_t &nb_textures, const size_t &nb_shapes) : smgr(smgr), driver(driver), nb_shapes(nb_shapes)
+				      const size_t &nb_textures, const size_t &nb_shapes, irr::IrrlichtDevice *device) : smgr(smgr), driver(driver), device(device), nb_shapes(nb_shapes)
 {
-
+  this->lastFrame = this->device->getTimer()->getTime();
+  this->device->setEventReceiver(&this->receiver);
+  this->cameraMovementSpeed = 50.0f;
   srand(time(NULL));
   this->file_texture = "./ressources/textures/ground/ground" + std::to_string(rand() % nb_textures) + ".bmp";
   this->old_pos = 0;
@@ -72,26 +74,10 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
 	  this->setModelProperties(this->gameMap.at(i).x, this->gameMap.at(i).y);
 	}
     }
-  this->cameraActions[0].Action = irr::EKA_MOVE_FORWARD;
-  this->cameraActions[0].KeyCode = irr::KEY_KEY_Z;
-  this->cameraActions[1].Action = irr::EKA_MOVE_BACKWARD;
-  this->cameraActions[1].KeyCode = irr::KEY_KEY_S;
-  this->cameraActions[2].Action = irr::EKA_STRAFE_LEFT;
-  this->cameraActions[2].KeyCode = irr::KEY_KEY_Q;
-  this->cameraActions[3].Action = irr::EKA_STRAFE_RIGHT;
-  this->cameraActions[3].KeyCode = irr::KEY_KEY_D;
-  this->cameraActions[4].Action = irr::EKA_JUMP_UP;
-  this->cameraActions[4].KeyCode = irr::KEY_KEY_A;
-  this->cameraActions[5].Action = irr::EKA_CROUCH;
-  this->cameraActions[5].KeyCode = irr::KEY_KEY_E;
-  
-  /*  this->gameCamera = smgr->addCameraSceneNodeFPS(0, 0.0f, 0.03f, -1, this->cameraActions, 5, false, 0.0f, false, true); */
 
   for (size_t i = 0; i < this->max_pos_x_tab.size(); i++)
     this->final_pos_x_avg += this->max_pos_x_tab[i];
   this->final_pos_x_avg = final_pos_x_avg / this->max_pos_x_tab.size();
-  std::cout << "Average final position : " << this->final_pos_x_avg << std::endl;
-  //  this->gameCamera->setPosition(irr::core::vector3df(this->final_pos_x_avg, 0, -100));
   this->gameCamera = smgr->addCameraSceneNode(0,
 					      irr::core::vector3df(this->final_pos_x_avg / 2,
 								   0, -100),
@@ -118,7 +104,6 @@ void	GameNamespace::GameEngine::setModelProperties(int x, int y)
       groundObject->setRotation(irr::core::vector3df(rand() % 360, rand() % 360, 0));
       if (x == 0)
 	{
-	  std::cout << this->old_pos << std::endl;
 	  this->max_pos_x_tab.push_back(old_pos);
 	  this->old_pos = 0;
 	}
@@ -129,9 +114,47 @@ void	GameNamespace::GameEngine::setModelProperties(int x, int y)
 
 void	GameNamespace::GameEngine::launchModel(irr::IrrlichtDevice *device)
 {
-  while(device->run())
-    if (device->isWindowActive())
+  while(this->device->run())
+    if (this->device->isWindowActive())
       {
+	const irr::u32 now = this->device->getTimer()->getTime();
+	const irr::f32 frameDeltaTime = (irr::f32)(now - this->lastFrame) / 1000.0f;
+	this->lastFrame = now;
+	irr::core::vector3df realTimeCameraPosition = this->gameCamera->getPosition();
+	irr::core::vector3df realTimeCameraTarget = this->gameCamera->getTarget();
+	
+	if (this->receiver.IsKeyDown(irr::KEY_KEY_A))
+	  {
+	    realTimeCameraPosition.Y += this->cameraMovementSpeed * frameDeltaTime;
+	    realTimeCameraTarget.Y += this->cameraMovementSpeed * frameDeltaTime;
+	  }
+	else if (this->receiver.IsKeyDown(irr::KEY_KEY_E))
+	  {
+	    realTimeCameraPosition.Y -= this->cameraMovementSpeed * frameDeltaTime;
+	    realTimeCameraTarget.Y -= this->cameraMovementSpeed * frameDeltaTime;
+	  }
+	if (this->receiver.IsKeyDown(irr::KEY_KEY_Q))
+	  {
+	    realTimeCameraPosition.X -= this->cameraMovementSpeed * frameDeltaTime;
+	    realTimeCameraTarget.X -= this->cameraMovementSpeed * frameDeltaTime;
+	  }
+	else if (this->receiver.IsKeyDown(irr::KEY_KEY_D))
+	  {
+	    realTimeCameraPosition.X += this->cameraMovementSpeed * frameDeltaTime;
+	    realTimeCameraTarget.X += this->cameraMovementSpeed * frameDeltaTime;
+	  }
+	if (this->receiver.IsKeyDown(irr::KEY_KEY_Z))
+	  {
+	    realTimeCameraPosition.Z += this->cameraMovementSpeed * frameDeltaTime;
+	    realTimeCameraTarget.Z += this->cameraMovementSpeed * frameDeltaTime;
+	  }
+	else if (this->receiver.IsKeyDown(irr::KEY_KEY_S))
+	  {
+	    realTimeCameraPosition.Z -= this->cameraMovementSpeed * frameDeltaTime;
+	    realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime;
+	  }
+	this->gameCamera->setPosition(realTimeCameraPosition);
+	this->gameCamera->setTarget(realTimeCameraTarget);
 	this->driver->beginScene(true, true, 0);
 
 

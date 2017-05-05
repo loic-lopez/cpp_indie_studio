@@ -5,16 +5,17 @@
 ## Login   <jabbar_y@epitech.net>
 ## 
 ## Started on  Mon May  1 12:13:34 2017 Jabbari Yassir
-## Last update Thu May  4 13:43:15 2017 Stanislas Deneubourg
+## Last update Fri May  5 18:15:47 2017 Stanislas Deneubourg
 ##
 
 NAME            =       indie_studio
 
-SRC             =       sources/main.cpp	\
-			sources/Core.cpp	\
-			sources/Encap.cpp	\
-			sources/GameEngine.cpp  \
-			sources/SplashScreen.cpp  \
+SRC             =       sources/main.cpp		\
+			sources/Core.cpp		\
+			sources/Encap.cpp		\
+			sources/GameEngine.cpp  	\
+			sources/EventReceiver.cpp 	\
+			sources/SplashScreen.cpp  	\
 
 
 OBJ             =       $(SRC:.cpp=.o)

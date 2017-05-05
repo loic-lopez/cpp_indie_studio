@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:51:01 2017 Loïc Dupil
-// Last update Thu May  4 17:04:15 2017 Stanislas Deneubourg
+// Last update Fri May  5 18:24:38 2017 Stanislas Deneubourg
 //
 
 #include "Core.hpp"
@@ -162,7 +162,8 @@ void						Core::launchMenu()
   this->device->getCursorControl()->setVisible(true);
   this->gameEngine = new GameNamespace::GameEngine(this->smgr, this->driver,
 				    this->loadDir("./ressources/textures/ground/", ".bmp").size(),
-				    this->loadDir("./ressources/shapes/", ".dae").size());
+						   this->loadDir("./ressources/shapes/", ".dae").size(),
+						   this->device);
   return ;
 }
 

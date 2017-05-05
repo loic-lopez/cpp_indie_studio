@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Fri May  5 09:45:44 2017 Stanislas Deneubourg
+// Last update Fri May  5 18:24:14 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -14,6 +14,7 @@
 #include <vector>
 #include <string>
 #include "IModel.hpp"
+#include "EventReceiver.hpp"
 
 namespace	GameNamespace
 {
@@ -40,16 +41,20 @@ namespace	GameNamespace
     std::vector<GameMap>				gameMap;
     irr::scene::ISceneManager				*smgr;
     irr::video::IVideoDriver				*driver;
+    irr::IrrlichtDevice					*device;
     std::string						file_texture;
     std::string						file_shape;
     const size_t					nb_shapes;
     float						old_pos;
     std::vector<float>			       		max_pos_x_tab;
     float						final_pos_x_avg;
+    irr::u32						lastFrame;
+    irr::f32						cameraMovementSpeed;
+    EventReceiver					receiver;
   
   public:
     GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
-	       const size_t &, const size_t &);
+	       const size_t &, const size_t &, irr::IrrlichtDevice *);
     virtual	~GameEngine() {};
     virtual void	setModelProperties(int, int);
     virtual void	launchModel(irr::IrrlichtDevice *);

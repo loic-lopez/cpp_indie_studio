@@ -21,7 +21,7 @@ SplashScreen::~SplashScreen()
 
 }
 
-void	SplashScreen::setModelProperties(int x, int y)
+void SplashScreen::setBlockProperties(int x, int y)
 {
   (void)x;
   (void)y;
@@ -30,4 +30,9 @@ void	SplashScreen::setModelProperties(int x, int y)
 void	SplashScreen::launchModel(irr::IrrlichtDevice *device)
 {
   (void)device;
+}
+
+void SplashScreen::setModelProperties()
+{
+
 }

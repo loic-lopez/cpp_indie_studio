@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Sat May  6 10:02:16 2017 Stanislas Deneubourg
+// Last update Fri May  5 18:56:09 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine.hpp"
@@ -69,16 +69,14 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
     {
       if ((this->gameMap.at(i).terrain) == GameNamespace::TerrainType::GROUND)
 	{
+	  //if (this->old_pos == 0)
+	    //	    this->old_pos = this->gameMap.at(i).x;
 	  this->setModelProperties(this->gameMap.at(i).x, this->gameMap.at(i).y);
 	}
     }
-  this->the_farthest_map_point = this->max_pos_x_tab[0];
+
   for (size_t i = 0; i < this->max_pos_x_tab.size(); i++)
-    {
-      if (this->max_pos_x_tab[i] > this->the_farthest_map_point)
-	this->the_farthest_map_point = this->max_pos_x_tab[i];
-      this->final_pos_x_avg += this->max_pos_x_tab[i];
-    }
+    this->final_pos_x_avg += this->max_pos_x_tab[i];
   this->final_pos_x_avg = final_pos_x_avg / this->max_pos_x_tab.size();
   this->gameCamera = smgr->addCameraSceneNode(0,
 					      irr::core::vector3df(this->final_pos_x_avg / 2,
@@ -101,6 +99,7 @@ void	GameNamespace::GameEngine::setModelProperties(int x, int y)
       smgr->getMeshManipulator()->makePlanarTextureMapping(groundObject->getMesh(), 1.0f);
       groundObject->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
       irr::f32 minRadius = groundObject->getMesh()->getBoundingBox().getExtent().getLength() * 0.70f;
+      //      groundObject->setPosition(irr::core::vector3df(old_pos + minRadius,0,0));
       groundObject->setPosition(irr::core::vector3df(this->old_pos + minRadius, y + minRadius, 0));
       groundObject->setRotation(irr::core::vector3df(rand() % 360, rand() % 360, 0));
       if (x == 0)
@@ -115,9 +114,6 @@ void	GameNamespace::GameEngine::setModelProperties(int x, int y)
 
 void	GameNamespace::GameEngine::launchModel(irr::IrrlichtDevice *device)
 {
-
-  irr::s32 lastFPS = -1;
-  
   while(this->device->run())
     if (this->device->isWindowActive())
       {
@@ -126,10 +122,7 @@ void	GameNamespace::GameEngine::launchModel(irr::IrrlichtDevice *device)
 	this->lastFrame = now;
 	irr::core::vector3df realTimeCameraPosition = this->gameCamera->getPosition();
 	irr::core::vector3df realTimeCameraTarget = this->gameCamera->getTarget();
-
-
-	// Analyse du key input et on mène les actions en conséquence
-
+	
 	if (this->receiver.IsKeyDown(irr::KEY_KEY_A))
 	  {
 	    realTimeCameraPosition.Y += this->cameraMovementSpeed * frameDeltaTime;
@@ -160,65 +153,18 @@ void	GameNamespace::GameEngine::launchModel(irr::IrrlichtDevice *device)
 	    realTimeCameraPosition.Z -= this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime;
 	  }
-
-	if (this->receiver.IsKeyDown(irr::KEY_ESCAPE))
-	  this->device->closeDevice();
-
-	// Algo de limitation de déplacement de la caméra
-	
-	if (realTimeCameraPosition.X >= this->the_farthest_map_point + 50)
-	  {
-	    realTimeCameraPosition.X = this->the_farthest_map_point + 50;
-	    realTimeCameraTarget.X = this->the_farthest_map_point + 50;
-	  }
-	else if (realTimeCameraPosition.X <= -50)
-	  {
-	    realTimeCameraPosition.X = -50;
-	    realTimeCameraTarget.X = -50;
-	  }
-	if (realTimeCameraPosition.Y >= 150)
-	  {
-	    realTimeCameraPosition.Y = 150;
-	    realTimeCameraTarget.Y = 150;
-	  }
-	else if (realTimeCameraPosition.Y <= -150)
-	  {
-	    realTimeCameraPosition.Y = -150;
-	    realTimeCameraPosition.Y = -150;
-	  }
-	if (realTimeCameraPosition.Z >= -20)
-	  {
-	    realTimeCameraPosition.Z = -20;
-	    realTimeCameraTarget.Z = 80;
-	  }
-	else if (realTimeCameraPosition.Z <= -120)
-	  {
-	    realTimeCameraPosition.Z = -120;
-	    realTimeCameraTarget.Z = -20;
-	  }
-
 	this->gameCamera->setPosition(realTimeCameraPosition);
 	this->gameCamera->setTarget(realTimeCameraTarget);
 	this->driver->beginScene(true, true, 0);
 
+
 	// draw scene normally
 	this->smgr->drawAll();
+
+	//        env->drawAll();
 
 	this->driver->endScene();
 
 	// display frames per second in window title
-	const irr::s32 currentFPS = driver->getFPS();
-	
-	if (lastFPS != currentFPS)
-	  {
-	    irr::core::stringw windowCaption = "Worms 3D with Irrlicht Engine, currently running at ";
-	    windowCaption += currentFPS;
-	    windowCaption += " FPS with the renderer ";
-	    windowCaption += driver->getName();
-	    windowCaption += ".";
-	    
-	    device->setWindowCaption(windowCaption.c_str());
-	    lastFPS = currentFPS;
-	  }
       }
 }

@@ -18,8 +18,11 @@ class	SplashScreen : public IModel
 public:
   SplashScreen();
   virtual	~SplashScreen();
-  virtual void	setModelProperties(int, int);
+
+  virtual void setBlockProperties(int, int);
   virtual void launchModel(irr::IrrlichtDevice *);
+
+  virtual void setModelProperties();
 };
 
 #endif

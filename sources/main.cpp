@@ -13,8 +13,8 @@
 int	main()
 {
   std::unique_ptr<ICore>	core(new Core);
-  //  std::vector<std::string>	saves;
 
+  srand(time(NULL));
   core->launch();
   /*
   bite->fillSaves();

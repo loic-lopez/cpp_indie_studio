@@ -11,6 +11,7 @@
 #define CPP_INDIE_STUDIO_INDIE_HPP
 
 #include <iostream>
+#include <ctime>
 #include "Core.hpp"
 
 

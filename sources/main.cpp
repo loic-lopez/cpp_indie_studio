@@ -14,7 +14,7 @@ int	main()
 {
   std::unique_ptr<ICore>	core(new Core);
 
-  srand(time(NULL));
+  std::srand(std::time(nullptr));
   core->launch();
   /*
   bite->fillSaves();

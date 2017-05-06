@@ -12,6 +12,7 @@
 # define CORE_HPP
 
 #include <memory>
+#include <cstdlib>
 #include "ICore.hpp"
 #include "GameEngine.hpp"
 #include "SplashScreen.hpp"

@@ -52,13 +52,18 @@ namespace	GameNamespace
     irr::u32						lastFrame;
     irr::f32						cameraMovementSpeed;
     EventReceiver					receiver;
+
+    virtual void setBlockProperties(int, int);
   
   public:
     GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
 	       const size_t &, const size_t &, irr::IrrlichtDevice *);
-    virtual	~GameEngine() {};
-    virtual void	setModelProperties(int, int);
+
+    virtual                ~GameEngine()
+    {};
     virtual void	launchModel(irr::IrrlichtDevice *);
+
+    virtual void setModelProperties();
   };
 };
 

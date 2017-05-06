@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:51:01 2017 Loïc Dupil
-// Last update Fri May  5 20:03:19 2017 Stanislas Deneubourg
+// Last update Sat May  6 18:15:09 2017 Jabbari Yassir
 //
 
 #include "Core.hpp"
@@ -162,6 +162,10 @@ void						Core::launchSplashScreen()
 void						Core::launchMenu()
 {
   this->device->getCursorControl()->setVisible(true);
+  this->menu = new MenuModel(this->device, this->driver,
+						  this->smgr, this->guienv);
+  this->menu->setModelProperties();
+  this->menu->launchModel(this->device);
   this->gameEngine = new GameNamespace::GameEngine(this->smgr, this->driver,
 				    this->loadDir("./ressources/textures/ground/", ".bmp").size(),
 						   this->loadDir("./ressources/shapes/", ".dae").size(),

@@ -13,7 +13,9 @@
 
 #include <memory>
 #include <cstdlib>
+#include <irrlicht.h>
 #include "ICore.hpp"
+#include "MenuModel.hpp"
 #include "GameEngine.hpp"
 #include "SplashScreen.hpp"
 
@@ -28,6 +30,7 @@ class Core : public ICore
   std::vector<std::string>			soundlib;
   std::vector<irr::video::IImage *>		textures;
   IModel					*gameEngine;
+  IModel					*menu;
   irr::IrrlichtDevice				*device;
   irr::video::IVideoDriver			*driver;
   irr::scene::ISceneManager			*smgr;

@@ -9,7 +9,6 @@
 //
 
 #include "EventReceiver.hpp"
-#include <iostream>
 
 EventReceiver::EventReceiver()
 {

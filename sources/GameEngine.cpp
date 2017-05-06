@@ -88,6 +88,42 @@ void	GameNamespace::GameEngine::launchModel(irr::IrrlichtDevice *device)
 	    realTimeCameraPosition.Z -= this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime;
 	  }
+	if (this->receiver.IsKeyDown(irr::KEY_ESCAPE))
+	  this->device->closeDevice();
+
+	// Algo de limitation de déplacement de la caméra
+
+	if (realTimeCameraPosition.X >= this->the_farthest_map_point + 50)
+	  {
+	    realTimeCameraPosition.X = this->the_farthest_map_point + 50;
+	    realTimeCameraTarget.X = this->the_farthest_map_point + 50;
+	  } else
+	  if (realTimeCameraPosition.X <= -50)
+	    {
+	      realTimeCameraPosition.X = -50;
+	      realTimeCameraTarget.X = -50;
+	    }
+	if (realTimeCameraPosition.Y >= 150)
+	  {
+	    realTimeCameraPosition.Y = 150;
+	    realTimeCameraTarget.Y = 150;
+	  } else
+	  if (realTimeCameraPosition.Y <= -150)
+	    {
+	      realTimeCameraPosition.Y = -150;
+	      realTimeCameraPosition.Y = -150;
+	    }
+	if (realTimeCameraPosition.Z >= -20)
+	  {
+	    realTimeCameraPosition.Z = -20;
+	    realTimeCameraTarget.Z = 80;
+	  } else
+	  if (realTimeCameraPosition.Z <= -120)
+	    {
+	      realTimeCameraPosition.Z = -120;
+	      realTimeCameraTarget.Z = -20;
+	    }
+
 	this->gameCamera->setPosition(realTimeCameraPosition);
 	this->gameCamera->setTarget(realTimeCameraTarget);
 	this->driver->beginScene(true, true, 0);
@@ -161,8 +197,13 @@ void GameNamespace::GameEngine::setModelProperties()
 	}
     }
 
+  this->the_farthest_map_point = this->max_pos_x_tab[0];
   for (float i : this->max_pos_x_tab)
-    this->final_pos_x_avg += i;
+    {
+      if (i > this->the_farthest_map_point)
+	this->the_farthest_map_point = i;
+      this->final_pos_x_avg += i;
+    }
   this->final_pos_x_avg = final_pos_x_avg / this->max_pos_x_tab.size();
   this->gameCamera = smgr->addCameraSceneNode(nullptr,
 					      irr::core::vector3df(this->final_pos_x_avg / 2,

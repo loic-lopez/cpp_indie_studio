@@ -24,8 +24,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
 
 void GameNamespace::GameEngine::setBlockProperties(int x, int y)
 {
-  
-  this->file_shape = "./ressources/shapes/Rock_" + std::to_string(rand() % this->nb_shapes) + ".dae";
+  this->file_shape = "./ressources/shapes/Rock_" + std::to_string(std::rand() % this->nb_shapes) + ".dae";
   irr::scene::IAnimatedMeshSceneNode *groundObject = this->smgr->addAnimatedMeshSceneNode(smgr->getMesh(file_shape.c_str()));
   if (groundObject != nullptr)
     {
@@ -107,6 +106,10 @@ void	GameNamespace::GameEngine::launchModel(irr::IrrlichtDevice *device)
 
 void GameNamespace::GameEngine::setModelProperties()
 {
+  int start_x;
+  int start_y;
+  int end_x;
+  int end_y;
 
   for (size_t i = 0; i < 30; i++)
     {
@@ -120,11 +123,6 @@ void GameNamespace::GameEngine::setModelProperties()
 	  this->gameMap.push_back(tmp);
 	}
     }
-
-  int start_x;
-  int start_y;
-  int end_x;
-  int end_y;
 
   for (size_t i = 0; i < 2; i = i)
     {
@@ -163,10 +161,10 @@ void GameNamespace::GameEngine::setModelProperties()
 	}
     }
 
-  for (size_t i = 0; i < this->max_pos_x_tab.size(); i++)
-    this->final_pos_x_avg += this->max_pos_x_tab[i];
+  for (float i : this->max_pos_x_tab)
+    this->final_pos_x_avg += i;
   this->final_pos_x_avg = final_pos_x_avg / this->max_pos_x_tab.size();
-  this->gameCamera = smgr->addCameraSceneNode(0,
+  this->gameCamera = smgr->addCameraSceneNode(nullptr,
 					      irr::core::vector3df(this->final_pos_x_avg / 2,
 								   0, -100),
 					      irr::core::vector3df(this->final_pos_x_avg / 2,

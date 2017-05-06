@@ -189,7 +189,7 @@ void GameNamespace::GameEngine::setModelProperties()
 
       fixRandPosition(init_end_x, init_start_x);
 
-      for (int plateformHeight = (std::rand() % init_start_y); plateformHeight > 0; plateformHeight--)
+      for (int plateformHeight = ((std::rand() % init_start_y) + 1); plateformHeight > 0; plateformHeight--)
 	{
 	  start_x = (rand() % (30));
 	  start_y = (rand() % (30));

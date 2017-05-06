@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Fri May  5 21:05:32 2017 Stanislas Deneubourg
+// Last update Sat May  6 10:02:16 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine.hpp"
@@ -128,6 +128,8 @@ void	GameNamespace::GameEngine::launchModel(irr::IrrlichtDevice *device)
 	irr::core::vector3df realTimeCameraTarget = this->gameCamera->getTarget();
 
 
+	// Analyse du key input et on mène les actions en conséquence
+
 	if (this->receiver.IsKeyDown(irr::KEY_KEY_A))
 	  {
 	    realTimeCameraPosition.Y += this->cameraMovementSpeed * frameDeltaTime;
@@ -158,6 +160,11 @@ void	GameNamespace::GameEngine::launchModel(irr::IrrlichtDevice *device)
 	    realTimeCameraPosition.Z -= this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime;
 	  }
+
+	if (this->receiver.IsKeyDown(irr::KEY_ESCAPE))
+	  this->device->closeDevice();
+
+	// Algo de limitation de déplacement de la caméra
 	
 	if (realTimeCameraPosition.X >= this->the_farthest_map_point + 50)
 	  {
@@ -208,6 +215,7 @@ void	GameNamespace::GameEngine::launchModel(irr::IrrlichtDevice *device)
 	    windowCaption += currentFPS;
 	    windowCaption += " FPS with the renderer ";
 	    windowCaption += driver->getName();
+	    windowCaption += ".";
 	    
 	    device->setWindowCaption(windowCaption.c_str());
 	    lastFPS = currentFPS;

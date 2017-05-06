@@ -150,14 +150,14 @@ static void fixRandPosition(int &value, int stop)
 {
   for (int end = value; end < stop; ++end)
     {
-      end = (rand() % (30));
+      end = std::rand() % 30;
       value = end;
     }
   if (value == stop)
     {
       for (int end = value; end == stop; ++end)
 	{
-	  end = (rand() % (30));
+	  end = std::rand() % 30;
 	  value = end;
 	}
       if (value < stop)
@@ -183,17 +183,17 @@ void GameNamespace::GameEngine::setModelProperties()
 
   for (size_t i = 1; i <= this->maxNumberPlatforms; i++)
     {
-      init_start_x = (rand() % (30));
-      init_start_y = (rand() % (30));
-      init_end_x = (rand() % (30));
+      init_start_x = std::rand() % 30;
+      init_start_y = std::rand() % 30;
+      init_end_x = std::rand() % 30;
 
       fixRandPosition(init_end_x, init_start_x);
 
-      for (int plateformHeight = ((std::rand() % init_start_y) + 1); plateformHeight > 0; plateformHeight--)
+      for (int plateformHeight = ((std::rand() % (init_start_y + 1))); plateformHeight > 0; plateformHeight--)
 	{
-	  start_x = (rand() % (30));
-	  start_y = (rand() % (30));
-	  end_x = (rand() % (30));
+	  start_x = std::rand() % 30;
+	  start_y = std::rand() % 30;
+	  end_x = std::rand() % 30;
 	  end_y = start_y;
 
 	  fixRandPosition(end_x, start_x);
@@ -212,11 +212,12 @@ void GameNamespace::GameEngine::setModelProperties()
     {
       if (this->gameMap.at(i).isStart)
 	{
-	  for (size_t j = i; !this->gameMap.at(i).isEnd; j++)
+	  size_t j;
+	  for (j = i; !this->gameMap.at(j).isEnd; j++)
 	    {
-	      this->setBlockProperties(this->gameMap.at(i).x, this->gameMap.at(i).y);
-	      i++;
+	      this->setBlockProperties(this->gameMap.at(j).x, this->gameMap.at(j).y);
 	    }
+	  i = j;
 	}
     }
 

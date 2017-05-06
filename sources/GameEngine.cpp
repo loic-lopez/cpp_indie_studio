@@ -11,39 +11,43 @@
 #include "GameEngine.hpp"
 #include <iostream>
 
-GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
-				      const size_t &nb_textures, const size_t &nb_shapes, irr::IrrlichtDevice *device) : smgr(smgr), driver(driver), device(device), nb_shapes(nb_shapes)
+GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
+				      irr::video::IVideoDriver *driver,
+				      const size_t &nb_textures,
+				      const size_t &nb_shapes,
+				      irr::IrrlichtDevice *device) : smgr(smgr), driver(driver),
+								     device(device),
+								     nb_shapes(nb_shapes)
 {
+  this->file_shape = "./ressources/shapes/Rock_0.dae";
+  this->groundObject = this->smgr->addAnimatedMeshSceneNode(smgr->getMesh(file_shape.c_str()));
   this->lastFrame = this->device->getTimer()->getTime();
   this->device->setEventReceiver(&this->receiver);
   this->cameraMovementSpeed = 50.0f;
   this->file_texture = "./ressources/textures/ground/ground" + std::to_string(std::rand() % nb_textures) + ".bmp";
-  this->old_pos = 0;
-
+  this->old_pos_x = 0;
+  this->maxNumberPlatforms = (std::rand() % 8) + 2;
 }
 
 void GameNamespace::GameEngine::setBlockProperties(int x, int y)
 {
-  this->file_shape = "./ressources/shapes/Rock_" + std::to_string(std::rand() % this->nb_shapes) + ".dae";
-  irr::scene::IAnimatedMeshSceneNode *groundObject = this->smgr->addAnimatedMeshSceneNode(smgr->getMesh(file_shape.c_str()));
-  if (groundObject != nullptr)
+  if (this->groundObject != nullptr)
     {
-      groundObject->setMaterialTexture(0,
-				       this->driver->getTexture(file_texture.c_str())); // set diffuse texture
-      groundObject->setMaterialFlag(irr::video::EMF_LIGHTING, true); // enable dynamic lighting
-      smgr->getMeshManipulator()->makePlanarTextureMapping(groundObject->getMesh(), 1.0f);
-      groundObject->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
-      irr::f32 minRadius = groundObject->getMesh()->getBoundingBox().getExtent().getLength() * 0.70f;
-      //      groundObject->setPosition(irr::core::vector3df(old_pos + minRadius,0,0));
-      groundObject->setPosition(irr::core::vector3df(this->old_pos + minRadius, y + minRadius, 0));
-      groundObject->setRotation(irr::core::vector3df(std::rand() % 360, std::rand() % 360, 0));
+      this->groundObject->setMaterialTexture(0,
+					     this->driver->getTexture(file_texture.c_str())); // set diffuse texture
+      this->groundObject->setMaterialFlag(irr::video::EMF_LIGHTING, true); // enable dynamic lighting
+      smgr->getMeshManipulator()->makePlanarTextureMapping(this->groundObject->getMesh(), 1.0f);
+      this->groundObject->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
+      irr::f32 minRadius = this->groundObject->getMesh()->getBoundingBox().getExtent().getLength() * 0.70f;
+      this->groundObject->setPosition(irr::core::vector3df(this->old_pos_x + minRadius, minRadius, 0));
+      //groundObject->setRotation(irr::core::vector3df(std::rand() % 360, std::rand() % 360, 0));
       if (x == 0)
 	{
-	  this->max_pos_x_tab.push_back(old_pos);
-	  this->old_pos = 0;
+	  this->max_pos_x_tab.push_back(this->old_pos_x);
+	  this->old_pos_x = 0;
 	}
-      this->old_pos += minRadius;
-      this->groundObjects.push_back(groundObject);
+      this->old_pos_x += minRadius;
+      this->groundObjects.push_back(this->groundObject);
     }
 }
 
@@ -93,16 +97,18 @@ void	GameNamespace::GameEngine::launchModel(irr::IrrlichtDevice *device)
 
 	// Algo de limitation de déplacement de la caméra
 
+	/*
 	if (realTimeCameraPosition.X >= this->the_farthest_map_point + 50)
 	  {
 	    realTimeCameraPosition.X = this->the_farthest_map_point + 50;
 	    realTimeCameraTarget.X = this->the_farthest_map_point + 50;
-	  } else
-	  if (realTimeCameraPosition.X <= -50)
+	  }
+	else if (realTimeCameraPosition.X <= -50)
 	    {
 	      realTimeCameraPosition.X = -50;
 	      realTimeCameraTarget.X = -50;
 	    }
+	    */
 	if (realTimeCameraPosition.Y >= 150)
 	  {
 	    realTimeCameraPosition.Y = 150;
@@ -140,8 +146,30 @@ void	GameNamespace::GameEngine::launchModel(irr::IrrlichtDevice *device)
       }
 }
 
+static void fixRandPosition(int &value, int stop)
+{
+  for (int end = value; end < stop; ++end)
+    {
+      end = (rand() % (30));
+      value = end;
+    }
+  if (value == stop)
+    {
+      for (int end = value; end == stop; ++end)
+	{
+	  end = (rand() % (30));
+	  value = end;
+	}
+      if (value < stop)
+	fixRandPosition(value, stop);
+    }
+}
+
 void GameNamespace::GameEngine::setModelProperties()
 {
+  int init_start_x;
+  int init_start_y;
+  int init_end_x;
   int start_x;
   int start_y;
   int end_x;
@@ -150,65 +178,69 @@ void GameNamespace::GameEngine::setModelProperties()
   for (size_t i = 0; i < 30; i++)
     {
       for (size_t j = 0; j < 30; j++)
-	{
-	  GameMap tmp;
-
-	  tmp.x = j;
-	  tmp.y = i;
-	  tmp.terrain = GameNamespace::TerrainType::AIR;
-	  this->gameMap.push_back(tmp);
-	}
+	this->gameMap.emplace_back(j, i);
     }
 
-  for (size_t i = 0; i < 2; i = i)
+  for (size_t i = 1; i <= this->maxNumberPlatforms; i++)
     {
-      start_x = rand() % 30;
-      start_y = rand() % 30;
-      end_x = rand() % 30;
-      end_y = rand() % 30;
+      init_start_x = (rand() % (30));
+      init_start_y = (rand() % (30));
+      init_end_x = (rand() % (30));
 
-      if ((this->gameMap.at(start_x + 30 * start_y).terrain) != GameNamespace::TerrainType::GROUND)
+      fixRandPosition(init_end_x, init_start_x);
+
+      for (int plateformHeight = (std::rand() % init_start_y); plateformHeight > 0; plateformHeight--)
 	{
+	  start_x = (rand() % (30));
+	  start_y = (rand() % (30));
+	  end_x = (rand() % (30));
+	  end_y = start_y;
+
+	  fixRandPosition(end_x, start_x);
 	  this->gameMap.at(start_x + 30 * start_y).terrain = GameNamespace::TerrainType::GROUND;
-	  i++;
-	}
-      if ((this->gameMap.at(end_x + 30 * end_y).terrain) != GameNamespace::TerrainType::GROUND)
-	{
 	  this->gameMap.at(end_x + 30 * end_y).terrain = GameNamespace::TerrainType::GROUND;
-	  i++;
+	  this->gameMap.at(start_x + 30 * start_y).isStart = true;
+	  this->gameMap.at(end_x + 30 * end_y).isEnd = true;
+	  start_x++;
+	  for (int start = start_x; start < end_x; start++)
+	    this->gameMap.at(start + 30 * start_y).terrain = GameNamespace::TerrainType::GROUND;
 	}
+
     }
+
   for (size_t i = 0; i < 30 * 30; i++)
     {
-      if ((this->gameMap.at(i).terrain) == GameNamespace::TerrainType::GROUND)
+      if (this->gameMap.at(i).isStart)
 	{
-	  size_t pos = i % 30;
-	  for (size_t j = i; j - pos > 0; j--)
-	    this->gameMap.at(j).terrain = GameNamespace::TerrainType::GROUND;
-	}
-    }
-  for (size_t i = 0; i < 30 * 30; i++)
-    {
-      if ((this->gameMap.at(i).terrain) == GameNamespace::TerrainType::GROUND)
-	{
-	  //if (this->old_pos == 0)
-	  //	    this->old_pos = this->gameMap.at(i).x;
-	  this->setBlockProperties(this->gameMap.at(i).x, this->gameMap.at(i).y);
+	  for (size_t j = i; !this->gameMap.at(i).isEnd; j++)
+	    {
+	      this->setBlockProperties(this->gameMap.at(i).x, this->gameMap.at(i).y);
+	      i++;
+	    }
 	}
     }
 
-  this->the_farthest_map_point = this->max_pos_x_tab[0];
+  this->the_farthest_map_point_x = this->max_pos_x_tab[0];
   for (float i : this->max_pos_x_tab)
     {
-      if (i > this->the_farthest_map_point)
-	this->the_farthest_map_point = i;
+      if (i > this->the_farthest_map_point_x)
+	this->the_farthest_map_point_x = i;
       this->final_pos_x_avg += i;
     }
   this->final_pos_x_avg = final_pos_x_avg / this->max_pos_x_tab.size();
   this->gameCamera = smgr->addCameraSceneNode(nullptr,
-					      irr::core::vector3df(this->final_pos_x_avg / 2,
-								   0, -100),
-					      irr::core::vector3df(this->final_pos_x_avg / 2,
-								   0, 0),
+					      irr::core::vector3df(/*this->final_pos_x_avg / 2 */ 0,
+												  0, -100),
+					      irr::core::vector3df(/*this->final_pos_x_avg / 2 */ 0,
+												  0, 0),
 					      -1, true);
+}
+
+GameNamespace::GameMap::GameMap(int x, int y)
+{
+  this->terrain = GameNamespace::TerrainType::AIR;
+  this->isStart = false;
+  this->isEnd = false;
+  this->x = x;
+  this->y = y;
 }

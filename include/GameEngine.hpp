@@ -13,6 +13,7 @@
 
 #include <vector>
 #include <string>
+#include <cstdlib>
 #include "IModel.hpp"
 #include "EventReceiver.hpp"
 
@@ -30,13 +31,16 @@ namespace	GameNamespace
     int	x;
     int	y;
     TerrainType terrain;
+    bool isStart;
+    bool isEnd;
+
+    GameMap(int, int);
   };
   
   class	GameEngine : public IModel
   {
   private:
     std::vector<irr::scene::IAnimatedMeshSceneNode *>	groundObjects;
-    irr::SKeyMap					cameraActions[6];
     irr::scene::ICameraSceneNode			*gameCamera;
     std::vector<GameMap>				gameMap;
     irr::scene::ISceneManager				*smgr;
@@ -45,13 +49,16 @@ namespace	GameNamespace
     std::string						file_texture;
     std::string						file_shape;
     const size_t					nb_shapes;
-    float						old_pos;
+    float old_pos_x;
     std::vector<float>			       		max_pos_x_tab;
     float						final_pos_x_avg;
-    float						the_farthest_map_point;
+    float the_farthest_map_point_x;
     irr::u32						lastFrame;
     irr::f32						cameraMovementSpeed;
     EventReceiver					receiver;
+    size_t maxNumberPlatforms;
+    irr::scene::IAnimatedMeshSceneNode *groundObject;
+
 
     virtual void setBlockProperties(int, int);
   

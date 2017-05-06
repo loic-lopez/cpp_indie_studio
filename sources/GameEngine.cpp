@@ -198,11 +198,11 @@ void GameNamespace::GameEngine::setModelProperties()
     }
 
   this->the_farthest_map_point = this->max_pos_x_tab[0];
-  for (size_t i = 0; i < this->max_pos_x_tab.size(); i++)
+  for (float i : this->max_pos_x_tab)
     {
-      if (this->max_pos_x_tab[i] > this->the_farthest_map_point)
-	this->the_farthest_map_point = this->max_pos_x_tab[i];
-      this->final_pos_x_avg += this->max_pos_x_tab[i];
+      if (i > this->the_farthest_map_point)
+	this->the_farthest_map_point = i;
+      this->final_pos_x_avg += i;
     }
   this->final_pos_x_avg = final_pos_x_avg / this->max_pos_x_tab.size();
   this->gameCamera = smgr->addCameraSceneNode(nullptr,

@@ -16,6 +16,7 @@ SRC             =       sources/main.cpp		\
 			sources/GameEngine.cpp  	\
 			sources/EventReceiver.cpp 	\
 			sources/SplashScreen.cpp  	\
+			sources/MenuController.cpp	\
 
 
 OBJ             =       $(SRC:.cpp=.o)

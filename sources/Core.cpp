@@ -26,12 +26,15 @@ int		check_extension_file(std::string filename, std::string extension)
 
 Core::Core()
 {
+  this->driverType = irr::video::EDT_BURNINGSVIDEO;
   this->device = irr::createDevice(irr::video::EDT_OPENGL,
                                                   irr::core::dimension2d<irr::u32>(1920,1080), 32);
+
   this->driver = device->getVideoDriver();
   this->smgr = device->getSceneManager();
   this->smgr->addLightSceneNode(0, irr::core::vector3df(-15,5,-105),
 			  irr::video::SColorf(0.5f, 0.5f, 0.5f));
+  this->guienv = this->device->getGUIEnvironment();
   
   // set ambient light
   this->smgr->setAmbientLight(irr::video::SColor(0,60,60,60));

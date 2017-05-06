@@ -30,6 +30,8 @@ class Core : public ICore
   irr::IrrlichtDevice				*device;
   irr::video::IVideoDriver			*driver;
   irr::scene::ISceneManager			*smgr;
+  irr::video::E_DRIVER_TYPE			driverType;
+  irr::gui::IGUIEnvironment			*guienv;
   
 public:
   Core();

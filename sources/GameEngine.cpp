@@ -208,17 +208,16 @@ void GameNamespace::GameEngine::setModelProperties()
 
     }
 
-  for (size_t i = 0; i < 30 * 30; i++)
+  for (size_t i = 0; i < 30 * 30;)
     {
       if (this->gameMap.at(i).isStart)
 	{
-	  size_t j;
-	  for (j = i; !this->gameMap.at(j).isEnd; j++)
+	  for (; !this->gameMap.at(i).isEnd; i++)
 	    {
-	      this->setBlockProperties(this->gameMap.at(j).x, this->gameMap.at(j).y);
+	      this->setBlockProperties(this->gameMap.at(i).x, this->gameMap.at(i).y);
 	    }
-	  i = j;
-	}
+	} else
+	i++;
     }
 
   this->the_farthest_map_point_x = this->max_pos_x_tab[0];

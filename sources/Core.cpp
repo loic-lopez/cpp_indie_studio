@@ -169,6 +169,7 @@ void						Core::launchMenu()
 void						Core::launchGame()
 {
   this->device->getCursorControl()->setVisible(false);
+  this->gameEngine->setModelProperties();
   this->gameEngine->launchModel(this->device);
 }
 

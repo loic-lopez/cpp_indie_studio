@@ -17,81 +17,17 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
   this->lastFrame = this->device->getTimer()->getTime();
   this->device->setEventReceiver(&this->receiver);
   this->cameraMovementSpeed = 50.0f;
-  srand(time(NULL));
-  this->file_texture = "./ressources/textures/ground/ground" + std::to_string(rand() % nb_textures) + ".bmp";
+  this->file_texture = "./ressources/textures/ground/ground" + std::to_string(std::rand() % nb_textures) + ".bmp";
   this->old_pos = 0;
-  for (size_t i = 0; i < 30; i++)
-    {
-      for (size_t j = 0; j < 30; j++)
-	{
-	  GameMap tmp;
 
-	  tmp.x = j;
-	  tmp.y = i;
-	  tmp.terrain = GameNamespace::TerrainType::AIR;
-	  this->gameMap.push_back(tmp);
-	}
-    }
-
-      int start_x;
-      int start_y;
-      int end_x;
-      int end_y;
-  
-  for (size_t i = 0; i < 2; i = i)
-    {
-      start_x = rand() % 30;
-      start_y = rand() % 30;
-      end_x = rand() % 30;
-      end_y = rand() % 30;
-      
-      if ((this->gameMap.at(start_x + 30 * start_y).terrain) != GameNamespace::TerrainType::GROUND)
-	{
-	  this->gameMap.at(start_x + 30 * start_y).terrain = GameNamespace::TerrainType::GROUND;
-	  i++;
-	}
-      if ((this->gameMap.at(end_x + 30 * end_y).terrain) != GameNamespace::TerrainType::GROUND)
-        {
-          this->gameMap.at(end_x + 30 * end_y).terrain = GameNamespace::TerrainType::GROUND;
-          i++;
-        }
-    }
-  for (size_t i = 0; i < 30 * 30; i++)
-    {
-      if ((this->gameMap.at(i).terrain) == GameNamespace::TerrainType::GROUND)
-	{
-	  size_t	pos = i % 30;
-	  for (size_t j = i; j - pos > 0; j--)
-	    this->gameMap.at(j).terrain = GameNamespace::TerrainType::GROUND;
-	}
-    }
-  for (size_t i = 0; i < 30 * 30; i++)
-    {
-      if ((this->gameMap.at(i).terrain) == GameNamespace::TerrainType::GROUND)
-	{
-	  //if (this->old_pos == 0)
-	    //	    this->old_pos = this->gameMap.at(i).x;
-	  this->setModelProperties(this->gameMap.at(i).x, this->gameMap.at(i).y);
-	}
-    }
-
-  for (size_t i = 0; i < this->max_pos_x_tab.size(); i++)
-    this->final_pos_x_avg += this->max_pos_x_tab[i];
-  this->final_pos_x_avg = final_pos_x_avg / this->max_pos_x_tab.size();
-  this->gameCamera = smgr->addCameraSceneNode(0,
-					      irr::core::vector3df(this->final_pos_x_avg / 2,
-								   0, -100),
-					      irr::core::vector3df(this->final_pos_x_avg / 2,
-                                                                   0, 0),
-					      -1, true);
 }
 
-void	GameNamespace::GameEngine::setModelProperties(int x, int y)
+void GameNamespace::GameEngine::setBlockProperties(int x, int y)
 {
   
   this->file_shape = "./ressources/shapes/Rock_" + std::to_string(rand() % this->nb_shapes) + ".dae";
   irr::scene::IAnimatedMeshSceneNode *groundObject = this->smgr->addAnimatedMeshSceneNode(smgr->getMesh(file_shape.c_str()));
-  if (groundObject)
+  if (groundObject != nullptr)
     {
       groundObject->setMaterialTexture(0,
 				       this->driver->getTexture(file_texture.c_str())); // set diffuse texture
@@ -101,7 +37,7 @@ void	GameNamespace::GameEngine::setModelProperties(int x, int y)
       irr::f32 minRadius = groundObject->getMesh()->getBoundingBox().getExtent().getLength() * 0.70f;
       //      groundObject->setPosition(irr::core::vector3df(old_pos + minRadius,0,0));
       groundObject->setPosition(irr::core::vector3df(this->old_pos + minRadius, y + minRadius, 0));
-      groundObject->setRotation(irr::core::vector3df(rand() % 360, rand() % 360, 0));
+      groundObject->setRotation(irr::core::vector3df(std::rand() % 360, std::rand() % 360, 0));
       if (x == 0)
 	{
 	  this->max_pos_x_tab.push_back(old_pos);
@@ -167,4 +103,73 @@ void	GameNamespace::GameEngine::launchModel(irr::IrrlichtDevice *device)
 
 	// display frames per second in window title
       }
+}
+
+void GameNamespace::GameEngine::setModelProperties()
+{
+
+  for (size_t i = 0; i < 30; i++)
+    {
+      for (size_t j = 0; j < 30; j++)
+	{
+	  GameMap tmp;
+
+	  tmp.x = j;
+	  tmp.y = i;
+	  tmp.terrain = GameNamespace::TerrainType::AIR;
+	  this->gameMap.push_back(tmp);
+	}
+    }
+
+  int start_x;
+  int start_y;
+  int end_x;
+  int end_y;
+
+  for (size_t i = 0; i < 2; i = i)
+    {
+      start_x = rand() % 30;
+      start_y = rand() % 30;
+      end_x = rand() % 30;
+      end_y = rand() % 30;
+
+      if ((this->gameMap.at(start_x + 30 * start_y).terrain) != GameNamespace::TerrainType::GROUND)
+	{
+	  this->gameMap.at(start_x + 30 * start_y).terrain = GameNamespace::TerrainType::GROUND;
+	  i++;
+	}
+      if ((this->gameMap.at(end_x + 30 * end_y).terrain) != GameNamespace::TerrainType::GROUND)
+	{
+	  this->gameMap.at(end_x + 30 * end_y).terrain = GameNamespace::TerrainType::GROUND;
+	  i++;
+	}
+    }
+  for (size_t i = 0; i < 30 * 30; i++)
+    {
+      if ((this->gameMap.at(i).terrain) == GameNamespace::TerrainType::GROUND)
+	{
+	  size_t pos = i % 30;
+	  for (size_t j = i; j - pos > 0; j--)
+	    this->gameMap.at(j).terrain = GameNamespace::TerrainType::GROUND;
+	}
+    }
+  for (size_t i = 0; i < 30 * 30; i++)
+    {
+      if ((this->gameMap.at(i).terrain) == GameNamespace::TerrainType::GROUND)
+	{
+	  //if (this->old_pos == 0)
+	  //	    this->old_pos = this->gameMap.at(i).x;
+	  this->setBlockProperties(this->gameMap.at(i).x, this->gameMap.at(i).y);
+	}
+    }
+
+  for (size_t i = 0; i < this->max_pos_x_tab.size(); i++)
+    this->final_pos_x_avg += this->max_pos_x_tab[i];
+  this->final_pos_x_avg = final_pos_x_avg / this->max_pos_x_tab.size();
+  this->gameCamera = smgr->addCameraSceneNode(0,
+					      irr::core::vector3df(this->final_pos_x_avg / 2,
+								   0, -100),
+					      irr::core::vector3df(this->final_pos_x_avg / 2,
+								   0, 0),
+					      -1, true);
 }

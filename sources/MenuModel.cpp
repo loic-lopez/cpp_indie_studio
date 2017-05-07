@@ -10,8 +10,8 @@
 
 #include "MenuModel.hpp"
 
-MenuModel::MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver, irr::scene::ISceneManager *smgr, irr::gui::IGUIEnvironment *guienv)
-  : _device(device), _driver(driver), _smgr(smgr),_guienv(guienv), event(device)
+MenuModel::MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver, irr::scene::ISceneManager *smgr, irr::gui::IGUIEnvironment *guienv, std::vector<std::string> saves)
+  : _device(device), _driver(driver), _smgr(smgr),_guienv(guienv), event(device), _saves(saves)
 {
   irr::core::stringw str = "Worms 3D";
   this->_device->setWindowCaption(str.c_str());
@@ -48,14 +48,17 @@ void	MenuModel::setModelProperties()
   this->boxSave->setSelected(this->selected);
   this->event.setSelected(this->selected);
   this->startButton = this->_guienv->addButton(irr::core::rect<int>(30, 295, 200, 324), this->mainCtrl, 2, L"Play");
-
+  this->optionButton = this->_guienv->addButton(irr::core::rect<int>(30, 254, 200, 283), this->mainCtrl, 21, L"Option");
+  this->exitButton = this->_guienv->addButton(irr::core::rect<int>(30, 213, 200, 242), this->mainCtrl, 42, L"Exit");
   this->_guienv->addStaticText(text2, irr::core::rect<int>(10, 10, 230, 320),
 			       true, true, this->aboutTab);
   this->_smgr->addCameraSceneNode(0, irr::core::vector3df(45, 0, 0), irr::core::vector3df(0, 0, 10));
   this->_driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
-  this->background = this->_driver->getTexture("ressources/images/Marine-Le-Pen-menace-entre-les-lignes-de-sanctionn.bmp");
+  this->background = this->_driver->getTexture("ressources/images/181192.jpg");
   this->_driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, this->_driver->getTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS));
   this->event.setStartButton(this->startButton);
+  this->event.setOptionButton(this->optionButton);
+  this->event.setExitButton(this->exitButton);
 }
 
 void	MenuModel::launchModel(irr::IrrlichtDevice *device)

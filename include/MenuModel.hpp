@@ -11,13 +11,15 @@
 #define CPP_INDIE_STUDIO_MENUCONTROLLER_HPP
 # include "IModel.hpp"
 #include "MenuEventModel.hpp"
+#include <vector>
+#include <iostream>
 
 class		MenuModel : public IModel
 {
  public:
   MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
 		 irr::scene::ISceneManager *smgr,
-		 irr::gui::IGUIEnvironment *guienv);
+		 irr::gui::IGUIEnvironment *guienv, std::vector<std::string> saves);
   MenuModel(MenuModel const &);
   MenuModel &operator=(MenuModel const &);
   virtual ~MenuModel();
@@ -43,6 +45,7 @@ class		MenuModel : public IModel
   irr::gui::IGUIButton				*exitButton;
   irr::video::ITexture				*background;
   MenuEventModel				event;
+  std::vector<std::string>			_saves;
 };
 
 #endif //CPP_INDIE_STUDIO_MENUCONTROLLER_HPP

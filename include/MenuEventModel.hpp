@@ -16,6 +16,8 @@ class MenuEventModel : public irr::IEventReceiver
 private:
   irr::s32		selected;
   irr::gui::IGUIButton	*startButton;
+  irr::gui::IGUIButton	*optionButton;
+  irr::gui::IGUIButton	*exitButton;
   irr::IrrlichtDevice	*device;
   bool			*play;
   
@@ -24,6 +26,8 @@ private:
   virtual bool OnEvent(const irr::SEvent &event);
   void		setSelected(irr::s32 const &selected);
   void		setStartButton(irr::gui::IGUIButton *startButton);
+  void 		setOptionButton(irr::gui::IGUIButton *optionButton);
+  void 		setExitButton(irr::gui::IGUIButton *exitButton);
   void		setPlay(bool &);
 };
 #endif //CPP_INDIE_STUDIO_MENUEVENTCONTROLLER_HPP

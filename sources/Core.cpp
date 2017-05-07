@@ -163,7 +163,7 @@ void						Core::launchMenu()
 {
   this->device->getCursorControl()->setVisible(true);
   this->menu = new MenuModel(this->device, this->driver,
-						  this->smgr, this->guienv);
+						  this->smgr, this->guienv, this->saves);
   this->menu->setModelProperties();
   this->menu->launchModel(this->device);
   this->gameEngine = new GameNamespace::GameEngine(this->smgr, this->driver,

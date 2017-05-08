@@ -39,6 +39,8 @@ EventStatus SplashScreen::launchModel()
   irr::core::dimension2d<irr::u32> irrlichLogoSize = this->irrlichtLogo->getSize();
   irr::core::dimension2d<irr::u32> irrklangLogoSize = this->irrklangLogo->getSize();
   irr::core::dimension2d<irr::u32> screenSize = this->driver->getScreenSize();
+  irr::core::dimension2d<irr::u32> textSize = this->font->getDimension(reinterpret_cast<const wchar_t *>("Powered By:"));
+
 
 
   while (this->device->run())
@@ -51,7 +53,7 @@ EventStatus SplashScreen::launchModel()
 	if (alphaColor == 0)
 	  break;
 
-	if (frameDeltaTime == 2)
+	if (frameDeltaTime == 2.0f)
 	  alphaColor--;
 
 	this->driver->enableMaterial2D();
@@ -74,7 +76,8 @@ EventStatus SplashScreen::launchModel()
 	if (this->font != nullptr)
 	  {
 	    this->font->draw("Powered By:",
-			     irr::core::rect<irr::s32>(screenSize.Width / 2, (screenSize.Height / 2) - irrlichLogoSize.Height, 300, 300),
+			     irr::core::rect<irr::s32>((screenSize.Width / 2) - (textSize.Width + (irrlichLogoSize.Height / 2) * 2),
+						       ((screenSize.Height / 2) - irrlichLogoSize.Height) - (textSize.Height * 2), 300, 300),
 			     irr::video::SColor(alphaColor, 255, 255, 255));
 	  }
 	this->driver->enableMaterial2D(false);
@@ -87,5 +90,5 @@ void SplashScreen::setModelProperties()
 {
   this->irrlichtLogo = this->driver->getTexture("ressources/splashscreen/irrlicht_logo.png");
   this->irrklangLogo = this->driver->getTexture("ressources/splashscreen/irrklang_logo.png");
-  this->font = this->device->getGUIEnvironment()->getFont("ressources/fonts/fonthaettenschweiler.bmp");
+  this->font = this->device->getGUIEnvironment()->getFont("ressources/fonts/SplashScreen.xml");
 }

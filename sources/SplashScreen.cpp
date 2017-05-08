@@ -10,14 +10,19 @@
 
 #include "SplashScreen.hpp"
 
-SplashScreen::SplashScreen()
+SplashScreen::SplashScreen(irr::scene::ISceneManager *smgr,
+			   irr::video::IVideoDriver *driver,
+			   irr::IrrlichtDevice *device)
 {
-
+  this->smgr = smgr;
+  this->device = device;
+  this->lastFrame = this->device->getTimer()->getTime();
+  this->objectMovementSpeed = 50.0f;
+  this->driver = driver;
 }
 
 SplashScreen::~SplashScreen()
 {
-
 
 }
 
@@ -27,12 +32,30 @@ void SplashScreen::setBlockProperties(int x, int y)
   (void)y;
 }
 
-EventStatus SplashScreen::launchModel(irr::IrrlichtDevice *device)
+EventStatus SplashScreen::launchModel()
 {
+  while (this->device->run())
+    if (this->device->isWindowActive())
+      {
+	const irr::u32 now = this->device->getTimer()->getTime();
+	const irr::f32 frameDeltaTime = (irr::f32) (now - this->lastFrame) / 1000.0f;
+	this->lastFrame = now;
+
+	this->driver->beginScene(true, true, 0);
+
+
+	// draw scene normally
+	this->smgr->drawAll();
+
+	//        env->drawAll();
+
+	this->driver->endScene();
+      }
   return (EventStatus::STAND_BY);
 }
 
 void SplashScreen::setModelProperties()
 {
-
+  this->irrlichtLogo = this->smgr->addAnimatedMeshSceneNode(
+	  smgr->getMesh("ressources/splashscreen/irrlicht_logo_center.dae"));
 }

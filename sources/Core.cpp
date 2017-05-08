@@ -159,7 +159,10 @@ std::vector<std::string>			Core::loadDir(const std::string &path, const std::str
 
 void						Core::launchSplashScreen()
 {
-  std::unique_ptr<IModel>			splashScreen(new SplashScreen);
+  std::unique_ptr<IModel> splashScreen(new SplashScreen(this->smgr, this->driver, this->device));
+
+  splashScreen->setModelProperties();
+  splashScreen->launchModel();
 }
 
 void						Core::launchMenu()
@@ -168,7 +171,7 @@ void						Core::launchMenu()
   this->menu = new MenuModel(this->device, this->driver,
 			     this->smgr, this->guienv, this->saves);
   this->menu->setModelProperties();
-  this->eventStatus = this->menu->launchModel(this->device);
+  this->eventStatus = this->menu->launchModel();
 }
 
 void						Core::launchGame()
@@ -179,7 +182,7 @@ void						Core::launchGame()
 						   this->device);
   this->device->getCursorControl()->setVisible(false);
   this->gameEngine->setModelProperties();
-  this->eventStatus = this->gameEngine->launchModel(this->device);
+  this->eventStatus = this->gameEngine->launchModel();
 }
 
 void						Core::launch()

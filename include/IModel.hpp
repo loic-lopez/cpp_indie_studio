@@ -24,7 +24,7 @@ class	IModel
 
   virtual void setModelProperties() = 0;
 
-  virtual EventStatus launchModel(irr::IrrlichtDevice *) = 0;
+  virtual EventStatus launchModel() = 0;
 };
 
 #endif

@@ -50,7 +50,7 @@ void GameNamespace::GameEngine::setBlockProperties(int x, int y)
     }
 }
 
-EventStatus GameNamespace::GameEngine::launchModel(irr::IrrlichtDevice *device)
+EventStatus GameNamespace::GameEngine::launchModel()
 {
   EventStatus eventStatus = EventStatus::QUIT;
 

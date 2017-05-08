@@ -15,14 +15,22 @@
 
 class	SplashScreen : public IModel
 {
-public:
-  SplashScreen();
-  virtual	~SplashScreen();
+ private:
+  irr::scene::ISceneManager *smgr;
+  irr::video::IVideoDriver *driver;
+  irr::scene::IAnimatedMeshSceneNode *irrlichtLogo;
+  irr::IrrlichtDevice *device;
+  irr::u32 lastFrame;
+  irr::f32 objectMovementSpeed;
 
+ public:
+  SplashScreen(irr::scene::ISceneManager *smgr,
+	       irr::video::IVideoDriver *driver,
+	       irr::IrrlichtDevice *device);
+  virtual	~SplashScreen();
   virtual void setBlockProperties(int, int);
 
-  virtual EventStatus launchModel(irr::IrrlichtDevice *);
-
+  virtual EventStatus launchModel();
   virtual void setModelProperties();
 };
 

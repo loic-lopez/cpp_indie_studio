@@ -38,7 +38,7 @@ EventStatus SplashScreen::launchModel()
     if (this->device->isWindowActive())
       {
 	const irr::u32 now = this->device->getTimer()->getTime();
-	const irr::f32 frameDeltaTime = (irr::f32) (now - this->lastFrame) / 1000.0f;
+	//const irr::f32 frameDeltaTime = (irr::f32) (now - this->lastFrame) / 1000.0f;
 	this->lastFrame = now;
 
 	this->driver->beginScene(true, true, 0);

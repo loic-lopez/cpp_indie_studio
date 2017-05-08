@@ -25,7 +25,7 @@ class		MenuModel : public IModel
   virtual ~MenuModel();
   virtual void setModelProperties();
 
-  virtual EventStatus launchModel(irr::IrrlichtDevice *);
+  virtual EventStatus launchModel();
 
  private:
   virtual void setBlockProperties(int, int);

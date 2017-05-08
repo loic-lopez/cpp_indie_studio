@@ -61,14 +61,14 @@ void	MenuModel::setModelProperties()
   this->event.setExitButton(this->exitButton);
 }
 
-EventStatus MenuModel::launchModel(irr::IrrlichtDevice *device)
+EventStatus MenuModel::launchModel()
 {
   EventStatus eventStatus = EventStatus::STAND_BY;
 
   this->event.setEventStatus(eventStatus);
-  while (device->run())
+  while (this->_device->run())
     {
-      if (device->isWindowActive())
+      if (this->_device->isWindowActive())
 	{
 	  this->_driver->beginScene(false, true, irr::video::SColor(0, 0, 0, 0));
 	  if (this->background != nullptr)

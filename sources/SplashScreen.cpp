@@ -65,9 +65,9 @@ void SplashScreen::setModelProperties()
 					     this->driver->getTexture(
 						     "ressources/splashscreen/irrlicht_logo_center.png")); // set diffuse texture
       this->irrlichtLogo->setMaterialFlag(irr::video::EMF_LIGHTING, true); // enable dynamic lighting
-      //this->smgr->getMeshManipulator()->makePlanarTextureMapping(this->irrlichtLogo->getMesh(), 0.0f);
+      //this->smgr->getMeshManipulator()->makePlanarTextureMapping(this->irrlichtLogo->getMesh(), 0.1f);
       this->irrlichtLogo->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
       this->irrlichtLogo->setPosition(irr::core::vector3df(0, 0, 0));
-      this->irrlichtLogo->setRotation(irr::core::vector3df(-90.0f, -180.0f, 0.0f));
+      this->irrlichtLogo->setRotation(irr::core::vector3df(0, 180.0f, 0.0f));
     }
 }

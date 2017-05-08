@@ -45,6 +45,16 @@ void	MenuModel::setModelProperties()
   this->boxSave = this->_guienv->addListBox(irr::core::rect<int>(10, 10, 220, 120),
 					    this->mainCtrl, 1);
   this->boxSave->addItem(L"Create new game");
+  if (this->_saves.size() > 0)
+    {
+      this->boxSave->addItem(L"SIGNAL");
+      for (auto i = this->_saves.begin(); i != this->_saves.end(); ++i)
+	{
+	  std::wstring tmp = std::wstring(i->begin(), i->end());
+	  const wchar_t *toPrint = tmp.c_str();
+	  this->boxSave->addItem(toPrint);
+	}
+    }
   this->boxSave->setSelected(this->selected);
   this->event.setSelected(this->selected);
   this->startButton = this->_guienv->addButton(irr::core::rect<int>(30, 295, 200, 324), this->mainCtrl, 2, L"Play");

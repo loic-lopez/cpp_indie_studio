@@ -15,12 +15,11 @@ int	main()
   std::unique_ptr<ICore>	core(new Core);
 
   std::srand(std::time(nullptr));
+
+  core->fillSaves();
+  core->fillSoundLib();
   core->launch();
-  /*
-  bite->fillSaves();
-  bite->fillSoundLib();
-  saves = bite->getSaves();
-  for (size_t i = 0; i < saves.size() ; i++)
+  /*for (size_t i = 0; i < saves.size() ; i++)
       std::cout << "sauvegarde nommée : \"" << saves[i] << "\" à été trouvée." << std::endl;
   saves = bite->getSoundLib();
   for (size_t i = 0; i < saves.size() ; i++)

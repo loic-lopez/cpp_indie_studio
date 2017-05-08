@@ -21,15 +21,15 @@ namespace	GameNamespace
 {
   enum		class	TerrainType : uint16_t
     {
-      AIR = 0,
-      GROUND = 1,
-      WORM = 2
+    AIR = 0,
+    GROUND = 1,
+    WORM = 2
     };
     
   struct	GameMap
   {
-    int	x;
-    int	y;
+    int x;
+    int y;
     TerrainType terrain;
     bool isStart;
     bool isEnd;
@@ -45,7 +45,7 @@ namespace	GameNamespace
     std::vector<GameMap>				gameMap;
     irr::scene::ISceneManager				*smgr;
     irr::video::IVideoDriver				*driver;
-    irr::IrrlichtDevice					*device;
+    irr::IrrlichtDevice *device;
     std::string						file_texture;
     std::string						file_shape;
     const size_t					nb_shapes;
@@ -66,9 +66,10 @@ namespace	GameNamespace
     GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
 	       const size_t &, const size_t &, irr::IrrlichtDevice *);
 
-    virtual                ~GameEngine()
+    virtual~GameEngine()
     {};
-    virtual void	launchModel(irr::IrrlichtDevice *);
+
+    virtual void launchModel(irr::IrrlichtDevice *);
 
     virtual void setModelProperties();
   };

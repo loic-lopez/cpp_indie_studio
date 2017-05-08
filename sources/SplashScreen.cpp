@@ -23,7 +23,8 @@ SplashScreen::SplashScreen(irr::scene::ISceneManager *smgr,
 
 SplashScreen::~SplashScreen()
 {
-
+  this->driver->removeAllTextures();
+  this->smgr->clear();
 }
 
 void SplashScreen::setBlockProperties(int x, int y)
@@ -34,18 +35,49 @@ void SplashScreen::setBlockProperties(int x, int y)
 
 EventStatus SplashScreen::launchModel()
 {
+  irr::u32	alphaColor = 255;
+  irr::core::dimension2d<irr::u32> irrlichLogoSize = this->irrlichtLogo->getSize();
+  irr::core::dimension2d<irr::u32> irrklangLogoSize = this->irrklangLogo->getSize();
+  irr::core::dimension2d<irr::u32> screenSize = this->driver->getScreenSize();
+
+
   while (this->device->run())
     if (this->device->isWindowActive())
       {
 	const irr::u32 now = this->device->getTimer()->getTime();
-	//const irr::f32 frameDeltaTime = (irr::f32) (now - this->lastFrame) / 1000.0f;
+	const auto frameDeltaTime = (now - this->lastFrame);
 	this->lastFrame = now;
 
+	if (alphaColor == 0)
+	  break;
+
+	if (frameDeltaTime == 2)
+	  alphaColor--;
+
+	this->driver->enableMaterial2D();
 	this->driver->beginScene(true, true, 0);
 
-	// draw scene normally
-	this->smgr->drawAll();
+	this->driver->draw2DImage(this->irrlichtLogo,
+				  irr::core::vector2d<irr::s32>(
+					  (screenSize.Width / 2) - ((irrlichLogoSize.Width / 2) * 3),
+					  (screenSize.Height / 2) - (irrlichLogoSize.Height / 2)),
+				  irr::core::rect<irr::s32>(0,0, irrlichLogoSize.Width,irrlichLogoSize.Height), nullptr,
+				  irr::video::SColor(alphaColor, 255, 255, 255), false);
 
+
+	this->driver->draw2DImage(this->irrklangLogo,
+				  irr::core::vector2d<irr::s32>(
+					  (screenSize.Width / 2) + ((irrklangLogoSize.Width / 2)),
+					  (screenSize.Height / 2) - (irrklangLogoSize.Height / 2)),
+				  irr::core::rect<irr::s32>(0,0, irrklangLogoSize.Width,irrklangLogoSize.Height), nullptr,
+				  irr::video::SColor(alphaColor, 255, 255, 255), false);
+	if (this->font != nullptr)
+	  {
+	    this->font->draw("Powered By:",
+			     irr::core::rect<irr::s32>(screenSize.Width / 2, (screenSize.Height / 2) - irrlichLogoSize.Height, 300, 300),
+			     irr::video::SColor(alphaColor, 255, 255, 255));
+	  }
+	this->driver->enableMaterial2D(false);
 	this->driver->endScene();
       }
   return (EventStatus::STAND_BY);
@@ -53,21 +85,7 @@ EventStatus SplashScreen::launchModel()
 
 void SplashScreen::setModelProperties()
 {
-  this->SplashCamera = this->smgr->addCameraSceneNode(nullptr,
-						      irr::core::vector3df(0, 0, -35),
-						      irr::core::vector3df(0, 0, 0),
-						      -1, true);
-  this->irrlichtLogo = this->smgr->addAnimatedMeshSceneNode(
-	  smgr->getMesh("ressources/splashscreen/irrlicht_logo_center.obj"));
-  if (this->irrlichtLogo != nullptr)
-    {
-      this->irrlichtLogo->setMaterialTexture(0,
-					     this->driver->getTexture(
-						     "ressources/splashscreen/irrlicht_logo_center.png")); // set diffuse texture
-      this->irrlichtLogo->setMaterialFlag(irr::video::EMF_LIGHTING, true); // enable dynamic lighting
-      //this->smgr->getMeshManipulator()->makePlanarTextureMapping(this->irrlichtLogo->getMesh(), 0.1f);
-      this->irrlichtLogo->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
-      this->irrlichtLogo->setPosition(irr::core::vector3df(0, 0, 0));
-      this->irrlichtLogo->setRotation(irr::core::vector3df(0, 180.0f, 0.0f));
-    }
+  this->irrlichtLogo = this->driver->getTexture("ressources/splashscreen/irrlicht_logo.png");
+  this->irrklangLogo = this->driver->getTexture("ressources/splashscreen/irrklang_logo.png");
+  this->font = this->device->getGUIEnvironment()->getFont("ressources/fonts/fonthaettenschweiler.bmp");
 }

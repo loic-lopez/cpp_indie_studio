@@ -16,13 +16,15 @@
 class	SplashScreen : public IModel
 {
  private:
-  irr::scene::ISceneManager *smgr;
-  irr::video::IVideoDriver *driver;
-  irr::scene::IAnimatedMeshSceneNode *irrlichtLogo;
-  irr::scene::ICameraSceneNode *SplashCamera;
-  irr::IrrlichtDevice *device;
-  irr::u32 lastFrame;
-  irr::f32 objectMovementSpeed;
+  irr::scene::ISceneManager 		*smgr;
+  irr::video::IVideoDriver 		*driver;
+  irr::IrrlichtDevice 			*device;
+  irr::u32 				lastFrame;
+  irr::f32 				objectMovementSpeed;
+  irr::video::ITexture			*irrlichtLogo;
+  irr::video::ITexture			*irrklangLogo;
+  irr::scene::ITextSceneNode		*textSceneNode;
+  irr::gui::IGUIFont			*font;
 
  public:
   SplashScreen(irr::scene::ISceneManager *smgr,

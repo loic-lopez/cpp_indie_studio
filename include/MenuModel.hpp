@@ -47,6 +47,9 @@ class		MenuModel : public IModel
   irr::video::ITexture				*background;
   MenuEventModel				event;
   std::vector<std::string>			_saves;
+  irr::video::ITexture				*textuStart;
+  irr::video::ITexture				*textuOption;
+  irr::video::ITexture				*textuExit;
 };
 
 #endif //CPP_INDIE_STUDIO_MENUCONTROLLER_HPP

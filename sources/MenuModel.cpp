@@ -56,9 +56,21 @@ void	MenuModel::setModelProperties()
     }
   this->boxSave->setSelected(this->selected);
   this->event.setSelected(this->selected);
-  this->startButton = this->_guienv->addButton(irr::core::rect<int>(30, 295, 200, 324), this->mainCtrl, 2, L"Play");
-  this->optionButton = this->_guienv->addButton(irr::core::rect<int>(30, 254, 200, 283), this->mainCtrl, 21, L"Option");
-  this->exitButton = this->_guienv->addButton(irr::core::rect<int>(30, 213, 200, 242), this->mainCtrl, 42, L"Exit");
+  this->startButton = this->_guienv->addButton(irr::core::rect<int>(30, 295, 200, 324), this->mainCtrl, 2, L"");
+  this->textuStart = this->_driver->getTexture("ressources/images/start.png");
+  this->startButton->setUseAlphaChannel(true);
+  this->startButton->setDrawBorder(false);
+  this->startButton->setImage(this->textuStart);
+  this->optionButton = this->_guienv->addButton(irr::core::rect<int>(30, 254, 200, 283), this->mainCtrl, 21, L"");
+  this->textuOption = this->_driver->getTexture("ressources/images/option.png");
+  this->optionButton->setUseAlphaChannel(true);
+  this->optionButton->setDrawBorder(false);
+  this->optionButton->setImage(this->textuOption);
+  this->exitButton = this->_guienv->addButton(irr::core::rect<int>(30, 213, 200, 242), this->mainCtrl, 42, L"");
+  this->textuExit = this->_driver->getTexture("ressources/images/exit.png");
+  this->exitButton->setUseAlphaChannel(true);
+  this->exitButton->setDrawBorder(false);
+  this->exitButton->setImage(this->textuExit);
   this->_guienv->addStaticText(text2, irr::core::rect<int>(10, 10, 230, 320),
 			       true, true, this->aboutTab);
   this->_smgr->addCameraSceneNode(0, irr::core::vector3df(45, 0, 0), irr::core::vector3df(0, 0, 10));

@@ -37,6 +37,8 @@ bool	MenuEventModel::OnEvent(const irr::SEvent &event)
 	      {
 		*this->play = false;
 		this->device->closeDevice();
+		while (device->run());
+		break;
 	      }
 	  case 2:
 	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)

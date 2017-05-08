@@ -69,7 +69,7 @@ namespace	GameNamespace
     virtual~GameEngine()
     {};
 
-    virtual void launchModel(irr::IrrlichtDevice *);
+    virtual bool launchModel(irr::IrrlichtDevice *);
 
     virtual void setModelProperties();
   };

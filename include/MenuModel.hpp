@@ -24,7 +24,8 @@ class		MenuModel : public IModel
   MenuModel &operator=(MenuModel const &);
   virtual ~MenuModel();
   virtual void setModelProperties();
-  virtual void	launchModel(irr::IrrlichtDevice *);
+
+  virtual bool launchModel(irr::IrrlichtDevice *);
 
  private:
   virtual void setBlockProperties(int, int);

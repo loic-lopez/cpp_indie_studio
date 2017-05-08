@@ -41,6 +41,7 @@ Core::Core()
   this->device->getCursorControl()->setVisible(false);
   this->gameEngine = nullptr;
   this->menu = nullptr;
+  this->play = true;
 }
 
 Core::Core(Core const &obj)
@@ -167,8 +168,9 @@ void						Core::launchMenu()
   this->menu = new MenuModel(this->device, this->driver,
 			     this->smgr, this->guienv, this->saves);
   this->menu->setModelProperties();
-  this->menu->launchModel(this->device);
-  this->gameEngine = new GameNamespace::GameEngine(this->smgr, this->driver,
+  this->play = this->menu->launchModel(this->device);
+  if (this->play)
+    this->gameEngine = new GameNamespace::GameEngine(this->smgr, this->driver,
 						   this->loadDir("./ressources/textures/ground/", ".bmp").size(),
 						   this->loadDir("./ressources/shapes/", ".dae").size(),
 						   this->device);
@@ -179,7 +181,7 @@ void						Core::launchGame()
 {
   this->device->getCursorControl()->setVisible(false);
   this->gameEngine->setModelProperties();
-  this->gameEngine->launchModel(this->device);
+  this->play = this->gameEngine->launchModel(this->device);
 }
 
 void						Core::launch()
@@ -188,6 +190,12 @@ void						Core::launch()
   while(device->run())
     {
       this->launchMenu();
-      this->launchGame();
+      if (this->play)
+	{
+	  this->launchGame();
+	  if (!this->play)
+	    break;
+	} else
+	break;
     }
 }

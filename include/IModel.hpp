@@ -22,7 +22,8 @@ class	IModel
   virtual	~IModel() {};
 
   virtual void setModelProperties() = 0;
-  virtual void	launchModel(irr::IrrlichtDevice *) = 0;
+
+  virtual bool launchModel(irr::IrrlichtDevice *) = 0;
 };
 
 #endif

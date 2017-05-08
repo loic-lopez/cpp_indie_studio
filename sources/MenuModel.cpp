@@ -61,7 +61,7 @@ void	MenuModel::setModelProperties()
   this->event.setExitButton(this->exitButton);
 }
 
-void	MenuModel::launchModel(irr::IrrlichtDevice *device)
+bool MenuModel::launchModel(irr::IrrlichtDevice *device)
 {
   bool	play = false;
 
@@ -79,6 +79,7 @@ void	MenuModel::launchModel(irr::IrrlichtDevice *device)
 	  this->_driver->endScene();
 	}
     }
+  return (play);
 }
 
 void MenuModel::setBlockProperties(int x, int y)

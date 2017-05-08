@@ -20,7 +20,8 @@ public:
   virtual	~SplashScreen();
 
   virtual void setBlockProperties(int, int);
-  virtual void launchModel(irr::IrrlichtDevice *);
+
+  virtual bool launchModel(irr::IrrlichtDevice *);
 
   virtual void setModelProperties();
 };

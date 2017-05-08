@@ -20,7 +20,6 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
 								     nb_shapes(nb_shapes)
 {
   this->file_shape = "./ressources/shapes/Rock_0.dae";
-  this->groundObject = this->smgr->addAnimatedMeshSceneNode(smgr->getMesh(file_shape.c_str()));
   this->lastFrame = this->device->getTimer()->getTime();
   this->device->setEventReceiver(&this->receiver);
   this->cameraMovementSpeed = 50.0f;
@@ -31,6 +30,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
 
 void GameNamespace::GameEngine::setBlockProperties(int x, int y)
 {
+  this->groundObject = this->smgr->addMeshSceneNode(smgr->getMesh(file_shape.c_str()));
   if (this->groundObject != nullptr)
     {
       this->groundObject->setMaterialTexture(0,
@@ -39,8 +39,7 @@ void GameNamespace::GameEngine::setBlockProperties(int x, int y)
       smgr->getMeshManipulator()->makePlanarTextureMapping(this->groundObject->getMesh(), 1.0f);
       this->groundObject->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
       irr::f32 minRadius = this->groundObject->getMesh()->getBoundingBox().getExtent().getLength() * 0.70f;
-      this->groundObject->setPosition(irr::core::vector3df(this->old_pos_x + minRadius, minRadius, 0));
-      //groundObject->setRotation(irr::core::vector3df(std::rand() % 360, std::rand() % 360, 0));
+      this->groundObject->setPosition(irr::core::vector3df(this->old_pos_x + minRadius, y + minRadius, 0));
       if (x == 0)
 	{
 	  this->max_pos_x_tab.push_back(this->old_pos_x);
@@ -211,16 +210,13 @@ void GameNamespace::GameEngine::setModelProperties()
 
     }
 
-  for (size_t i = 0; i < 30 * 30;)
+  for (size_t i = 0; i < 30 * 30; i++)
     {
-      if (this->gameMap.at(i).isStart)
+      if (this->gameMap.at(i).terrain == GameNamespace::TerrainType::GROUND)
 	{
-	  for (; !this->gameMap.at(i).isEnd; i++)
-	    {
+
 	      this->setBlockProperties(this->gameMap.at(i).x, this->gameMap.at(i).y);
-	    }
-	} else
-	i++;
+	}
     }
 
   this->the_farthest_map_point_x = this->max_pos_x_tab[0];

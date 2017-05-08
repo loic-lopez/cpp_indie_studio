@@ -40,7 +40,7 @@ namespace	GameNamespace
   class	GameEngine : public IModel
   {
   private:
-    std::vector<irr::scene::IAnimatedMeshSceneNode *>	groundObjects;
+    std::vector<irr::scene::IMeshSceneNode *> groundObjects;
     irr::scene::ICameraSceneNode			*gameCamera;
     std::vector<GameMap>				gameMap;
     irr::scene::ISceneManager				*smgr;
@@ -57,7 +57,7 @@ namespace	GameNamespace
     irr::f32						cameraMovementSpeed;
     EventReceiver					receiver;
     size_t maxNumberPlatforms;
-    irr::scene::IAnimatedMeshSceneNode *groundObject;
+    irr::scene::IMeshSceneNode *groundObject;
 
 
     virtual void setBlockProperties(int, int);

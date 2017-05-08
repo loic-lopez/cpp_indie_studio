@@ -29,8 +29,7 @@ void SplashScreen::setBlockProperties(int x, int y)
 
 EventStatus SplashScreen::launchModel(irr::IrrlichtDevice *device)
 {
-  EventStatus eventStatus = EventStatus::STAND_BY;
-  return (eventStatus);
+  return (EventStatus::STAND_BY);
 }
 
 void SplashScreen::setModelProperties()

@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:58:37 2017 Stanislas Deneubourg
-// Last update Thu May  4 17:34:34 2017 Stanislas Deneubourg
+// Last update Mon May  8 19:59:25 2017 Loic Lopez
 //
 
 #include "SplashScreen.hpp"
@@ -33,6 +33,8 @@ void SplashScreen::setBlockProperties(int x, int y)
   (void)y;
 }
 
+#include <iostream>
+
 EventStatus SplashScreen::launchModel()
 {
   irr::u32	alphaColor = 255;
@@ -53,7 +55,7 @@ EventStatus SplashScreen::launchModel()
 	if (alphaColor == 0)
 	  break;
 
-	if (frameDeltaTime == 2.0f)
+	if (frameDeltaTime >= 2.0f)
 	  alphaColor--;
 
 	this->driver->enableMaterial2D();
@@ -61,7 +63,7 @@ EventStatus SplashScreen::launchModel()
 
 	this->driver->draw2DImage(this->irrlichtLogo,
 				  irr::core::vector2d<irr::s32>(
-					  (screenSize.Width / 2) - ((irrlichLogoSize.Width / 2) * 3),
+								(screenSize.Width / 2) - ((textSize.Width / 2) + (irrlichLogoSize.Width / 2) * 3),
 					  (screenSize.Height / 2) - (irrlichLogoSize.Height / 2)),
 				  irr::core::rect<irr::s32>(0,0, irrlichLogoSize.Width,irrlichLogoSize.Height), nullptr,
 				  irr::video::SColor(alphaColor, 255, 255, 255), false);
@@ -69,14 +71,14 @@ EventStatus SplashScreen::launchModel()
 
 	this->driver->draw2DImage(this->irrklangLogo,
 				  irr::core::vector2d<irr::s32>(
-					  (screenSize.Width / 2) + ((irrklangLogoSize.Width / 2)),
+								(screenSize.Width / 2) + ((irrklangLogoSize.Width / 2) + (textSize.Width / 2) ),
 					  (screenSize.Height / 2) - (irrklangLogoSize.Height / 2)),
 				  irr::core::rect<irr::s32>(0,0, irrklangLogoSize.Width,irrklangLogoSize.Height), nullptr,
 				  irr::video::SColor(alphaColor, 255, 255, 255), false);
 	if (this->font != nullptr)
 	  {
 	    this->font->draw("Powered By:",
-			     irr::core::rect<irr::s32>((screenSize.Width / 2) - (textSize.Width + (irrlichLogoSize.Height / 2) * 2),
+			     irr::core::rect<irr::s32>((screenSize.Width / 2) - (textSize.Width / 2), 
 						       ((screenSize.Height / 2) - irrlichLogoSize.Height) - (textSize.Height * 2), 300, 300),
 			     irr::video::SColor(alphaColor, 255, 255, 255));
 	  }

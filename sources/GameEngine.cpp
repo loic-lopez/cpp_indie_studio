@@ -51,9 +51,9 @@ void GameNamespace::GameEngine::setBlockProperties(int x, int y)
     }
 }
 
-bool GameNamespace::GameEngine::launchModel(irr::IrrlichtDevice *device)
+EventStatus GameNamespace::GameEngine::launchModel(irr::IrrlichtDevice *device)
 {
-  bool status = false;
+  EventStatus eventStatus = EventStatus::QUIT;
 
   while(this->device->run())
     if (this->device->isWindowActive())
@@ -146,7 +146,7 @@ bool GameNamespace::GameEngine::launchModel(irr::IrrlichtDevice *device)
 
 	// display frames per second in window title
       }
-  return (status);
+  return (eventStatus);
 }
 
 static void fixRandPosition(int &value, int stop)

@@ -66,10 +66,10 @@ namespace	GameNamespace
     GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
 	       const size_t &, const size_t &, irr::IrrlichtDevice *);
 
-    virtual~GameEngine()
+    virtual                        ~GameEngine()
     {};
 
-    virtual bool launchModel(irr::IrrlichtDevice *);
+    virtual EventStatus launchModel(irr::IrrlichtDevice *);
 
     virtual void setModelProperties();
   };

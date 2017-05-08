@@ -61,25 +61,25 @@ void	MenuModel::setModelProperties()
   this->event.setExitButton(this->exitButton);
 }
 
-bool MenuModel::launchModel(irr::IrrlichtDevice *device)
+EventStatus MenuModel::launchModel(irr::IrrlichtDevice *device)
 {
-  bool	play = false;
+  EventStatus eventStatus = EventStatus::STAND_BY;
 
-  this->event.setPlay(play);
+  this->event.setEventStatus(eventStatus);
   while (device->run())
     {
       if (device->isWindowActive())
 	{
 	  this->_driver->beginScene(false, true, irr::video::SColor(0, 0, 0, 0));
-	  if (this->background)
+	  if (this->background != nullptr)
 	    this->_driver->draw2DImage(this->background, irr::core::position2d<int>(0, 0));
-	  if (play)
+	  if (eventStatus != EventStatus::STAND_BY)
 	    break;
 	  this->_guienv->drawAll();
 	  this->_driver->endScene();
 	}
     }
-  return (play);
+  return (eventStatus);
 }
 
 void MenuModel::setBlockProperties(int x, int y)

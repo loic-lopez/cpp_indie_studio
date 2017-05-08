@@ -21,7 +21,7 @@ public:
 
   virtual void setBlockProperties(int, int);
 
-  virtual bool launchModel(irr::IrrlichtDevice *);
+  virtual EventStatus launchModel(irr::IrrlichtDevice *);
 
   virtual void setModelProperties();
 };

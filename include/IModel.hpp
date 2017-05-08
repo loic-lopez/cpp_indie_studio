@@ -12,6 +12,7 @@
 #define IMODEL_HPP__
 
 #include <irrlicht.h>
+#include "EventStatus.hpp"
 
 class	IModel
 {
@@ -23,7 +24,7 @@ class	IModel
 
   virtual void setModelProperties() = 0;
 
-  virtual bool launchModel(irr::IrrlichtDevice *) = 0;
+  virtual EventStatus launchModel(irr::IrrlichtDevice *) = 0;
 };
 
 #endif

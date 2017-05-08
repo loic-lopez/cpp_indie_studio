@@ -9,7 +9,9 @@
 */
 #ifndef CPP_INDIE_STUDIO_MENUEVENTCONTROLLER_HPP
 #define CPP_INDIE_STUDIO_MENUEVENTCONTROLLER_HPP
-# include <irrlicht.h>
+
+#include <irrlicht.h>
+#include "EventStatus.hpp"
 
 class MenuEventModel : public irr::IEventReceiver
 {
@@ -19,7 +21,7 @@ private:
   irr::gui::IGUIButton	*optionButton;
   irr::gui::IGUIButton	*exitButton;
   irr::IrrlichtDevice	*device;
-  bool			*play;
+  EventStatus *eventStatus;
   
  public:
   MenuEventModel(irr::IrrlichtDevice *device);
@@ -28,6 +30,7 @@ private:
   void		setStartButton(irr::gui::IGUIButton *startButton);
   void 		setOptionButton(irr::gui::IGUIButton *optionButton);
   void 		setExitButton(irr::gui::IGUIButton *exitButton);
-  void		setPlay(bool &);
+
+  void setEventStatus(EventStatus &);
 };
 #endif //CPP_INDIE_STUDIO_MENUEVENTCONTROLLER_HPP

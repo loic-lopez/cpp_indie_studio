@@ -30,20 +30,19 @@ bool	MenuEventModel::OnEvent(const irr::SEvent &event)
 	      {
 		selected = ((irr::gui::IGUIListBox *) event.GUIEvent.Caller)->getSelected();
 		startButton->setEnabled(true);
+		break;
 	      }
-	  break;
 	  case 42 :
 	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
 	      {
-		*this->play = false;
+		*this->eventStatus = EventStatus::QUIT;
 		this->device->closeDevice();
-		while (device->run());
 		break;
 	      }
 	  case 2:
 	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
 	      {
-		*this->play = true;
+		*this->eventStatus = EventStatus::ENTER_IN_GAME;
 		break;
 	      }
 	}
@@ -61,9 +60,9 @@ void	MenuEventModel::setStartButton(irr::gui::IGUIButton *startButton)
   this->startButton = startButton;
 }
 
-void	MenuEventModel::setPlay(bool &play)
+void MenuEventModel::setEventStatus(EventStatus &eventStatus)
 {
-  this->play = &play;
+  this->eventStatus = &eventStatus;
 }
 
 void MenuEventModel::setExitButton(irr::gui::IGUIButton *exitButton)

@@ -19,6 +19,7 @@ class	SplashScreen : public IModel
   irr::scene::ISceneManager *smgr;
   irr::video::IVideoDriver *driver;
   irr::scene::IAnimatedMeshSceneNode *irrlichtLogo;
+  irr::scene::ICameraSceneNode *SplashCamera;
   irr::IrrlichtDevice *device;
   irr::u32 lastFrame;
   irr::f32 objectMovementSpeed;

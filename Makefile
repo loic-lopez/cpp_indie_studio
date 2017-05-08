@@ -10,14 +10,16 @@
 
 NAME            =       indie_studio
 
-SRC             =       sources/main.cpp		\
-			sources/Core.cpp		\
-			sources/Encap.cpp		\
-			sources/GameEngine.cpp  	\
-			sources/EventReceiver.cpp 	\
-			sources/SplashScreen.cpp  	\
-			sources/MenuModel.cpp		\
-			sources/MenuEventModel.cpp	\
+SRC             =       sources/main.cpp			\
+			sources/Core.cpp			\
+			sources/Encap.cpp			\
+			sources/GameEngine.cpp  		\
+			sources/EventReceiver.cpp 		\
+			sources/SplashScreen.cpp  		\
+			sources/MenuModel.cpp			\
+			sources/MenuEventModel.cpp		\
+			sources/MenuInGameModel.cpp		\
+			sources/MenuInGameEventModel.cpp	\
 
 
 OBJ             =       $(SRC:.cpp=.o)

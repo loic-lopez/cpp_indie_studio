@@ -16,6 +16,7 @@
 #include <cstdlib>
 #include "IModel.hpp"
 #include "EventReceiver.hpp"
+#include "MenuInGameModel.hpp"
 
 namespace	GameNamespace
 {
@@ -58,7 +59,7 @@ namespace	GameNamespace
     EventReceiver					receiver;
     size_t maxNumberPlatforms;
     irr::scene::IMeshSceneNode *groundObject;
-
+    IModel						*menuInGame;
 
     virtual void setBlockProperties(int, int);
   

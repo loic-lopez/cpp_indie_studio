@@ -36,7 +36,7 @@ class Core : public ICore
   irr::scene::ISceneManager			*smgr;
   irr::video::E_DRIVER_TYPE			driverType;
   irr::gui::IGUIEnvironment			*guienv;
-  EventStatus eventStatus;
+  EventStatus					eventStatus;
   
 public:
   Core();

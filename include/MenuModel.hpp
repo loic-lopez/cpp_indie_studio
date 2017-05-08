@@ -20,8 +20,6 @@ class		MenuModel : public IModel
   MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
 		 irr::scene::ISceneManager *smgr,
 		 irr::gui::IGUIEnvironment *guienv, std::vector<std::string> saves);
-  MenuModel(MenuModel const &);
-  MenuModel &operator=(MenuModel const &);
   virtual ~MenuModel();
   virtual void setModelProperties();
 

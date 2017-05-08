@@ -13,6 +13,7 @@
 
 #include <memory>
 #include <cstdlib>
+#include <irrKlang.h>
 #include <irrlicht.h>
 #include "ICore.hpp"
 #include "MenuModel.hpp"
@@ -37,6 +38,7 @@ class Core : public ICore
   irr::video::E_DRIVER_TYPE			driverType;
   irr::gui::IGUIEnvironment			*guienv;
   EventStatus					eventStatus;
+  irrklang::ISoundEngine			*soundEngine;
   
 public:
   Core();

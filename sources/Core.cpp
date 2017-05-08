@@ -57,6 +57,7 @@ Core				&Core::operator=(Core const &obj)
 Core::~Core()
 {
   this->device->drop();
+  this->soundEngine->removeAllSoundSources();
   delete this->gameEngine;
   delete this->menu;
 }
@@ -159,6 +160,9 @@ std::vector<std::string>			Core::loadDir(const std::string &path, const std::str
 
 void						Core::launchSplashScreen()
 {
+  this->soundEngine = irrklang::createIrrKlangDevice();
+  this->soundEngine->play2D("ressources/sounds/Carl_Orff.wav", true);
+
   std::unique_ptr<IModel> splashScreen(new SplashScreen(this->smgr, this->driver, this->device));
 
   splashScreen->setModelProperties();

@@ -10,7 +10,7 @@
 
 NAME            =       indie_studio
 
-SRC             =       sources/main.cpp			\
+SRC             =      sources/main.cpp			\
 			sources/Core.cpp			\
 			sources/Encap.cpp			\
 			sources/GameEngine.cpp  		\

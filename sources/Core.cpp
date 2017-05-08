@@ -58,6 +58,7 @@ Core::~Core()
 {
   this->device->drop();
   delete this->gameEngine;
+  delete this->menu;
 }
 
 std::vector<std::string>	Core::getSaves() const
@@ -152,6 +153,7 @@ std::vector<std::string>			Core::loadDir(const std::string &path, const std::str
 	}
     }
   Encap::c_closedir(dir);
+  free(direntp);
   return (content);
 }
 

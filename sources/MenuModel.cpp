@@ -47,7 +47,6 @@ void	MenuModel::setModelProperties()
   this->boxSave->addItem(L"Create new game");
   if (this->_saves.size() > 0)
     {
-      this->boxSave->addItem(L"SIGNAL");
       for (auto i = this->_saves.begin(); i != this->_saves.end(); ++i)
 	{
 	  std::wstring tmp = std::wstring(i->begin(), i->end());

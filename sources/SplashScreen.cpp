@@ -52,10 +52,10 @@ EventStatus SplashScreen::launchModel()
     if (this->device->isWindowActive())
       {
 	const irr::u32 now = this->device->getTimer()->getTime();
-	const auto frameDeltaTime = (now - this->lastFrame);
+	const irr::u32 frameDeltaTime = (now - this->lastFrame);
 	this->lastFrame = now;
 
-	if (alphaColorIrrlichtLogo <= 255 && mustDecrement && frameDeltaTime >= 1.0f && displayIrrlicht)
+	if (alphaColorIrrlichtLogo <= 255 && mustDecrement && frameDeltaTime >= 1 && displayIrrlicht)
 	  {
 	    alphaColorIrrlichtLogo--;
 	    if (alphaColorIrrlichtLogo == 0)
@@ -65,7 +65,7 @@ EventStatus SplashScreen::launchModel()
 		mustDecrement = false;
 	      }
 	  }
-	else if (frameDeltaTime >= 3.0f && displayIrrlicht)
+	else if (frameDeltaTime >= 3 && displayIrrlicht)
 	  {
 	      alphaColorText++;
 	      alphaColorIrrlichtLogo++;
@@ -73,14 +73,14 @@ EventStatus SplashScreen::launchModel()
 		mustDecrement = true;
 	  }
 
-	if (alphaColorIrrKlangLogo <= 255 && mustDecrement && frameDeltaTime >= 1.0f && displayIrrKlang)
+	if (alphaColorIrrKlangLogo <= 255 && mustDecrement && frameDeltaTime >= 1 && displayIrrKlang)
 	  {
 	    alphaColorIrrKlangLogo--;
 	    alphaColorText--;
 	    if (alphaColorIrrKlangLogo == 0)
 	      break;
 	  }
-	else if (frameDeltaTime >= 3.0f && displayIrrKlang)
+	else if (frameDeltaTime >= 3 && displayIrrKlang)
 	  {
 	    alphaColorIrrKlangLogo++;
 	    if (alphaColorIrrKlangLogo == 255)

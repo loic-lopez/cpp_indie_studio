@@ -15,7 +15,6 @@ MenuInGame::MenuInGame(irr::IrrlichtDevice *device, irr::video::IVideoDriver *dr
 	_device(device), _driver(driver), _smgr(smgr), event(device)
 {
   this->_guienv = this->_device->getGUIEnvironment();
-  this->_device->setEventReceiver(&this->event);
   this->_skin = this->_guienv->createSkin(irr::gui::EGST_BURNING_SKIN);
   this->_guienv->setSkin(this->_skin);
   this->_skin->drop();
@@ -40,11 +39,13 @@ void MenuInGame::setModelProperties()
 					this->_driver->getTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS));
 }
 
+#include <iostream>
+
 EventStatus MenuInGame::launchModel()
 {
-  EventStatus eventStatus = EventStatus::IN_GAME_MENU;
+  EventStatus eventStatus = EventStatus::STAND_BY;
 
-  this->event.setEventStatus(eventStatus);
+  this->_device->setEventReceiver(&this->event);
   while (this->_device->run())
     {
       if (this->_device->isWindowActive())
@@ -52,7 +53,7 @@ EventStatus MenuInGame::launchModel()
 	  this->_driver->beginScene(false, true, irr::video::SColor(0, 0, 0, 0));
 	  if (this->background != nullptr)
 	    this->_driver->draw2DImage(this->background, irr::core::position2d<int>(0, 0));
-	  if (eventStatus != EventStatus::IN_GAME_MENU)
+	  if (eventStatus == EventStatus::BACK_TO_MENU || eventStatus == EventStatus::QUIT)
 	    break;
 	  this->_guienv->drawAll();
 	  this->_driver->endScene();

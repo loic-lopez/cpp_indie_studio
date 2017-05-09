@@ -101,6 +101,7 @@ EventStatus MenuModel::launchModel()
 	}
     }
   this->_driver->removeAllTextures();
+  this->_guienv->clear();
   return (eventStatus);
 }
 

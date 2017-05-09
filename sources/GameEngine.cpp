@@ -26,6 +26,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
   this->file_texture = "./ressources/textures/ground/ground" + std::to_string(std::rand() % nb_textures) + ".bmp";
   this->old_pos_x = 0;
   this->maxNumberPlatforms = (std::rand() % 8) + 2;
+  this->menuInGame = new MenuInGame(this->device, this->driver, this->smgr);
 }
 
 void GameNamespace::GameEngine::setBlockProperties(int x, int y)
@@ -94,7 +95,12 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime;
 	  }
 	if (this->receiver.IsKeyDown(irr::KEY_ESCAPE))
-	  this->device->closeDevice();
+	  //this->device->closeDevice();
+	  {
+	    EventStatus eventStatusMenu = this->menuInGame->launchModel();
+	    if (eventStatusMenu == EventStatus::QUIT || eventStatusMenu == EventStatus::BACK_TO_MENU)
+	      break;
+	  }
 
 	// Algo de limitation de déplacement de la caméra
 
@@ -177,6 +183,7 @@ void GameNamespace::GameEngine::setModelProperties()
   int end_x;
   int end_y;
 
+  this->menuInGame->setModelProperties();
   for (size_t i = 0; i < 30; i++)
     {
       for (size_t j = 0; j < 30; j++)

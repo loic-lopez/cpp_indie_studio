@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Tue May  9 14:48:33 2017 Stanislas Deneubourg
+// Last update Tue May  9 20:38:35 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine.hpp"
@@ -187,15 +187,11 @@ void GameNamespace::GameEngine::setModelProperties()
   //this->menuInGame->setModelProperties();
 
   for (int i = 0; i < this->size_y; i++)
-    {
-      for (int j = 0; j < this->size_x; j++)
-        this->gameMap.emplace_back(j, i);
-    }
+    for (int j = 0; j < this->size_x; j++)
+      this->gameMap.emplace_back(j, i);
   for (int i = 0; i < this->size_y; i++)
-    {
-      for (int j = 0; j < this->size_x; j++)
-        this->gameMap2.emplace_back(j, i);
-    }
+    for (int j = 0; j < this->size_x; j++)
+      this->gameMap2.emplace_back(j, i);
   for (int i = 0; i < this->size_y * this->size_x; i++)
     {
       if ((i % this->size_y) == 0 || (i % this->size_x) == 29)
@@ -206,10 +202,7 @@ void GameNamespace::GameEngine::setModelProperties()
         this->gameMap.at(i).terrain = GameNamespace::TerrainType::AIR;
     }
   for (int i = 0; i < this->size_y * this->size_x; i++)
-    {
-      this->gameMap2.at(i).terrain = GameNamespace::TerrainType::GROUND;
-    }
-
+    this->gameMap2.at(i).terrain = GameNamespace::TerrainType::GROUND;
   for (int i = 0; i < this->generations; i++)
     {
       for (y1 = 1; y1 < this->size_y - 1; y1++)
@@ -220,13 +213,9 @@ void GameNamespace::GameEngine::setModelProperties()
               int       adjcount_r2 = 0;
 
               for (y2 = -1; y2 < 1; y2++)
-                {
-                  for (x2 = -1; x2 < 1; x2++)
-                    {
-                      if ((this->gameMap.at((x1-x2) + this->size_y * (y1-y2)).terrain) != GameNamespace::TerrainType::AIR)
-                        adjcount_r1++;
-                    }
-                }
+		for (x2 = -1; x2 < 1; x2++)
+		  if ((this->gameMap.at((x1-x2) + this->size_y * (y1-y2)).terrain) != GameNamespace::TerrainType::AIR)
+		    adjcount_r1++;
               for (y2 = y1 - 2; y2 <= y1 + 2; y2++)
                 {
                   for (x2 = x1 - 2; x2 <= x1 + 2; x2++)
@@ -243,37 +232,21 @@ void GameNamespace::GameEngine::setModelProperties()
                 this->gameMap2.at(x1 + this->size_y * y1).terrain = GameNamespace::TerrainType::GROUND;
               else
                 this->gameMap2.at(x1 + this->size_y * y1).terrain = GameNamespace::TerrainType::AIR;
-
             }
         }
-            for (y1 = 1; y1 < this->size_y - 1; y1++)
-        {
-          for (x1 = 1; x1 < this->size_x - 1; x1++)
-            {
-              this->gameMap.at(x1 + this->size_y * y1) = this->gameMap2.at(x1 + this->size_y * y1);
-            }
-        }
+      for (y1 = 1; y1 < this->size_y - 1; y1++)
+	for (x1 = 1; x1 < this->size_x - 1; x1++)
+	  this->gameMap.at(x1 + this->size_y * y1) = this->gameMap2.at(x1 + this->size_y * y1);
     }
-
   for (int i = 0; i < this->size_x * this->size_y; i++)
-    {
-      if ((i < this->size_x)
-          || ((i % 30) == 0)
-          || ((i % 30) == 29))
-
-        {
-          this->gameMap.at(i).terrain = GameNamespace::TerrainType::GROUND;
-        }
-    }
-
+    if ((i < this->size_x) || ((i % 30) == 0) || ((i % 30) == 29))
+      this->gameMap.at(i).terrain = GameNamespace::TerrainType::GROUND;
   for (int i = 0; i < this->size_x * this->size_y; i++)
-    {
-      if (this->gameMap.at(i).terrain == GameNamespace::TerrainType::GROUND)
-        {
-          this->setBlockProperties(this->gameMap.at(i).x, this->gameMap.at(i).y);
-        }
-    }
+    if (this->gameMap.at(i).terrain == GameNamespace::TerrainType::GROUND)
+      this->setBlockProperties(this->gameMap.at(i).x, this->gameMap.at(i).y);
 
+  // PRINT DE TEST DANS LE TERMINAL
+  
   for (int i = 0; i < this->size_y * this->size_x; i++)
     {
       if (this->gameMap.at(i).terrain == GameNamespace::TerrainType::GROUND)
@@ -283,6 +256,8 @@ void GameNamespace::GameEngine::setModelProperties()
       if (i % 30 == 29)
         std::cout << std::endl;
     }
+
+  // FIN DES PRINT DE TEST
      
   this->the_farthest_map_point = this->max_pos_tab[0];
   for (float i : this->max_pos_tab)
@@ -299,12 +274,12 @@ void GameNamespace::GameEngine::setModelProperties()
 								   0, 0),
 					      -1, true);
   this->water_mesh = this->smgr->addHillPlaneMesh("water",
-						  irr::core::dimension2d<irr::f32>(20,20), //	Size of a tile of the mesh. (10.0f, 10.0f) would be a good value to start, for example.
-						  irr::core::dimension2d<irr::u32>(40,40), nullptr, 0, // 	Specifies how much tiles there will be. If you specifiy for example that a tile has the size (10.0f, 10.0f) and the tileCount is (10,10), than you get a field of 100 tiles which has the dimension 100.0fx100.0f.
-						  irr::core::dimension2d<irr::f32>(0,0), //material
-						  irr::core::dimension2d<irr::f32>(10,10)); //countHills
+						  irr::core::dimension2d<irr::f32>(20,20), //	Taille du mesh initial
+						  irr::core::dimension2d<irr::u32>(40,40), nullptr, 0, // Multiplicateur de taille du mesh
+						  irr::core::dimension2d<irr::f32>(0,0), // Material
+						  irr::core::dimension2d<irr::f32>(10,10)); // countHills
   this->sea = this->smgr->addWaterSurfaceSceneNode(this->water_mesh->getMesh(0),
-						   0.50f, 1000.0f, 40.0f);
+						   0.5f, 300.0f, 0.5f);
   this->sea->setMaterialTexture(0, this->driver->getTexture("./ressources/textures/stones.jpg"));
   this->sea->setMaterialTexture(1, this->driver->getTexture("./ressources/textures/water.jpg"));
   this->sea->setMaterialFlag(irr::video::EMF_LIGHTING, true);
@@ -315,8 +290,6 @@ void GameNamespace::GameEngine::setModelProperties()
 GameNamespace::GameMap::GameMap(int x, int y)
 {
   this->terrain = GameNamespace::TerrainType::AIR;
-  this->isStart = false;
-  this->isEnd = false;
   this->x = x;
   this->y = y;
 }

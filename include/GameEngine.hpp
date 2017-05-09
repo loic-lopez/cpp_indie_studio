@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Tue May  9 14:42:39 2017 Stanislas Deneubourg
+// Last update Tue May  9 20:35:13 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -31,8 +31,6 @@ namespace	GameNamespace
     int x;
     int y;
     TerrainType terrain;
-    bool isStart;
-    bool isEnd;
 
     GameMap(int, int);
   };

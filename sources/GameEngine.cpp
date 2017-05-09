@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Fri May  5 18:56:09 2017 Stanislas Deneubourg
+// Last update Tue May  9 13:48:32 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine.hpp"
@@ -23,9 +23,14 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
   this->lastFrame = this->device->getTimer()->getTime();
   this->device->setEventReceiver(&this->receiver);
   this->cameraMovementSpeed = 50.0f;
+  this->generations = 5;
+  this->size_x = 30;
+  this->size_y = 30;
+  this->fillProbe = 40;
+  this->r1_cutoff = 3;
+  this->r2_cutoff = 2;
   this->file_texture = "./ressources/textures/ground/ground" + std::to_string(std::rand() % nb_textures) + ".bmp";
-  this->old_pos_x = 0;
-  this->maxNumberPlatforms = (std::rand() % 8) + 2;
+  this->old_pos = 0;
   this->menuInGame = new MenuInGame(this->device, this->driver, this->smgr);
 }
 
@@ -40,13 +45,13 @@ void GameNamespace::GameEngine::setBlockProperties(int x, int y)
       smgr->getMeshManipulator()->makePlanarTextureMapping(this->groundObject->getMesh(), 1.0f);
       this->groundObject->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
       irr::f32 minRadius = this->groundObject->getMesh()->getBoundingBox().getExtent().getLength() * 0.70f;
-      this->groundObject->setPosition(irr::core::vector3df(this->old_pos_x + minRadius, y + minRadius, 0));
+      this->groundObject->setPosition(irr::core::vector3df(x * minRadius, -y, 0));
       if (x == 0)
 	{
-	  this->max_pos_x_tab.push_back(this->old_pos_x);
-	  this->old_pos_x = 0;
+	  this->max_pos_tab.push_back(this->old_pos);
+	  this->old_pos = 0;
 	}
-      this->old_pos_x += minRadius;
+      this->old_pos += minRadius;
       this->groundObjects.push_back(this->groundObject);
     }
 }
@@ -104,7 +109,6 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	// Algo de limitation de déplacement de la caméra
 
-	/*
 	if (realTimeCameraPosition.X >= this->the_farthest_map_point + 50)
 	  {
 	    realTimeCameraPosition.X = this->the_farthest_map_point + 50;
@@ -115,7 +119,6 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	      realTimeCameraPosition.X = -50;
 	      realTimeCameraTarget.X = -50;
 	    }
-	    */
 	if (realTimeCameraPosition.Y >= 150)
 	  {
 	    realTimeCameraPosition.Y = 150;
@@ -175,70 +178,122 @@ static void fixRandPosition(int &value, int stop)
 
 void GameNamespace::GameEngine::setModelProperties()
 {
-  int init_start_x;
-  int init_start_y;
-  int init_end_x;
-  int start_x;
-  int start_y;
-  int end_x;
-  int end_y;
-
+  int   x1, y1, y2, x2;
+    
   this->menuInGame->setModelProperties();
-  for (size_t i = 0; i < 30; i++)
+
+  for (int i = 0; i < this->size_y; i++)
     {
-      for (size_t j = 0; j < 30; j++)
-	this->gameMap.emplace_back(j, i);
+      for (int j = 0; j < this->size_x; j++)
+        this->gameMap.emplace_back(j, i);
+    }
+  for (int i = 0; i < this->size_y; i++)
+    {
+      for (int j = 0; j < this->size_x; j++)
+        this->gameMap2.emplace_back(j, i);
+    }
+  for (int i = 0; i < this->size_y * this->size_x; i++)
+    {
+      if ((i % this->size_y) == 0 || (i % this->size_x) == 29)
+        this->gameMap.at(i).terrain = GameNamespace::TerrainType::GROUND;
+      if ((std::rand() % 100) < this->fillProbe)
+        this->gameMap.at(i).terrain = GameNamespace::TerrainType::GROUND;
+      else
+        this->gameMap.at(i).terrain = GameNamespace::TerrainType::AIR;
+    }
+  for (int i = 0; i < this->size_y * this->size_x; i++)
+    {
+      this->gameMap2.at(i).terrain = GameNamespace::TerrainType::GROUND;
     }
 
-  for (size_t i = 1; i <= this->maxNumberPlatforms; i++)
+  for (int i = 0; i < this->generations; i++)
     {
-      init_start_x = std::rand() % 30;
-      init_start_y = std::rand() % 30;
-      init_end_x = std::rand() % 30;
+      for (y1 = 1; y1 < this->size_y - 1; y1++)
+        {
+          for (x1 = 1; x1 < this->size_x - 1; x1++)
+            {
+              int       adjcount_r1 = 0;
+              int       adjcount_r2 = 0;
 
-      fixRandPosition(init_end_x, init_start_x);
+              for (y2 = -1; y2 < 1; y2++)
+                {
+                  for (x2 = -1; x2 < 1; x2++)
+                    {
+                      if ((this->gameMap.at((x1-x2) + this->size_y * (y1-y2)).terrain) != GameNamespace::TerrainType::AIR)
+                        adjcount_r1++;
+                    }
+                }
+              for (y2 = y1 - 2; y2 <= y1 + 2; y2++)
+                {
+                  for (x2 = x1 - 2; x2 <= x1 + 2; x2++)
+                    {
+                      if ((std::abs((y2-y1))) == 2 && (std::abs((x2-x1))) == 2)
+                        continue;
+                      if (y2 < 0 || x2 < 0 || y2 >= this->size_y || x2 >= this->size_x)
+                        continue;
+                      if ((this->gameMap.at(x2 + this->size_y * y2).terrain) != GameNamespace::TerrainType::AIR)
+                        adjcount_r2++;
+                    }
+                }
+              if (adjcount_r1 >= this->r1_cutoff || adjcount_r2 <= this->r2_cutoff)
+                this->gameMap2.at(x1 + this->size_y * y1).terrain = GameNamespace::TerrainType::GROUND;
+              else
+                this->gameMap2.at(x1 + this->size_y * y1).terrain = GameNamespace::TerrainType::AIR;
 
-      for (int plateformHeight = ((std::rand() % (init_start_y + 1))); plateformHeight > 0; plateformHeight--)
-	{
-	  start_x = std::rand() % 30;
-	  start_y = std::rand() % 30;
-	  end_x = std::rand() % 30;
-	  end_y = start_y;
-
-	  fixRandPosition(end_x, start_x);
-	  this->gameMap.at(start_x + 30 * start_y).terrain = GameNamespace::TerrainType::GROUND;
-	  this->gameMap.at(end_x + 30 * end_y).terrain = GameNamespace::TerrainType::GROUND;
-	  this->gameMap.at(start_x + 30 * start_y).isStart = true;
-	  this->gameMap.at(end_x + 30 * end_y).isEnd = true;
-	  start_x++;
-	  for (int start = start_x; start < end_x; start++)
-	    this->gameMap.at(start + 30 * start_y).terrain = GameNamespace::TerrainType::GROUND;
-	}
-
+            }
+        }
+            for (y1 = 1; y1 < this->size_y - 1; y1++)
+        {
+          for (x1 = 1; x1 < this->size_x - 1; x1++)
+            {
+              this->gameMap.at(x1 + this->size_y * y1) = this->gameMap2.at(x1 + this->size_y * y1);
+            }
+        }
     }
 
-  for (size_t i = 0; i < 30 * 30; i++)
+  for (int i = 0; i < this->size_x * this->size_y; i++)
+    {
+      if ((i < this->size_x)
+          || (i > (this->size_x * (this->size_y - 1)))
+          || ((i % 30) == 0)
+          || ((i % 30) == 29))
+
+        {
+          this->gameMap.at(i).terrain = GameNamespace::TerrainType::GROUND;
+        }
+    }
+
+  for (int i = 0; i < this->size_x * this->size_y; i++)
     {
       if (this->gameMap.at(i).terrain == GameNamespace::TerrainType::GROUND)
-	{
-
-	      this->setBlockProperties(this->gameMap.at(i).x, this->gameMap.at(i).y);
-	}
+        {
+          this->setBlockProperties(this->gameMap.at(i).x, this->gameMap.at(i).y);
+        }
     }
 
-  this->the_farthest_map_point_x = this->max_pos_x_tab[0];
-  for (float i : this->max_pos_x_tab)
+  for (int i = 0; i < this->size_y * this->size_x; i++)
     {
-      if (i > this->the_farthest_map_point_x)
-	this->the_farthest_map_point_x = i;
-      this->final_pos_x_avg += i;
+      if (this->gameMap.at(i).terrain == GameNamespace::TerrainType::GROUND)
+        std::cout << "X";
+      else if (this->gameMap.at(i).terrain == GameNamespace::TerrainType::AIR)
+        std::cout << ".";
+      if (i % 30 == 29)
+        std::cout << std::endl;
     }
-  this->final_pos_x_avg = final_pos_x_avg / this->max_pos_x_tab.size();
+     
+  this->the_farthest_map_point = this->max_pos_tab[0];
+  for (float i : this->max_pos_tab)
+    {
+      if (i > this->the_farthest_map_point)
+	this->the_farthest_map_point = i;
+      this->final_pos_avg += i;
+    }
+  this->final_pos_avg = final_pos_avg / this->max_pos_tab.size();
   this->gameCamera = smgr->addCameraSceneNode(nullptr,
-					      irr::core::vector3df(/*this->final_pos_x_avg / 2 */ 0,
-												  0, -100),
-					      irr::core::vector3df(/*this->final_pos_x_avg / 2 */ 0,
-												  0, 0),
+					      irr::core::vector3df(this->final_pos_avg / 2,
+								   0, -100),
+					      irr::core::vector3df(this->final_pos_avg / 2,
+								   0, 0),
 					      -1, true);
 }
 

@@ -10,6 +10,7 @@
 
 #include <irrlicht.h>
 #include <IEventReceiver.h>
+#include "buttonState.hpp"
 
 class EventReceiver : public irr::IEventReceiver
 {
@@ -17,7 +18,9 @@ public:
   EventReceiver();
   virtual bool OnEvent(const irr::SEvent& event);
   virtual bool IsKeyDown(irr::EKEY_CODE keyCode) const;
+  bool 		IsKeyUp(irr::EKEY_CODE keyCode);
 
 private:
-  bool KeyIsDown[irr::KEY_KEY_CODES_COUNT];
+  bool 		KeyIsDown[irr::KEY_KEY_CODES_COUNT];
+  buttonState	KeyIsUp[irr::KEY_KEY_CODES_COUNT];
 };

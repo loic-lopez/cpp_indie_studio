@@ -15,7 +15,6 @@
 #include <string>
 #include <cstdlib>
 #include "IModel.hpp"
-#include "EventReceiver.hpp"
 #include "MenuInGameModel.hpp"
 
 namespace	GameNamespace

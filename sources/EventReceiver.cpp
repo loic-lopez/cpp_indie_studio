@@ -14,13 +14,29 @@ EventReceiver::EventReceiver()
 {
   for (irr::u32 i = 0; i < irr::KEY_KEY_CODES_COUNT; ++i)
     this->KeyIsDown[i] = false;
+
+  for(irr::u32 i = 0; i < irr::KEY_KEY_CODES_COUNT; i++)
+    KeyIsUp[i] = BS_DOWN;
+
 }
 
 bool	EventReceiver::OnEvent(const irr::SEvent& event)
 {
   // Remember whether each key is down or up
   if (event.EventType == irr::EET_KEY_INPUT_EVENT)
-    this->KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
+    {
+      if (event.KeyInput.PressedDown)
+	{
+	  this->KeyIsUp[event.KeyInput.Key] = buttonState::BS_DOWN;
+	  this->KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
+	}
+      else
+	{
+	  this->KeyIsUp[event.KeyInput.Key] = buttonState::BS_UP;
+	  this->KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
+	}
+    }
+
   return (false);
 }
 
@@ -28,5 +44,15 @@ bool	EventReceiver::OnEvent(const irr::SEvent& event)
 bool	EventReceiver::IsKeyDown(irr::EKEY_CODE keyCode) const
 {
   return (this->KeyIsDown[keyCode]);
+}
+
+bool EventReceiver::IsKeyUp(irr::EKEY_CODE keyCode)
+{
+  if (KeyIsUp[keyCode] == BS_UP)
+    {
+      KeyIsUp[keyCode] = BS_DOWN;
+      return (true);
+    }
+  return (false);
 }
 

@@ -67,7 +67,6 @@ EventStatus GameNamespace::GameEngine::launchModel()
       {
 	const irr::u32 now = this->device->getTimer()->getTime();
 	const irr::f32 frameDeltaTime = (irr::f32)(now - this->lastFrame) / 1000.0f;
-	const irr::f32 frameDeltaTimeKey = (irr::f32)(now - this->lastFrame);
 	this->lastFrame = now;
 	irr::core::vector3df realTimeCameraPosition = this->gameCamera->getPosition();
 	irr::core::vector3df realTimeCameraTarget = this->gameCamera->getTarget();
@@ -102,7 +101,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    realTimeCameraPosition.Z -= this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime;
 	  }
-	if (this->receiver.IsKeyDown(irr::KEY_ESCAPE) && eventStatusMenu != EventStatus::ENTER_IN_GAME && frameDeltaTimeKey > 1)
+	if (this->receiver.IsKeyUp(irr::KEY_ESCAPE) && eventStatusMenu != EventStatus::ENTER_IN_GAME)
 	  {
 	    eventStatusMenu = this->menuInGame->launchModel();
 	    this->device->setEventReceiver(&this->receiver);
@@ -300,13 +299,14 @@ void GameNamespace::GameEngine::setModelProperties()
 								   0, 0),
 					      -1, true);
   this->water_mesh = this->smgr->addHillPlaneMesh("water",
-						  irr::core::dimension2d<irr::f32>(20, 40),
-						  irr::core::dimension2d<irr::u32>(40, 40), 0, 0,
-						  irr::core::dimension2d<irr::f32>(0, 0),
-						  irr::core::dimension2d<irr::f32>(10, 10));
+						  irr::core::dimension2d<irr::f32>(20,20), //	Size of a tile of the mesh. (10.0f, 10.0f) would be a good value to start, for example.
+						  irr::core::dimension2d<irr::u32>(40,40), nullptr, 0, // 	Specifies how much tiles there will be. If you specifiy for example that a tile has the size (10.0f, 10.0f) and the tileCount is (10,10), than you get a field of 100 tiles which has the dimension 100.0fx100.0f.
+						  irr::core::dimension2d<irr::f32>(0,0), //material
+						  irr::core::dimension2d<irr::f32>(10,10)); //countHills
   this->sea = this->smgr->addWaterSurfaceSceneNode(this->water_mesh->getMesh(0),
-						   1.0f, 1000.0f, 10.0f);
-  this->sea->setMaterialTexture(1, this->driver->getTexture("./ressources/textures/water-texture.bmp"));
+						   0.50f, 1000.0f, 40.0f);
+  this->sea->setMaterialTexture(0, this->driver->getTexture("./ressources/textures/stones.jpg"));
+  this->sea->setMaterialTexture(1, this->driver->getTexture("./ressources/textures/water.jpg"));
   this->sea->setMaterialFlag(irr::video::EMF_LIGHTING, true);
   this->sea->setMaterialType(irr::video::EMT_REFLECTION_2_LAYER);
   this->sea->setPosition(irr::core::vector3df(0.0f, this->max_y, 0.0f));

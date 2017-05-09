@@ -37,7 +37,7 @@ Core::Core()
   this->guienv = this->device->getGUIEnvironment();
 
   // set ambient light
-  this->smgr->setAmbientLight(irr::video::SColor(0.3, 255/3, 255/3 , 255/3));
+  this->smgr->setAmbientLight(irr::video::SColor(0.3, 255, 255, 255));
   this->device->getCursorControl()->setVisible(false);
   this->gameEngine = nullptr;
   this->menu = nullptr;

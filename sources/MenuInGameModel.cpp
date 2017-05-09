@@ -56,7 +56,7 @@ EventStatus MenuInGame::launchModel()
 	    break;
 	  this->_guienv->drawAll();
 	  this->_driver->endScene();
-	  if (this->event.IsKeyDown(irr::KEY_ESCAPE))
+	  if (this->event.IsKeyUp(irr::KEY_ESCAPE))
 	    {
 	      event = EventStatus::ENTER_IN_GAME;
 	      break;

@@ -42,6 +42,7 @@ Core::Core()
   this->gameEngine = nullptr;
   this->menu = nullptr;
   this->eventStatus = EventStatus::STAND_BY;
+  this->soundEngine = nullptr;
 }
 
 Core::Core(Core const &obj)
@@ -57,7 +58,11 @@ Core				&Core::operator=(Core const &obj)
 Core::~Core()
 {
   this->device->drop();
-  this->soundEngine->removeAllSoundSources();
+  if (this->soundEngine != nullptr)
+    {
+      this->soundEngine->stopAllSounds();
+      this->soundEngine->drop();
+    }
   delete this->gameEngine;
   delete this->menu;
 }

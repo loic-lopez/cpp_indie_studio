@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Tue May  9 13:49:12 2017 Stanislas Deneubourg
+// Last update Tue May  9 14:42:39 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -48,10 +48,13 @@ namespace	GameNamespace
     irr::scene::ISceneManager				*smgr;
     irr::video::IVideoDriver				*driver;
     irr::IrrlichtDevice					*device;
+    irr::scene::IAnimatedMesh				*water_mesh;
+    irr::scene::ISceneNode				*sea;
     std::string						file_texture;
     std::string						file_shape;
     const size_t					nb_shapes;
     float						old_pos;
+    float						max_y;
     std::vector<float>			       		max_pos_tab;
     float						final_pos_avg;
     float						the_farthest_map_point;

@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Tue May  9 13:48:32 2017 Stanislas Deneubourg
+// Last update Tue May  9 14:48:33 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine.hpp"
@@ -32,6 +32,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
   this->file_texture = "./ressources/textures/ground/ground" + std::to_string(std::rand() % nb_textures) + ".bmp";
   this->old_pos = 0;
   this->menuInGame = new MenuInGame(this->device, this->driver, this->smgr);
+  this->max_y = this->size_y * (-1);
 }
 
 void GameNamespace::GameEngine::setBlockProperties(int x, int y)
@@ -253,7 +254,6 @@ void GameNamespace::GameEngine::setModelProperties()
   for (int i = 0; i < this->size_x * this->size_y; i++)
     {
       if ((i < this->size_x)
-          || (i > (this->size_x * (this->size_y - 1)))
           || ((i % 30) == 0)
           || ((i % 30) == 29))
 
@@ -294,6 +294,17 @@ void GameNamespace::GameEngine::setModelProperties()
 					      irr::core::vector3df(this->final_pos_avg / 2,
 								   0, 0),
 					      -1, true);
+  this->water_mesh = this->smgr->addHillPlaneMesh("water",
+						  irr::core::dimension2d<irr::f32>(20, 40),
+						  irr::core::dimension2d<irr::u32>(40, 40), 0, 0,
+						  irr::core::dimension2d<irr::f32>(0, 0),
+						  irr::core::dimension2d<irr::f32>(10, 10));
+  this->sea = this->smgr->addWaterSurfaceSceneNode(this->water_mesh->getMesh(0),
+						   1.0f, 1000.0f, 10.0f);
+  this->sea->setMaterialTexture(1, this->driver->getTexture("./ressources/textures/water-texture.bmp"));
+  this->sea->setMaterialFlag(irr::video::EMF_LIGHTING, true);
+  this->sea->setMaterialType(irr::video::EMT_REFLECTION_2_LAYER);
+  this->sea->setPosition(irr::core::vector3df(0.0f, this->max_y, 0.0f));
 }
 
 GameNamespace::GameMap::GameMap(int x, int y)

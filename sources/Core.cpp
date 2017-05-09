@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:51:01 2017 Loïc Dupil
-// Last update Sat May  6 18:15:09 2017 Jabbari Yassir
+// Last update Tue May  9 14:31:47 2017 Stanislas Deneubourg
 //
 
 #include "Core.hpp"
@@ -37,7 +37,7 @@ Core::Core()
   this->guienv = this->device->getGUIEnvironment();
 
   // set ambient light
-  this->smgr->setAmbientLight(irr::video::SColor(0,60,60,60));
+  this->smgr->setAmbientLight(irr::video::SColor(0.3, 255/3, 255/3 , 255/3));
   this->device->getCursorControl()->setVisible(false);
   this->gameEngine = nullptr;
   this->menu = nullptr;

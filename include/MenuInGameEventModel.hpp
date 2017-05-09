@@ -19,8 +19,10 @@ class		MenuInGameEventModel : public irr::IEventReceiver
   MenuInGameEventModel(irr::IrrlichtDevice *device);
   virtual bool OnEvent(const irr::SEvent &event);
   void setEventStatus(EventStatus &status);
+  virtual bool IsKeyDown(irr::EKEY_CODE keyCode) const;
 
  private:
+  bool KeyIsDown[irr::KEY_KEY_CODES_COUNT];
   irr::IrrlichtDevice	*device;
   EventStatus *eventStatus;
 };

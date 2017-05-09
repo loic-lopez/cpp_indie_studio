@@ -17,10 +17,17 @@ MenuInGameEventModel::MenuInGameEventModel(irr::IrrlichtDevice *device)
 
 bool MenuInGameEventModel::OnEvent(const irr::SEvent &event)
 {
+  if (event.EventType == irr::EET_KEY_INPUT_EVENT)
+    this->KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
   return (false);
 }
 
 void MenuInGameEventModel::setEventStatus(EventStatus &status)
 {
-  *this->eventStatus = status;
+  this->eventStatus = &status;
+}
+
+bool MenuInGameEventModel::IsKeyDown(irr::EKEY_CODE keyCode) const
+{
+  return (this->KeyIsDown[keyCode]);
 }

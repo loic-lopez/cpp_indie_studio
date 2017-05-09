@@ -39,12 +39,11 @@ void MenuInGame::setModelProperties()
 					this->_driver->getTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS));
 }
 
-#include <iostream>
-
 EventStatus MenuInGame::launchModel()
 {
-  EventStatus eventStatus = EventStatus::STAND_BY;
+  EventStatus 		event = EventStatus::IN_GAME_MENU;
 
+  this->event.setEventStatus(event);
   this->_device->setEventReceiver(&this->event);
   while (this->_device->run())
     {
@@ -53,13 +52,21 @@ EventStatus MenuInGame::launchModel()
 	  this->_driver->beginScene(false, true, irr::video::SColor(0, 0, 0, 0));
 	  if (this->background != nullptr)
 	    this->_driver->draw2DImage(this->background, irr::core::position2d<int>(0, 0));
-	  if (eventStatus == EventStatus::BACK_TO_MENU || eventStatus == EventStatus::QUIT)
+	  if (event == EventStatus::BACK_TO_MENU || event == EventStatus::QUIT)
 	    break;
 	  this->_guienv->drawAll();
 	  this->_driver->endScene();
+	  if (this->event.IsKeyDown(irr::KEY_ESCAPE))
+	    {
+	      event = EventStatus::STAND_BY;
+	      this->event.setEventStatus(event);
+	      break;
+	    }
 	}
     }
-  return (eventStatus);
+  this->_driver->removeAllTextures();
+  this->_guienv->clear();
+  return (event);
 }
 
 void MenuInGame::setBlockProperties(int x, int y)

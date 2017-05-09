@@ -176,9 +176,12 @@ void						Core::launchSplashScreen()
 
 void						Core::launchMenu()
 {
+  bool sound = true;
+  bool genAlternative = false;
+
   this->device->getCursorControl()->setVisible(true);
   this->menu = new MenuModel(this->device, this->driver,
-			     this->smgr, this->guienv, this->saves);
+			     this->smgr, this->guienv, this->saves, sound, genAlternative);
   this->menu->setModelProperties();
   this->eventStatus = this->menu->launchModel();
 }

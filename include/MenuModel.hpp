@@ -19,7 +19,7 @@ class		MenuModel : public IModel
  public:
   MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
 		 irr::scene::ISceneManager *smgr,
-		 irr::gui::IGUIEnvironment *guienv, std::vector<std::string> saves);
+		 irr::gui::IGUIEnvironment *guienv, std::vector<std::string> saves, bool&, bool&);
   virtual ~MenuModel();
   virtual void setModelProperties();
 
@@ -36,18 +36,18 @@ class		MenuModel : public IModel
   irr::gui::IGUIFont				*font;
   irr::gui::IGUITabControl			*tabctrl;
   irr::gui::IGUITab				*mainCtrl;
-  irr::gui::IGUITab				*aboutTab;
+  irr::gui::IGUITab				*optionCtrl;
   irr::gui::IGUIListBox				*boxSave;
   irr::s32					selected;
   irr::gui::IGUIButton				*startButton;
-  irr::gui::IGUIButton				*optionButton;
   irr::gui::IGUIButton				*exitButton;
   irr::video::ITexture				*background;
   MenuEventModel				event;
   std::vector<std::string>			_saves;
   irr::video::ITexture				*textuStart;
-  irr::video::ITexture				*textuOption;
   irr::video::ITexture				*textuExit;
+  bool 						&_sound;
+  bool 						&_genMapAlt;
 };
 
 #endif //CPP_INDIE_STUDIO_MENUCONTROLLER_HPP

@@ -20,7 +20,6 @@ bool	MenuEventModel::OnEvent(const irr::SEvent &event)
   if (event.EventType == irr::EET_GUI_EVENT)
     {
       irr::s32 id = event.GUIEvent.Caller->getID();
-      optionButton->setEnabled(true);
       exitButton->setEnabled(true);
       switch (id)
 	{
@@ -68,9 +67,4 @@ void MenuEventModel::setEventStatus(EventStatus &eventStatus)
 void MenuEventModel::setExitButton(irr::gui::IGUIButton *exitButton)
 {
   this->exitButton = exitButton;
-}
-
-void MenuEventModel::setOptionButton(irr::gui::IGUIButton *optionButton)
-{
-  this->optionButton = optionButton;
 }

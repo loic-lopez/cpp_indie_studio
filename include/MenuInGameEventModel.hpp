@@ -23,10 +23,12 @@ class		MenuInGameEventModel : public irr::IEventReceiver
   void setEventStatus(EventStatus &status);
   virtual bool IsKeyDown(irr::EKEY_CODE keyCode) const;
   bool 	IsKeyUp(irr::EKEY_CODE keyCode);
+  void setExitButton(irr::gui::IGUIButton *exitButton);
 
  private:
   bool 			KeyIsDown[irr::KEY_KEY_CODES_COUNT];
   irr::IrrlichtDevice	*device;
+  irr::gui::IGUIButton	*exitButton;
   EventStatus 		*eventStatus;
   EventReceiver	 	eventReceiver;
 };

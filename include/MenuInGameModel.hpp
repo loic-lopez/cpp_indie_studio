@@ -36,6 +36,8 @@ class 			MenuInGame : public IModel
   irr::gui::IGUITabControl			*tabCtrl;
   irr::video::ITexture				*background;
   MenuInGameEventModel				event;
+  irr::gui::IGUIButton				*exitButton;
+  irr::video::ITexture				*textuExit;
 };
 
 #endif //CPP_INDIE_STUDIO_MENUINGAMEMODEL_HPP

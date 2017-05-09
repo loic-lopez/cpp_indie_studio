@@ -18,6 +18,21 @@ MenuInGameEventModel::MenuInGameEventModel(irr::IrrlichtDevice *device)
 bool MenuInGameEventModel::OnEvent(const irr::SEvent &event)
 {
   this->eventReceiver.OnEvent(event);
+  if (event.EventType == irr::EET_GUI_EVENT)
+    {
+      irr::s32 id = event.GUIEvent.Caller->getID();
+      this->exitButton->setEnabled(true);
+      switch (id)
+	{
+	  case 42 :
+	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+	      {
+		*this->eventStatus = EventStatus::QUIT;
+		this->device->closeDevice();
+		break;
+	      }
+	}
+    }
   return (false);
 }
 
@@ -34,4 +49,9 @@ bool MenuInGameEventModel::IsKeyDown(irr::EKEY_CODE keyCode) const
 bool MenuInGameEventModel::IsKeyUp(irr::EKEY_CODE keyCode)
 {
   return (this->eventReceiver.IsKeyUp(keyCode));
+}
+
+void MenuInGameEventModel::setExitButton(irr::gui::IGUIButton *exitButton)
+{
+  this->exitButton = exitButton;
 }

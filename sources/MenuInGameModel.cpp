@@ -32,10 +32,17 @@ void MenuInGame::setModelProperties()
   const irr::s32 leftX = 260;
   this->tabCtrl = this->_guienv->addTabControl(irr::core::rect<int>(leftX, 10, 512 - 10, 384 - 10),
 					       0, true, true);
+  this->exitButton = this->_guienv->addButton(irr::core::rect<int>(30, 295, 200, 324),
+					      this->tabCtrl, 42, L"");
+  this->textuExit = this->_driver->getTexture("ressources/images/exit.png");
+  this->exitButton->setUseAlphaChannel(true);
+  this->exitButton->setDrawBorder(false);
+  this->exitButton->setImage(this->textuExit);
   this->_driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
   this->background = this->_driver->getTexture("ressources/images/MenuInGame.jpg");
   this->_driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS,
 					this->_driver->getTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS));
+  this->event.setExitButton(this->exitButton);
 }
 
 EventStatus MenuInGame::launchModel()

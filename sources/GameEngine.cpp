@@ -103,7 +103,9 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	  }
 	if (this->receiver.IsKeyUp(irr::KEY_ESCAPE) && eventStatusMenu != EventStatus::ENTER_IN_GAME)
 	  {
+	    this->device->getCursorControl()->setVisible(true);
 	    eventStatusMenu = this->menuInGame->launchModel();
+	    this->device->getCursorControl()->setVisible(false);
 	    this->device->setEventReceiver(&this->receiver);
 	    if (eventStatusMenu == EventStatus::QUIT || eventStatusMenu == EventStatus::BACK_TO_MENU)
 	      break;

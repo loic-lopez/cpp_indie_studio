@@ -32,7 +32,6 @@ void MenuInGame::setModelProperties()
   const irr::s32 leftX = 260;
   this->tabCtrl = this->_guienv->addTabControl(irr::core::rect<int>(leftX, 10, 512 - 10, 384 - 10),
 					       0, true, true);
-  this->_smgr->addCameraSceneNode(0, irr::core::vector3df(45, 0, 0), irr::core::vector3df(0, 0, 10));
   this->_driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
   this->background = this->_driver->getTexture("ressources/images/MenuInGame.jpg");
   this->_driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS,
@@ -45,6 +44,7 @@ EventStatus MenuInGame::launchModel()
 
   this->event.setEventStatus(event);
   this->_device->setEventReceiver(&this->event);
+  this->setModelProperties();
   while (this->_device->run())
     {
       if (this->_device->isWindowActive())
@@ -58,13 +58,12 @@ EventStatus MenuInGame::launchModel()
 	  this->_driver->endScene();
 	  if (this->event.IsKeyDown(irr::KEY_ESCAPE))
 	    {
-	      event = EventStatus::STAND_BY;
-	      this->event.setEventStatus(event);
+	      event = EventStatus::ENTER_IN_GAME;
 	      break;
 	    }
 	}
     }
-  this->_driver->removeAllTextures();
+  this->_driver->removeTexture(this->background);
   this->_guienv->clear();
   return (event);
 }

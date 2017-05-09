@@ -60,12 +60,14 @@ void GameNamespace::GameEngine::setBlockProperties(int x, int y)
 EventStatus GameNamespace::GameEngine::launchModel()
 {
   EventStatus eventStatus = EventStatus::QUIT;
+  EventStatus eventStatusMenu = EventStatus::STAND_BY;
 
   while(this->device->run())
     if (this->device->isWindowActive())
       {
 	const irr::u32 now = this->device->getTimer()->getTime();
 	const irr::f32 frameDeltaTime = (irr::f32)(now - this->lastFrame) / 1000.0f;
+	const irr::f32 frameDeltaTimeKey = (irr::f32)(now - this->lastFrame);
 	this->lastFrame = now;
 	irr::core::vector3df realTimeCameraPosition = this->gameCamera->getPosition();
 	irr::core::vector3df realTimeCameraTarget = this->gameCamera->getTarget();
@@ -100,12 +102,15 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    realTimeCameraPosition.Z -= this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime;
 	  }
-	if (this->receiver.IsKeyDown(irr::KEY_ESCAPE))
+	if (this->receiver.IsKeyDown(irr::KEY_ESCAPE) && eventStatusMenu != EventStatus::ENTER_IN_GAME && frameDeltaTimeKey > 1)
 	  {
-	    EventStatus eventStatusMenu = this->menuInGame->launchModel();
+	    eventStatusMenu = this->menuInGame->launchModel();
+	    this->device->setEventReceiver(&this->receiver);
 	    if (eventStatusMenu == EventStatus::QUIT || eventStatusMenu == EventStatus::BACK_TO_MENU)
 	      break;
 	  }
+	else if (eventStatusMenu == EventStatus::ENTER_IN_GAME)
+	    eventStatusMenu = EventStatus::STAND_BY;
 
 	// Algo de limitation de déplacement de la caméra
 
@@ -180,7 +185,7 @@ void GameNamespace::GameEngine::setModelProperties()
 {
   int   x1, y1, y2, x2;
     
-  this->menuInGame->setModelProperties();
+  //this->menuInGame->setModelProperties();
 
   for (int i = 0; i < this->size_y; i++)
     {

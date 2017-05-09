@@ -95,7 +95,6 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime;
 	  }
 	if (this->receiver.IsKeyDown(irr::KEY_ESCAPE))
-	  //this->device->closeDevice();
 	  {
 	    EventStatus eventStatusMenu = this->menuInGame->launchModel();
 	    if (eventStatusMenu == EventStatus::QUIT || eventStatusMenu == EventStatus::BACK_TO_MENU)

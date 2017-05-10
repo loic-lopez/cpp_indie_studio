@@ -5,7 +5,7 @@
 ** Login   <yassir.jabbari@epitech.eu>
 **
 ** Started on  Sat May 06 13:44:49 2017 Yassir Jabbari
-// Last update Sat May  6 18:30:15 2017 Jabbari Yassir
+// Last update Wed May 10 14:00:57 2017 Stanislas Deneubourg
 */
 #ifndef CPP_INDIE_STUDIO_MENUCONTROLLER_HPP
 #define CPP_INDIE_STUDIO_MENUCONTROLLER_HPP
@@ -46,8 +46,11 @@ class		MenuModel : public IModel
   std::vector<std::string>			_saves;
   irr::video::ITexture				*textuStart;
   irr::video::ITexture				*textuExit;
-  bool 						&_sound;
-  bool 						&_genMapAlt;
+  bool 						*playSound;
+  bool 						*drawWalls;
+  irr::gui::IGUICheckBox			*checkboxSound;
+  irr::gui::IGUICheckBox			*checkboxWalls;
+  
 };
 
 #endif //CPP_INDIE_STUDIO_MENUCONTROLLER_HPP

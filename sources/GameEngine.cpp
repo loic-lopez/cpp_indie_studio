@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Tue May  9 20:38:35 2017 Stanislas Deneubourg
+// Last update Wed May 10 14:16:33 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine.hpp"
@@ -15,9 +15,13 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
 				      irr::video::IVideoDriver *driver,
 				      const size_t &nb_textures,
 				      const size_t &nb_shapes,
-				      irr::IrrlichtDevice *device) : smgr(smgr), driver(driver),
-								     device(device),
-								     nb_shapes(nb_shapes)
+				      irr::IrrlichtDevice *device,
+				      const bool &playSound,
+				      const bool &drawWalls) : smgr(smgr), driver(driver),
+							       device(device),
+							       nb_shapes(nb_shapes),
+							       playSound(playSound),
+							       drawWalls(drawWalls)
 {
   this->file_shape = "./ressources/shapes/Rock_0.dae";
   this->lastFrame = this->device->getTimer()->getTime();
@@ -30,7 +34,6 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
   this->r1_cutoff = 3;
   this->r2_cutoff = 2;
   this->file_texture = "./ressources/textures/ground/ground" + std::to_string(std::rand() % nb_textures) + ".bmp";
-  this->old_pos = 0;
   this->menuInGame = new MenuInGame(this->device, this->driver, this->smgr);
   this->max_y = this->size_y * (-1);
 }
@@ -46,13 +49,8 @@ void GameNamespace::GameEngine::setBlockProperties(int x, int y)
       smgr->getMeshManipulator()->makePlanarTextureMapping(this->groundObject->getMesh(), 1.0f);
       this->groundObject->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
       irr::f32 minRadius = this->groundObject->getMesh()->getBoundingBox().getExtent().getLength() * 0.70f;
+      this->the_farthest_map_point = this->size_x * minRadius;
       this->groundObject->setPosition(irr::core::vector3df(x * minRadius, -y, 0));
-      if (x == 0)
-	{
-	  this->max_pos_tab.push_back(this->old_pos);
-	  this->old_pos = 0;
-	}
-      this->old_pos += minRadius;
       this->groundObjects.push_back(this->groundObject);
     }
 }
@@ -121,30 +119,30 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    realTimeCameraTarget.X = this->the_farthest_map_point + 50;
 	  }
 	else if (realTimeCameraPosition.X <= -50)
-	    {
-	      realTimeCameraPosition.X = -50;
-	      realTimeCameraTarget.X = -50;
-	    }
-	if (realTimeCameraPosition.Y >= 150)
 	  {
-	    realTimeCameraPosition.Y = 150;
-	    realTimeCameraTarget.Y = 150;
-	  } else
-	  if (realTimeCameraPosition.Y <= -150)
-	    {
-	      realTimeCameraPosition.Y = -150;
-	      realTimeCameraPosition.Y = -150;
-	    }
+	    realTimeCameraPosition.X = -50;
+	    realTimeCameraTarget.X = -50;
+	  }
+	if (realTimeCameraPosition.Y >= this->size_y + 5)
+	  {
+	    realTimeCameraPosition.Y = this->size_y + 5;
+	    realTimeCameraTarget.Y = this->size_y + 5;
+	  }
+	else if (realTimeCameraPosition.Y <= 5 - this->size_y)
+	  {
+	    realTimeCameraPosition.Y = 5 - this->size_y;
+	    realTimeCameraTarget.Y = 5 - this->size_y;
+	  }
 	if (realTimeCameraPosition.Z >= -20)
 	  {
 	    realTimeCameraPosition.Z = -20;
 	    realTimeCameraTarget.Z = 80;
-	  } else
-	  if (realTimeCameraPosition.Z <= -120)
-	    {
-	      realTimeCameraPosition.Z = -120;
-	      realTimeCameraTarget.Z = -20;
-	    }
+	  }
+	else if (realTimeCameraPosition.Z <= -120)
+	  {
+	    realTimeCameraPosition.Z = -120;
+	    realTimeCameraTarget.Z = -20;
+	  }
 
 	this->gameCamera->setPosition(realTimeCameraPosition);
 	this->gameCamera->setTarget(realTimeCameraTarget);
@@ -240,9 +238,25 @@ void GameNamespace::GameEngine::setModelProperties()
 	for (x1 = 1; x1 < this->size_x - 1; x1++)
 	  this->gameMap.at(x1 + this->size_y * y1) = this->gameMap2.at(x1 + this->size_y * y1);
     }
-  for (int i = 0; i < this->size_x * this->size_y; i++)
-    if ((i < this->size_x) || ((i % 30) == 0) || ((i % 30) == 29))
-      this->gameMap.at(i).terrain = GameNamespace::TerrainType::GROUND;
+
+  if (this->drawWalls)
+    {
+      for (int i = 0; i < this->size_x * this->size_y; i++)
+	{
+	  if ((i < this->size_x) || ((i % 30) == 0) || ((i % 30) == 29))
+	    this->gameMap.at(i).terrain = GameNamespace::TerrainType::GROUND;
+	  if (i >= (this->size_x * (this->size_y - 1)))
+	    this->gameMap.at(i).terrain = GameNamespace::TerrainType::AIR;
+	}
+      
+    }
+  else
+    {
+      for (int i = 0; i < this->size_x * this->size_y; i++)
+        if ((i < this->size_x) || ((i % 30) == 0) || ((i % 30) == 29) || (i >= (this->size_x * (this->size_y - 1))))
+          this->gameMap.at(i).terrain = GameNamespace::TerrainType::AIR;
+    }
+
   for (int i = 0; i < this->size_x * this->size_y; i++)
     if (this->gameMap.at(i).terrain == GameNamespace::TerrainType::GROUND)
       this->setBlockProperties(this->gameMap.at(i).x, this->gameMap.at(i).y);
@@ -260,19 +274,13 @@ void GameNamespace::GameEngine::setModelProperties()
     }
 
   // FIN DES PRINT DE TEST
-     
-  this->the_farthest_map_point = this->max_pos_tab[0];
-  for (float i : this->max_pos_tab)
-    {
-      if (i > this->the_farthest_map_point)
-	this->the_farthest_map_point = i;
-      this->final_pos_avg += i;
-    }
-  this->final_pos_avg = final_pos_avg / this->max_pos_tab.size();
+
+  std::cout << this->drawWalls << std::endl;
+  
   this->gameCamera = smgr->addCameraSceneNode(nullptr,
-					      irr::core::vector3df(this->final_pos_avg / 2,
+					      irr::core::vector3df(this->the_farthest_map_point / 2,
 								   0, -100),
-					      irr::core::vector3df(this->final_pos_avg / 2,
+					      irr::core::vector3df(this->the_farthest_map_point / 2,
 								   0, 0),
 					      -1, true);
   this->water_mesh = this->smgr->addHillPlaneMesh("water",

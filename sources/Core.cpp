@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:51:01 2017 Loïc Dupil
-// Last update Tue May  9 21:05:05 2017 Stanislas Deneubourg
+// Last update Wed May 10 13:54:19 2017 Stanislas Deneubourg
 //
 
 #include "Core.hpp"
@@ -43,6 +43,8 @@ Core::Core()
   this->menu = nullptr;
   this->eventStatus = EventStatus::STAND_BY;
   this->soundEngine = nullptr;
+  this->drawWalls = true;
+  this->playSound = true;
 }
 
 Core::Core(Core const &obj)
@@ -176,12 +178,9 @@ void						Core::launchSplashScreen()
 
 void						Core::launchMenu()
 {
-  bool sound = true;
-  bool genAlternative = false;
-
   this->device->getCursorControl()->setVisible(true);
   this->menu = new MenuModel(this->device, this->driver,
-			     this->smgr, this->guienv, this->saves, sound, genAlternative);
+			     this->smgr, this->guienv, this->saves, this->playSound, this->drawWalls);
   this->menu->setModelProperties();
   this->eventStatus = this->menu->launchModel();
 }
@@ -191,7 +190,8 @@ void						Core::launchGame()
   this->gameEngine = new GameNamespace::GameEngine(this->smgr, this->driver,
 						   this->loadDir("./ressources/textures/ground/", ".bmp").size(),
 						   this->loadDir("./ressources/shapes/", ".dae").size(),
-						   this->device);
+						   this->device, this->playSound,
+						   this->drawWalls);
   this->device->getCursorControl()->setVisible(false);
   this->gameEngine->setModelProperties();
   this->eventStatus = this->gameEngine->launchModel();
@@ -199,7 +199,7 @@ void						Core::launchGame()
 
 void						Core::launch()
 {
- this->launchSplashScreen();
+  // this->launchSplashScreen();
   while(device->run())
     {
       if (this->eventStatus == EventStatus::QUIT)

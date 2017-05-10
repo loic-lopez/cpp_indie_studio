@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Tue May  9 20:35:13 2017 Stanislas Deneubourg
+// Last update Wed May 10 14:10:32 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -50,12 +50,9 @@ namespace	GameNamespace
     std::string						file_texture;
     std::string						file_shape;
     const size_t					nb_shapes;
-    float						old_pos;
-    float						max_y;
-    std::vector<float>			       		max_pos_tab;
-    float						final_pos_avg;
     float						the_farthest_map_point;
     int                                                 fillProbe;
+    int							max_y;
     int                                                 r1_cutoff;
     int                                                 r2_cutoff;
     int                                                 size_x;
@@ -66,12 +63,15 @@ namespace	GameNamespace
     EventReceiver					receiver;
     irr::scene::IMeshSceneNode				*groundObject;
     IModel						*menuInGame;
+    bool						playSound;
+    bool						drawWalls;
 
     virtual void setBlockProperties(int, int);
   
   public:
     GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
-	       const size_t &, const size_t &, irr::IrrlichtDevice *);
+	       const size_t &, const size_t &, irr::IrrlichtDevice *,
+	       const bool &, const bool &);
 
     virtual                        ~GameEngine()
     {};

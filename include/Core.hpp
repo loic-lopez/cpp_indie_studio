@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:21:55 2017 Loïc Dupil
-// Last update Thu May  4 14:00:15 2017 Stanislas Deneubourg
+// Last update Wed May 10 13:41:42 2017 Stanislas Deneubourg
 //
 
 #ifndef CORE_HPP
@@ -39,6 +39,8 @@ class Core : public ICore
   irr::gui::IGUIEnvironment			*guienv;
   EventStatus					eventStatus;
   irrklang::ISoundEngine			*soundEngine;
+  bool						drawWalls;
+  bool						playSound;
   
 public:
   Core();

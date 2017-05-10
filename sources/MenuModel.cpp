@@ -5,15 +5,14 @@
 ** Login   <yassir.jabbari@epitech.eu>
 **
 ** Started on  Sat May 06 13:52:58 2017 Yassir Jabbari
-// Last update Sat May  6 18:23:22 2017 Jabbari Yassir
+// Last update Wed May 10 14:01:20 2017 Stanislas Deneubourg
 */
 
 #include "MenuModel.hpp"
 
 MenuModel::MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver, irr::scene::ISceneManager *smgr, irr::gui::IGUIEnvironment *guienv, std::vector<std::string> saves,
-bool &sound, bool &genMapAlt)
-  : _device(device), _driver(driver), _smgr(smgr),_guienv(guienv), event(device), _saves(saves),
-    _sound(sound), _genMapAlt(genMapAlt)
+bool &playSound, bool &drawWalls)
+  : _device(device), _driver(driver), _smgr(smgr),_guienv(guienv), event(device), _saves(saves)
 {
   irr::core::stringw str = "Worms 3D";
   this->_device->setWindowCaption(str.c_str());
@@ -24,6 +23,8 @@ bool &sound, bool &genMapAlt)
   this->font = this->_guienv->getFont("ressources/fonts/fonthaettenschweiler.bmp");
   if (this->font)
     this->_guienv->getSkin()->setFont(this->font);
+  this->playSound = &playSound;
+  this->drawWalls = &drawWalls;
 }
 
 MenuModel::~MenuModel()
@@ -39,10 +40,10 @@ void	MenuModel::setModelProperties()
 					       0, false, false);
   this->mainCtrl = this->tabctrl->addTab(L"Menu");
   this->optionCtrl = this->tabctrl->addTab(L"Option");
-  this->_guienv->addCheckBox(this->_sound, irr::core::rect<int>(20, 85 + d, 130, 110 + d),
-			     this->optionCtrl, 3, L"Sound");
-  this->_guienv->addCheckBox(this->_genMapAlt, irr::core::rect<int>(20, 110 + d, 135, 135 + d),
-			     this->optionCtrl, 4, L"Generation Alternative");
+  this->checkboxSound = this->_guienv->addCheckBox(*this->playSound, irr::core::rect<int>(20, 85 + d, 130, 110 + d),
+						   this->optionCtrl, 3, L"Sound");
+  this->checkboxWalls = this->_guienv->addCheckBox(*this->drawWalls, irr::core::rect<int>(20, 110 + d, 135, 135 + d),
+						   this->optionCtrl, 4, L"Generation Alternative");
   this->boxSave = this->_guienv->addListBox(irr::core::rect<int>(10, 10, 220, 120),
 					    this->mainCtrl, 1);
   this->boxSave->addItem(L"Create new game");
@@ -89,6 +90,8 @@ EventStatus MenuModel::launchModel()
 	    this->_driver->draw2DImage(this->background, irr::core::position2d<int>(0, 0));
 	  if (eventStatus != EventStatus::STAND_BY)
 	    break;
+	  *this->playSound = this->checkboxSound->isChecked();
+	  *this->drawWalls = this->checkboxWalls->isChecked();
 	  this->_guienv->drawAll();
 	  this->_driver->endScene();
 	}

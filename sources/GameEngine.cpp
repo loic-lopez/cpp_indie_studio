@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Wed May 10 17:54:42 2017 Stanislas Deneubourg
+// Last update Wed May 10 18:13:26 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine.hpp"
@@ -28,9 +28,9 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
   this->device->setEventReceiver(&this->receiver);
   this->cameraMovementSpeed = 50.0f;
   this->generations = 5;
-  this->size_x = 30;
-  this->size_y = 30;
-  this->fillProbe = 40;
+  this->size_x = 60;
+  this->size_y = 60;
+  this->fillProbe = (std::rand() % 21) + 30;
   this->r1_cutoff = 3;
   this->r2_cutoff = 2;
   this->file_texture = "./ressources/textures/ground/ground" + std::to_string(std::rand() % nb_textures) + ".bmp";
@@ -194,7 +194,7 @@ void GameNamespace::GameEngine::setModelProperties()
       this->gameMap2.emplace_back(j, i);
   for (int i = 0; i < this->size_y * this->size_x; i++)
     {
-      if ((i % this->size_y) == 0 || (i % this->size_x) == 29)
+      if ((i % this->size_y) == 0 || (i % this->size_x) == this->size_x - 1)
         this->gameMap.at(i).terrain = GameNamespace::TerrainType::GROUND;
       if ((std::rand() % 100) < this->fillProbe)
         this->gameMap.at(i).terrain = GameNamespace::TerrainType::GROUND;
@@ -243,7 +243,7 @@ void GameNamespace::GameEngine::setModelProperties()
     {
       for (int i = 0; i < this->size_x * this->size_y; i++)
 	{
-	  if ((i < this->size_x) || ((i % 30) == 0) || ((i % 30) == 29))
+	  if ((i < this->size_x) || ((i % this->size_x) == 0) || ((i % this->size_x) == this->size_x - 1))
 	    this->gameMap.at(i).terrain = GameNamespace::TerrainType::GROUND;
 	  if (i >= (this->size_x * (this->size_y - 1)))
 	    this->gameMap.at(i).terrain = GameNamespace::TerrainType::AIR;
@@ -253,7 +253,7 @@ void GameNamespace::GameEngine::setModelProperties()
   else
     {
       for (int i = 0; i < this->size_x * this->size_y; i++)
-        if ((i < this->size_x) || ((i % 30) == 0) || ((i % 30) == 29) || (i >= (this->size_x * (this->size_y - 1))))
+        if ((i < this->size_x) || ((i % this->size_x) == 0) || ((i % this->size_x) == this->size_x - 1) || (i >= (this->size_x * (this->size_y - 1))))
           this->gameMap.at(i).terrain = GameNamespace::TerrainType::AIR;
     }
 
@@ -261,22 +261,6 @@ void GameNamespace::GameEngine::setModelProperties()
     if (this->gameMap.at(i).terrain == GameNamespace::TerrainType::GROUND)
       this->setBlockProperties(this->gameMap.at(i).x, this->gameMap.at(i).y);
 
-  // PRINT DE TEST DANS LE TERMINAL
-  
-  for (int i = 0; i < this->size_y * this->size_x; i++)
-    {
-      if (this->gameMap.at(i).terrain == GameNamespace::TerrainType::GROUND)
-        std::cout << "X";
-      else if (this->gameMap.at(i).terrain == GameNamespace::TerrainType::AIR)
-        std::cout << ".";
-      if (i % 30 == 29)
-        std::cout << std::endl;
-    }
-
-  // FIN DES PRINT DE TEST
-
-  std::cout << this->drawWalls << std::endl;
-  
   this->gameCamera = smgr->addCameraSceneNode(nullptr,
 					      irr::core::vector3df(this->the_farthest_map_point / 2,
 								   0, -100),

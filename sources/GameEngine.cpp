@@ -50,7 +50,7 @@ void GameNamespace::GameEngine::setBlockProperties(int x, int y)
       this->groundObject->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
       irr::f32 minRadius = this->groundObject->getMesh()->getBoundingBox().getExtent().getLength() * 0.70f;
       this->the_farthest_map_point = this->size_x * minRadius;
-      this->groundObject->setPosition(irr::core::vector3df(x * minRadius, -y, 0));
+      this->groundObject->setPosition(irr::core::vector3df(x * minRadius, -y * (minRadius / 3), 0));
       this->groundObjects.push_back(this->groundObject);
     }
 }
@@ -294,7 +294,10 @@ void GameNamespace::GameEngine::setModelProperties()
   this->sea->setMaterialTexture(1, this->driver->getTexture("./ressources/textures/water.jpg"));
   this->sea->setMaterialFlag(irr::video::EMF_LIGHTING, true);
   this->sea->setMaterialType(irr::video::EMT_REFLECTION_2_LAYER);
-  this->sea->setPosition(irr::core::vector3df(0.0f, this->max_y, 0.0f));
+  this->sea->setPosition(irr::core::vector3df(0, this->max_y *
+	  ((this->groundObjects.at(this->groundObjects.size() - 1)->getMesh()
+		    ->getBoundingBox().getExtent().getLength() * 0.70f) / 3)
+	  , 0.0f));
 }
 
 GameNamespace::GameMap::GameMap(int x, int y)

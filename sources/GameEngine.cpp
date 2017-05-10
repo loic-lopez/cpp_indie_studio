@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Wed May 10 14:16:33 2017 Stanislas Deneubourg
+// Last update Wed May 10 17:54:42 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine.hpp"
@@ -285,19 +285,39 @@ void GameNamespace::GameEngine::setModelProperties()
 					      -1, true);
   this->water_mesh = this->smgr->addHillPlaneMesh("water",
 						  irr::core::dimension2d<irr::f32>(20,20), //	Taille du mesh initial
-						  irr::core::dimension2d<irr::u32>(40,40), nullptr, 0, // Multiplicateur de taille du mesh
+						  irr::core::dimension2d<irr::u32>(100,100), nullptr, 0, // Multiplicateur de taille du mesh
 						  irr::core::dimension2d<irr::f32>(0,0), // Material
 						  irr::core::dimension2d<irr::f32>(10,10)); // countHills
   this->sea = this->smgr->addWaterSurfaceSceneNode(this->water_mesh->getMesh(0),
 						   0.5f, 300.0f, 0.5f);
-  this->sea->setMaterialTexture(0, this->driver->getTexture("./ressources/textures/stones.jpg"));
-  this->sea->setMaterialTexture(1, this->driver->getTexture("./ressources/textures/water.jpg"));
+  this->sea->setMaterialTexture(0, this->driver->getTexture("./ressources/textures/terrain/detail_terrain.jpg"));
+  this->sea->setMaterialTexture(1, this->driver->getTexture("./ressources/textures/water/water.jpg"));
   this->sea->setMaterialFlag(irr::video::EMF_LIGHTING, true);
   this->sea->setMaterialType(irr::video::EMT_REFLECTION_2_LAYER);
   this->sea->setPosition(irr::core::vector3df(0, this->max_y *
 	  ((this->groundObjects.at(this->groundObjects.size() - 1)->getMesh()
-		    ->getBoundingBox().getExtent().getLength() * 0.70f) / 3)
-	  , 0.0f));
+	    ->getBoundingBox().getExtent().getLength() * 0.70f) / 3)
+					      , 0.0f));
+  this->driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
+
+  this->skybox = this->smgr->addSkyBoxSceneNode(this->driver->getTexture("./ressources/skydome/irrlicht2_up.jpg"),
+						this->driver->getTexture("./ressources/skydome/irrlicht2_dn.jpg"),
+						this->driver->getTexture("./ressources/skydome/irrlicht2_lf.jpg"),
+						this->driver->getTexture("./ressources/skydome/irrlicht2_rt.jpg"),
+						this->driver->getTexture("./ressources/skydome/irrlicht2_ft.jpg"),
+						this->driver->getTexture("./ressources/skydome/irrlicht2_bk.jpg"));
+  this->backgroundTerrain = this->smgr->addTerrainSceneNode("./ressources/skydome/terrain-heightmap.bmp",
+							    0, -1,
+							    irr::core::vector3df(-1200.0f, -200.0f, 50.0f),
+							    irr::core::vector3df(0.0f, 0.0f, 0.0f),
+							    irr::core::vector3df(40.0f, 4.4f, 40.0f),
+							    irr::video::SColor(255, 255, 255, 255),
+							    5, irr::scene::ETPS_17, 4);
+  this->backgroundTerrain->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  this->backgroundTerrain->setMaterialTexture(0, this->driver->getTexture("./ressources/textures/terrain/terrain_bruit.jpg"));
+  this->backgroundTerrain->setMaterialTexture(1, this->driver->getTexture("./ressources/textures/terrain/detail_terrain.jpg"));
+  this->backgroundTerrain->setMaterialType(irr::video::EMT_DETAIL_MAP);
+  this->backgroundTerrain->scaleTexture(1.0f, 20.0f);
 }
 
 GameNamespace::GameMap::GameMap(int x, int y)

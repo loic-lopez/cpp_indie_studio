@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Wed May 10 14:10:32 2017 Stanislas Deneubourg
+// Last update Wed May 10 17:32:24 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -65,7 +65,9 @@ namespace	GameNamespace
     IModel						*menuInGame;
     bool						playSound;
     bool						drawWalls;
-
+    irr::scene::ISceneNode				*skybox;
+    irr::scene::ITerrainSceneNode			*backgroundTerrain;
+    
     virtual void setBlockProperties(int, int);
   
   public:

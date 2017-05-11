@@ -19,6 +19,7 @@
 #include "MenuModel.hpp"
 #include "GameEngine.hpp"
 #include "SplashScreen.hpp"
+#include "EventStatus.hpp"
 
 #ifdef _MSC_VER
 # pragma comment(lib, "Irrlicht.lib")

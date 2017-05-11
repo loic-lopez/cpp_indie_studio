@@ -31,6 +31,25 @@ bool MenuInGameEventModel::OnEvent(const irr::SEvent &event)
 		this->device->closeDevice();
 		break;
 	      }
+	  case 1 :
+	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+	    {
+		*this->eventStatus = EventStatus ::ENTER_IN_GAME;
+		break;
+	    }
+	  case 2 :
+	    {
+	      *this->eventStatus = EventStatus::SAVES;
+	      break;
+	    }
+	  case 3 :
+	    {
+	      if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		{
+		  *this->eventStatus = EventStatus::BACK_TO_MENU;
+		  break;
+		}
+	    }
 	}
     }
   return (false);

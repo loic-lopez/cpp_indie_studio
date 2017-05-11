@@ -133,8 +133,8 @@ void						Core::fillSoundLib()
       file = direntp->d_name;
       if (direntp->d_name[0] != '.')
 	{
-	  if (direntp->d_type != 4 && (check_extension_file(file, ".wav") == 0))
-	    this->saves.emplace_back(direntp->d_name);
+	  if (direntp->d_type != 4 && (check_extension_file(file, ".ogg") == 0))
+	    this->soundlib.emplace_back(direntp->d_name);
 	}
     }
   Encap::c_closedir(dir);
@@ -168,8 +168,7 @@ std::vector<std::string>			Core::loadDir(const std::string &path, const std::str
 void						Core::launchSplashScreen()
 {
   this->soundEngine = irrklang::createIrrKlangDevice();
-  this->soundEngine->play2D("ressources/sounds/Carl_Orff.wav", true);
-
+  this->soundEngine->play2D("ressources/sounds/CarlOrff.ogg", true);
   std::unique_ptr<IModel> splashScreen(new SplashScreen(this->smgr, this->driver, this->device));
 
   splashScreen->setModelProperties();
@@ -195,11 +194,16 @@ void						Core::launchGame()
   this->device->getCursorControl()->setVisible(false);
   this->gameEngine->setModelProperties();
   this->eventStatus = this->gameEngine->launchModel();
+  if (this->eventStatus == EventStatus::BACK_TO_MENU)
+    {
+      this->smgr->clear();
+      this->launchMenu();
+    }
 }
 
 void						Core::launch()
 {
-  // this->launchSplashScreen();
+  this->launchSplashScreen();
   while(device->run())
     {
       if (this->eventStatus == EventStatus::QUIT)

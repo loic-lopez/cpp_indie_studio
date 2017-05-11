@@ -37,7 +37,13 @@ class 			MenuInGame : public IModel
   irr::video::ITexture				*background;
   MenuInGameEventModel				event;
   irr::gui::IGUIButton				*exitButton;
+  irr::gui::IGUIButton				*playButton;
+  irr::gui::IGUIButton				*saveButton;
+  irr::gui::IGUIButton				*backToMenuButton;
   irr::video::ITexture				*textuExit;
+  irr::video::ITexture				*textuPlay;
+  irr::video::ITexture				*textuSave;
+  irr::video::ITexture				*textuBackToMenu;
 };
 
 #endif //CPP_INDIE_STUDIO_MENUINGAMEMODEL_HPP

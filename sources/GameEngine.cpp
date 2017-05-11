@@ -106,7 +106,10 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->device->getCursorControl()->setVisible(false);
 	    this->device->setEventReceiver(&this->receiver);
 	    if (eventStatusMenu == EventStatus::QUIT || eventStatusMenu == EventStatus::BACK_TO_MENU)
-	      break;
+	      {
+		eventStatus = EventStatus::BACK_TO_MENU;
+		break;
+	      }
 	  }
 	else if (eventStatusMenu == EventStatus::ENTER_IN_GAME)
 	    eventStatusMenu = EventStatus::STAND_BY;

@@ -29,15 +29,32 @@ MenuInGame::~MenuInGame()
 
 void MenuInGame::setModelProperties()
 {
-  const irr::s32 leftX = 260;
-  this->tabCtrl = this->_guienv->addTabControl(irr::core::rect<int>(leftX, 10, 512 - 10, 384 - 10),
-					       0, true, true);
+  const irr::core::dimension2du& screenSize = this->_driver->getScreenSize();
+
+  this->tabCtrl = this->_guienv->addTabControl(irr::core::rect<int>((screenSize.Width / 2) - (500 / 2),
+					       (screenSize.Height / 2) - (500 / 2), 950, 640), 0, false, false);
   this->exitButton = this->_guienv->addButton(irr::core::rect<int>(30, 295, 200, 324),
 					      this->tabCtrl, 42, L"");
   this->textuExit = this->_driver->getTexture("ressources/images/exit.png");
   this->exitButton->setUseAlphaChannel(true);
   this->exitButton->setDrawBorder(false);
   this->exitButton->setImage(this->textuExit);
+  this->playButton = this->_guienv->addButton(irr::core::rect<int>(30, 20, 200, 49),
+					      this->tabCtrl, 1, L"");
+  this->textuPlay = this->_driver->getTexture("ressources/images/play.png");
+  this->playButton->setUseAlphaChannel(true);
+  this->playButton->setDrawBorder(false);
+  this->playButton->setImage(this->textuPlay);
+  this->saveButton = this->_guienv->addButton(irr::core::rect<int>(30, 70, 200, 99), this->tabCtrl, 2, L"");
+  this->textuSave = this->_driver->getTexture("ressources/images/save.png");
+  this->saveButton->setUseAlphaChannel(true);
+  this->saveButton->setDrawBorder(false);
+  this->saveButton->setImage(this->textuSave);
+  this->backToMenuButton = this->_guienv->addButton(irr::core::rect<int>(30, 120, 200, 149), this->tabCtrl, 3, L"");
+  this->textuBackToMenu = this->_driver->getTexture("ressources/images/menu.png");
+  this->backToMenuButton->setUseAlphaChannel(true);
+  this->backToMenuButton->setDrawBorder(false);
+  this->backToMenuButton->setImage(this->textuBackToMenu);
   this->_driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
   this->background = this->_driver->getTexture("ressources/images/MenuInGame.jpg");
   this->_driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS,
@@ -63,7 +80,7 @@ EventStatus MenuInGame::launchModel()
 	    break;
 	  this->_guienv->drawAll();
 	  this->_driver->endScene();
-	  if (this->event.IsKeyUp(irr::KEY_ESCAPE))
+	  if (event == EventStatus::ENTER_IN_GAME || this->event.IsKeyUp(irr::KEY_ESCAPE))
 	    {
 	      event = EventStatus::ENTER_IN_GAME;
 	      break;

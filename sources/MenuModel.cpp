@@ -33,11 +33,11 @@ MenuModel::~MenuModel()
 
 void	MenuModel::setModelProperties()
 {
-  const irr::s32 leftX = 260;
+  const irr::core::dimension2du& screenSize = this->_driver->getScreenSize();
   const irr::s32 d = 40;
 
-  this->tabctrl = this->_guienv->addTabControl(irr::core::rect<int>(leftX, 10, 512 - 10, 384 - 10),
-					       0, false, false);
+  this->tabctrl = this->_guienv->addTabControl(irr::core::rect<int>((screenSize.Width / 2) - (500 / 2),
+								    (screenSize.Height / 2) - (500 / 2), 950, 640), 0, false, false);
   this->mainCtrl = this->tabctrl->addTab(L"Menu");
   this->optionCtrl = this->tabctrl->addTab(L"Option");
   this->checkboxSound = this->_guienv->addCheckBox(*this->playSound, irr::core::rect<int>(20, 85 + d, 130, 110 + d),

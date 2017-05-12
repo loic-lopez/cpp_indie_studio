@@ -203,6 +203,7 @@ void						Core::launchGame()
   if (this->eventStatus == EventStatus::BACK_TO_MENU)
     {
       this->smgr->clear();
+      this->guienv->clear();
       delete this->gameEngine;
       this->gameEngine = nullptr;
     }
@@ -217,8 +218,7 @@ void						Core::launch()
 	break;
       if (this->eventStatus == EventStatus::STAND_BY || this->eventStatus == EventStatus::BACK_TO_MENU)
 	this->launchMenu();
-      else
-	if (this->eventStatus == EventStatus::ENTER_IN_GAME)
-	    this->launchGame();
+      else if (this->eventStatus == EventStatus::ENTER_IN_GAME)
+	  this->launchGame();
     }
 }

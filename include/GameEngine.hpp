@@ -75,8 +75,7 @@ namespace	GameNamespace
 	       const size_t &, const size_t &, irr::IrrlichtDevice *,
 	       const bool &, const bool &);
 
-    virtual                        ~GameEngine()
-    {};
+    virtual                        ~GameEngine();
 
     virtual EventStatus launchModel();
 

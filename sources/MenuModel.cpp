@@ -21,10 +21,11 @@ bool &playSound, bool &drawWalls)
   this->_guienv->setSkin(this->skin);
   this->skin->drop();
   this->font = this->_guienv->getFont("ressources/fonts/fonthaettenschweiler.bmp");
-  if (this->font)
+  if (this->font != nullptr)
     this->_guienv->getSkin()->setFont(this->font);
   this->playSound = &playSound;
   this->drawWalls = &drawWalls;
+  this->selected = 0;
 }
 
 MenuModel::~MenuModel()
@@ -47,11 +48,11 @@ void	MenuModel::setModelProperties()
   this->boxSave = this->_guienv->addListBox(irr::core::rect<int>(10, 10, 220, 120),
 					    this->mainCtrl, 1);
   this->boxSave->addItem(L"Create new game");
-  if (this->_saves.size() > 0)
+  if (!this->_saves.empty())
     {
-      for (auto i = this->_saves.begin(); i != this->_saves.end(); ++i)
+      for (auto & _save : this->_saves)
 	{
-	  std::wstring tmp = std::wstring(i->begin(), i->end());
+	  std::wstring tmp = std::wstring(_save.begin(), _save.end());
 	  const wchar_t *toPrint = tmp.c_str();
 	  this->boxSave->addItem(toPrint);
 	}

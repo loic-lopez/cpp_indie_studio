@@ -38,6 +38,11 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
   this->max_y = this->size_y * (-1);
 }
 
+GameNamespace::GameEngine::~GameEngine()
+{
+  delete this->menuInGame;
+}
+
 void GameNamespace::GameEngine::setBlockProperties(int x, int y)
 {
   this->groundObject = this->smgr->addMeshSceneNode(smgr->getMesh(file_shape.c_str()));

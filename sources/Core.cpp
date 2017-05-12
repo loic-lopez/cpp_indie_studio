@@ -65,6 +65,7 @@ Core::~Core()
       this->soundEngine->stopAllSounds();
       this->soundEngine->drop();
     }
+
   delete this->gameEngine;
   delete this->menu;
 }
@@ -182,6 +183,11 @@ void						Core::launchMenu()
 			     this->smgr, this->guienv, this->saves, this->playSound, this->drawWalls);
   this->menu->setModelProperties();
   this->eventStatus = this->menu->launchModel();
+  if (eventStatus == EventStatus::ENTER_IN_GAME)
+    {
+      delete this->menu;
+      this->menu = nullptr;
+    }
 }
 
 void						Core::launchGame()
@@ -197,13 +203,14 @@ void						Core::launchGame()
   if (this->eventStatus == EventStatus::BACK_TO_MENU)
     {
       this->smgr->clear();
-      this->launchMenu();
+      delete this->gameEngine;
+      this->gameEngine = nullptr;
     }
 }
 
 void						Core::launch()
 {
-  this->launchSplashScreen();
+  //this->launchSplashScreen();
   while(device->run())
     {
       if (this->eventStatus == EventStatus::QUIT)
@@ -212,8 +219,6 @@ void						Core::launch()
 	this->launchMenu();
       else
 	if (this->eventStatus == EventStatus::ENTER_IN_GAME)
-	  {
 	    this->launchGame();
-	  }
     }
 }

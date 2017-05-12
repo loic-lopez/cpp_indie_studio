@@ -40,6 +40,8 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
 
 GameNamespace::GameEngine::~GameEngine()
 {
+  this->driver->removeAllTextures();
+  this->smgr->clear();
   delete this->menuInGame;
 }
 
@@ -51,7 +53,7 @@ void GameNamespace::GameEngine::setBlockProperties(int x, int y)
       this->groundObject->setMaterialTexture(0,
 					     this->driver->getTexture(file_texture.c_str())); // set diffuse texture
       this->groundObject->setMaterialFlag(irr::video::EMF_LIGHTING, true); // enable dynamic lighting
-      smgr->getMeshManipulator()->makePlanarTextureMapping(this->groundObject->getMesh(), 1.0f);
+      this->smgr->getMeshManipulator()->makePlanarTextureMapping(this->groundObject->getMesh(), 1.0f);
       this->groundObject->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
       irr::f32 minRadius = this->groundObject->getMesh()->getBoundingBox().getExtent().getLength() * 0.70f;
       this->the_farthest_map_point = this->size_x * minRadius;

@@ -25,6 +25,8 @@ MenuInGame::MenuInGame(irr::IrrlichtDevice *device, irr::video::IVideoDriver *dr
 
 MenuInGame::~MenuInGame()
 {
+  this->_driver->removeAllTextures();
+  this->_guienv->clear();
 }
 
 void MenuInGame::setModelProperties()

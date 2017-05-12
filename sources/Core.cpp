@@ -202,8 +202,6 @@ void						Core::launchGame()
   this->eventStatus = this->gameEngine->launchModel();
   if (this->eventStatus == EventStatus::BACK_TO_MENU)
     {
-      this->smgr->clear();
-      this->guienv->clear();
       delete this->gameEngine;
       this->gameEngine = nullptr;
     }

@@ -9,10 +9,12 @@
 */
 #ifndef CPP_INDIE_STUDIO_MENUCONTROLLER_HPP
 #define CPP_INDIE_STUDIO_MENUCONTROLLER_HPP
+
 # include "IModel.hpp"
 #include "MenuEventModel.hpp"
 #include <vector>
 #include <iostream>
+# include "MenuButton.hpp"
 
 class		MenuModel : public IModel
 {
@@ -35,8 +37,6 @@ class		MenuModel : public IModel
   irr::gui::IGUISkin				*skin;
   irr::gui::IGUIFont				*font;
   irr::gui::IGUITabControl			*tabctrl;
-  irr::gui::IGUITab				*mainCtrl;
-  irr::gui::IGUITab				*optionCtrl;
   irr::gui::IGUIListBox				*boxSave;
   irr::s32					selected;
   irr::gui::IGUIButton				*startButton;
@@ -44,13 +44,10 @@ class		MenuModel : public IModel
   irr::video::ITexture				*background;
   MenuEventModel				event;
   std::vector<std::string>			_saves;
-  irr::video::ITexture				*textuStart;
-  irr::video::ITexture				*textuExit;
   bool 						*playSound;
   bool 						*drawWalls;
   irr::gui::IGUICheckBox			*checkboxSound;
   irr::gui::IGUICheckBox			*checkboxWalls;
-  
 };
 
 #endif //CPP_INDIE_STUDIO_MENUCONTROLLER_HPP

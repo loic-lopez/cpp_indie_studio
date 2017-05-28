@@ -21,12 +21,11 @@ MenuInGame::MenuInGame(irr::IrrlichtDevice *device, irr::video::IVideoDriver *dr
   this->_font = this->_guienv->getFont("ressources/fonts/fonthaettenschweiler.bmp");
   if (this->_font)
     this->_guienv->getSkin()->setFont(this->_font);
+  this->textuPlay = nullptr;
 }
 
 MenuInGame::~MenuInGame()
 {
-  this->_driver->removeAllTextures();
-  this->_guienv->clear();
 }
 
 void MenuInGame::setModelProperties()
@@ -89,7 +88,7 @@ EventStatus MenuInGame::launchModel()
 	    }
 	}
     }
-  this->_driver->removeTexture(this->background);
+  this->_driver->removeAllTextures();
   this->_guienv->clear();
   return (event);
 }

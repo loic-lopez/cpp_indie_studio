@@ -11,6 +11,7 @@
 #ifndef	GAME_ENGINE_HPP__
 #define GAME_ENGINE_HPP__
 
+#include <memory>
 #include <vector>
 #include <string>
 #include <cstdlib>
@@ -62,7 +63,7 @@ namespace	GameNamespace
     irr::f32						cameraMovementSpeed;
     EventReceiver					receiver;
     irr::scene::IMeshSceneNode				*groundObject;
-    IModel						*menuInGame;
+    std::unique_ptr<IModel>				menuInGame;
     bool						playSound;
     bool						drawWalls;
     irr::scene::ISceneNode				*skybox;

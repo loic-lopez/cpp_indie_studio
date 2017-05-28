@@ -20,6 +20,8 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
 				      const bool &drawWalls) : smgr(smgr), driver(driver),
 							       device(device),
 							       nb_shapes(nb_shapes),
+							       menuInGame(new MenuInGame(this->device, this->driver,
+											 this->smgr)),
 							       playSound(playSound),
 							       drawWalls(drawWalls)
 {
@@ -34,15 +36,11 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
   this->r1_cutoff = 3;
   this->r2_cutoff = 2;
   this->file_texture = "./ressources/textures/ground/ground" + std::to_string(std::rand() % nb_textures) + ".bmp";
-  this->menuInGame = new MenuInGame(this->device, this->driver, this->smgr);
   this->max_y = this->size_y * (-1);
 }
 
 GameNamespace::GameEngine::~GameEngine()
 {
-  this->driver->removeAllTextures();
-  this->smgr->clear();
-  delete this->menuInGame;
 }
 
 void GameNamespace::GameEngine::setBlockProperties(int x, int y)
@@ -168,6 +166,8 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	// display frames per second in window title
       }
+  this->driver->removeAllTextures();
+  this->smgr->clear();
   return (eventStatus);
 }
 

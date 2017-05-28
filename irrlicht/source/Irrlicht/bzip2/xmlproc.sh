@@ -54,7 +54,7 @@ psfile="${basename}.ps"
 xmlfmtfile="${basename}.fmt"
 
 # first process the xmlfile with CDATA tags
-./format.pl $xmlfile $xmlfmtfile
+format.pl $xmlfile $xmlfmtfile
 # so the shell knows where the catalogs live
 export XML_CATALOG_FILES=/etc/xml/catalog
 

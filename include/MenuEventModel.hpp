@@ -12,6 +12,7 @@
 
 #include <irrlicht.h>
 #include "EventStatus.hpp"
+#include "MenuButton.hpp"
 
 class MenuEventModel : public irr::IEventReceiver
 {

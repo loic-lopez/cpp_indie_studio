@@ -10,12 +10,12 @@
 
 #include "MenuModel.hpp"
 
-MenuModel::MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver, irr::scene::ISceneManager *smgr, irr::gui::IGUIEnvironment *guienv, std::vector<std::string> saves,
-bool &playSound, bool &drawWalls)
+MenuModel::MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
+		     irr::scene::ISceneManager *smgr, irr::gui::IGUIEnvironment *guienv,
+		     std::vector<std::string> saves, bool &playSound, bool &drawWalls)
   : _device(device), _driver(driver), _smgr(smgr),_guienv(guienv), event(device), _saves(saves)
 {
-  irr::core::stringw str = "Worms 3D";
-  this->_device->setWindowCaption(str.c_str());
+  this->_device->setWindowCaption(L"Worms 3D");
   this->_device->setEventReceiver(&this->event);
   this->skin = this->_guienv->createSkin(irr::gui::EGST_BURNING_SKIN);
   this->_guienv->setSkin(this->skin);
@@ -35,51 +35,44 @@ MenuModel::~MenuModel()
 void	MenuModel::setModelProperties()
 {
   const irr::core::dimension2du& screenSize = this->_driver->getScreenSize();
-  const irr::s32 d = 40;
+  irr::core::dimension2d<irr::s32>	image_size;
+  irr::s32	mid_tabcrtl = ((screenSize.Width / 3) + (screenSize.Width - (screenSize.Width / 3))) / 2;
+  irr::video::ITexture	*texture;
 
-  this->tabctrl = this->_guienv->addTabControl(irr::core::rect<int>((screenSize.Width / 2) - (500 / 2),
-								    (screenSize.Height / 2) - (500 / 2), 950, 640), 0, false, false);
-  this->mainCtrl = this->tabctrl->addTab(L"Menu");
-  this->optionCtrl = this->tabctrl->addTab(L"Option");
-  this->checkboxSound = this->_guienv->addCheckBox(*this->playSound, irr::core::rect<int>(20, 85 + d, 130, 110 + d),
-						   this->optionCtrl, 3, L"Sound");
-  this->checkboxWalls = this->_guienv->addCheckBox(*this->drawWalls, irr::core::rect<int>(20, 110 + d, 135, 135 + d),
-						   this->optionCtrl, 4, L"Generation Alternative");
-  this->boxSave = this->_guienv->addListBox(irr::core::rect<int>(10, 10, 220, 120),
-					    this->mainCtrl, 1);
-  this->boxSave->addItem(L"Create new game");
-  if (!this->_saves.empty())
+  // SET TAB CTRL TO TRANSPARENCY
+  for (irr::s32 i=0; i < irr::gui::EGDC_COUNT; ++i)
     {
-      for (auto & _save : this->_saves)
-	{
-	  std::wstring tmp = std::wstring(_save.begin(), _save.end());
-	  const wchar_t *toPrint = tmp.c_str();
-	  this->boxSave->addItem(toPrint);
-	}
+      irr::video::SColor col = skin->getColor((irr::gui::EGUI_DEFAULT_COLOR)i);
+      col.set(0, 0, 0, 0);
+      skin->setColor((irr::gui::EGUI_DEFAULT_COLOR)i, col);
     }
-  this->boxSave->setSelected(this->selected);
-  this->event.setSelected(this->selected);
-  this->startButton = this->_guienv->addButton(irr::core::rect<int>(30, 295, 200, 324), this->mainCtrl, 2, L"");
-  this->textuStart = this->_driver->getTexture("ressources/images/start.png");
-  this->startButton->setUseAlphaChannel(true);
+
+  this->background = this->_driver->getTexture("ressources/images/worms_main_menu.png");
+  this->tabctrl = this->_guienv->addTabControl(irr::core::rect<int>(screenSize.Width / 3,
+								    screenSize.Height / 5,
+								    screenSize.Width - (screenSize.Width / 3),
+								    screenSize.Height - (screenSize.Height / 7)),
+					       nullptr, false, false);
+
+  texture = this->_driver->getTexture("ressources/buttons/play.png");
+  image_size = texture->getSize();
+  this->startButton = this->_guienv->addButton(irr::core::rect<irr::s32>(-this->tabctrl->getTabExtraWidth(),
+									 image_size.Height / 2,
+									 mid_tabcrtl - (image_size.Width / 2) -
+									 this->tabctrl->getTabExtraWidth(),
+									 image_size.Height),
+					       this->tabctrl, MenuButton::PLAY, L"");
   this->startButton->setDrawBorder(false);
-  this->startButton->setImage(this->textuStart);
-  this->exitButton = this->_guienv->addButton(irr::core::rect<int>(30, 213, 200, 242), this->mainCtrl, 42, L"");
-  this->textuExit = this->_driver->getTexture("ressources/images/exit.png");
-  this->exitButton->setUseAlphaChannel(true);
-  this->exitButton->setDrawBorder(false);
-  this->exitButton->setImage(this->textuExit);
-  this->_smgr->addCameraSceneNode(0, irr::core::vector3df(45, 0, 0), irr::core::vector3df(0, 0, 10));
-  this->_driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
-  this->background = this->_driver->getTexture("ressources/images/181192.jpg");
-  this->_driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, this->_driver->getTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS));
+  this->startButton->setImage(texture);
+  this->startButton->setUseAlphaChannel(true);
+  this->event.setSelected(this->selected);
   this->event.setStartButton(this->startButton);
   this->event.setExitButton(this->exitButton);
 }
 
-EventStatus MenuModel::launchModel()
+EventStatus	MenuModel::launchModel()
 {
-  EventStatus eventStatus = EventStatus::STAND_BY;
+  EventStatus	eventStatus = EventStatus::STAND_BY;
 
   this->event.setEventStatus(eventStatus);
   while (this->_device->run())
@@ -91,8 +84,10 @@ EventStatus MenuModel::launchModel()
 	    this->_driver->draw2DImage(this->background, irr::core::position2d<int>(0, 0));
 	  if (eventStatus != EventStatus::STAND_BY)
 	    break;
+	  /*
 	  *this->playSound = this->checkboxSound->isChecked();
 	  *this->drawWalls = this->checkboxWalls->isChecked();
+	  */
 	  this->_guienv->drawAll();
 	  this->_driver->endScene();
 	}

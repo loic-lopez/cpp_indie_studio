@@ -217,6 +217,6 @@ void						Core::launch()
       if (this->eventStatus == EventStatus::STAND_BY || this->eventStatus == EventStatus::BACK_TO_MENU)
 	this->launchMenu();
       else if (this->eventStatus == EventStatus::ENTER_IN_GAME)
-	  this->launchGame();
+	this->launchGame();
     }
 }

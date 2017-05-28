@@ -22,7 +22,7 @@ bool	MenuEventModel::OnEvent(const irr::SEvent &event)
       irr::s32 id = event.GUIEvent.Caller->getID();
       switch (id)
 	{
-	  case 42 :
+	  case MenuButton::EXIT:
 	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
 	      {
 		*this->eventStatus = EventStatus::QUIT;
@@ -35,6 +35,8 @@ bool	MenuEventModel::OnEvent(const irr::SEvent &event)
 		*this->eventStatus = EventStatus::ENTER_IN_GAME;
 		break;
 	      }
+	  default:
+	    break;
 	}
     }
   return (false);

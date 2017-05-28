@@ -19,7 +19,6 @@ MenuModel::MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driv
   this->_device->setEventReceiver(&this->event);
   this->skin = this->_guienv->createSkin(irr::gui::EGST_BURNING_SKIN);
   this->_guienv->setSkin(this->skin);
-  this->skin->drop();
   this->font = this->_guienv->getFont("ressources/fonts/fonthaettenschweiler.bmp");
   if (this->font != nullptr)
     this->_guienv->getSkin()->setFont(this->font);
@@ -30,23 +29,24 @@ MenuModel::MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driv
 
 MenuModel::~MenuModel()
 {
+  this->skin->drop();
 }
 
 void	MenuModel::setModelProperties()
 {
-  const irr::core::dimension2du& screenSize = this->_driver->getScreenSize();
+  const irr::core::dimension2du& 	screenSize = this->_driver->getScreenSize();
   irr::core::dimension2d<irr::s32>	image_size;
-  irr::s32	mid_tabcrtl = ((screenSize.Width / 3) + (screenSize.Width - (screenSize.Width / 3))) / 2;
-  irr::video::ITexture	*texture;
+  irr::s32				mid_tabcrtl = ((screenSize.Width / 3) +
+	  						(screenSize.Width - (screenSize.Width / 3))) / 2;
+  irr::video::ITexture			*texture;
 
   // SET TAB CTRL TO TRANSPARENCY
   for (irr::s32 i=0; i < irr::gui::EGDC_COUNT; ++i)
     {
-      irr::video::SColor col = skin->getColor((irr::gui::EGUI_DEFAULT_COLOR)i);
+      irr::video::SColor col = this->skin->getColor((irr::gui::EGUI_DEFAULT_COLOR)i);
       col.set(0, 0, 0, 0);
-      skin->setColor((irr::gui::EGUI_DEFAULT_COLOR)i, col);
+      this->skin->setColor((irr::gui::EGUI_DEFAULT_COLOR)i, col);
     }
-
   this->background = this->_driver->getTexture("ressources/images/worms_main_menu.png");
   this->tabctrl = this->_guienv->addTabControl(irr::core::rect<int>(screenSize.Width / 3,
 								    screenSize.Height / 5,
@@ -54,6 +54,7 @@ void	MenuModel::setModelProperties()
 								    screenSize.Height - (screenSize.Height / 7)),
 					       nullptr, false, false);
 
+  //play button
   texture = this->_driver->getTexture("ressources/buttons/play.png");
   image_size = texture->getSize();
   this->startButton = this->_guienv->addButton(irr::core::rect<irr::s32>(-this->tabctrl->getTabExtraWidth(),
@@ -65,6 +66,21 @@ void	MenuModel::setModelProperties()
   this->startButton->setDrawBorder(false);
   this->startButton->setImage(texture);
   this->startButton->setUseAlphaChannel(true);
+
+  //exit button
+  texture = this->_driver->getTexture("ressources/buttons/exit.png");
+  image_size = texture->getSize();
+  this->exitButton = this->_guienv->addButton(irr::core::rect<irr::s32>(-this->tabctrl->getTabExtraWidth(),
+									(image_size.Height / 2) * 2,
+									mid_tabcrtl - (image_size.Width / 2) -
+									this->tabctrl->getTabExtraWidth(),
+									image_size.Height * 2),
+					      this->tabctrl, MenuButton::EXIT, L"");
+  this->exitButton->setDrawBorder(false);
+  this->exitButton->setImage(texture);
+  this->exitButton->setUseAlphaChannel(true);
+
+  //event controller
   this->event.setSelected(this->selected);
   this->event.setStartButton(this->startButton);
   this->event.setExitButton(this->exitButton);
@@ -97,7 +113,7 @@ EventStatus	MenuModel::launchModel()
   return (eventStatus);
 }
 
-void MenuModel::setBlockProperties(int x, int y)
+void	MenuModel::setBlockProperties(int x, int y)
 {
   (void)x;
   (void)y;

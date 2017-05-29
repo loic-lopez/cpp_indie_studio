@@ -36,9 +36,8 @@ void	MenuModel::setModelProperties()
 {
   const irr::core::dimension2du& 	screenSize = this->_driver->getScreenSize();
   irr::core::dimension2d<irr::s32>	image_size;
-  irr::s32				mid_tabcrtl = ((screenSize.Width / 3) +
-	  						(screenSize.Width - (screenSize.Width / 3))) / 2;
   irr::video::ITexture			*texture;
+  irr::video::ITexture			*cursor;
 
   // SET TAB CTRL TO TRANSPARENCY
   for (irr::s32 i=0; i < irr::gui::EGDC_COUNT; ++i)
@@ -57,10 +56,9 @@ void	MenuModel::setModelProperties()
   //play button
   texture = this->_driver->getTexture("ressources/buttons/play.png");
   image_size = texture->getSize();
-  this->startButton = this->_guienv->addButton(irr::core::rect<irr::s32>(-this->tabctrl->getTabExtraWidth(),
+  this->startButton = this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3) + 34,
 									 image_size.Height / 2,
-									 mid_tabcrtl - (image_size.Width / 2) -
-									 this->tabctrl->getTabExtraWidth(),
+									 (image_size.Width / 2) + 4 * 34,
 									 image_size.Height),
 					       this->tabctrl, MenuButton::PLAY, L"");
   this->startButton->setDrawBorder(false);
@@ -70,15 +68,25 @@ void	MenuModel::setModelProperties()
   //exit button
   texture = this->_driver->getTexture("ressources/buttons/exit.png");
   image_size = texture->getSize();
-  this->exitButton = this->_guienv->addButton(irr::core::rect<irr::s32>(-this->tabctrl->getTabExtraWidth(),
-									(image_size.Height / 2) * 2,
-									mid_tabcrtl - (image_size.Width / 2) -
-									this->tabctrl->getTabExtraWidth(),
-									image_size.Height * 2),
+  this->exitButton = this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 4) + 34,
+									((image_size.Height / 2) * 2) + 34,
+									(image_size.Width / 2) + 6 * 34,
+									(image_size.Height * 2)),
 					      this->tabctrl, MenuButton::EXIT, L"");
-  this->exitButton->setDrawBorder(false);
   this->exitButton->setImage(texture);
   this->exitButton->setUseAlphaChannel(true);
+  this->exitButton->setDrawBorder(false);
+
+  this->spriteBank = this->_guienv->addEmptySpriteBank(irr::io::path("ressources/cursor"));
+  cursor = this->_driver->getTexture("ressources/cursor/cursor.png");
+  this->cursorSize = cursor->getSize();
+  this->spriteBank->addTextureAsSprite(cursor);
+
+  irr::gui::SCursorSprite	cursorSprite(this->spriteBank, 0,  irr::core::position2d<irr::s32>(0,0));
+
+  this->_device->getCursorControl()->addIcon(cursorSprite);
+  this->_device->getCursorControl()->setActiveIcon((irr::gui::ECURSOR_ICON) 0);
+  this->_device->getCursorControl()->setVisible(false);
 
   //event controller
   this->event.setSelected(this->selected);
@@ -100,11 +108,20 @@ EventStatus	MenuModel::launchModel()
 	    this->_driver->draw2DImage(this->background, irr::core::position2d<int>(0, 0));
 	  if (eventStatus != EventStatus::STAND_BY)
 	    break;
+
+	  this->_guienv->drawAll();
+	  if (this->spriteBank != nullptr)
+	    {
+	      irr::core::position2d<irr::s32> mousePosition = this->_device->getCursorControl()->getPosition();
+	      this->spriteBank->draw2DSprite(irr::u32(0), irr::core::position2di(mousePosition.X - cursorSize.Width / 4,
+									   mousePosition.Y - cursorSize.Height / 4),
+				       nullptr,
+				       irr::video::SColor(255, 255, 255, 255), 0);
+	    }
 	  /*
 	  *this->playSound = this->checkboxSound->isChecked();
 	  *this->drawWalls = this->checkboxWalls->isChecked();
 	  */
-	  this->_guienv->drawAll();
 	  this->_driver->endScene();
 	}
     }

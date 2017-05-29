@@ -26,6 +26,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
 							       drawWalls(drawWalls)
 {
   this->file_shape = "./ressources/shapes/Rock_0.dae";
+  this->worm = "ressources/textures/Worm/Worm.obj";
   this->lastFrame = this->device->getTimer()->getTime();
   this->device->setEventReceiver(&this->receiver);
   this->cameraMovementSpeed = 50.0f;
@@ -36,6 +37,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
   this->r1_cutoff = 3;
   this->r2_cutoff = 2;
   this->file_texture = "./ressources/textures/ground/ground" + std::to_string(std::rand() % nb_textures) + ".bmp";
+  this->worm_texture = "./ressources/textures/Worm/WormTextures.png";
   this->max_y = this->size_y * (-1);
 }
 
@@ -57,6 +59,19 @@ void GameNamespace::GameEngine::setBlockProperties(int x, int y)
       this->the_farthest_map_point = this->size_x * minRadius;
       this->groundObject->setPosition(irr::core::vector3df(x * minRadius, -y * (minRadius / 3), 0));
       this->groundObjects.push_back(this->groundObject);
+    }
+}
+
+void GameNamespace::GameEngine::setWorms()
+{
+  this->worms = this->smgr->addAnimatedMeshSceneNode(smgr->getMesh(worm.c_str()));
+  if (this->worms != nullptr)
+    {
+      this->worms->setMaterialTexture(0, this->driver->getTexture(worm_texture.c_str()));
+      this->smgr->getMeshManipulator()->makePlanarTextureMapping(this->worms->getMesh(), 1.0f);
+      //this->worms->setRotation(irr::core::vector3df(0.0, 45.0, 0.0));
+      this->worms->setPosition(irr::core::vector3df(12, 3, 0));
+      this->wormObjects.push_back(this->worms);
     }
 }
 
@@ -312,6 +327,7 @@ void GameNamespace::GameEngine::setModelProperties()
   this->backgroundTerrain->setMaterialTexture(1, this->driver->getTexture("./ressources/textures/terrain/detail_terrain.jpg"));
   this->backgroundTerrain->setMaterialType(irr::video::EMT_DETAIL_MAP);
   this->backgroundTerrain->scaleTexture(1.0f, 20.0f);
+  this->setWorms();
 }
 
 GameNamespace::GameMap::GameMap(int x, int y)

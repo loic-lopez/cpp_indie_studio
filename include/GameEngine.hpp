@@ -40,6 +40,7 @@ namespace	GameNamespace
   {
   private:
     std::vector<irr::scene::IMeshSceneNode *>		groundObjects;
+    std::vector<irr::scene::IAnimatedMeshSceneNode *>	wormObjects;
     irr::scene::ICameraSceneNode			*gameCamera;
     std::vector<GameMap>				gameMap;
     std::vector<GameMap>				gameMap2;
@@ -49,7 +50,9 @@ namespace	GameNamespace
     irr::scene::IAnimatedMesh				*water_mesh;
     irr::scene::ISceneNode				*sea;
     std::string						file_texture;
+    std::string						worm_texture;
     std::string						file_shape;
+    std::string						worm;
     const size_t					nb_shapes;
     float						the_farthest_map_point;
     int                                                 fillProbe;
@@ -63,15 +66,19 @@ namespace	GameNamespace
     irr::f32						cameraMovementSpeed;
     EventReceiver					receiver;
     irr::scene::IMeshSceneNode				*groundObject;
+    irr::scene::IAnimatedMeshSceneNode			*worms;
     std::unique_ptr<IModel>				menuInGame;
     bool						playSound;
     bool						drawWalls;
     irr::scene::ISceneNode				*skybox;
     irr::scene::ITerrainSceneNode			*backgroundTerrain;
-    
+
+    virtual void setModelProperties();
+    virtual void setWorms();
+
     virtual void setBlockProperties(int, int);
-  
-  public:
+   public:
+
     GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
 	       const size_t &, const size_t &, irr::IrrlichtDevice *,
 	       const bool &, const bool &);
@@ -79,8 +86,6 @@ namespace	GameNamespace
     virtual                        ~GameEngine();
 
     virtual EventStatus launchModel();
-
-    virtual void setModelProperties();
   };
 };
 

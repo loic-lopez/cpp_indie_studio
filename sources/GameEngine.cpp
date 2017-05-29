@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Wed May 10 18:13:26 2017 Stanislas Deneubourg
+// Last update Mon May 29 18:06:16 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine.hpp"
@@ -64,15 +64,15 @@ void GameNamespace::GameEngine::setBlockProperties(int x, int y)
 
 void GameNamespace::GameEngine::setWorms()
 {
-  this->worms = this->smgr->addAnimatedMeshSceneNode(smgr->getMesh(worm.c_str()));
-  if (this->worms != nullptr)
-    {
-      this->worms->setMaterialTexture(0, this->driver->getTexture(worm_texture.c_str()));
-      this->smgr->getMeshManipulator()->makePlanarTextureMapping(this->worms->getMesh(), 1.0f);
-      //this->worms->setRotation(irr::core::vector3df(0.0, 45.0, 0.0));
-      this->worms->setPosition(irr::core::vector3df(12, 3, 0));
-      this->wormObjects.push_back(this->worms);
-    }
+  irr::scene::IAnimatedMesh* m = this->device->getSceneManager()->getMesh(worm.c_str());
+  if (!m)
+    return;
+  irr::scene::IAnimatedMeshSceneNode* animworms = this->device->getSceneManager()->addAnimatedMeshSceneNode(m);
+  animworms->setAnimationSpeed(30);
+  this->worms = animworms;
+  this->worms->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  this->worms->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
+  this->worms->setRotation(irr::core::vector3df(0.0, 90.0, 0.0));
 }
 
 EventStatus GameNamespace::GameEngine::launchModel()

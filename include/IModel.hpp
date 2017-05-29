@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:13:18 2017 Stanislas Deneubourg
-// Last update Thu May  4 16:59:47 2017 Stanislas Deneubourg
+// Last update Mon May 29 17:56:39 2017 Stanislas Deneubourg
 //
 
 #ifndef	IMODEL_HPP__
@@ -16,9 +16,6 @@
 
 class	IModel
 {
- private:
-  virtual void setBlockProperties(int, int) = 0;
-
  public:
   virtual	~IModel() {};
 

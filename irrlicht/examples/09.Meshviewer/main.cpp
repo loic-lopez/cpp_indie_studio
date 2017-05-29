@@ -155,8 +155,8 @@ void showAboutText()
 {
 	// create modal message box with the text
 	// loaded from the xml file.
-	Device->getGUIEnvironment()->addMessageBox(
-		Caption.c_str(), MessageText.c_str());
+  //  	Device->getGUIEnvironment()->addMessageBox(
+  //		Caption.c_str(), MessageText.c_str());
 }
 
 
@@ -190,7 +190,7 @@ void loadModel(const c8* fn)
 			// always reload texture
 			Device->getVideoDriver()->removeTexture(texture);
 			texture = Device->getVideoDriver()->getTexture( filename );
-
+			std::cout << "Applied texture " << std::endl;
 			Model->setMaterialTexture(0, texture);
 		}
 		return;
@@ -207,6 +207,8 @@ void loadModel(const c8* fn)
 	if (Model)
 		Model->remove();
 
+	std::cout << "suce mon putain de chibre" << std::endl;
+
 	Model = 0;
 
 	if (extension==".irr")
@@ -216,10 +218,13 @@ void loadModel(const c8* fn)
 		Device->getSceneManager()->getSceneNodesFromType(scene::ESNT_ANIMATED_MESH, outNodes);
 		if (outNodes.size())
 			Model = outNodes[0];
+		std::cout << "couille poilue" << std::endl;
 		return;
 	}
 
 	scene::IAnimatedMesh* m = Device->getSceneManager()->getMesh( filename.c_str() );
+
+	std::cout << "mabite" << std::endl;
 
 	if (!m)
 	{
@@ -245,7 +250,7 @@ void loadModel(const c8* fn)
 	Model->setMaterialFlag(video::EMF_LIGHTING, UseLight);
 	Model->setMaterialFlag(video::EMF_NORMALIZE_NORMALS, UseLight);
 //	Model->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
-	Model->setDebugDataVisible(scene::EDS_OFF);
+//	Model->setDebugDataVisible(scene::EDS_OFF);
 
 	// we need to uncheck the menu entries. would be cool to fake a menu event, but
 	// that's not so simple. so we do it brute force
@@ -253,7 +258,7 @@ void loadModel(const c8* fn)
 	if (menu)
 		for(int item = 1; item < 6; ++item)
 			menu->setItemChecked(item, false);
-	updateScaleInfo(Model);
+	//	updateScaleInfo(Model);
 }
 
 
@@ -343,12 +348,12 @@ void updateToolBox()
 			scene::IAnimatedMeshSceneNode* animatedModel = (scene::IAnimatedMeshSceneNode*)Model;
 
 			core::stringw str( (s32)core::round_(animatedModel->getAnimationSpeed()) );
-			str += L" Frame: ";
-			str += core::stringw((s32)animatedModel->getFrameNr());
-			aniInfo->setText(str.c_str());
+			//			str += L" Frame: ";
+			//str += core::stringw((s32)animatedModel->getFrameNr());
+			//aniInfo->setText(str.c_str());
 		}
-		else
-			aniInfo->setText(L"");
+		else{}
+		//aniInfo->setText(L"");
 	}
 }
 
@@ -1028,7 +1033,7 @@ int main(int argc, char* argv[])
 			postext->setText(str.c_str());
 
 			// update the tool dialog
-			updateToolBox();
+			//			updateToolBox();
 		}
 		else
 			Device->yield();

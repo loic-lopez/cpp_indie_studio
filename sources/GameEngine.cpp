@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Mon May 29 18:06:16 2017 Stanislas Deneubourg
+// Last update Mon May 29 18:55:04 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine.hpp"
@@ -31,8 +31,8 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
   this->device->setEventReceiver(&this->receiver);
   this->cameraMovementSpeed = 50.0f;
   this->generations = 5;
-  this->size_x = 60;
-  this->size_y = 60;
+  this->size_x = 40;
+  this->size_y = 40;
   this->fillProbe = (std::rand() % 21) + 30;
   this->r1_cutoff = 3;
   this->r2_cutoff = 2;
@@ -79,10 +79,32 @@ EventStatus GameNamespace::GameEngine::launchModel()
 {
   EventStatus eventStatus = EventStatus::QUIT;
   EventStatus eventStatusMenu = EventStatus::STAND_BY;
-
+  irr::s32	lastFPS = -1;
+  float		i = 0.0;
+  
   while(this->device->run())
     if (this->device->isWindowActive())
       {
+	i += 2;
+	if (i > 355.0)
+	  i = -355.0;
+	// this->gameCamera = smgr->addCameraSceneNode(nullptr,
+	// 					    irr::core::vector3df(this->the_farthest_map_point / 2,
+	// 								 -this->size_y / 2, -100),
+	// 					    irr::core::vector3df(i,
+	// 								 -this->size_y / 2, 0),
+	// 					    -1, true);
+	const irr::s32 fps = this->driver->getFPS();
+	if (lastFPS != fps)
+	  {
+	    irr::core::stringw caption = L"Worms 3D, running at ";
+	    caption += fps;
+	    caption += L" fps, with the engine ";
+	    caption += driver->getName();
+	    caption += L".";
+	    this->device->setWindowCaption(caption.c_str());
+	    lastFPS = fps;
+	  }
 	const irr::u32 now = this->device->getTimer()->getTime();
 	const irr::f32 frameDeltaTime = (irr::f32)(now - this->lastFrame) / 1000.0f;
 	this->lastFrame = now;
@@ -288,13 +310,13 @@ void GameNamespace::GameEngine::setModelProperties()
 
   this->gameCamera = smgr->addCameraSceneNode(nullptr,
 					      irr::core::vector3df(this->the_farthest_map_point / 2,
-								   0, -100),
+								   -this->size_y / 2, -100),
 					      irr::core::vector3df(this->the_farthest_map_point / 2,
-								   0, 0),
+								   -this->size_y / 2, 0),
 					      -1, true);
   this->water_mesh = this->smgr->addHillPlaneMesh("water",
-						  irr::core::dimension2d<irr::f32>(20,20), //	Taille du mesh initial
-						  irr::core::dimension2d<irr::u32>(100,100), nullptr, 0, // Multiplicateur de taille du mesh
+						  irr::core::dimension2d<irr::f32>(20,10), //	Taille du mesh initial
+						  irr::core::dimension2d<irr::u32>(80,80), nullptr, 0, // Multiplicateur de taille du mesh
 						  irr::core::dimension2d<irr::f32>(0,0), // Material
 						  irr::core::dimension2d<irr::f32>(10,10)); // countHills
   this->sea = this->smgr->addWaterSurfaceSceneNode(this->water_mesh->getMesh(0),
@@ -306,7 +328,7 @@ void GameNamespace::GameEngine::setModelProperties()
   this->sea->setPosition(irr::core::vector3df(0, this->max_y *
 	  ((this->groundObjects.at(this->groundObjects.size() - 1)->getMesh()
 	    ->getBoundingBox().getExtent().getLength() * 0.70f) / 3)
-					      , 0.0f));
+					      , 200.0f));
   this->driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
 
   this->skybox = this->smgr->addSkyBoxSceneNode(this->driver->getTexture("./ressources/skydome/irrlicht2_up.jpg"),

@@ -65,18 +65,31 @@ void	MenuModel::setModelProperties()
   this->startButton->setImage(texture);
   this->startButton->setUseAlphaChannel(true);
 
+  // OPTION BUTTON
+  texture = this->_driver->getTexture("ressources/buttons/options.png");
+  image_size = texture->getSize();
+  this->optionButton = this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 4) + 34,
+									((image_size.Height / 2) * 2),
+									(image_size.Width / 2) + 6 * 34,
+									(image_size.Height * 2)),
+					      this->tabctrl, MenuButton::OPTIONS, L"");
+  this->optionButton->setImage(texture);
+  this->optionButton->setUseAlphaChannel(true);
+  this->optionButton->setDrawBorder(false);
+
   //exit button
   texture = this->_driver->getTexture("ressources/buttons/exit.png");
   image_size = texture->getSize();
   this->exitButton = this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 4) + 34,
-									((image_size.Height / 2) * 2) + 34,
+									((image_size.Height / 2) * 3),
 									(image_size.Width / 2) + 6 * 34,
-									(image_size.Height * 2)),
+									(image_size.Height * 3)),
 					      this->tabctrl, MenuButton::EXIT, L"");
   this->exitButton->setImage(texture);
   this->exitButton->setUseAlphaChannel(true);
   this->exitButton->setDrawBorder(false);
 
+  // CURSOR
   this->spriteBank = this->_guienv->addEmptySpriteBank(irr::io::path("ressources/cursor"));
   cursor = this->_driver->getTexture("ressources/cursor/cursor.png");
   this->cursorSize = cursor->getSize();
@@ -114,7 +127,7 @@ EventStatus	MenuModel::launchModel()
 	    {
 	      irr::core::position2d<irr::s32> mousePosition = this->_device->getCursorControl()->getPosition();
 	      this->spriteBank->draw2DSprite(irr::u32(0), irr::core::position2di(mousePosition.X - cursorSize.Width / 4,
-									   mousePosition.Y - cursorSize.Height / 4),
+									   mousePosition.Y - cursorSize.Height / 8),
 				       nullptr,
 				       irr::video::SColor(255, 255, 255, 255), 0);
 	    }

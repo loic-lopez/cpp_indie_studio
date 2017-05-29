@@ -37,8 +37,13 @@ class		MenuModel : public IModel
   irr::gui::IGUITabControl			*tabctrl;
   irr::gui::IGUIListBox				*boxSave;
   irr::s32					selected;
+  // BUTTONS
+
   irr::gui::IGUIButton				*startButton;
   irr::gui::IGUIButton				*exitButton;
+  irr::gui::IGUIButton				*optionButton;
+
+  ///
   irr::video::ITexture				*background;
   irr::core::dimension2d<irr::u32> 		cursorSize;
   MenuEventModel				event;

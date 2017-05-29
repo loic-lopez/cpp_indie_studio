@@ -28,8 +28,6 @@ class		MenuModel : public IModel
   virtual EventStatus launchModel();
 
  private:
-  virtual void setBlockProperties(int, int);
-
   irr::IrrlichtDevice				*_device;
   irr::video::IVideoDriver			*_driver;
   irr::scene::ISceneManager			*_smgr;

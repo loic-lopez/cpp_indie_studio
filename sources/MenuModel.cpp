@@ -129,9 +129,3 @@ EventStatus	MenuModel::launchModel()
   this->_guienv->clear();
   return (eventStatus);
 }
-
-void	MenuModel::setBlockProperties(int x, int y)
-{
-  (void)x;
-  (void)y;
-}

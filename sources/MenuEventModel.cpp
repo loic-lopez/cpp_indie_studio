@@ -35,6 +35,44 @@ bool	MenuEventModel::OnEvent(const irr::SEvent &event)
 		*this->eventStatus = EventStatus::ENTER_IN_GAME;
 		break;
 	      }
+	  case MenuButton::OPTIONS:
+	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+	      {
+		this->optionButton->setVisible(false);
+		this->startButton->setVisible(false);
+		this->exitButton->setVisible(false);
+		this->checkboxSound->setImage(checkboxSoundChecked);
+		this->checkboxSound->setUseAlphaChannel(true);
+		this->checkboxSound->setDrawBorder(false);
+		this->checkboxSound->setVisible(true);
+		this->backButton->setVisible(true);
+		break;
+	      }
+	  case MenuButton::OPTION_SOUND:
+	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+	      {
+		if (this->checkboxSoundStatus)
+		  {
+		    this->checkboxSoundStatus = false;
+		    this->checkboxSound->setImage(this->checkboxSoundNotChecked);
+		  }
+		else
+		  {
+		    this->checkboxSoundStatus = true;
+		    this->checkboxSound->setImage(this->checkboxSoundChecked);
+		  }
+		break;
+	      }
+	  case MenuButton::BACK:
+	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+	      {
+		this->optionButton->setVisible(true);
+		this->startButton->setVisible(true);
+		this->exitButton->setVisible(true);
+		this->checkboxSound->setVisible(false);
+		this->backButton->setVisible(false);
+		break;
+	      }
 	  default:
 	    break;
 	}
@@ -47,17 +85,58 @@ void	MenuEventModel::setSelected(irr::s32 const &selected)
   this->selected = selected;
 }
 
+void	MenuEventModel::setEventStatus(EventStatus &eventStatus)
+{
+  this->eventStatus = &eventStatus;
+}
+
+// BUTTONS
 void	MenuEventModel::setStartButton(irr::gui::IGUIButton *startButton)
 {
   this->startButton = startButton;
 }
 
-void MenuEventModel::setEventStatus(EventStatus &eventStatus)
+void	MenuEventModel::setOptionButton(irr::gui::IGUIButton *optionButton)
 {
-  this->eventStatus = &eventStatus;
+  this->optionButton = optionButton;
 }
 
-void MenuEventModel::setExitButton(irr::gui::IGUIButton *exitButton)
+void	MenuEventModel::setExitButton(irr::gui::IGUIButton *exitButton)
 {
   this->exitButton = exitButton;
 }
+
+void	MenuEventModel::setBackButton(irr::gui::IGUIButton *backButton)
+{
+  this->backButton = backButton;
+  this->backButton->setUseAlphaChannel(true);
+  this->backButton->setDrawBorder(false);
+  this->backButton->setVisible(false);
+}
+
+//CHECKBOXES
+
+void	MenuEventModel::setSoundCheckboxAndTextures(irr::gui::IGUIButton *checkboxSound,
+							irr::video::ITexture *checkboxSoundChecked,
+							irr::video::ITexture *checkboxSoundNotChecked)
+{
+  this->checkboxSound = checkboxSound;
+  this->checkboxSound->setVisible(false);
+  this->checkboxSoundStatus = true;
+  this->checkboxSoundChecked = checkboxSoundChecked;
+  this->checkboxSoundNotChecked = checkboxSoundNotChecked;
+}
+void	MenuEventModel::setWallsCheckboxAndTextures(irr::gui::IGUIButton *checkboxWalls,
+							irr::video::ITexture *checkboxWallsChecked,
+							irr::video::ITexture *checkboxWallsNotChecked)
+{
+  this->checkboxWalls = checkboxWalls;
+  (void)checkboxWallsChecked;
+  (void)checkboxWallsNotChecked;
+}
+
+const bool &MenuEventModel::getCheckboxSoundStatus() const
+{
+  return (this->checkboxSoundStatus);
+}
+

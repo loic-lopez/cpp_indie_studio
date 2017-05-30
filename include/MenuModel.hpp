@@ -37,22 +37,25 @@ class		MenuModel : public IModel
   irr::gui::IGUITabControl			*tabctrl;
   irr::gui::IGUIListBox				*boxSave;
   irr::s32					selected;
-  // BUTTONS
 
+  // BUTTONS
+  irr::gui::IGUISpriteBank			*spriteBank;
   irr::gui::IGUIButton				*startButton;
   irr::gui::IGUIButton				*exitButton;
   irr::gui::IGUIButton				*optionButton;
+  irr::gui::IGUIButton				*backButton;
 
   ///
   irr::video::ITexture				*background;
   irr::core::dimension2d<irr::u32> 		cursorSize;
   MenuEventModel				event;
   std::vector<std::string>			_saves;
+
+  // CHECKBOXES
   bool 						*playSound;
   bool 						*drawWalls;
-  irr::gui::IGUICheckBox			*checkboxSound;
+  irr::gui::IGUIButton				*checkboxSound;
   irr::gui::IGUICheckBox			*checkboxWalls;
-  irr::gui::IGUISpriteBank			*spriteBank;
 };
 
 #endif //CPP_INDIE_STUDIO_MENUCONTROLLER_HPP

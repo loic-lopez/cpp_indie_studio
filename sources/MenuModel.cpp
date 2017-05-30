@@ -40,12 +40,7 @@ void	MenuModel::setModelProperties()
   irr::video::ITexture			*cursor;
 
   // SET TAB CTRL TO TRANSPARENCY
-  for (irr::s32 i=0; i < irr::gui::EGDC_COUNT; ++i)
-    {
-      irr::video::SColor col = this->skin->getColor((irr::gui::EGUI_DEFAULT_COLOR)i);
-      col.set(0, 0, 0, 0);
-      this->skin->setColor((irr::gui::EGUI_DEFAULT_COLOR)i, col);
-    }
+  this->skin->setColor((irr::gui::EGUI_DEFAULT_COLOR)3, irr::video::SColor(0, 0, 0,0));
   this->background = this->_driver->getTexture("ressources/images/worms_main_menu.png");
   this->tabctrl = this->_guienv->addTabControl(irr::core::rect<int>(screenSize.Width / 3,
 								    screenSize.Height / 5,
@@ -56,7 +51,7 @@ void	MenuModel::setModelProperties()
   //play button
   texture = this->_driver->getTexture("ressources/buttons/play.png");
   image_size = texture->getSize();
-  this->startButton = this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3) + 34,
+  this->startButton = this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3),
 									 image_size.Height / 2,
 									 (image_size.Width / 2) + 4 * 34,
 									 image_size.Height),
@@ -68,10 +63,10 @@ void	MenuModel::setModelProperties()
   // OPTION BUTTON
   texture = this->_driver->getTexture("ressources/buttons/options.png");
   image_size = texture->getSize();
-  this->optionButton = this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 4) + 34,
+  this->optionButton = this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 4),
 									((image_size.Height / 2) * 2),
 									(image_size.Width / 2) + 6 * 34,
-									(image_size.Height * 2)),
+									(image_size.Height * 2) - 45),
 					      this->tabctrl, MenuButton::OPTIONS, L"");
   this->optionButton->setImage(texture);
   this->optionButton->setUseAlphaChannel(true);
@@ -80,10 +75,10 @@ void	MenuModel::setModelProperties()
   //exit button
   texture = this->_driver->getTexture("ressources/buttons/exit.png");
   image_size = texture->getSize();
-  this->exitButton = this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 4) + 34,
+  this->exitButton = this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 4),
 									((image_size.Height / 2) * 3),
-									(image_size.Width / 2) + 6 * 34,
-									(image_size.Height * 3)),
+									(image_size.Width / 2) + 7 * 34,
+									(image_size.Height * 3) - 85) ,
 					      this->tabctrl, MenuButton::EXIT, L"");
   this->exitButton->setImage(texture);
   this->exitButton->setUseAlphaChannel(true);
@@ -101,10 +96,33 @@ void	MenuModel::setModelProperties()
   this->_device->getCursorControl()->setActiveIcon((irr::gui::ECURSOR_ICON) 0);
   this->_device->getCursorControl()->setVisible(false);
 
+  // CHECKBOXES
+  this->checkboxSound = this->_guienv->addButton(irr::core::rect<int>((image_size.Width / 9),
+								      ((image_size.Height / 2)),
+								      (image_size.Width),
+								      ((image_size.Height) * 3) / 2),
+						   this->tabctrl, MenuButton::OPTION_SOUND, L"");
+
+  texture = this->_driver->getTexture("ressources/buttons/back.png");
+  image_size = texture->getSize();
+  this->backButton = this->_guienv->addButton(irr::core::rect<irr::s32>(this->tabctrl->getTabExtraWidth(),
+									(image_size.Height * 8),
+									(image_size.Width * 2),
+									(image_size.Height * 9)) ,
+					      this->tabctrl, MenuButton::BACK, L"");
+  this->backButton->setImage(texture);
+  this->event.setBackButton(this->backButton);
+  this->event.setSoundCheckboxAndTextures(this->checkboxSound,
+					  this->_driver->getTexture("ressources/buttons/checkboxes/sound_checked.png"),
+					  this->_driver->getTexture("ressources/buttons/checkboxes/sound_not_checked.png"));
+
   //event controller
   this->event.setSelected(this->selected);
+
+  //set button events
   this->event.setStartButton(this->startButton);
   this->event.setExitButton(this->exitButton);
+  this->event.setOptionButton(this->optionButton);
 }
 
 EventStatus	MenuModel::launchModel()
@@ -131,8 +149,9 @@ EventStatus	MenuModel::launchModel()
 				       nullptr,
 				       irr::video::SColor(255, 255, 255, 255), 0);
 	    }
+
+	  *this->playSound = this->event.getCheckboxSoundStatus();
 	  /*
-	  *this->playSound = this->checkboxSound->isChecked();
 	  *this->drawWalls = this->checkboxWalls->isChecked();
 	  */
 	  this->_driver->endScene();

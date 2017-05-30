@@ -13,11 +13,13 @@
 
 #include <cstdint>
 
-enum 		MenuButton	: uint8_t
+enum 		MenuButton		: uint8_t
 {
-  PLAY		=		1,
-  EXIT		=		2,
-  OPTIONS	=		3
+  PLAY			=		1,
+  EXIT			=		2,
+  OPTIONS		=		3,
+  OPTION_SOUND		=		4,
+  BACK			=		5
 };
 
 #endif //CPP_INDIE_STUDIO_MENUBUTTON_HPP

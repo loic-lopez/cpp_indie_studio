@@ -58,6 +58,7 @@ private:
 						  irr::video::ITexture *checkboxWallsNotChecked);
 
   bool 	const	&getCheckboxSoundStatus() const;
+  bool 	const	&getCheckboxWallsStatus() const;
 
   void setEventStatus(EventStatus &);
 };

@@ -43,6 +43,7 @@ class		MenuModel : public IModel
   irr::gui::IGUIButton				*startButton;
   irr::gui::IGUIButton				*exitButton;
   irr::gui::IGUIButton				*optionButton;
+  irr::gui::IGUIButton				*wallsCheckbox;
   irr::gui::IGUIButton				*backButton;
 
   ///

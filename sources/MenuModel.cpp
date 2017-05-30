@@ -97,12 +97,26 @@ void	MenuModel::setModelProperties()
   this->_device->getCursorControl()->setVisible(false);
 
   // CHECKBOXES
+  image_size = texture->getSize();
   this->checkboxSound = this->_guienv->addButton(irr::core::rect<int>((image_size.Width / 9),
 								      ((image_size.Height / 2)),
 								      (image_size.Width),
 								      ((image_size.Height) * 3) / 2),
 						   this->tabctrl, MenuButton::OPTION_SOUND, L"");
+  this->event.setSoundCheckboxAndTextures(this->checkboxSound,
+					  this->_driver->getTexture("ressources/buttons/checkboxes/sound_checked.png"),
+					  this->_driver->getTexture("ressources/buttons/checkboxes/sound_not_checked.png"));
+  image_size = texture->getSize();
+  this->wallsCheckbox = this->_guienv->addButton(irr::core::rect<int>((image_size.Width / 9),
+								    ((image_size.Height / 2) * 4),
+								    (image_size.Width),
+								    ((image_size.Height) * 6) / 2),
+					       this->tabctrl, MenuButton::OPTION_MAP, L"");
+  this->event.setWallsCheckboxAndTextures(this->wallsCheckbox,
+					  this->_driver->getTexture("ressources/buttons/checkboxes/closed_map_checked.png"),
+					  this->_driver->getTexture("ressources/buttons/checkboxes/closed_map_not_checked.png"));
 
+  // BACK
   texture = this->_driver->getTexture("ressources/buttons/back.png");
   image_size = texture->getSize();
   this->backButton = this->_guienv->addButton(irr::core::rect<irr::s32>(this->tabctrl->getTabExtraWidth(),
@@ -112,9 +126,6 @@ void	MenuModel::setModelProperties()
 					      this->tabctrl, MenuButton::BACK, L"");
   this->backButton->setImage(texture);
   this->event.setBackButton(this->backButton);
-  this->event.setSoundCheckboxAndTextures(this->checkboxSound,
-					  this->_driver->getTexture("ressources/buttons/checkboxes/sound_checked.png"),
-					  this->_driver->getTexture("ressources/buttons/checkboxes/sound_not_checked.png"));
 
   //event controller
   this->event.setSelected(this->selected);
@@ -138,8 +149,11 @@ EventStatus	MenuModel::launchModel()
 	  if (this->background != nullptr)
 	    this->_driver->draw2DImage(this->background, irr::core::position2d<int>(0, 0));
 	  if (eventStatus != EventStatus::STAND_BY)
-	    break;
-
+	    {
+	      *this->playSound = this->event.getCheckboxSoundStatus();
+	      *this->drawWalls = this->event.getCheckboxWallsStatus();
+	      break;
+	    }
 	  this->_guienv->drawAll();
 	  if (this->spriteBank != nullptr)
 	    {
@@ -150,10 +164,6 @@ EventStatus	MenuModel::launchModel()
 				       irr::video::SColor(255, 255, 255, 255), 0);
 	    }
 
-	  *this->playSound = this->event.getCheckboxSoundStatus();
-	  /*
-	  *this->drawWalls = this->checkboxWalls->isChecked();
-	  */
 	  this->_driver->endScene();
 	}
     }

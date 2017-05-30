@@ -41,10 +41,8 @@ bool	MenuEventModel::OnEvent(const irr::SEvent &event)
 		this->optionButton->setVisible(false);
 		this->startButton->setVisible(false);
 		this->exitButton->setVisible(false);
-		this->checkboxSound->setImage(checkboxSoundChecked);
-		this->checkboxSound->setUseAlphaChannel(true);
-		this->checkboxSound->setDrawBorder(false);
 		this->checkboxSound->setVisible(true);
+		this->checkboxWalls->setVisible(true);
 		this->backButton->setVisible(true);
 		break;
 	      }
@@ -63,6 +61,21 @@ bool	MenuEventModel::OnEvent(const irr::SEvent &event)
 		  }
 		break;
 	      }
+	  case MenuButton::OPTION_MAP:
+	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+	      {
+		if (this->checkboxWallsStatus)
+		  {
+		    this->checkboxWallsStatus = false;
+		    this->checkboxWalls->setImage(this->checkboxWallsNotChecked);
+		  }
+		else
+		  {
+		    this->checkboxWallsStatus = true;
+		    this->checkboxWalls->setImage(this->checkboxWallsChecked);
+		  }
+		break;
+	      }
 	  case MenuButton::BACK:
 	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
 	      {
@@ -71,6 +84,7 @@ bool	MenuEventModel::OnEvent(const irr::SEvent &event)
 		this->exitButton->setVisible(true);
 		this->checkboxSound->setVisible(false);
 		this->backButton->setVisible(false);
+		this->checkboxWalls->setVisible(false);
 		break;
 	      }
 	  default:
@@ -121,7 +135,10 @@ void	MenuEventModel::setSoundCheckboxAndTextures(irr::gui::IGUIButton *checkboxS
 							irr::video::ITexture *checkboxSoundNotChecked)
 {
   this->checkboxSound = checkboxSound;
+  this->checkboxSound->setUseAlphaChannel(true);
+  this->checkboxSound->setDrawBorder(false);
   this->checkboxSound->setVisible(false);
+  this->checkboxSound->setImage(checkboxSoundChecked);
   this->checkboxSoundStatus = true;
   this->checkboxSoundChecked = checkboxSoundChecked;
   this->checkboxSoundNotChecked = checkboxSoundNotChecked;
@@ -131,12 +148,22 @@ void	MenuEventModel::setWallsCheckboxAndTextures(irr::gui::IGUIButton *checkboxW
 							irr::video::ITexture *checkboxWallsNotChecked)
 {
   this->checkboxWalls = checkboxWalls;
-  (void)checkboxWallsChecked;
-  (void)checkboxWallsNotChecked;
+  this->checkboxWalls->setUseAlphaChannel(true);
+  this->checkboxWalls->setDrawBorder(false);
+  this->checkboxWalls->setVisible(false);
+  this->checkboxWallsStatus = true;
+  this->checkboxWallsChecked = checkboxWallsChecked;
+  this->checkboxWallsNotChecked = checkboxWallsNotChecked;
+  this->checkboxWalls->setImage(checkboxWallsChecked);
 }
 
 const bool &MenuEventModel::getCheckboxSoundStatus() const
 {
   return (this->checkboxSoundStatus);
+}
+
+bool const &MenuEventModel::getCheckboxWallsStatus() const
+{
+  return (this->checkboxWallsStatus);
 }
 

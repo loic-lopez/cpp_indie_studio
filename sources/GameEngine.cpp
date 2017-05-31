@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Wed May 31 14:03:35 2017 Stanislas Deneubourg
+// Last update Wed May 31 14:17:38 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine.hpp"
@@ -67,18 +67,22 @@ void GameNamespace::GameEngine::setBlockProperties(int x, int y)
 
 void GameNamespace::GameEngine::setWorms()
 {
-  for (int i = 0; i < number_of_teams; i++)
-    {
-      irr::scene::IAnimatedMesh* m = this->device->getSceneManager()->getMesh(worm.c_str());
-      if (!m)
-	return;
-      irr::scene::IAnimatedMeshSceneNode* animworms = this->device->getSceneManager()->addAnimatedMeshSceneNode(m);
-      animworms->setAnimationSpeed(30);
-      this->worms = animworms;
-      this->worms->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-      this->worms->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
-    }
-      this->worms->setRotation(irr::core::vector3df(0.0, 90.0, 0.0));
+  // for (int i = 0; i < number_of_teams; i++)
+  //   {
+  //     for (int j = 0; j < players_per_team; j++)
+  // 	{
+  // 	  irr::scene::IAnimatedMesh* m = this->device->getSceneManager()->getMesh(worm.c_str());
+  // 	  if (!m)
+  // 	    return;
+  // 	  irr::scene::IAnimatedMeshSceneNode* animworms = this->device->getSceneManager()->addAnimatedMeshSceneNode(m);
+  // 	  animworms->setAnimationSpeed(30);
+  // 	  this->worms = animworms;
+  // 	  this->worms->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  // 	  this->worms->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
+  // 	  this->worms->setRotation(irr::core::vector3df(0.0, 90.0, 0.0));
+  // 	  this->worm_team_mesh.push_back(this->worms);
+  // 	}
+  //   }
 }
 
 EventStatus GameNamespace::GameEngine::launchModel()

@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Wed May 31 14:03:21 2017 Stanislas Deneubourg
+// Last update Wed May 31 14:17:22 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -17,6 +17,7 @@
 #include <cstdlib>
 #include "IModel.hpp"
 #include "MenuInGameModel.hpp"
+#include "Team.hpp"
 
 namespace	GameNamespace
 {
@@ -75,13 +76,13 @@ namespace	GameNamespace
     irr::scene::ITerrainSceneNode			*backgroundTerrain;
     int							worms_per_team;
     int							number_of_teams;
-    std::vector<irr::scene::IAnimatedMesh *>		worm_team_mesh;
-    std::vector<irr::scene::IAnimatedMeshSceneNode *>	worm_team_mesh_scene_node;
+    std::vector<Team>					worm_team_mesh;
 
-    virtual void					setModelProperties();
-    virtual void					setWorms();
-    virtual void					mapGen();
-    virtual void					setBlockProperties(int, int);
+    virtual	void					setModelProperties();
+    virtual	void					setWorms();
+    virtual	void					mapGen();
+    virtual	void					backgroundGen();
+    virtual	void					setBlockProperties(int, int);
     
    public:
 

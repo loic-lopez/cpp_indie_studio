@@ -5,10 +5,10 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  mer. mai 31 14:02:11 2017 Loïc Lopez
-** Last update mer. mai 31 14:02:11 2017 Loïc Lopez
+// Last update Wed May 31 14:43:35 2017 Stanislas Deneubourg
 */
 
-#include "MenuModel.hpp"
+#include "Model/MenuModel.hpp"
 
 void	MenuModel::SetMenuModelMainOptions()
 {

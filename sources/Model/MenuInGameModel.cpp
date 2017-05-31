@@ -5,10 +5,10 @@
 ** Login   <yassir.jabbari@epitech.eu>
 **
 ** Started on  Mon May 08 16:18:52 2017 Yassir Jabbari
-** Last update Mon May 08 16:18:52 2017 Yassir Jabbari
+// Last update Wed May 31 14:41:26 2017 Stanislas Deneubourg
 */
 
-#include "MenuInGameModel.hpp"
+#include "Model/MenuInGameModel.hpp"
 
 MenuInGame::MenuInGame(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
 		       irr::scene::ISceneManager *smgr) :

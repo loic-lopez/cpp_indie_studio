@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 14:13:39 2017 Stanislas Deneubourg
-// Last update Wed May 31 14:20:07 2017 Stanislas Deneubourg
+// Last update Wed May 31 14:37:31 2017 Stanislas Deneubourg
 //
 
 #ifndef TEAM_HPP
@@ -15,8 +15,10 @@
 #include <vector>
 #include <string>
 #include <cstdlib>
-#include "IModel.hpp"
-#include "MenuInGameModel.hpp"
-#include "Team.hpp"
+#include "Interface/IPlayer.hpp"
+
+class	Team
+{
+};
 
 #endif

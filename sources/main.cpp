@@ -5,10 +5,11 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 16:39:31 2017 Loïc Dupil
-// Last update Wed May  3 18:52:10 2017 Stanislas Deneubourg
+// Last update Wed May 31 14:33:38 2017 Stanislas Deneubourg
 //
 
-#include "indie.hpp"
+#include <ctime>
+#include "Core.hpp"
 
 int	main()
 {

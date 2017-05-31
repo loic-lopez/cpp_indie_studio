@@ -5,13 +5,13 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:56:42 2017 Stanislas Deneubourg
-// Last update Thu May  4 17:34:51 2017 Stanislas Deneubourg
+// Last update Wed May 31 14:37:58 2017 Stanislas Deneubourg
 //
 
 #ifndef	SPLASH_SCREEN_HPP__
 #define SPLASH_SCREEN_HPP__
 
-#include "IModel.hpp"
+#include "Interface/IModel.hpp"
 
 class	SplashScreen : public IModel
 {

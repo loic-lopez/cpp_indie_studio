@@ -5,11 +5,10 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Wed May 31 14:17:38 2017 Stanislas Deneubourg
+// Last update Wed May 31 14:38:31 2017 Stanislas Deneubourg
 //
 
-#include "GameEngine.hpp"
-#include <iostream>
+#include "GameEngine/GameEngine.hpp"
 
 GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
 				      irr::video::IVideoDriver *driver,
@@ -39,7 +38,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
   this->file_texture = "./ressources/textures/ground/ground" + std::to_string(std::rand() % nb_textures) + ".bmp";
   this->worm_texture = "./ressources/textures/Worm/WormTextures.png";
   this->max_y = this->size_y * (-1);
-  this->worms_par_team = 4;
+  this->worms_per_team = 4;
   this->number_of_teams = 2;
 }
 

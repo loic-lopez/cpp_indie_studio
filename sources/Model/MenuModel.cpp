@@ -5,10 +5,10 @@
 ** Login   <yassir.jabbari@epitech.eu>
 **
 ** Started on  Sat May 06 13:52:58 2017 Yassir Jabbari
-// Last update Wed May 10 14:01:20 2017 Stanislas Deneubourg
+// Last update Wed May 31 14:41:04 2017 Stanislas Deneubourg
 */
 
-#include "MenuModel.hpp"
+#include "Model/MenuModel.hpp"
 
 MenuModel::MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
 		     irr::scene::ISceneManager *smgr, irr::gui::IGUIEnvironment *guienv,
@@ -62,6 +62,7 @@ void	MenuModel::setModelProperties()
   this->_device->getCursorControl()->setVisible(false);
 
   // CHECKBOXES
+  texture = nullptr;
   image_size = texture->getSize();
   this->checkboxSound = this->_guienv->addButton(irr::core::rect<int>((image_size.Width / 9),
 								      ((image_size.Height / 2)),

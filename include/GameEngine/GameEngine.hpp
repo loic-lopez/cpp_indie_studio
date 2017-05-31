@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Wed May 31 14:17:22 2017 Stanislas Deneubourg
+// Last update Wed May 31 14:37:14 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -15,9 +15,9 @@
 #include <vector>
 #include <string>
 #include <cstdlib>
-#include "IModel.hpp"
-#include "MenuInGameModel.hpp"
-#include "Team.hpp"
+#include "Interface/IModel.hpp"
+#include "Model/MenuInGameModel.hpp"
+#include "Worms/Team.hpp"
 
 namespace	GameNamespace
 {

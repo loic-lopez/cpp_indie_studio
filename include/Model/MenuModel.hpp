@@ -5,16 +5,17 @@
 ** Login   <yassir.jabbari@epitech.eu>
 **
 ** Started on  Sat May 06 13:44:49 2017 Yassir Jabbari
-// Last update Wed May 10 14:00:57 2017 Stanislas Deneubourg
+// Last update Wed May 31 14:34:58 2017 Stanislas Deneubourg
 */
+
 #ifndef CPP_INDIE_STUDIO_MENUCONTROLLER_HPP
 #define CPP_INDIE_STUDIO_MENUCONTROLLER_HPP
 
-# include "IModel.hpp"
-# include "Events/MenuEvent.hpp"
 # include <vector>
 # include <iostream>
-# include "MenuButton.hpp"
+# include "Interface/IModel.hpp"
+# include "Events/MenuEvent.hpp"
+# include "Events/MenuButton.hpp"
 
 class		MenuModel : public IModel
 {

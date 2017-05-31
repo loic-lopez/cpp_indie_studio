@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:21:55 2017 Loïc Dupil
-// Last update Wed May 10 13:41:42 2017 Stanislas Deneubourg
+// Last update Wed May 31 14:34:20 2017 Stanislas Deneubourg
 //
 
 #ifndef CORE_HPP
@@ -15,11 +15,11 @@
 #include <cstdlib>
 #include <irrKlang.h>
 #include <irrlicht.h>
-#include "ICore.hpp"
-#include "MenuModel.hpp"
-#include "GameEngine.hpp"
-#include "SplashScreen.hpp"
-#include "EventStatus.hpp"
+#include "Interface/ICore.hpp"
+#include "Model/MenuModel.hpp"
+#include "GameEngine/GameEngine.hpp"
+#include "Model/SplashScreen.hpp"
+#include "Events/EventStatus.hpp"
 
 #ifdef _MSC_VER
 # pragma comment(lib, "Irrlicht.lib")

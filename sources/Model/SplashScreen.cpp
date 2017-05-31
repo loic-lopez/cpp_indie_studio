@@ -5,10 +5,10 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:58:37 2017 Stanislas Deneubourg
-// Last update Mon May  8 19:59:25 2017 Loic Lopez
+// Last update Wed May 31 14:40:41 2017 Stanislas Deneubourg
 //
 
-#include "SplashScreen.hpp"
+#include "Model/SplashScreen.hpp"
 
 SplashScreen::SplashScreen(irr::scene::ISceneManager *smgr,
 			   irr::video::IVideoDriver *driver,

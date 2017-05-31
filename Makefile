@@ -5,22 +5,23 @@
 ## Login   <jabbar_y@epitech.net>
 ## 
 ## Started on  Mon May  1 12:13:34 2017 Jabbari Yassir
-## Last update Wed May 31 13:51:06 2017 Stanislas Deneubourg
+## Last update Wed May 31 14:43:17 2017 Stanislas Deneubourg
 ##
 
 NAME            =       indie_studio
 
-SRC             =	sources/main.cpp			\
-			sources/Core.cpp			\
-			sources/Encap.cpp			\
-			sources/GameEngine.cpp  		\
-			sources/GameEngineGeneration.cpp	\
-			sources/Events/EventReceiver.cpp 	\
-			sources/SplashScreen.cpp  		\
-			sources/MenuModel.cpp			\
-			sources/Events/MenuEventModel.cpp	\
-			sources/MenuInGameModel.cpp		\
-			sources/Events/MenuInGameEventModel.cpp	\
+SRC             =	sources/main.cpp								\
+			sources/Core.cpp								\
+			sources/Encap.cpp								\
+			sources/GameEngine/GameEngine.cpp  						\
+			sources/GameEngine/GameEngineGeneration.cpp					\
+			sources/Events/EventReceiver.cpp 						\
+			sources/Model/SplashScreen.cpp  						\
+			sources/Model/MenuModel.cpp							\
+			sources/Events/MenuEvent.cpp							\
+			sources/Model/MenuInGameModel.cpp						\
+			sources/Events/MenuInGameEvent.cpp						\
+			sources/Model/SetMenuModelMainOptions.cpp					\
 
 
 OBJ             =       $(SRC:.cpp=.o)

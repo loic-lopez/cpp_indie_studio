@@ -5,10 +5,10 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Fri May  5 18:12:56 2017 Stanislas Deneubourg
-// Last update Fri May  5 18:45:52 2017 Stanislas Deneubourg
+// Last update Wed May 31 14:24:48 2017 Stanislas Deneubourg
 //
 
-#include "EventReceiver.hpp"
+#include "Events/EventReceiver.hpp"
 
 EventReceiver::EventReceiver()
 {

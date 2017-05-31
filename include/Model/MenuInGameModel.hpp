@@ -5,12 +5,12 @@
 ** Login   <yassir.jabbari@epitech.eu>
 **
 ** Started on  Mon May 08 16:15:32 2017 Yassir Jabbari
-** Last update Mon May 08 16:15:32 2017 Yassir Jabbari
+// Last update Wed May 31 14:36:59 2017 Stanislas Deneubourg
 */
 #ifndef CPP_INDIE_STUDIO_MENUINGAMEMODEL_HPP
 #define CPP_INDIE_STUDIO_MENUINGAMEMODEL_HPP
 
-#include "IModel.hpp"
+#include "Interface/IModel.hpp"
 #include "Events/MenuInGameEvent.hpp"
 
 class 			MenuInGame : public IModel

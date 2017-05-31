@@ -5,14 +5,14 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:13:18 2017 Stanislas Deneubourg
-// Last update Mon May 29 17:56:39 2017 Stanislas Deneubourg
+// Last update Wed May 31 14:35:24 2017 Stanislas Deneubourg
 //
 
 #ifndef	IMODEL_HPP__
 #define IMODEL_HPP__
 
 #include <irrlicht.h>
-#include "EventStatus.hpp"
+#include "Events/EventStatus.hpp"
 
 class	IModel
 {

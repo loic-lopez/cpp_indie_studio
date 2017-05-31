@@ -5,10 +5,10 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 13:51:26 2017 Stanislas Deneubourg
-// Last update Wed May 31 13:53:40 2017 Stanislas Deneubourg
+// Last update Wed May 31 14:39:57 2017 Stanislas Deneubourg
 //
 
-#include "GameEngine.hpp"
+#include "GameEngine/GameEngine.hpp"
 
 void	GameNamespace::GameEngine::mapGen()
 {

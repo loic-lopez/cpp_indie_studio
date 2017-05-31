@@ -35,14 +35,16 @@ bool	MenuEvent::OnEvent(const irr::SEvent &event)
 		*this->eventStatus = EventStatus::ENTER_IN_GAME;
 		break;
 	      }
+	  case MenuButton::SAVES:
+	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+	      {
+		this->setMainButtonsHidden();
+		break;
+	      }
 	  case MenuButton::OPTIONS:
 	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
 	      {
-		// MAIN BUTTONS
-		this->optionButton->setVisible(false);
-		this->startButton->setVisible(false);
-		this->exitButton->setVisible(false);
-		this->savesButton->setVisible(false);
+		this->setMainButtonsHidden();
 
 		// SUB BUTTONS
 		this->checkboxSound->setVisible(true);
@@ -84,11 +86,7 @@ bool	MenuEvent::OnEvent(const irr::SEvent &event)
 	  case MenuButton::BACK:
 	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
 	      {
-		// MAIN BUTTONS
-		this->optionButton->setVisible(true);
-		this->startButton->setVisible(true);
-		this->exitButton->setVisible(true);
-		this->savesButton->setVisible(true);
+		this->setMainButtonsVisible();
 
 		// SUB BUTTONS
 		this->checkboxSound->setVisible(false);
@@ -146,4 +144,22 @@ void	MenuEvent::setSavesButton(irr::gui::IGUIButton *savesButton, irr::video::IT
   this->savesButton->setImage(texture);
   this->savesButton->setUseAlphaChannel(true);
   this->savesButton->setDrawBorder(false);
+}
+
+
+void	MenuEvent::setMainButtonsHidden()
+{
+  this->optionButton->setVisible(false);
+  this->startButton->setVisible(false);
+  this->exitButton->setVisible(false);
+  this->savesButton->setVisible(false);
+}
+
+
+void	MenuEvent::setMainButtonsVisible()
+{
+  this->optionButton->setVisible(true);
+  this->startButton->setVisible(true);
+  this->exitButton->setVisible(true);
+  this->savesButton->setVisible(true);
 }

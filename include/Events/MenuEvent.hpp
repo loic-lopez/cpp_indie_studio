@@ -40,6 +40,8 @@ private:
   bool 			checkboxWallsStatus;
   irr::video::ITexture	*checkboxWallsChecked;
   irr::video::ITexture	*checkboxWallsNotChecked;
+  void 			setMainButtonsHidden();
+  void 			setMainButtonsVisible();
 
  public:
   MenuEvent(irr::IrrlichtDevice *device);

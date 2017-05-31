@@ -27,7 +27,7 @@ OBJ             =       $(SRC:.cpp=.o)
 
 CXXFLAGS	+=	-I./irrKlang/include -I./bullet/include/bullet
 
-CXXFLAGS	+=	-I./irrlicht/include -I./include/ -I./include/Events
+CXXFLAGS	+=	-I./irrlicht/include -I./include/
 
 CXXFLAGS	+=	-L./irrKlang/lib/linux64 -L./irrlicht/lib/Linux -L./bullet/lib -Wall -Werror
 

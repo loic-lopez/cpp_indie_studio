@@ -11,9 +11,9 @@
 #define CPP_INDIE_STUDIO_MENUCONTROLLER_HPP
 
 # include "IModel.hpp"
-#include "Events/MenuEvent.hpp"
-#include <vector>
-#include <iostream>
+# include "Events/MenuEvent.hpp"
+# include <vector>
+# include <iostream>
 # include "MenuButton.hpp"
 
 class		MenuModel : public IModel

@@ -5,15 +5,16 @@
 ## Login   <jabbar_y@epitech.net>
 ## 
 ## Started on  Mon May  1 12:13:34 2017 Jabbari Yassir
-## Last update Mon May  8 20:55:44 2017 Loic Lopez
+## Last update Wed May 31 13:51:06 2017 Stanislas Deneubourg
 ##
 
 NAME            =       indie_studio
 
-SRC             =      sources/main.cpp			\
+SRC             =	sources/main.cpp			\
 			sources/Core.cpp			\
 			sources/Encap.cpp			\
 			sources/GameEngine.cpp  		\
+			sources/GameEngineGeneration.cpp	\
 			sources/EventReceiver.cpp 		\
 			sources/SplashScreen.cpp  		\
 			sources/MenuModel.cpp			\

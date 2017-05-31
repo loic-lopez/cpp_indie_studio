@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Mon May 29 18:55:04 2017 Stanislas Deneubourg
+// Last update Wed May 31 14:03:35 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine.hpp"
@@ -39,6 +39,8 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
   this->file_texture = "./ressources/textures/ground/ground" + std::to_string(std::rand() % nb_textures) + ".bmp";
   this->worm_texture = "./ressources/textures/Worm/WormTextures.png";
   this->max_y = this->size_y * (-1);
+  this->worms_par_team = 4;
+  this->number_of_teams = 2;
 }
 
 GameNamespace::GameEngine::~GameEngine()
@@ -56,6 +58,7 @@ void GameNamespace::GameEngine::setBlockProperties(int x, int y)
       this->smgr->getMeshManipulator()->makePlanarTextureMapping(this->groundObject->getMesh(), 1.0f);
       this->groundObject->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
       irr::f32 minRadius = this->groundObject->getMesh()->getBoundingBox().getExtent().getLength() * 0.70f;
+      this->block_size = minRadius;
       this->the_farthest_map_point = this->size_x * minRadius;
       this->groundObject->setPosition(irr::core::vector3df(x * minRadius, -y * (minRadius / 3), 0));
       this->groundObjects.push_back(this->groundObject);
@@ -64,15 +67,18 @@ void GameNamespace::GameEngine::setBlockProperties(int x, int y)
 
 void GameNamespace::GameEngine::setWorms()
 {
-  irr::scene::IAnimatedMesh* m = this->device->getSceneManager()->getMesh(worm.c_str());
-  if (!m)
-    return;
-  irr::scene::IAnimatedMeshSceneNode* animworms = this->device->getSceneManager()->addAnimatedMeshSceneNode(m);
-  animworms->setAnimationSpeed(30);
-  this->worms = animworms;
-  this->worms->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-  this->worms->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
-  this->worms->setRotation(irr::core::vector3df(0.0, 90.0, 0.0));
+  for (int i = 0; i < number_of_teams; i++)
+    {
+      irr::scene::IAnimatedMesh* m = this->device->getSceneManager()->getMesh(worm.c_str());
+      if (!m)
+	return;
+      irr::scene::IAnimatedMeshSceneNode* animworms = this->device->getSceneManager()->addAnimatedMeshSceneNode(m);
+      animworms->setAnimationSpeed(30);
+      this->worms = animworms;
+      this->worms->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+      this->worms->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
+    }
+      this->worms->setRotation(irr::core::vector3df(0.0, 90.0, 0.0));
 }
 
 EventStatus GameNamespace::GameEngine::launchModel()
@@ -80,20 +86,10 @@ EventStatus GameNamespace::GameEngine::launchModel()
   EventStatus eventStatus = EventStatus::QUIT;
   EventStatus eventStatusMenu = EventStatus::STAND_BY;
   irr::s32	lastFPS = -1;
-  float		i = 0.0;
   
   while(this->device->run())
     if (this->device->isWindowActive())
       {
-	i += 2;
-	if (i > 355.0)
-	  i = -355.0;
-	// this->gameCamera = smgr->addCameraSceneNode(nullptr,
-	// 					    irr::core::vector3df(this->the_farthest_map_point / 2,
-	// 								 -this->size_y / 2, -100),
-	// 					    irr::core::vector3df(i,
-	// 								 -this->size_y / 2, 0),
-	// 					    -1, true);
 	const irr::s32 fps = this->driver->getFPS();
 	if (lastFPS != fps)
 	  {
@@ -192,16 +188,8 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	this->gameCamera->setPosition(realTimeCameraPosition);
 	this->gameCamera->setTarget(realTimeCameraTarget);
 	this->driver->beginScene(true, true, 0);
-
-
-	// draw scene normally
 	this->smgr->drawAll();
-
-	//        env->drawAll();
-
 	this->driver->endScene();
-
-	// display frames per second in window title
       }
   this->driver->removeAllTextures();
   this->smgr->clear();
@@ -229,126 +217,8 @@ static void fixRandPosition(int &value, int stop)
 
 void GameNamespace::GameEngine::setModelProperties()
 {
-  int   x1, y1, y2, x2;
-    
-  //this->menuInGame->setModelProperties();
-
-  for (int i = 0; i < this->size_y; i++)
-    for (int j = 0; j < this->size_x; j++)
-      this->gameMap.emplace_back(j, i);
-  for (int i = 0; i < this->size_y; i++)
-    for (int j = 0; j < this->size_x; j++)
-      this->gameMap2.emplace_back(j, i);
-  for (int i = 0; i < this->size_y * this->size_x; i++)
-    {
-      if ((i % this->size_y) == 0 || (i % this->size_x) == this->size_x - 1)
-        this->gameMap.at(i).terrain = GameNamespace::TerrainType::GROUND;
-      if ((std::rand() % 100) < this->fillProbe)
-        this->gameMap.at(i).terrain = GameNamespace::TerrainType::GROUND;
-      else
-        this->gameMap.at(i).terrain = GameNamespace::TerrainType::AIR;
-    }
-  for (int i = 0; i < this->size_y * this->size_x; i++)
-    this->gameMap2.at(i).terrain = GameNamespace::TerrainType::GROUND;
-  for (int i = 0; i < this->generations; i++)
-    {
-      for (y1 = 1; y1 < this->size_y - 1; y1++)
-        {
-          for (x1 = 1; x1 < this->size_x - 1; x1++)
-            {
-              int       adjcount_r1 = 0;
-              int       adjcount_r2 = 0;
-
-              for (y2 = -1; y2 < 1; y2++)
-		for (x2 = -1; x2 < 1; x2++)
-		  if ((this->gameMap.at((x1-x2) + this->size_y * (y1-y2)).terrain) != GameNamespace::TerrainType::AIR)
-		    adjcount_r1++;
-              for (y2 = y1 - 2; y2 <= y1 + 2; y2++)
-                {
-                  for (x2 = x1 - 2; x2 <= x1 + 2; x2++)
-                    {
-                      if ((std::abs((y2-y1))) == 2 && (std::abs((x2-x1))) == 2)
-                        continue;
-                      if (y2 < 0 || x2 < 0 || y2 >= this->size_y || x2 >= this->size_x)
-                        continue;
-                      if ((this->gameMap.at(x2 + this->size_y * y2).terrain) != GameNamespace::TerrainType::AIR)
-                        adjcount_r2++;
-                    }
-                }
-              if (adjcount_r1 >= this->r1_cutoff || adjcount_r2 <= this->r2_cutoff)
-                this->gameMap2.at(x1 + this->size_y * y1).terrain = GameNamespace::TerrainType::GROUND;
-              else
-                this->gameMap2.at(x1 + this->size_y * y1).terrain = GameNamespace::TerrainType::AIR;
-            }
-        }
-      for (y1 = 1; y1 < this->size_y - 1; y1++)
-	for (x1 = 1; x1 < this->size_x - 1; x1++)
-	  this->gameMap.at(x1 + this->size_y * y1) = this->gameMap2.at(x1 + this->size_y * y1);
-    }
-
-  if (this->drawWalls)
-    {
-      for (int i = 0; i < this->size_x * this->size_y; i++)
-	{
-	  if ((i < this->size_x) || ((i % this->size_x) == 0) || ((i % this->size_x) == this->size_x - 1))
-	    this->gameMap.at(i).terrain = GameNamespace::TerrainType::GROUND;
-	  if (i >= (this->size_x * (this->size_y - 1)))
-	    this->gameMap.at(i).terrain = GameNamespace::TerrainType::AIR;
-	}
-      
-    }
-  else
-    {
-      for (int i = 0; i < this->size_x * this->size_y; i++)
-        if ((i < this->size_x) || ((i % this->size_x) == 0) || ((i % this->size_x) == this->size_x - 1) || (i >= (this->size_x * (this->size_y - 1))))
-          this->gameMap.at(i).terrain = GameNamespace::TerrainType::AIR;
-    }
-
-  for (int i = 0; i < this->size_x * this->size_y; i++)
-    if (this->gameMap.at(i).terrain == GameNamespace::TerrainType::GROUND)
-      this->setBlockProperties(this->gameMap.at(i).x, this->gameMap.at(i).y);
-
-  this->gameCamera = smgr->addCameraSceneNode(nullptr,
-					      irr::core::vector3df(this->the_farthest_map_point / 2,
-								   -this->size_y / 2, -100),
-					      irr::core::vector3df(this->the_farthest_map_point / 2,
-								   -this->size_y / 2, 0),
-					      -1, true);
-  this->water_mesh = this->smgr->addHillPlaneMesh("water",
-						  irr::core::dimension2d<irr::f32>(20,10), //	Taille du mesh initial
-						  irr::core::dimension2d<irr::u32>(80,80), nullptr, 0, // Multiplicateur de taille du mesh
-						  irr::core::dimension2d<irr::f32>(0,0), // Material
-						  irr::core::dimension2d<irr::f32>(10,10)); // countHills
-  this->sea = this->smgr->addWaterSurfaceSceneNode(this->water_mesh->getMesh(0),
-						   0.5f, 300.0f, 0.5f);
-  this->sea->setMaterialTexture(0, this->driver->getTexture("./ressources/textures/terrain/detail_terrain.jpg"));
-  this->sea->setMaterialTexture(1, this->driver->getTexture("./ressources/textures/water/water.jpg"));
-  this->sea->setMaterialFlag(irr::video::EMF_LIGHTING, true);
-  this->sea->setMaterialType(irr::video::EMT_REFLECTION_2_LAYER);
-  this->sea->setPosition(irr::core::vector3df(0, this->max_y *
-	  ((this->groundObjects.at(this->groundObjects.size() - 1)->getMesh()
-	    ->getBoundingBox().getExtent().getLength() * 0.70f) / 3)
-					      , 200.0f));
-  this->driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
-
-  this->skybox = this->smgr->addSkyBoxSceneNode(this->driver->getTexture("./ressources/skydome/irrlicht2_up.jpg"),
-						this->driver->getTexture("./ressources/skydome/irrlicht2_dn.jpg"),
-						this->driver->getTexture("./ressources/skydome/irrlicht2_lf.jpg"),
-						this->driver->getTexture("./ressources/skydome/irrlicht2_rt.jpg"),
-						this->driver->getTexture("./ressources/skydome/irrlicht2_ft.jpg"),
-						this->driver->getTexture("./ressources/skydome/irrlicht2_bk.jpg"));
-  this->backgroundTerrain = this->smgr->addTerrainSceneNode("./ressources/skydome/terrain-heightmap.bmp",
-							    0, -1,
-							    irr::core::vector3df(-1200.0f, -200.0f, 50.0f),
-							    irr::core::vector3df(0.0f, 0.0f, 0.0f),
-							    irr::core::vector3df(40.0f, 4.4f, 40.0f),
-							    irr::video::SColor(255, 255, 255, 255),
-							    5, irr::scene::ETPS_17, 4);
-  this->backgroundTerrain->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-  this->backgroundTerrain->setMaterialTexture(0, this->driver->getTexture("./ressources/textures/terrain/terrain_bruit.jpg"));
-  this->backgroundTerrain->setMaterialTexture(1, this->driver->getTexture("./ressources/textures/terrain/detail_terrain.jpg"));
-  this->backgroundTerrain->setMaterialType(irr::video::EMT_DETAIL_MAP);
-  this->backgroundTerrain->scaleTexture(1.0f, 20.0f);
+  this->mapGen();
+  this->backgroundGen();
   this->setWorms();
 }
 

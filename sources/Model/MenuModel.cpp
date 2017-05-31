@@ -62,7 +62,7 @@ void	MenuModel::setModelProperties()
   this->_device->getCursorControl()->setVisible(false);
 
   // CHECKBOXES
-  texture = nullptr;
+  texture = this->_driver->getTexture("ressources/buttons/checkboxes/sound_checked.png");
   image_size = texture->getSize();
   this->checkboxSound = this->_guienv->addButton(irr::core::rect<int>((image_size.Width / 9),
 								      ((image_size.Height / 2)),

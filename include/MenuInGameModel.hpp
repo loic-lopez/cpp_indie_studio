@@ -11,7 +11,7 @@
 #define CPP_INDIE_STUDIO_MENUINGAMEMODEL_HPP
 
 #include "IModel.hpp"
-#include "MenuInGameEventModel.hpp"
+#include "Events/MenuInGameEvent.hpp"
 
 class 			MenuInGame : public IModel
 {
@@ -35,7 +35,7 @@ class 			MenuInGame : public IModel
   irr::gui::IGUIFont				*_font;
   irr::gui::IGUITabControl			*tabCtrl;
   irr::video::ITexture				*background;
-  MenuInGameEventModel				event;
+  MenuInGameEvent				event;
   irr::gui::IGUIButton				*exitButton;
   irr::gui::IGUIButton				*playButton;
   irr::gui::IGUIButton				*saveButton;

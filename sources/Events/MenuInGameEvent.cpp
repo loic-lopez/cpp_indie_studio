@@ -8,14 +8,14 @@
 ** Last update Mon May 08 18:05:17 2017 Yassir Jabbari
 */
 
-#include "MenuInGameEventModel.hpp"
+#include "Events/MenuInGameEvent.hpp"
 
-MenuInGameEventModel::MenuInGameEventModel(irr::IrrlichtDevice *device)
+MenuInGameEvent::MenuInGameEvent(irr::IrrlichtDevice *device)
 {
   this->device = device;
 }
 
-bool MenuInGameEventModel::OnEvent(const irr::SEvent &event)
+bool MenuInGameEvent::OnEvent(const irr::SEvent &event)
 {
   this->eventReceiver.OnEvent(event);
   if (event.EventType == irr::EET_GUI_EVENT)
@@ -55,22 +55,22 @@ bool MenuInGameEventModel::OnEvent(const irr::SEvent &event)
   return (false);
 }
 
-void MenuInGameEventModel::setEventStatus(EventStatus &status)
+void MenuInGameEvent::setEventStatus(EventStatus &status)
 {
   this->eventStatus = &status;
 }
 
-bool MenuInGameEventModel::IsKeyDown(irr::EKEY_CODE keyCode) const
+bool MenuInGameEvent::IsKeyDown(irr::EKEY_CODE keyCode) const
 {
   return (this->eventReceiver.IsKeyDown(keyCode));
 }
 
-bool MenuInGameEventModel::IsKeyUp(irr::EKEY_CODE keyCode)
+bool MenuInGameEvent::IsKeyUp(irr::EKEY_CODE keyCode)
 {
   return (this->eventReceiver.IsKeyUp(keyCode));
 }
 
-void MenuInGameEventModel::setExitButton(irr::gui::IGUIButton *exitButton)
+void MenuInGameEvent::setExitButton(irr::gui::IGUIButton *exitButton)
 {
   this->exitButton = exitButton;
 }

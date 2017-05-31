@@ -11,7 +11,7 @@
 #define CPP_INDIE_STUDIO_MENUCONTROLLER_HPP
 
 # include "IModel.hpp"
-#include "MenuEventModel.hpp"
+#include "Events/MenuEvent.hpp"
 #include <vector>
 #include <iostream>
 # include "MenuButton.hpp"
@@ -40,23 +40,23 @@ class		MenuModel : public IModel
 
   // BUTTONS
   irr::gui::IGUISpriteBank			*spriteBank;
-  irr::gui::IGUIButton				*startButton;
   irr::gui::IGUIButton				*exitButton;
   irr::gui::IGUIButton				*optionButton;
-  irr::gui::IGUIButton				*wallsCheckbox;
   irr::gui::IGUIButton				*backButton;
 
   ///
   irr::video::ITexture				*background;
   irr::core::dimension2d<irr::u32> 		cursorSize;
-  MenuEventModel				event;
+  MenuEvent				event;
   std::vector<std::string>			_saves;
 
   // CHECKBOXES
   bool 						*playSound;
   bool 						*drawWalls;
   irr::gui::IGUIButton				*checkboxSound;
-  irr::gui::IGUICheckBox			*checkboxWalls;
+  irr::gui::IGUIButton				*wallsCheckbox;
+
+  virtual	void				SetMenuModelMainOptions();
 };
 
 #endif //CPP_INDIE_STUDIO_MENUCONTROLLER_HPP

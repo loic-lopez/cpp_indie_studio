@@ -14,7 +14,7 @@
 #include "EventStatus.hpp"
 #include "MenuButton.hpp"
 
-class MenuEventModel : public irr::IEventReceiver
+class MenuEvent : public irr::IEventReceiver
 {
 private:
   // GENERAL
@@ -27,6 +27,7 @@ private:
   irr::gui::IGUIButton	*exitButton;
   irr::gui::IGUIButton	*optionButton;
   irr::gui::IGUIButton	*backButton;
+  irr::gui::IGUIButton	*savesButton;
 
   //CHECKBOXES
   irr::gui::IGUIButton 	*checkboxSound;
@@ -41,15 +42,18 @@ private:
   irr::video::ITexture	*checkboxWallsNotChecked;
 
  public:
-  MenuEventModel(irr::IrrlichtDevice *device);
+  MenuEvent(irr::IrrlichtDevice *device);
   virtual bool OnEvent(const irr::SEvent &event);
   void		setSelected(irr::s32 const &selected);
 
   //BUTTONS
-  void		setStartButton(irr::gui::IGUIButton *startButton);
+  void		setStartButton(irr::gui::IGUIButton *startButton,
+				     irr::video::ITexture *texture);
   void 		setExitButton(irr::gui::IGUIButton *exitButton);
-  void		setOptionButton(irr::gui::IGUIButton *startButton);
+  void		setOptionButton(irr::gui::IGUIButton *optionButton,
+				      irr::video::ITexture *texture);
   void		setBackButton(irr::gui::IGUIButton *backButton);
+  void 		setSavesButton(irr::gui::IGUIButton *backButton);
   void		setSoundCheckboxAndTextures(irr::gui::IGUIButton *checkboxSound,
 						  irr::video::ITexture *checkboxSoundChecked,
 						  irr::video::ITexture *checkboxSoundNotChecked);

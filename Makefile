@@ -15,19 +15,19 @@ SRC             =	sources/main.cpp			\
 			sources/Encap.cpp			\
 			sources/GameEngine.cpp  		\
 			sources/GameEngineGeneration.cpp	\
-			sources/EventReceiver.cpp 		\
+			sources/Events/EventReceiver.cpp 	\
 			sources/SplashScreen.cpp  		\
 			sources/MenuModel.cpp			\
-			sources/MenuEventModel.cpp		\
+			sources/Events/MenuEventModel.cpp	\
 			sources/MenuInGameModel.cpp		\
-			sources/MenuInGameEventModel.cpp	\
+			sources/Events/MenuInGameEventModel.cpp	\
 
 
 OBJ             =       $(SRC:.cpp=.o)
 
 CXXFLAGS	+=	-I./irrKlang/include -I./bullet/include/bullet
 
-CXXFLAGS	+=	-I./irrlicht/include -I./include/
+CXXFLAGS	+=	-I./irrlicht/include -I./include/ -I./include/Events
 
 CXXFLAGS	+=	-L./irrKlang/lib/linux64 -L./irrlicht/lib/Linux -L./bullet/lib -Wall -Werror
 

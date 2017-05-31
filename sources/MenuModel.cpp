@@ -35,9 +35,9 @@ MenuModel::~MenuModel()
 void	MenuModel::setModelProperties()
 {
   const irr::core::dimension2du& 	screenSize = this->_driver->getScreenSize();
+  irr::video::ITexture			*cursor;
   irr::core::dimension2d<irr::s32>	image_size;
   irr::video::ITexture			*texture;
-  irr::video::ITexture			*cursor;
 
   // SET TAB CTRL TO TRANSPARENCY
   this->skin->setColor((irr::gui::EGUI_DEFAULT_COLOR)3, irr::video::SColor(0, 0, 0,0));
@@ -48,42 +48,7 @@ void	MenuModel::setModelProperties()
 								    screenSize.Height - (screenSize.Height / 7)),
 					       nullptr, false, false);
 
-  //play button
-  texture = this->_driver->getTexture("ressources/buttons/play.png");
-  image_size = texture->getSize();
-  this->startButton = this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3),
-									 image_size.Height / 2,
-									 (image_size.Width / 2) + 4 * 34,
-									 image_size.Height),
-					       this->tabctrl, MenuButton::PLAY, L"");
-  this->startButton->setDrawBorder(false);
-  this->startButton->setImage(texture);
-  this->startButton->setUseAlphaChannel(true);
-
-  // OPTION BUTTON
-  texture = this->_driver->getTexture("ressources/buttons/options.png");
-  image_size = texture->getSize();
-  this->optionButton = this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 4),
-									((image_size.Height / 2) * 2),
-									(image_size.Width / 2) + 6 * 34,
-									(image_size.Height * 2) - 45),
-					      this->tabctrl, MenuButton::OPTIONS, L"");
-  this->optionButton->setImage(texture);
-  this->optionButton->setUseAlphaChannel(true);
-  this->optionButton->setDrawBorder(false);
-
-  //exit button
-  texture = this->_driver->getTexture("ressources/buttons/exit.png");
-  image_size = texture->getSize();
-  this->exitButton = this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 4),
-									((image_size.Height / 2) * 3),
-									(image_size.Width / 2) + 7 * 34,
-									(image_size.Height * 3) - 85) ,
-					      this->tabctrl, MenuButton::EXIT, L"");
-  this->exitButton->setImage(texture);
-  this->exitButton->setUseAlphaChannel(true);
-  this->exitButton->setDrawBorder(false);
-
+  this->SetMenuModelMainOptions();
   // CURSOR
   this->spriteBank = this->_guienv->addEmptySpriteBank(irr::io::path("ressources/cursor"));
   cursor = this->_driver->getTexture("ressources/cursor/cursor.png");
@@ -93,7 +58,7 @@ void	MenuModel::setModelProperties()
   irr::gui::SCursorSprite	cursorSprite(this->spriteBank, 0,  irr::core::position2d<irr::s32>(0,0));
 
   this->_device->getCursorControl()->addIcon(cursorSprite);
-  this->_device->getCursorControl()->setActiveIcon((irr::gui::ECURSOR_ICON) 0);
+  this->_device->getCursorControl()->setActiveIcon((irr::gui::ECURSOR_ICON)0);
   this->_device->getCursorControl()->setVisible(false);
 
   // CHECKBOXES
@@ -127,13 +92,12 @@ void	MenuModel::setModelProperties()
   this->backButton->setImage(texture);
   this->event.setBackButton(this->backButton);
 
+
   //event controller
   this->event.setSelected(this->selected);
 
   //set button events
-  this->event.setStartButton(this->startButton);
   this->event.setExitButton(this->exitButton);
-  this->event.setOptionButton(this->optionButton);
 }
 
 EventStatus	MenuModel::launchModel()

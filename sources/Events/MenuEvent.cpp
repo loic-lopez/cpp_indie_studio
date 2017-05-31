@@ -8,14 +8,14 @@
 // Last update Sat May  6 18:26:44 2017 Jabbari Yassir
 */
 
-#include "MenuEventModel.hpp"
+#include "Events/MenuEvent.hpp"
 
-MenuEventModel::MenuEventModel(irr::IrrlichtDevice *device)
+MenuEvent::MenuEvent(irr::IrrlichtDevice *device)
 {
   this->device = device;
 }
 
-bool	MenuEventModel::OnEvent(const irr::SEvent &event)
+bool	MenuEvent::OnEvent(const irr::SEvent &event)
 {
   if (event.EventType == irr::EET_GUI_EVENT)
     {
@@ -44,6 +44,7 @@ bool	MenuEventModel::OnEvent(const irr::SEvent &event)
 		this->checkboxSound->setVisible(true);
 		this->checkboxWalls->setVisible(true);
 		this->backButton->setVisible(true);
+		this->savesButton->setVisible(false);
 		break;
 	      }
 	  case MenuButton::OPTION_SOUND:
@@ -85,6 +86,7 @@ bool	MenuEventModel::OnEvent(const irr::SEvent &event)
 		this->checkboxSound->setVisible(false);
 		this->backButton->setVisible(false);
 		this->checkboxWalls->setVisible(false);
+		this->savesButton->setVisible(true);
 		break;
 	      }
 	  default:
@@ -94,33 +96,41 @@ bool	MenuEventModel::OnEvent(const irr::SEvent &event)
   return (false);
 }
 
-void	MenuEventModel::setSelected(irr::s32 const &selected)
+void	MenuEvent::setSelected(irr::s32 const &selected)
 {
   this->selected = selected;
 }
 
-void	MenuEventModel::setEventStatus(EventStatus &eventStatus)
+void	MenuEvent::setEventStatus(EventStatus &eventStatus)
 {
   this->eventStatus = &eventStatus;
 }
 
 // BUTTONS
-void	MenuEventModel::setStartButton(irr::gui::IGUIButton *startButton)
+void	MenuEvent::setStartButton(irr::gui::IGUIButton *startButton,
+					   irr::video::ITexture *texture)
 {
   this->startButton = startButton;
+  this->startButton->setDrawBorder(false);
+  this->startButton->setImage(texture);
+  this->startButton->setUseAlphaChannel(true);
 }
 
-void	MenuEventModel::setOptionButton(irr::gui::IGUIButton *optionButton)
+void	MenuEvent::setOptionButton(irr::gui::IGUIButton *optionButton,
+					    irr::video::ITexture *texture)
 {
   this->optionButton = optionButton;
+  this->optionButton->setImage(texture);
+  this->optionButton->setUseAlphaChannel(true);
+  this->optionButton->setDrawBorder(false);
 }
 
-void	MenuEventModel::setExitButton(irr::gui::IGUIButton *exitButton)
+void	MenuEvent::setExitButton(irr::gui::IGUIButton *exitButton)
 {
   this->exitButton = exitButton;
 }
 
-void	MenuEventModel::setBackButton(irr::gui::IGUIButton *backButton)
+void	MenuEvent::setBackButton(irr::gui::IGUIButton *backButton)
 {
   this->backButton = backButton;
   this->backButton->setUseAlphaChannel(true);
@@ -128,9 +138,15 @@ void	MenuEventModel::setBackButton(irr::gui::IGUIButton *backButton)
   this->backButton->setVisible(false);
 }
 
+void 	MenuEvent::setSavesButton(irr::gui::IGUIButton *savesButton)
+{
+  this->savesButton = savesButton;
+  this->savesButton->setVisible(true);
+}
+
 //CHECKBOXES
 
-void	MenuEventModel::setSoundCheckboxAndTextures(irr::gui::IGUIButton *checkboxSound,
+void	MenuEvent::setSoundCheckboxAndTextures(irr::gui::IGUIButton *checkboxSound,
 							irr::video::ITexture *checkboxSoundChecked,
 							irr::video::ITexture *checkboxSoundNotChecked)
 {
@@ -143,7 +159,7 @@ void	MenuEventModel::setSoundCheckboxAndTextures(irr::gui::IGUIButton *checkboxS
   this->checkboxSoundChecked = checkboxSoundChecked;
   this->checkboxSoundNotChecked = checkboxSoundNotChecked;
 }
-void	MenuEventModel::setWallsCheckboxAndTextures(irr::gui::IGUIButton *checkboxWalls,
+void	MenuEvent::setWallsCheckboxAndTextures(irr::gui::IGUIButton *checkboxWalls,
 							irr::video::ITexture *checkboxWallsChecked,
 							irr::video::ITexture *checkboxWallsNotChecked)
 {
@@ -157,12 +173,12 @@ void	MenuEventModel::setWallsCheckboxAndTextures(irr::gui::IGUIButton *checkboxW
   this->checkboxWalls->setImage(checkboxWallsChecked);
 }
 
-const bool &MenuEventModel::getCheckboxSoundStatus() const
+const bool &MenuEvent::getCheckboxSoundStatus() const
 {
   return (this->checkboxSoundStatus);
 }
 
-bool const &MenuEventModel::getCheckboxWallsStatus() const
+bool const &MenuEvent::getCheckboxWallsStatus() const
 {
   return (this->checkboxWallsStatus);
 }

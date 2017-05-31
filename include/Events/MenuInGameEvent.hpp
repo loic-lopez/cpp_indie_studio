@@ -15,10 +15,10 @@
 #include "EventReceiver.hpp"
 #include "EventStatus.hpp"
 
-class		MenuInGameEventModel : public irr::IEventReceiver
+class		MenuInGameEvent : public irr::IEventReceiver
 {
  public:
-  MenuInGameEventModel(irr::IrrlichtDevice *device);
+  MenuInGameEvent(irr::IrrlichtDevice *device);
   virtual bool OnEvent(const irr::SEvent &event);
   void setEventStatus(EventStatus &status);
   virtual bool IsKeyDown(irr::EKEY_CODE keyCode) const;

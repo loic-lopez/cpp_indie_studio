@@ -48,10 +48,25 @@ bool const &MenuEvent::getCheckboxWallsStatus() const
   return (this->checkboxWallsStatus);
 }
 
-void	MenuEvent::setBackButton(irr::gui::IGUIButton *backButton)
+void	MenuEvent::setBackButton(irr::gui::IGUIButton *backButton, irr::video::ITexture *texture)
 {
   this->backButton = backButton;
+  this->backButton->setImage(texture);
   this->backButton->setUseAlphaChannel(true);
   this->backButton->setDrawBorder(false);
   this->backButton->setVisible(false);
+}
+
+void	MenuEvent::setSavesListBox(irr::gui::IGUIListBox *savesListBox, std::vector<std::string> const &saves)
+{
+  this->savesListBox = savesListBox;
+  this->savesListBox->setVisible(false);
+  for (auto const &save : saves)
+    this->savesListBox->addItem(std::wstring(save.begin(), save.end()).c_str());
+  this->savesListBox->setSelected(irr::s32(this->selected));
+}
+
+MenuButton	const	&MenuEvent::getPressedButton() const
+{
+  return (this->button);
 }

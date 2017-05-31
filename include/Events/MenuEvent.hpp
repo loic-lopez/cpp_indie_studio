@@ -10,6 +10,8 @@
 #ifndef CPP_INDIE_STUDIO_MENUEVENTCONTROLLER_HPP
 #define CPP_INDIE_STUDIO_MENUEVENTCONTROLLER_HPP
 
+#include <string>
+#include <vector>
 #include "Dependencies/Dependencies.hpp"
 #include "EventStatus.hpp"
 #include "MenuButton.hpp"
@@ -18,9 +20,12 @@ class MenuEvent : public irr::IEventReceiver
 {
 private:
   // GENERAL
+  void 			setMainButtonsHidden();
+  void 			setMainButtonsVisible();
   irr::IrrlichtDevice	*device;
   EventStatus		*eventStatus;
   irr::s32		selected;
+  irr::gui::IGUIListBox *savesListBox;
 
   // BUTTONS
   irr::gui::IGUIButton	*startButton;
@@ -40,8 +45,7 @@ private:
   bool 			checkboxWallsStatus;
   irr::video::ITexture	*checkboxWallsChecked;
   irr::video::ITexture	*checkboxWallsNotChecked;
-  void 			setMainButtonsHidden();
-  void 			setMainButtonsVisible();
+  MenuButton 		button;
 
  public:
   MenuEvent(irr::IrrlichtDevice *device);
@@ -65,10 +69,12 @@ private:
   void		setWallsCheckboxAndTextures(irr::gui::IGUIButton *checkboxWalls,
 						  irr::video::ITexture *checkboxWallsChecked,
 						  irr::video::ITexture *checkboxWallsNotChecked);
-  void		setBackButton(irr::gui::IGUIButton *backButton);
+  void		setBackButton(irr::gui::IGUIButton *backButton, irr::video::ITexture *texture);
+  void		setSavesListBox(irr::gui::IGUIListBox *savesListBox, std::vector<std::string> const &saves);
 
   bool 	const	&getCheckboxSoundStatus() const;
   bool 	const	&getCheckboxWallsStatus() const;
+  MenuButton	const	&getPressedButton() const;
 
   void setEventStatus(EventStatus &);
 };

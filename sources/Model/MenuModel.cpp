@@ -12,19 +12,20 @@
 
 MenuModel::MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
 		     irr::scene::ISceneManager *smgr, irr::gui::IGUIEnvironment *guienv,
-		     std::vector<std::string> saves, bool &playSound, bool &drawWalls)
-  : _device(device), _driver(driver), _smgr(smgr),_guienv(guienv), event(device), _saves(saves)
+		     std::vector<std::string> const &saves, bool &playSound, bool &drawWalls)
+  : _device(device), _driver(driver), _smgr(smgr),_guienv(guienv), event(device)
 {
   this->_device->setWindowCaption(L"Worms 3D");
   this->_device->setEventReceiver(&this->event);
-  this->skin = this->_guienv->createSkin(irr::gui::EGST_BURNING_SKIN);
+  this->skin = this->_guienv->createSkin(irr::gui::EGST_WINDOWS_METALLIC);
   this->_guienv->setSkin(this->skin);
-  this->font = this->_guienv->getFont("ressources/fonts/fonthaettenschweiler.bmp");
+  this->font = this->_guienv->getFont("ressources/fonts/SoftMarshmallow.png");
   if (this->font != nullptr)
     this->_guienv->getSkin()->setFont(this->font);
   this->playSound = &playSound;
   this->drawWalls = &drawWalls;
   this->selected = 0;
+  this->_saves = saves;
 }
 
 MenuModel::~MenuModel()
@@ -34,26 +35,25 @@ MenuModel::~MenuModel()
 
 void	MenuModel::setModelProperties()
 {
-  const irr::core::dimension2du& 	screenSize = this->_driver->getScreenSize();
   irr::video::ITexture			*cursor;
   irr::core::dimension2d<irr::s32>	image_size;
   irr::video::ITexture			*texture;
 
-  // SET TAB CTRL TO TRANSPARENCY
-  this->skin->setColor((irr::gui::EGUI_DEFAULT_COLOR)3, irr::video::SColor(0, 0, 0,0));
+  this->screenSize = this->_driver->getScreenSize();
+  this->setSkinTransparency();
   this->background = this->_driver->getTexture("ressources/images/worms_main_menu.png");
-  this->tabctrl = this->_guienv->addTabControl(irr::core::rect<int>(screenSize.Width / 3,
-								    screenSize.Height / 5,
-								    screenSize.Width - (screenSize.Width / 3),
-								    screenSize.Height - (screenSize.Height / 7)),
+  this->tabctrl = this->_guienv->addTabControl(irr::core::rect<int>(this->screenSize.Width / 3,
+								    this->screenSize.Height / 5,
+								    this->screenSize.Width - (this->screenSize.Width / 3),
+								    this->screenSize.Height - (this->screenSize.Height / 7)),
 					       nullptr, false, false);
 
-  this->SetMenuModelMainOptions();
   // CURSOR
   this->spriteBank = this->_guienv->addEmptySpriteBank(irr::io::path("ressources/cursor"));
   cursor = this->_driver->getTexture("ressources/cursor/cursor.png");
   this->cursorSize = cursor->getSize();
   this->spriteBank->addTextureAsSprite(cursor);
+  this->SetMenuModelMainOptions();
 
   irr::gui::SCursorSprite	cursorSprite(this->spriteBank, 0,  irr::core::position2d<irr::s32>(0,0));
 
@@ -87,17 +87,25 @@ void	MenuModel::setModelProperties()
   // BACK
   texture = this->_driver->getTexture("ressources/buttons/back.png");
   image_size = texture->getSize();
-  this->backButton = this->_guienv->addButton(irr::core::rect<irr::s32>(this->tabctrl->getTabExtraWidth(),
-									(image_size.Height * 8),
-									(image_size.Width * 2),
-									(image_size.Height * 9)) ,
-					      this->tabctrl, MenuButton::BACK, L"");
-  this->backButton->setImage(texture);
-  this->event.setBackButton(this->backButton);
+  this->event.setBackButton(this->_guienv->addButton(irr::core::rect<irr::s32>(this->tabctrl->getTabExtraWidth(),
+									       (image_size.Height * 8),
+									       (image_size.Width * 2),
+									       (image_size.Height * 9)) ,
+						     this->tabctrl, MenuButton::BACK, L""), texture);
 
+  irr::core::rect<irr::s32> tabctrlSize = this->tabctrl->getRelativePosition();
+  irr::s32 tabctrlWidth = tabctrlSize.getWidth();
+  irr::s32 tabctrlHeight = tabctrlSize.getHeight();
+  irr::core::position2d<int> midTabctrl = tabctrlSize.getCenter();
 
-  //event controller
   this->event.setSelected(this->selected);
+  this->event.setSavesListBox(this->_guienv->addListBox(irr::core::rect<int>(tabctrlWidth / 10,
+									     tabctrlHeight / 5,
+									     tabctrlWidth - (midTabctrl.X / 8),
+									     tabctrlHeight - (midTabctrl.Y / 3)),
+							this->tabctrl, 1), this->_saves);
+
+  this->saveSubMenuSpriteSize = this->spriteBank->getTexture(irr::u32(MenuModel::SpriteName::SAVE_SUB_MENU))->getSize();
 }
 
 EventStatus	MenuModel::launchModel()
@@ -112,6 +120,15 @@ EventStatus	MenuModel::launchModel()
 	  this->_driver->beginScene(false, true, irr::video::SColor(0, 0, 0, 0));
 	  if (this->background != nullptr)
 	    this->_driver->draw2DImage(this->background, irr::core::position2d<int>(0, 0));
+	  if (this->spriteBank != nullptr && this->event.getPressedButton() == MenuButton::SAVES)
+	    {
+	      this->spriteBank->draw2DSprite(irr::u32(MenuModel::SpriteName::SAVE_SUB_MENU),
+					     irr::core::position2di(
+						     (this->screenSize.Width / 2) - this->saveSubMenuSpriteSize.Width / 2,
+						     (this->screenSize.Height / 4) - this->saveSubMenuSpriteSize.Height / 2),
+					     nullptr,
+					     irr::video::SColor(255, 255, 255, 255), 0);
+	    }
 	  if (eventStatus != EventStatus::STAND_BY)
 	    {
 	      *this->playSound = this->event.getCheckboxSoundStatus();
@@ -122,10 +139,11 @@ EventStatus	MenuModel::launchModel()
 	  if (this->spriteBank != nullptr)
 	    {
 	      irr::core::position2d<irr::s32> mousePosition = this->_device->getCursorControl()->getPosition();
-	      this->spriteBank->draw2DSprite(irr::u32(0), irr::core::position2di(mousePosition.X - cursorSize.Width / 4,
-									   mousePosition.Y - cursorSize.Height / 8),
-				       nullptr,
-				       irr::video::SColor(255, 255, 255, 255), 0);
+	      this->spriteBank->draw2DSprite(irr::u32(MenuModel::SpriteName::BACKGROUND),
+					     irr::core::position2di(mousePosition.X - cursorSize.Width / 4,
+								    mousePosition.Y - cursorSize.Height / 8),
+					     nullptr,
+					     irr::video::SColor(255, 255, 255, 255), 0);
 	    }
 
 	  this->_driver->endScene();
@@ -134,4 +152,15 @@ EventStatus	MenuModel::launchModel()
   this->_driver->removeAllTextures();
   this->_guienv->clear();
   return (eventStatus);
+}
+
+void	MenuModel::setSkinTransparency()
+{
+
+  for (irr::s32 i = 0; i < irr::gui::EGDC_COUNT ; ++i)
+    {
+      if ((irr::gui::EGUI_DEFAULT_COLOR)i != irr::gui::EGDC_HIGH_LIGHT_TEXT)
+	this->skin->setColor((irr::gui::EGUI_DEFAULT_COLOR)i, irr::video::SColor(0, 0, 0, 0));
+    }
+  this->skin->setColor(irr::gui::EGDC_BUTTON_TEXT, irr::video::SColor(255, 255, 190, 0));
 }

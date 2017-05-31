@@ -22,7 +22,7 @@ class		MenuModel : public IModel
  public:
   MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
 		 irr::scene::ISceneManager *smgr,
-		 irr::gui::IGUIEnvironment *guienv, std::vector<std::string> saves, bool&, bool&);
+		 irr::gui::IGUIEnvironment *guienv, std::vector<std::string> const &saves, bool&, bool&);
   virtual ~MenuModel();
   virtual void setModelProperties();
 
@@ -36,15 +36,16 @@ class		MenuModel : public IModel
   irr::gui::IGUISkin				*skin;
   irr::gui::IGUIFont				*font;
   irr::gui::IGUITabControl			*tabctrl;
-  irr::gui::IGUIListBox				*boxSave;
   irr::s32					selected;
+  irr::core::dimension2du 			screenSize;
+  irr::core::dimension2d<irr::u32>		saveSubMenuSpriteSize;
 
   // BUTTONS
   irr::gui::IGUISpriteBank			*spriteBank;
-  irr::gui::IGUIButton				*backButton;
 
   ///
   irr::video::ITexture				*background;
+  irr::video::ITexture				*saveSubMenuText;
   irr::core::dimension2d<irr::u32> 		cursorSize;
   MenuEvent					event;
   std::vector<std::string>			_saves;
@@ -56,6 +57,13 @@ class		MenuModel : public IModel
   irr::gui::IGUIButton				*wallsCheckbox;
 
   virtual	void				SetMenuModelMainOptions();
+  virtual 	void				setSkinTransparency();
+
+  enum		SpriteName	:	uint8_t
+  {
+    BACKGROUND			=	0,
+    SAVE_SUB_MENU		=	1
+  };
 };
 
 #endif //CPP_INDIE_STUDIO_MENUCONTROLLER_HPP

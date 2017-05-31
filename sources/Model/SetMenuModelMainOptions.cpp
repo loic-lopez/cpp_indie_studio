@@ -35,6 +35,7 @@ void	MenuModel::SetMenuModelMainOptions()
 
   // SAVES BUTTON
   texture = this->_driver->getTexture("ressources/buttons/saves.png");
+  this->spriteBank->addTextureAsSprite(this->_driver->getTexture("ressources/buttons/saves.png"));
   image_size = texture->getSize();
   this->event.setSavesButton(this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3),
 									       (image_size.Height * 5) / 2,

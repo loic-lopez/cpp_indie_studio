@@ -13,89 +13,103 @@
 MenuEvent::MenuEvent(irr::IrrlichtDevice *device)
 {
   this->device = device;
+  this->button = MenuButton::PLAY;
 }
 
 bool	MenuEvent::OnEvent(const irr::SEvent &event)
 {
   if (event.EventType == irr::EET_GUI_EVENT)
     {
-      irr::s32 id = event.GUIEvent.Caller->getID();
-      switch (id)
+      if (event.GUIEvent.EventType == irr::gui::EGET_LISTBOX_CHANGED ||
+	  event.GUIEvent.EventType == irr::gui::EGET_LISTBOX_SELECTED_AGAIN)
 	{
-	  case MenuButton::EXIT:
-	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
-	      {
-		*this->eventStatus = EventStatus::QUIT;
-		this->device->closeDevice();
-		break;
-	      }
-	  case MenuButton::PLAY:
-	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
-	      {
-		*this->eventStatus = EventStatus::ENTER_IN_GAME;
-		break;
-	      }
-	  case MenuButton::SAVES:
-	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
-	      {
-		this->setMainButtonsHidden();
-		break;
-	      }
-	  case MenuButton::OPTIONS:
-	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
-	      {
-		this->setMainButtonsHidden();
+	  this->selected = reinterpret_cast<irr::gui::IGUIListBox *>(event.GUIEvent.Caller)->getSelected();
+	}
+      else
+	{
+	  irr::s32 id = event.GUIEvent.Caller->getID();
+	  switch (id)
+	    {
+	      case MenuButton::EXIT:
+		if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		  {
+		    *this->eventStatus = EventStatus::QUIT;
+		    this->device->closeDevice();
+		    break;
+		  }
+	      case MenuButton::PLAY:
+		if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		  {
+		    *this->eventStatus = EventStatus::ENTER_IN_GAME;
+		    break;
+		  }
+	      case MenuButton::SAVES:
+		if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		  {
+		    this->setMainButtonsHidden();
+		    this->button = static_cast<MenuButton>(id);
+		    // SUB BUTTONS
+		    this->savesListBox->setVisible(true);
+		    this->backButton->setVisible(true);
+		    break;
+		  }
+	      case MenuButton::OPTIONS:
+		if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		  {
+		    this->setMainButtonsHidden();
 
-		// SUB BUTTONS
-		this->checkboxSound->setVisible(true);
-		this->checkboxWalls->setVisible(true);
-		this->backButton->setVisible(true);
+		    // SUB BUTTONS
+		    this->checkboxSound->setVisible(true);
+		    this->checkboxWalls->setVisible(true);
+		    this->backButton->setVisible(true);
 
-		break;
-	      }
-	  case MenuButton::OPTION_SOUND:
-	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
-	      {
-		if (this->checkboxSoundStatus)
-		  {
-		    this->checkboxSoundStatus = false;
-		    this->checkboxSound->setImage(this->checkboxSoundNotChecked);
+		    break;
 		  }
-		else
+	      case MenuButton::OPTION_SOUND:
+		if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
 		  {
-		    this->checkboxSoundStatus = true;
-		    this->checkboxSound->setImage(this->checkboxSoundChecked);
+		    if (this->checkboxSoundStatus)
+		      {
+			this->checkboxSoundStatus = false;
+			this->checkboxSound->setImage(this->checkboxSoundNotChecked);
+		      }
+		    else
+		      {
+			this->checkboxSoundStatus = true;
+			this->checkboxSound->setImage(this->checkboxSoundChecked);
+		      }
+		    break;
 		  }
-		break;
-	      }
-	  case MenuButton::OPTION_MAP:
-	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
-	      {
-		if (this->checkboxWallsStatus)
+	      case MenuButton::OPTION_MAP:
+		if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
 		  {
-		    this->checkboxWallsStatus = false;
-		    this->checkboxWalls->setImage(this->checkboxWallsNotChecked);
+		    if (this->checkboxWallsStatus)
+		      {
+			this->checkboxWallsStatus = false;
+			this->checkboxWalls->setImage(this->checkboxWallsNotChecked);
+		      }
+		    else
+		      {
+			this->checkboxWallsStatus = true;
+			this->checkboxWalls->setImage(this->checkboxWallsChecked);
+		      }
+		    break;
 		  }
-		else
+	      case MenuButton::BACK:
+		if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
 		  {
-		    this->checkboxWallsStatus = true;
-		    this->checkboxWalls->setImage(this->checkboxWallsChecked);
+		    this->setMainButtonsVisible();
+		    this->button = static_cast<MenuButton>(id);
+		    // SUB BUTTONS
+		    this->checkboxSound->setVisible(false);
+		    this->backButton->setVisible(false);
+		    this->checkboxWalls->setVisible(false);
+		    this->savesListBox->setVisible(false);
+		    break;
 		  }
+	      default:
 		break;
-	      }
-	  case MenuButton::BACK:
-	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
-	      {
-		this->setMainButtonsVisible();
-
-		// SUB BUTTONS
-		this->checkboxSound->setVisible(false);
-		this->backButton->setVisible(false);
-		this->checkboxWalls->setVisible(false);
-		break;
-	      }
-	  default:
-	    break;
+	    }
 	}
     }
   return (false);
@@ -163,3 +177,4 @@ void	MenuEvent::setMainButtonsVisible()
   this->exitButton->setVisible(true);
   this->savesButton->setVisible(true);
 }
+

@@ -11,11 +11,11 @@
 #ifndef ENCAP_HPP
 # define ENCAP_HPP
 
-#include <dirent.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <stdio.h>
+#include <cstdio>
 #include <unistd.h>
+#include "Dependencies/dirent.h"
 
 class Encap
 {

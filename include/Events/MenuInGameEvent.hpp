@@ -10,7 +10,7 @@
 #ifndef CPP_INDIE_STUDIO_MENUINGAMEEVENTMODEL_HPP
 #define CPP_INDIE_STUDIO_MENUINGAMEEVENTMODEL_HPP
 
-#include <irrlicht.h>
+#include "Dependencies/Dependencies.hpp"
 #include "buttonState.hpp"
 #include "EventReceiver.hpp"
 #include "EventStatus.hpp"

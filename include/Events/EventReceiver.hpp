@@ -8,16 +8,15 @@
 // Last update Fri May  5 18:19:34 2017 Stanislas Deneubourg
 //
 
-#include <irrlicht.h>
-#include <IEventReceiver.h>
+#include "Dependencies/Dependencies.hpp"
 #include "buttonState.hpp"
 
 class EventReceiver : public irr::IEventReceiver
 {
 public:
   EventReceiver();
-  virtual bool OnEvent(const irr::SEvent& event);
-  virtual bool IsKeyDown(irr::EKEY_CODE keyCode) const;
+  virtual bool 	OnEvent(const irr::SEvent& event);
+  virtual bool 	IsKeyDown(irr::EKEY_CODE keyCode) const;
   bool 		IsKeyUp(irr::EKEY_CODE keyCode);
 
 private:

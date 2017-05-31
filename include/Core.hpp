@@ -13,17 +13,12 @@
 
 #include <memory>
 #include <cstdlib>
-#include <irrKlang.h>
-#include <irrlicht.h>
+#include "Dependencies/Dependencies.hpp"
 #include "Interface/ICore.hpp"
 #include "Model/MenuModel.hpp"
 #include "GameEngine/GameEngine.hpp"
 #include "Model/SplashScreen.hpp"
 #include "Events/EventStatus.hpp"
-
-#ifdef _MSC_VER
-# pragma comment(lib, "Irrlicht.lib")
-#endif
 
 
 class Core : public ICore

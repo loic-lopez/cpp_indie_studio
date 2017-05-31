@@ -11,7 +11,7 @@
 #ifndef	IMODEL_HPP__
 #define IMODEL_HPP__
 
-#include <irrlicht.h>
+#include "Dependencies/Dependencies.hpp"
 #include "Events/EventStatus.hpp"
 
 class	IModel

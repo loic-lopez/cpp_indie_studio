@@ -20,7 +20,8 @@ enum 		MenuButton		: uint8_t
   OPTIONS		=		3,
   OPTION_SOUND		=		4,
   OPTION_MAP		=		5,
-  BACK			=		6
+  BACK			=		6,
+  SAVES			=		7
 };
 
 #endif //CPP_INDIE_STUDIO_MENUBUTTON_HPP

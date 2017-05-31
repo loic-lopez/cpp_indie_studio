@@ -19,32 +19,35 @@ void	MenuModel::SetMenuModelMainOptions()
   texture = this->_driver->getTexture("ressources/buttons/play.png");
   image_size = texture->getSize();
   this->event.setStartButton(this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3),
-										image_size.Height / 2,
+										(image_size.Height / 2),
 										(image_size.Width / 2) + 4 * 34,
 										image_size.Height),
 						      this->tabctrl, MenuButton::PLAY, L""), texture);
 
-
   // OPTION BUTTON
   texture = this->_driver->getTexture("ressources/buttons/options.png");
   image_size = texture->getSize();
-  this->event.setOptionButton(this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 4),
-										 ((image_size.Height / 2) * 2),
+  this->event.setOptionButton(this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3) - (6 * 34) / 4,
+										 (image_size.Height * 3) / 2,
 										 (image_size.Width / 2) + 6 * 34,
-										 (image_size.Height * 2) - 45),
+										 (image_size.Height * 4) / 2),
 						       this->tabctrl, MenuButton::OPTIONS, L""), texture);
 
+  // SAVES BUTTON
+  texture = this->_driver->getTexture("ressources/buttons/saves.png");
+  image_size = texture->getSize();
+  this->event.setSavesButton(this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3),
+									       (image_size.Height * 5) / 2,
+										(image_size.Width / 2) + 4 * 34,
+									       (image_size.Height * 6) / 2),
+						     this->tabctrl, MenuButton::SAVES, L""), texture);
 
   //exit button
   texture = this->_driver->getTexture("ressources/buttons/exit.png");
   image_size = texture->getSize();
-  this->exitButton = this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 4),
-									((image_size.Height / 2) * 3),
-									(image_size.Width / 2) + 7 * 34,
-									(image_size.Height * 3) - 85) ,
-					      this->tabctrl, MenuButton::EXIT, L"");
-  this->exitButton->setImage(texture);
-  this->exitButton->setUseAlphaChannel(true);
-  this->exitButton->setDrawBorder(false);
-
+  this->event.setExitButton(this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3) - (6 * 34) / 4,
+									       (image_size.Height * 7) / 2,
+									       (image_size.Width / 2) + 6 * 34,
+									       (image_size.Height * 8) / 2) ,
+						     this->tabctrl, MenuButton::EXIT, L""), texture);
 }

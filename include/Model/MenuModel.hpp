@@ -41,14 +41,12 @@ class		MenuModel : public IModel
 
   // BUTTONS
   irr::gui::IGUISpriteBank			*spriteBank;
-  irr::gui::IGUIButton				*exitButton;
-  irr::gui::IGUIButton				*optionButton;
   irr::gui::IGUIButton				*backButton;
 
   ///
   irr::video::ITexture				*background;
   irr::core::dimension2d<irr::u32> 		cursorSize;
-  MenuEvent				event;
+  MenuEvent					event;
   std::vector<std::string>			_saves;
 
   // CHECKBOXES

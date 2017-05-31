@@ -49,17 +49,21 @@ private:
   //BUTTONS
   void		setStartButton(irr::gui::IGUIButton *startButton,
 				     irr::video::ITexture *texture);
-  void 		setExitButton(irr::gui::IGUIButton *exitButton);
+  void 		setExitButton(irr::gui::IGUIButton *exitButton,
+				    irr::video::ITexture *texture);
   void		setOptionButton(irr::gui::IGUIButton *optionButton,
 				      irr::video::ITexture *texture);
-  void		setBackButton(irr::gui::IGUIButton *backButton);
-  void 		setSavesButton(irr::gui::IGUIButton *backButton);
+  void 		setSavesButton(irr::gui::IGUIButton *backButton,
+				     irr::video::ITexture *texture);
+
+  // SUBMENU
   void		setSoundCheckboxAndTextures(irr::gui::IGUIButton *checkboxSound,
 						  irr::video::ITexture *checkboxSoundChecked,
 						  irr::video::ITexture *checkboxSoundNotChecked);
   void		setWallsCheckboxAndTextures(irr::gui::IGUIButton *checkboxWalls,
 						  irr::video::ITexture *checkboxWallsChecked,
 						  irr::video::ITexture *checkboxWallsNotChecked);
+  void		setBackButton(irr::gui::IGUIButton *backButton);
 
   bool 	const	&getCheckboxSoundStatus() const;
   bool 	const	&getCheckboxWallsStatus() const;

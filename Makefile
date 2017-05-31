@@ -19,6 +19,7 @@ SRC             =	sources/main.cpp								\
 			sources/Model/SplashScreen.cpp  						\
 			sources/Model/MenuModel.cpp							\
 			sources/Events/MenuEvent.cpp							\
+			sources/Events/MenuEventSubMenu.cpp							\
 			sources/Model/MenuInGameModel.cpp						\
 			sources/Events/MenuInGameEvent.cpp						\
 			sources/Model/SetMenuModelMainOptions.cpp					\

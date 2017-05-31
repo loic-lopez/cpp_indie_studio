@@ -70,8 +70,10 @@ void	MenuModel::setModelProperties()
 								      ((image_size.Height) * 3) / 2),
 						   this->tabctrl, MenuButton::OPTION_SOUND, L"");
   this->event.setSoundCheckboxAndTextures(this->checkboxSound,
-					  this->_driver->getTexture("ressources/buttons/checkboxes/sound_checked.png"),
+					  texture,
 					  this->_driver->getTexture("ressources/buttons/checkboxes/sound_not_checked.png"));
+
+  texture = this->_driver->getTexture("ressources/buttons/checkboxes/closed_map_checked.png");
   image_size = texture->getSize();
   this->wallsCheckbox = this->_guienv->addButton(irr::core::rect<int>((image_size.Width / 9),
 								    ((image_size.Height / 2) * 4),
@@ -79,7 +81,7 @@ void	MenuModel::setModelProperties()
 								    ((image_size.Height) * 6) / 2),
 					       this->tabctrl, MenuButton::OPTION_MAP, L"");
   this->event.setWallsCheckboxAndTextures(this->wallsCheckbox,
-					  this->_driver->getTexture("ressources/buttons/checkboxes/closed_map_checked.png"),
+					  texture,
 					  this->_driver->getTexture("ressources/buttons/checkboxes/closed_map_not_checked.png"));
 
   // BACK
@@ -96,9 +98,6 @@ void	MenuModel::setModelProperties()
 
   //event controller
   this->event.setSelected(this->selected);
-
-  //set button events
-  this->event.setExitButton(this->exitButton);
 }
 
 EventStatus	MenuModel::launchModel()

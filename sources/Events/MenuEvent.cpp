@@ -38,13 +38,17 @@ bool	MenuEvent::OnEvent(const irr::SEvent &event)
 	  case MenuButton::OPTIONS:
 	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
 	      {
+		// MAIN BUTTONS
 		this->optionButton->setVisible(false);
 		this->startButton->setVisible(false);
 		this->exitButton->setVisible(false);
+		this->savesButton->setVisible(false);
+
+		// SUB BUTTONS
 		this->checkboxSound->setVisible(true);
 		this->checkboxWalls->setVisible(true);
 		this->backButton->setVisible(true);
-		this->savesButton->setVisible(false);
+
 		break;
 	      }
 	  case MenuButton::OPTION_SOUND:
@@ -80,13 +84,16 @@ bool	MenuEvent::OnEvent(const irr::SEvent &event)
 	  case MenuButton::BACK:
 	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
 	      {
+		// MAIN BUTTONS
 		this->optionButton->setVisible(true);
 		this->startButton->setVisible(true);
 		this->exitButton->setVisible(true);
+		this->savesButton->setVisible(true);
+
+		// SUB BUTTONS
 		this->checkboxSound->setVisible(false);
 		this->backButton->setVisible(false);
 		this->checkboxWalls->setVisible(false);
-		this->savesButton->setVisible(true);
 		break;
 	      }
 	  default:
@@ -125,61 +132,18 @@ void	MenuEvent::setOptionButton(irr::gui::IGUIButton *optionButton,
   this->optionButton->setDrawBorder(false);
 }
 
-void	MenuEvent::setExitButton(irr::gui::IGUIButton *exitButton)
+void	MenuEvent::setExitButton(irr::gui::IGUIButton *exitButton, irr::video::ITexture *texture)
 {
   this->exitButton = exitButton;
+  this->exitButton->setImage(texture);
+  this->exitButton->setUseAlphaChannel(true);
+  this->exitButton->setDrawBorder(false);
 }
 
-void	MenuEvent::setBackButton(irr::gui::IGUIButton *backButton)
-{
-  this->backButton = backButton;
-  this->backButton->setUseAlphaChannel(true);
-  this->backButton->setDrawBorder(false);
-  this->backButton->setVisible(false);
-}
-
-void 	MenuEvent::setSavesButton(irr::gui::IGUIButton *savesButton)
+void	MenuEvent::setSavesButton(irr::gui::IGUIButton *savesButton, irr::video::ITexture *texture)
 {
   this->savesButton = savesButton;
-  this->savesButton->setVisible(true);
+  this->savesButton->setImage(texture);
+  this->savesButton->setUseAlphaChannel(true);
+  this->savesButton->setDrawBorder(false);
 }
-
-//CHECKBOXES
-
-void	MenuEvent::setSoundCheckboxAndTextures(irr::gui::IGUIButton *checkboxSound,
-							irr::video::ITexture *checkboxSoundChecked,
-							irr::video::ITexture *checkboxSoundNotChecked)
-{
-  this->checkboxSound = checkboxSound;
-  this->checkboxSound->setUseAlphaChannel(true);
-  this->checkboxSound->setDrawBorder(false);
-  this->checkboxSound->setVisible(false);
-  this->checkboxSound->setImage(checkboxSoundChecked);
-  this->checkboxSoundStatus = true;
-  this->checkboxSoundChecked = checkboxSoundChecked;
-  this->checkboxSoundNotChecked = checkboxSoundNotChecked;
-}
-void	MenuEvent::setWallsCheckboxAndTextures(irr::gui::IGUIButton *checkboxWalls,
-							irr::video::ITexture *checkboxWallsChecked,
-							irr::video::ITexture *checkboxWallsNotChecked)
-{
-  this->checkboxWalls = checkboxWalls;
-  this->checkboxWalls->setUseAlphaChannel(true);
-  this->checkboxWalls->setDrawBorder(false);
-  this->checkboxWalls->setVisible(false);
-  this->checkboxWallsStatus = true;
-  this->checkboxWallsChecked = checkboxWallsChecked;
-  this->checkboxWallsNotChecked = checkboxWallsNotChecked;
-  this->checkboxWalls->setImage(checkboxWallsChecked);
-}
-
-const bool &MenuEvent::getCheckboxSoundStatus() const
-{
-  return (this->checkboxSoundStatus);
-}
-
-bool const &MenuEvent::getCheckboxWallsStatus() const
-{
-  return (this->checkboxWallsStatus);
-}
-

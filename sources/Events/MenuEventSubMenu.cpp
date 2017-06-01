@@ -62,7 +62,10 @@ void	MenuEvent::setSavesListBox(irr::gui::IGUIListBox *savesListBox, std::vector
   this->savesListBox = savesListBox;
   this->savesListBox->setVisible(false);
   for (auto const &save : saves)
-    this->savesListBox->addItem(std::wstring(save.begin(), save.end()).c_str());
+    {
+      std::string found = save.substr(0, save.find_last_of(".xml") - 3);
+      this->savesListBox->addItem(std::wstring(found.begin(), found.end()).c_str());
+    }
   this->savesListBox->setSelected(irr::s32(this->selected));
 }
 

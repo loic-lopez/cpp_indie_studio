@@ -22,10 +22,14 @@ private:
   // GENERAL
   void 			setMainButtonsHidden();
   void 			setMainButtonsVisible();
+  void			setSubButtonHidden();
   irr::IrrlichtDevice	*device;
   EventStatus		*eventStatus;
   irr::s32		selected;
   irr::gui::IGUIListBox *savesListBox;
+  irr::s32		*NbrHumanTeams;
+  irr::s32		*NbrBotTeams;
+  irr::s32		*NbrTeams;
 
   // BUTTONS
   irr::gui::IGUIButton	*startButton;
@@ -47,12 +51,21 @@ private:
   irr::video::ITexture	*checkboxWallsNotChecked;
   MenuButton 		button;
 
+  // PLAY SUB MENU
+  irr::gui::IGUIButton	*subtractNbrTeamButton;
+  irr::gui::IGUIButton	*addNbrTeamButton;
+  irr::gui::IGUIButton	*subtractNbrHumanTeamsButton;
+  irr::gui::IGUIButton	*addNbrHumanTeamsButton;
+  irr::gui::IGUIButton	*subtractNbrBotTeamsButton;
+  irr::gui::IGUIButton	*addNbrBotTeamsButton;
+  irr::gui::IGUIButton	*playButton;
+
  public:
   MenuEvent(irr::IrrlichtDevice *device);
-  virtual bool OnEvent(const irr::SEvent &event);
+  virtual bool 	OnEvent(const irr::SEvent &event);
   void		setSelected(irr::s32 const &selected);
 
-  //BUTTONS
+  //MAIN BUTTONS
   void		setStartButton(irr::gui::IGUIButton *startButton,
 				     irr::video::ITexture *texture);
   void 		setExitButton(irr::gui::IGUIButton *exitButton,
@@ -72,10 +85,19 @@ private:
   void		setBackButton(irr::gui::IGUIButton *backButton, irr::video::ITexture *texture);
   void		setSavesListBox(irr::gui::IGUIListBox *savesListBox, std::vector<std::string> const &saves);
 
+  void 		setEventStatus(EventStatus &);
+  void		setNbrHumanTeams(irr::s32 *NbrHumanTeams);
+  void		setNbrBotTeams(irr::s32 *NbrBotTeams);
+  void		setNbrTeams(irr::s32 *NbrBotTeams);
+  void		setPlayAGameSubMenu(irr::video::IVideoDriver *driver, irr::gui::IGUIEnvironment *guienv,
+					  irr::gui::IGUITabControl*tabctrl);
+
   bool 	const	&getCheckboxSoundStatus() const;
   bool 	const	&getCheckboxWallsStatus() const;
   MenuButton	const	&getPressedButton() const;
+  irr::s32	const	&getNbrHumanTeams() const;
+  irr::s32	const	&getNbrBotTeams() const;
+  irr::s32	const	&getNbrTeams() const;
 
-  void setEventStatus(EventStatus &);
 };
 #endif //CPP_INDIE_STUDIO_MENUEVENTCONTROLLER_HPP

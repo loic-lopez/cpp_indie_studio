@@ -73,3 +73,88 @@ MenuButton	const	&MenuEvent::getPressedButton() const
 {
   return (this->button);
 }
+
+void	MenuEvent::setPlayAGameSubMenu(irr::video::IVideoDriver *driver, irr::gui::IGUIEnvironment *guienv,
+					   irr::gui::IGUITabControl *tabctrl)
+{
+  irr::core::dimension2d<irr::s32>		button_size;
+  irr::video::ITexture				*subtractTexture;
+  irr::video::ITexture				*addTexture;
+  irr::video::ITexture				*playTexture;
+
+  subtractTexture = driver->getTexture("ressources/buttons/subtract_button.png");
+  addTexture = driver->getTexture("ressources/buttons/add_button.png");
+  button_size = subtractTexture->getSize();
+
+  // ADD BUTTONS
+  this->addNbrTeamButton = guienv->addButton(irr::core::rect<irr::s32>(button_size.Width / 2,
+									      (button_size.Height),
+									      (button_size.Width * 3) / 2,
+									      (button_size.Height * 2)),
+						    tabctrl, MenuButton::PLAY_A_GAME_SUBMENU_ADD_TEAM, L"");
+  this->addNbrTeamButton->setImage(addTexture);
+  this->addNbrTeamButton->setUseAlphaChannel(true);
+  this->addNbrTeamButton->setVisible(false);
+
+  this->addNbrHumanTeamsButton = guienv->addButton(irr::core::rect<irr::s32>(button_size.Width / 2,
+									     (button_size.Height * 2)
+									     + (button_size.Height / 2),
+									     (button_size.Width * 3) / 2,
+									     (button_size.Height * 3)
+									     + (button_size.Height / 2)),
+						   tabctrl, MenuButton::PLAY_A_GAME_SUBMENU_ADD_HUMAN_TEAM, L"");
+  this->addNbrHumanTeamsButton->setImage(addTexture);
+  this->addNbrHumanTeamsButton->setUseAlphaChannel(true);
+  this->addNbrHumanTeamsButton->setVisible(false);
+
+  this->addNbrBotTeamsButton = guienv->addButton(irr::core::rect<irr::s32>(button_size.Width / 2,
+									   (button_size.Height * 4),
+									     (button_size.Width * 3) / 2,
+									   (button_size.Height * 5)),
+						   tabctrl, MenuButton::PLAY_A_GAME_SUBMENU_ADD_BOT_TEAM, L"");
+  this->addNbrBotTeamsButton->setImage(addTexture);
+  this->addNbrBotTeamsButton->setUseAlphaChannel(true);
+  this->addNbrBotTeamsButton->setVisible(false);
+
+  // SUBTRACT BUTTONS
+  this->subtractNbrTeamButton =  guienv->addButton(irr::core::rect<irr::s32>((button_size.Width * 3) / 2,
+									     (button_size.Height),
+									     button_size.Width * 3,
+									     (button_size.Height * 2)),
+						   tabctrl, MenuButton::PLAY_A_GAME_SUBMENU_SUBTRACT_TEAM, L"");
+  this->subtractNbrTeamButton->setImage(subtractTexture);
+  this->subtractNbrTeamButton->setUseAlphaChannel(true);
+  this->subtractNbrTeamButton->setVisible(false);
+
+  this->subtractNbrHumanTeamsButton =  guienv->addButton(irr::core::rect<irr::s32>((button_size.Width * 3) / 2,
+										   (button_size.Height * 2)
+										   + (button_size.Height / 2),
+										   button_size.Width * 3,
+										   (button_size.Height * 3)
+										   + (button_size.Height / 2)),
+						   tabctrl, MenuButton::PLAY_A_GAME_SUBMENU_SUBTRACT_HUMAN_TEAM, L"");
+  this->subtractNbrHumanTeamsButton->setImage(subtractTexture);
+  this->subtractNbrHumanTeamsButton->setUseAlphaChannel(true);
+  this->subtractNbrHumanTeamsButton->setVisible(false);
+
+  this->subtractNbrBotTeamsButton =  guienv->addButton(irr::core::rect<irr::s32>((button_size.Width * 3) / 2,
+										 (button_size.Height * 4),
+										   button_size.Width * 3,
+										 (button_size.Height * 5)),
+						   tabctrl, MenuButton::PLAY_A_GAME_SUBMENU_SUBTRACT_BOT_TEAM, L"");
+  this->subtractNbrBotTeamsButton->setImage(subtractTexture);
+  this->subtractNbrBotTeamsButton->setUseAlphaChannel(true);
+  this->subtractNbrBotTeamsButton->setVisible(false);
+
+  // PLAY BUTTON
+  playTexture = driver->getTexture("ressources/buttons/play.png");
+  button_size = playTexture->getSize();
+  this->playButton = guienv->addButton(irr::core::rect<irr::s32>((button_size.Width / 3),
+								 button_size.Height * 5,
+								 (button_size.Width / 2) + 4 * 34,
+								 button_size.Height * 6),
+				       tabctrl, MenuButton::PLAY, L"");
+  this->playButton->setImage(playTexture);
+  this->playButton->setUseAlphaChannel(true);
+  this->playButton->setVisible(false);
+}

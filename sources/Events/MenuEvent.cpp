@@ -13,7 +13,8 @@
 MenuEvent::MenuEvent(irr::IrrlichtDevice *device)
 {
   this->device = device;
-  this->button = MenuButton::PLAY;
+  this->button = MenuButton::STANDBY;
+  srand(time(NULL));
 }
 
 bool	MenuEvent::OnEvent(const irr::SEvent &event)
@@ -35,6 +36,22 @@ bool	MenuEvent::OnEvent(const irr::SEvent &event)
 		  {
 		    *this->eventStatus = EventStatus::QUIT;
 		    this->device->closeDevice();
+		    break;
+		  }
+	      case MenuButton::PLAY_A_GAME:
+		if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		  {
+		    this->button = static_cast<MenuButton>(id);
+		    this->setMainButtonsHidden();
+
+		    this->addNbrTeamButton->setVisible(true);
+		    this->subtractNbrTeamButton->setVisible(true);
+		    this->addNbrHumanTeamsButton->setVisible(true);
+		    this->subtractNbrHumanTeamsButton->setVisible(true);
+		    this->addNbrBotTeamsButton->setVisible(true);
+		    this->subtractNbrBotTeamsButton->setVisible(true);
+		    this->playButton->setVisible(true);
+		    this->backButton->setVisible(true);
 		    break;
 		  }
 	      case MenuButton::PLAY:
@@ -100,11 +117,98 @@ bool	MenuEvent::OnEvent(const irr::SEvent &event)
 		  {
 		    this->setMainButtonsVisible();
 		    this->button = static_cast<MenuButton>(id);
-		    // SUB BUTTONS
-		    this->checkboxSound->setVisible(false);
-		    this->backButton->setVisible(false);
-		    this->checkboxWalls->setVisible(false);
-		    this->savesListBox->setVisible(false);
+		    this->setSubButtonHidden();
+		    break;
+		  }
+	      case MenuButton::PLAY_A_GAME_SUBMENU_ADD_TEAM:
+		if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		  {
+		    if (*this->NbrTeams < 4)
+		      {
+			*this->NbrTeams += 1;
+			if (*this->NbrBotTeams == *this->NbrHumanTeams)
+			  {
+			    if ((rand() % 2) == 0)
+			      *this->NbrHumanTeams += 1;
+			    else
+			      *this->NbrBotTeams += 1;
+			  }
+			else if (*this->NbrBotTeams > *this->NbrHumanTeams)
+			  *this->NbrHumanTeams += 1;
+			else if (*this->NbrBotTeams < *this->NbrHumanTeams)
+			  *this->NbrBotTeams += 1;
+		      }
+		    break;
+		  }
+	      case MenuButton::PLAY_A_GAME_SUBMENU_SUBTRACT_TEAM:
+		if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		  {
+		    if (*this->NbrTeams > 2)
+		      {
+			*this->NbrTeams -= 1;
+			if (*this->NbrBotTeams == *this->NbrHumanTeams)
+			  {
+			    if ((rand() % 2) == 0)
+			      *this->NbrHumanTeams -= 1;
+			    else
+			      *this->NbrBotTeams -= 1;
+			  }
+			else if (*this->NbrHumanTeams > *this->NbrBotTeams)
+			  *this->NbrHumanTeams -= 1;
+			else if (*this->NbrBotTeams > *this->NbrHumanTeams)
+			  *this->NbrBotTeams -= 1;
+
+		      }
+		    break;
+		  }
+	      case MenuButton::PLAY_A_GAME_SUBMENU_ADD_HUMAN_TEAM:
+		if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		  {
+		    if (*this->NbrHumanTeams + *this->NbrBotTeams < *this->NbrTeams)
+		      *this->NbrHumanTeams += 1;
+		    else if (*this->NbrHumanTeams + *this->NbrBotTeams == *this->NbrTeams && *this->NbrBotTeams > 1)
+		      {
+			*this->NbrHumanTeams += 1;
+			*this->NbrBotTeams -= 1;
+		      }
+		    break;
+		  }
+	      case MenuButton::PLAY_A_GAME_SUBMENU_SUBTRACT_HUMAN_TEAM:
+		if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		  {
+		    if (*this->NbrHumanTeams + *this->NbrBotTeams > *this->NbrTeams)
+		      *this->NbrHumanTeams -= 1;
+		    else if (*this->NbrHumanTeams + *this->NbrBotTeams == *this->NbrTeams && *this->NbrHumanTeams > 1)
+		      {
+			*this->NbrHumanTeams -= 1;
+			*this->NbrBotTeams += 1;
+		      }
+		    break;
+		  }
+	      case MenuButton::PLAY_A_GAME_SUBMENU_ADD_BOT_TEAM:
+		if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		  {
+		    if (*this->NbrHumanTeams + *this->NbrBotTeams < *this->NbrTeams)
+		      *this->NbrBotTeams += 1;
+		    else if (*this->NbrHumanTeams + *this->NbrBotTeams == *this->NbrTeams && *this->NbrHumanTeams > 1)
+		      {
+			*this->NbrHumanTeams -= 1;
+			*this->NbrBotTeams += 1;
+		      }
+		    break;
+		  }
+	      case MenuButton::PLAY_A_GAME_SUBMENU_SUBTRACT_BOT_TEAM:
+		if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		  {
+		    if (*this->NbrHumanTeams + *this->NbrBotTeams > *this->NbrTeams)
+		      {
+			*this->NbrBotTeams -= 1;
+		      }
+		    else if (*this->NbrHumanTeams + *this->NbrBotTeams == *this->NbrTeams && *this->NbrBotTeams > 1)
+		      {
+			  *this->NbrBotTeams -= 1;
+			  *this->NbrHumanTeams += 1;
+		      }
 		    break;
 		  }
 	      default:
@@ -178,3 +282,48 @@ void	MenuEvent::setMainButtonsVisible()
   this->savesButton->setVisible(true);
 }
 
+void MenuEvent::setNbrHumanTeams(irr::s32 *NbrHumanTeams)
+{
+  this->NbrHumanTeams = NbrHumanTeams;
+}
+
+void MenuEvent::setNbrBotTeams(irr::s32 *NbrBotTeams)
+{
+  this->NbrBotTeams = NbrBotTeams;
+}
+
+void MenuEvent::setNbrTeams(irr::s32 *NbrTeams)
+{
+  this->NbrTeams = NbrTeams;
+}
+
+irr::s32 	const 	&MenuEvent::getNbrHumanTeams() const
+{
+  return *this->NbrHumanTeams;
+}
+
+irr::s32	const	&MenuEvent::getNbrBotTeams() const
+{
+  return *this->NbrBotTeams;
+}
+
+
+irr::s32 const &MenuEvent::getNbrTeams() const
+{
+  return *this->NbrTeams;
+}
+
+void MenuEvent::setSubButtonHidden()
+{
+  this->checkboxSound->setVisible(false);
+  this->backButton->setVisible(false);
+  this->checkboxWalls->setVisible(false);
+  this->savesListBox->setVisible(false);
+  this->addNbrTeamButton->setVisible(false);
+  this->subtractNbrTeamButton->setVisible(false);
+  this->playButton->setVisible(false);
+  this->addNbrHumanTeamsButton->setVisible(false);
+  this->subtractNbrHumanTeamsButton->setVisible(false);
+  this->subtractNbrBotTeamsButton->setVisible(false);
+  this->addNbrBotTeamsButton->setVisible(false);
+}

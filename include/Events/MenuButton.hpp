@@ -13,15 +13,23 @@
 
 #include <cstdint>
 
-enum 		MenuButton		: uint8_t
+enum 						MenuButton		: uint8_t
 {
-  PLAY			=		1,
-  EXIT			=		2,
-  OPTIONS		=		3,
-  OPTION_SOUND		=		4,
-  OPTION_MAP		=		5,
-  BACK			=		6,
-  SAVES			=		7
+  PLAY_A_GAME					=			1,
+  EXIT						=			2,
+  OPTIONS					=			3,
+  OPTION_SOUND					=			4,
+  OPTION_MAP					=			5,
+  BACK						=			6,
+  SAVES						=			7,
+  PLAY_A_GAME_SUBMENU_ADD_HUMAN_TEAM 		=			8,
+  PLAY_A_GAME_SUBMENU_SUBTRACT_HUMAN_TEAM 	=			9,
+  PLAY_A_GAME_SUBMENU_ADD_BOT_TEAM 		=			10,
+  PLAY_A_GAME_SUBMENU_SUBTRACT_BOT_TEAM 	=			11,
+  PLAY_A_GAME_SUBMENU_ADD_TEAM	 		=			12,
+  PLAY_A_GAME_SUBMENU_SUBTRACT_TEAM 		=			13,
+  PLAY					 	=			14,
+  STANDBY					=			15
 };
 
 #endif //CPP_INDIE_STUDIO_MENUBUTTON_HPP

@@ -45,6 +45,9 @@ Core::Core()
   this->soundEngine = nullptr;
   this->drawWalls = true;
   this->playSound = true;
+  this->NbrBotTeams = 1;
+  this->NbrHumanTeams = 1;
+  this->NbrTeams = 2;
 }
 
 Core::Core(Core const &obj)
@@ -180,7 +183,8 @@ void						Core::launchMenu()
 {
   this->device->getCursorControl()->setVisible(true);
   this->menu = new MenuModel(this->device, this->driver,
-			     this->smgr, this->guienv, this->saves, this->playSound, this->drawWalls);
+			     this->smgr, this->guienv, this->saves, this->playSound, this->drawWalls,
+			     &this->NbrHumanTeams, &this->NbrBotTeams, &this->NbrTeams);
   this->menu->setModelProperties();
   this->eventStatus = this->menu->launchModel();
   if (eventStatus == EventStatus::ENTER_IN_GAME)

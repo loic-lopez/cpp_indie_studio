@@ -16,13 +16,13 @@ void	MenuModel::SetMenuModelMainOptions()
   irr::video::ITexture			*texture;
 
   //play button
-  texture = this->_driver->getTexture("ressources/buttons/play.png");
+  texture = this->_driver->getTexture("ressources/buttons/play_a_game.png");
   image_size = texture->getSize();
-  this->event.setStartButton(this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3),
+  this->event.setStartButton(this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3) - (7 * 34) / 4,
 										(image_size.Height / 2),
-										(image_size.Width / 2) + 4 * 34,
+										(image_size.Width / 2) + 7 * 34,
 										image_size.Height),
-						      this->tabctrl, MenuButton::PLAY, L""), texture);
+						      this->tabctrl, MenuButton::PLAY_A_GAME, L""), texture);
 
   // OPTION BUTTON
   texture = this->_driver->getTexture("ressources/buttons/options.png");

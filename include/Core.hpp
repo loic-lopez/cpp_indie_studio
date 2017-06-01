@@ -37,7 +37,10 @@ class Core : public ICore
   irrklang::ISoundEngine			*soundEngine;
   bool						drawWalls;
   bool						playSound;
-  
+  irr::s32 					NbrHumanTeams;
+  irr::s32 					NbrBotTeams;
+  irr::s32 					NbrTeams;
+
 public:
   Core();
   Core(Core const &);

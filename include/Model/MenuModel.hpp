@@ -21,8 +21,11 @@ class		MenuModel : public IModel
 {
  public:
   MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
-		 irr::scene::ISceneManager *smgr,
-		 irr::gui::IGUIEnvironment *guienv, std::vector<std::string> const &saves, bool&, bool&);
+	    irr::scene::ISceneManager *smgr,
+	    irr::gui::IGUIEnvironment *guienv,
+	    std::vector<std::string> const &saves, bool&, bool&,
+	    irr::s32 *NbrHumanTeams, irr::s32 *NbrBotTeams, irr::s32 *NbrTeams);
+
   virtual ~MenuModel();
   virtual void setModelProperties();
 
@@ -39,13 +42,13 @@ class		MenuModel : public IModel
   irr::s32					selected;
   irr::core::dimension2du 			screenSize;
   irr::core::dimension2d<irr::u32>		saveSubMenuSpriteSize;
+  irr::core::position2d<irr::s32> 		midTabctrl;
 
   // BUTTONS
   irr::gui::IGUISpriteBank			*spriteBank;
 
   ///
   irr::video::ITexture				*background;
-  irr::video::ITexture				*saveSubMenuText;
   irr::core::dimension2d<irr::u32> 		cursorSize;
   MenuEvent					event;
   std::vector<std::string>			_saves;
@@ -58,6 +61,8 @@ class		MenuModel : public IModel
 
   virtual	void				SetMenuModelMainOptions();
   virtual 	void				setSkinTransparency();
+  virtual 	void				setMenuModelSubButtons();
+  virtual 	void				drawPlaySubMenuText();
 
   enum		SpriteName	:	uint8_t
   {

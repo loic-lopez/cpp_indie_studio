@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Thu Jun  1 07:45:47 2017 Stanislas Deneubourg
+// Last update Thu Jun  1 13:56:20 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -149,15 +149,15 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    realTimeCameraPosition.X = -50;
 	    realTimeCameraTarget.X = -50;
 	  }
-	if (realTimeCameraPosition.Y >= this->size_y + 5)
+	if (realTimeCameraPosition.Y >= this->size_y)
 	  {
-	    realTimeCameraPosition.Y = this->size_y + 5;
-	    realTimeCameraTarget.Y = this->size_y + 5;
+	    realTimeCameraPosition.Y = this->size_y;
+	    realTimeCameraTarget.Y = this->size_y;
 	  }
-	else if (realTimeCameraPosition.Y <= 5 - this->size_y)
+	else if (realTimeCameraPosition.Y <= -this->size_y - 5)
 	  {
-	    realTimeCameraPosition.Y = 5 - this->size_y;
-	    realTimeCameraTarget.Y = 5 - this->size_y;
+	    realTimeCameraPosition.Y = -this->size_y - 5;
+	    realTimeCameraTarget.Y = -this->size_y - 5;
 	  }
 	if (realTimeCameraPosition.Z >= -20)
 	  {

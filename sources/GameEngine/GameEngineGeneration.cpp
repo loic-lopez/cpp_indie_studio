@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 13:51:26 2017 Stanislas Deneubourg
-// Last update Thu Jun  1 13:39:54 2017 Stanislas Deneubourg
+// Last update Thu Jun  1 13:46:46 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -140,7 +140,7 @@ void	GameNamespace::GameEngine::teamsGen()
     {
       for (unsigned int j = 0; j < this->worms_in_human_team; j++)
 	this->worms_relative_pos.push_back(this->wormsPosGen());
-      this->human_teams.emplace_back(this->worms_in_human_team, i, this->worms_relative_pos, this->worms, this->device, this->worm, this->worms_spawn_looking_direction);
+      this->human_teams.emplace_back(this->worms_in_human_team, i, this->worms_relative_pos, this->worms, this->device, this->worm);
       this->worm_mesh.push_back(this->worms);
       this->worms_relative_pos.clear();
     }
@@ -148,7 +148,7 @@ void	GameNamespace::GameEngine::teamsGen()
     {
       for (unsigned int j = 0; j < this->worms_in_bot_team; j++)
 	this->worms_relative_pos.push_back(this->wormsPosGen());
-      this->bot_teams.emplace_back(this->worms_in_bot_team, i, this->worms_relative_pos, this->worms, this->device, this->worm, this->worms_spawn_looking_direction);
+      this->bot_teams.emplace_back(this->worms_in_bot_team, i, this->worms_relative_pos, this->worms, this->device, this->worm);
       this->worm_mesh.push_back(this->worms);
       this->worms_relative_pos.clear();
     }
@@ -159,7 +159,6 @@ irr::core::vector3df	GameNamespace::GameEngine::wormsPosGen()
   int	x;
   int	y;
   int	z = 0;
-  int	dir;
   
   for (int placed = 0; placed == 0;)
     {
@@ -171,13 +170,6 @@ irr::core::vector3df	GameNamespace::GameEngine::wormsPosGen()
 	  && (this->gameMap.at(x + this->size_y * (y + 1)).terrain) == GameNamespace::TerrainType::GROUND)
 	placed = 1;
     }
-  dir = rand() % 3;
-  if (dir == 0)
-    this->worms_spawn_looking_direction = 'r';
-  else if (dir == 1)
-    this->worms_spawn_looking_direction = 'l';
-  else
-    this->worms_spawn_looking_direction = 'm';
   this->gameMap.at(x + this->size_y * y).terrain = GameNamespace::TerrainType::WORM;
   return (irr::core::vector3df(static_cast<float>(x * this->block_size), static_cast<float>((-y * (this->block_size / 3)) - 2.30), static_cast<float>(z)));
 }

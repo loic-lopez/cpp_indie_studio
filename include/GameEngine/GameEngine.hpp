@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Thu Jun  1 13:34:04 2017 Stanislas Deneubourg
+// Last update Thu Jun  1 13:47:29 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -84,7 +84,6 @@ namespace	GameNamespace
     std::vector<HumanTeam>				human_teams;
     std::vector<BotTeam>				bot_teams;
     std::vector<irr::core::vector3df>			worms_relative_pos;
-    char	       					worms_spawn_looking_direction;
 
     virtual	void					setModelProperties();
     virtual	void					mapGen();

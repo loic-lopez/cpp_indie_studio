@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:50:07 2017 Stanislas Deneubourg
-// Last update Thu Jun  1 13:35:04 2017 Stanislas Deneubourg
+// Last update Thu Jun  1 13:47:59 2017 Stanislas Deneubourg
 //
 
 #ifndef HUMAN_TEAM_HPP
@@ -29,7 +29,7 @@ private:
 public:
   HumanTeam(unsigned int, unsigned int, std::vector<irr::core::vector3df>,
 	    irr::scene::IAnimatedMeshSceneNode *,
-	    irr::IrrlichtDevice *, std::string, char);
+	    irr::IrrlichtDevice *, std::string);
   ~HumanTeam();
 };
 

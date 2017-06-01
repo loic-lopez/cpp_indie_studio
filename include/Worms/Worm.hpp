@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:39:05 2017 Stanislas Deneubourg
-// Last update Thu Jun  1 13:35:36 2017 Stanislas Deneubourg
+// Last update Thu Jun  1 13:48:31 2017 Stanislas Deneubourg
 //
 
 #ifndef	WORM_HPP
@@ -37,8 +37,7 @@ private:
 public:
   Worm(int, irr::core::vector3df,
        irr::scene::IAnimatedMeshSceneNode *,
-       irr::IrrlichtDevice *, std::string,
-       char);
+       irr::IrrlichtDevice *, std::string);
   ~Worm();
   int			getHealthPoints();
   unsigned int		getDamageDealt();

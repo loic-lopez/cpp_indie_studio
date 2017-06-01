@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Wed May 31 14:38:31 2017 Stanislas Deneubourg
+// Last update Thu Jun  1 07:45:47 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -38,8 +38,10 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
   this->file_texture = "./ressources/textures/ground/ground" + std::to_string(std::rand() % nb_textures) + ".bmp";
   this->worm_texture = "./ressources/textures/Worm/WormTextures.png";
   this->max_y = this->size_y * (-1);
-  this->worms_per_team = 4;
-  this->number_of_teams = 2;
+  this->worms_in_human_team = 4;
+  this->worms_in_bot_team = 4;
+  this->number_of_human_teams = 1;
+  this->number_of_bot_teams = 1;
 }
 
 GameNamespace::GameEngine::~GameEngine()
@@ -62,26 +64,6 @@ void GameNamespace::GameEngine::setBlockProperties(int x, int y)
       this->groundObject->setPosition(irr::core::vector3df(x * minRadius, -y * (minRadius / 3), 0));
       this->groundObjects.push_back(this->groundObject);
     }
-}
-
-void GameNamespace::GameEngine::setWorms()
-{
-  // for (int i = 0; i < number_of_teams; i++)
-  //   {
-  //     for (int j = 0; j < players_per_team; j++)
-  // 	{
-  // 	  irr::scene::IAnimatedMesh* m = this->device->getSceneManager()->getMesh(worm.c_str());
-  // 	  if (!m)
-  // 	    return;
-  // 	  irr::scene::IAnimatedMeshSceneNode* animworms = this->device->getSceneManager()->addAnimatedMeshSceneNode(m);
-  // 	  animworms->setAnimationSpeed(30);
-  // 	  this->worms = animworms;
-  // 	  this->worms->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-  // 	  this->worms->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
-  // 	  this->worms->setRotation(irr::core::vector3df(0.0, 90.0, 0.0));
-  // 	  this->worm_team_mesh.push_back(this->worms);
-  // 	}
-  //   }
 }
 
 EventStatus GameNamespace::GameEngine::launchModel()
@@ -222,7 +204,7 @@ void GameNamespace::GameEngine::setModelProperties()
 {
   this->mapGen();
   this->backgroundGen();
-  this->setWorms();
+  this->teamsGen();
 }
 
 GameNamespace::GameMap::GameMap(int x, int y)

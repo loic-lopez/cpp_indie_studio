@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 13:51:26 2017 Stanislas Deneubourg
-// Last update Wed May 31 14:39:57 2017 Stanislas Deneubourg
+// Last update Thu Jun  1 13:39:54 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -132,4 +132,52 @@ void	GameNamespace::GameEngine::backgroundGen()
   this->backgroundTerrain->setMaterialTexture(1, this->driver->getTexture("./ressources/textures/terrain/detail_terrain.jpg"));
   this->backgroundTerrain->setMaterialType(irr::video::EMT_DETAIL_MAP);
   this->backgroundTerrain->scaleTexture(1.0f, 20.0f);
+}
+
+void	GameNamespace::GameEngine::teamsGen()
+{
+  for (unsigned int i = 0; i < this->number_of_human_teams; i++)
+    {
+      for (unsigned int j = 0; j < this->worms_in_human_team; j++)
+	this->worms_relative_pos.push_back(this->wormsPosGen());
+      this->human_teams.emplace_back(this->worms_in_human_team, i, this->worms_relative_pos, this->worms, this->device, this->worm, this->worms_spawn_looking_direction);
+      this->worm_mesh.push_back(this->worms);
+      this->worms_relative_pos.clear();
+    }
+  for (unsigned int i = 0; i < this->number_of_bot_teams; i++)
+    {
+      for (unsigned int j = 0; j < this->worms_in_bot_team; j++)
+	this->worms_relative_pos.push_back(this->wormsPosGen());
+      this->bot_teams.emplace_back(this->worms_in_bot_team, i, this->worms_relative_pos, this->worms, this->device, this->worm, this->worms_spawn_looking_direction);
+      this->worm_mesh.push_back(this->worms);
+      this->worms_relative_pos.clear();
+    }
+}
+
+irr::core::vector3df	GameNamespace::GameEngine::wormsPosGen()
+{
+  int	x;
+  int	y;
+  int	z = 0;
+  int	dir;
+  
+  for (int placed = 0; placed == 0;)
+    {
+      x = rand() % this->size_x;
+      y = rand() % this->size_y;
+      if (((y + 1) < this->size_y - 1) && ((y - 1) > 0) &&
+	  (this->gameMap.at(x + this->size_y * y).terrain) == GameNamespace::TerrainType::AIR
+	  && (this->gameMap.at(x + this->size_y * (y - 1)).terrain) == GameNamespace::TerrainType::AIR
+	  && (this->gameMap.at(x + this->size_y * (y + 1)).terrain) == GameNamespace::TerrainType::GROUND)
+	placed = 1;
+    }
+  dir = rand() % 3;
+  if (dir == 0)
+    this->worms_spawn_looking_direction = 'r';
+  else if (dir == 1)
+    this->worms_spawn_looking_direction = 'l';
+  else
+    this->worms_spawn_looking_direction = 'm';
+  this->gameMap.at(x + this->size_y * y).terrain = GameNamespace::TerrainType::WORM;
+  return (irr::core::vector3df(static_cast<float>(x * this->block_size), static_cast<float>((-y * (this->block_size / 3)) - 2.30), static_cast<float>(z)));
 }

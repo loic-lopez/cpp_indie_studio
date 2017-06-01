@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Wed May 31 14:37:14 2017 Stanislas Deneubourg
+// Last update Thu Jun  1 13:34:04 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -14,10 +14,12 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <iostream>
 #include <cstdlib>
 #include "Interface/IModel.hpp"
 #include "Model/MenuInGameModel.hpp"
-#include "Worms/Team.hpp"
+#include "Worms/HumanTeam.hpp"
+#include "Worms/BotTeam.hpp"
 
 namespace	GameNamespace
 {
@@ -74,14 +76,21 @@ namespace	GameNamespace
     irr::f32						block_size;
     irr::scene::ISceneNode				*skybox;
     irr::scene::ITerrainSceneNode			*backgroundTerrain;
-    int							worms_per_team;
-    int							number_of_teams;
-    std::vector<Team>					worm_team_mesh;
+    std::vector<irr::scene::IAnimatedMeshSceneNode *>	worm_mesh;
+    unsigned int							worms_in_human_team;
+    unsigned int							worms_in_bot_team;
+    unsigned int							number_of_human_teams;
+    unsigned int							number_of_bot_teams;
+    std::vector<HumanTeam>				human_teams;
+    std::vector<BotTeam>				bot_teams;
+    std::vector<irr::core::vector3df>			worms_relative_pos;
+    char	       					worms_spawn_looking_direction;
 
     virtual	void					setModelProperties();
-    virtual	void					setWorms();
     virtual	void					mapGen();
     virtual	void					backgroundGen();
+    virtual	void					teamsGen();
+    virtual	irr::core::vector3df			wormsPosGen();
     virtual	void					setBlockProperties(int, int);
     
    public:

@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:21:55 2017 Loïc Dupil
-// Last update Wed May 31 14:34:20 2017 Stanislas Deneubourg
+// Last update Fri Jun  2 18:39:28 2017 Stanislas Deneubourg
 //
 
 #ifndef CORE_HPP
@@ -40,6 +40,7 @@ class Core : public ICore
   irr::s32 					NbrHumanTeams;
   irr::s32 					NbrBotTeams;
   irr::s32 					NbrTeams;
+  irr::s32					WormsPerTeam;
 
 public:
   Core();

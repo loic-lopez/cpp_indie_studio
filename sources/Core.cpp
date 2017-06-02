@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:51:01 2017 Loïc Dupil
-// Last update Fri Jun  2 18:19:45 2017 Stanislas Deneubourg
+// Last update Fri Jun  2 18:39:48 2017 Stanislas Deneubourg
 //
 
 #include "Core.hpp"
@@ -48,6 +48,7 @@ Core::Core()
   this->NbrBotTeams = 1;
   this->NbrHumanTeams = 1;
   this->NbrTeams = 2;
+  this->WormsPerTeam = 2;
 }
 
 Core::Core(Core const &obj)

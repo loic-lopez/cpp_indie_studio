@@ -58,13 +58,8 @@ void	MenuModel::setModelProperties()
   this->SetMenuModelMainOptions();
   this->setMenuModelSubButtons();
 
-  irr::gui::SCursorSprite	cursorSprite(this->spriteBank, 0,  irr::core::position2d<irr::s32>(0,0));
-
-  this->_device->getCursorControl()->addIcon(cursorSprite);
-  this->_device->getCursorControl()->setActiveIcon((irr::gui::ECURSOR_ICON)0);
   this->_device->getCursorControl()->setVisible(false);
-
-
+  
   irr::core::rect<irr::s32> tabctrlSize = this->tabctrl->getRelativePosition();
   irr::s32 tabctrlWidth = tabctrlSize.getWidth();
   irr::s32 tabctrlHeight = tabctrlSize.getHeight();

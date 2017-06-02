@@ -29,7 +29,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
   this->file_shape = "./ressources/shapes/Rock_0.dae";
   this->worm = "ressources/textures/Worm/Worm.obj";
   this->lastFrame = this->device->getTimer()->getTime();
-  this->device->setEventReceiver(&this->receiver);
+  this->device->setEventReceiver(&this->mouseEvent);
   this->cameraMovementSpeed = 50.0f;
   this->generations = 5;
   this->size_x = 40;
@@ -165,7 +165,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->device->getCursorControl()->setVisible(true);
 	    eventStatusMenu = this->menuInGame->launchModel();
 	    this->device->getCursorControl()->setVisible(false);
-	    this->device->setEventReceiver(&this->receiver);
+	    this->device->setEventReceiver(&this->mouseEvent);
 	    if (eventStatusMenu == EventStatus::QUIT || eventStatusMenu == EventStatus::BACK_TO_MENU)
 	      {
 		eventStatus = EventStatus::BACK_TO_MENU;

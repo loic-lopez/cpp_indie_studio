@@ -87,19 +87,19 @@ void	MenuEvent::setPlayAGameSubMenu(irr::video::IVideoDriver *driver, irr::gui::
   button_size = subtractTexture->getSize();
 
   // ADD BUTTONS
-  this->addNbrTeamButton = guienv->addButton(irr::core::rect<irr::s32>(button_size.Width / 2,
-									      (button_size.Height),
-									      (button_size.Width * 3) / 2,
-									      (button_size.Height * 2)),
+  this->addNbrTeamButton = guienv->addButton(irr::core::rect<irr::s32>((button_size.Width * 3) / 2,
+								       (button_size.Height),
+								       button_size.Width * 3,
+								       (button_size.Height * 2)),
 						    tabctrl, MenuButton::PLAY_A_GAME_SUBMENU_ADD_TEAM, L"");
   this->addNbrTeamButton->setImage(addTexture);
   this->addNbrTeamButton->setUseAlphaChannel(true);
   this->addNbrTeamButton->setVisible(false);
 
-  this->addNbrHumanTeamsButton = guienv->addButton(irr::core::rect<irr::s32>(button_size.Width / 2,
+  this->addNbrHumanTeamsButton = guienv->addButton(irr::core::rect<irr::s32>((button_size.Width * 3) / 2,
 									     (button_size.Height * 2)
 									     + (button_size.Height / 2),
-									     (button_size.Width * 3) / 2,
+									     button_size.Width * 3,
 									     (button_size.Height * 3)
 									     + (button_size.Height / 2)),
 						   tabctrl, MenuButton::PLAY_A_GAME_SUBMENU_ADD_HUMAN_TEAM, L"");
@@ -107,9 +107,9 @@ void	MenuEvent::setPlayAGameSubMenu(irr::video::IVideoDriver *driver, irr::gui::
   this->addNbrHumanTeamsButton->setUseAlphaChannel(true);
   this->addNbrHumanTeamsButton->setVisible(false);
 
-  this->addNbrBotTeamsButton = guienv->addButton(irr::core::rect<irr::s32>(button_size.Width / 2,
+  this->addNbrBotTeamsButton = guienv->addButton(irr::core::rect<irr::s32>((button_size.Width * 3) / 2,
 									   (button_size.Height * 4),
-									     (button_size.Width * 3) / 2,
+									   button_size.Width * 3,
 									   (button_size.Height * 5)),
 						   tabctrl, MenuButton::PLAY_A_GAME_SUBMENU_ADD_BOT_TEAM, L"");
   this->addNbrBotTeamsButton->setImage(addTexture);
@@ -117,19 +117,19 @@ void	MenuEvent::setPlayAGameSubMenu(irr::video::IVideoDriver *driver, irr::gui::
   this->addNbrBotTeamsButton->setVisible(false);
 
   // SUBTRACT BUTTONS
-  this->subtractNbrTeamButton =  guienv->addButton(irr::core::rect<irr::s32>((button_size.Width * 3) / 2,
+  this->subtractNbrTeamButton =  guienv->addButton(irr::core::rect<irr::s32>(button_size.Width / 2,
 									     (button_size.Height),
-									     button_size.Width * 3,
+									     (button_size.Width * 3) / 2,
 									     (button_size.Height * 2)),
 						   tabctrl, MenuButton::PLAY_A_GAME_SUBMENU_SUBTRACT_TEAM, L"");
   this->subtractNbrTeamButton->setImage(subtractTexture);
   this->subtractNbrTeamButton->setUseAlphaChannel(true);
   this->subtractNbrTeamButton->setVisible(false);
 
-  this->subtractNbrHumanTeamsButton =  guienv->addButton(irr::core::rect<irr::s32>((button_size.Width * 3) / 2,
+  this->subtractNbrHumanTeamsButton =  guienv->addButton(irr::core::rect<irr::s32>(button_size.Width / 2,
 										   (button_size.Height * 2)
 										   + (button_size.Height / 2),
-										   button_size.Width * 3,
+										   (button_size.Width * 3) / 2,
 										   (button_size.Height * 3)
 										   + (button_size.Height / 2)),
 						   tabctrl, MenuButton::PLAY_A_GAME_SUBMENU_SUBTRACT_HUMAN_TEAM, L"");
@@ -137,9 +137,9 @@ void	MenuEvent::setPlayAGameSubMenu(irr::video::IVideoDriver *driver, irr::gui::
   this->subtractNbrHumanTeamsButton->setUseAlphaChannel(true);
   this->subtractNbrHumanTeamsButton->setVisible(false);
 
-  this->subtractNbrBotTeamsButton =  guienv->addButton(irr::core::rect<irr::s32>((button_size.Width * 3) / 2,
+  this->subtractNbrBotTeamsButton =  guienv->addButton(irr::core::rect<irr::s32>(button_size.Width / 2,
 										 (button_size.Height * 4),
-										   button_size.Width * 3,
+										 (button_size.Width * 3) / 2,
 										 (button_size.Height * 5)),
 						   tabctrl, MenuButton::PLAY_A_GAME_SUBMENU_SUBTRACT_BOT_TEAM, L"");
   this->subtractNbrBotTeamsButton->setImage(subtractTexture);

@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Fri Jun  2 17:53:08 2017 Stanislas Deneubourg
+// Last update Fri Jun  2 17:55:07 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -119,7 +119,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    realTimeCameraPosition.Z += this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.Z += this->cameraMovementSpeed * frameDeltaTime;
 	  }
-	else if (this->receiver.IsKeyDown(irr::KEY_RCONTROL))
+	else if (this->receiver.IsKeyDown(irr::KEY_RCONTROL) || this->receiver.IsKeyDown(irr::KEY_LCONTROL))
 	  {
 	    realTimeCameraPosition.Z -= this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime;

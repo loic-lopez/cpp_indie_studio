@@ -24,14 +24,12 @@ bool MouseEvent::OnEvent(const irr::SEvent &event)
 	{
 	  case irr::EMOUSE_INPUT_EVENT::EMIE_MOUSE_MOVED:
 	    {
-	      std::cout << "MOUSE MOVED" << std::endl;
 	      MouseState.Position.X = event.MouseInput.X;
 	      MouseState.Position.Y = event.MouseInput.Y;
 	      break;
 	    }
 	  case irr::EMOUSE_INPUT_EVENT::EMIE_MOUSE_WHEEL:
 	    {
-	      std::cout << "WHEEL VALUE: " + std::to_string(event.MouseInput.Wheel) << std::endl;
 	      if (event.MouseInput.Wheel > 0)
 		MouseState.mouseWheelState = MouseWheelState::SCROLL_UP;
 	      else if (event.MouseInput.Wheel < 0)

@@ -97,7 +97,6 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	MouseWheelState 	mouseWheelState = this->mouseEvent.getMouseWheelState();
 	irr::EMOUSE_INPUT_EVENT	emouseInputEvent = this->mouseEvent.getMouseEvent();
 
-	std::cout << emouseInputEvent << std::endl;
 	/*
 	if (this->receiver.IsKeyDown(irr::KEY_KEY_A))
 	  {

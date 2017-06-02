@@ -5,7 +5,7 @@
 ## Login   <jabbar_y@epitech.net>
 ## 
 ## Started on  Mon May  1 12:13:34 2017 Jabbari Yassir
-## Last update Wed May 31 20:28:45 2017 Stanislas Deneubourg
+## Last update Fri Jun  2 18:30:54 2017 Stanislas Deneubourg
 ##
 
 NAME            =       indie_studio
@@ -23,8 +23,7 @@ SRC             =	sources/main.cpp								\
 			sources/Model/MenuInGameModel.cpp						\
 			sources/Events/MenuInGameEvent.cpp						\
 			sources/Model/SetMenuModelMainOptions.cpp					\
-			sources/Worms/BotTeam.cpp							\
-			sources/Worms/HumanTeam.cpp							\
+			sources/Worms/Team.cpp								\
 			sources/Worms/Worm.cpp								\
 
 

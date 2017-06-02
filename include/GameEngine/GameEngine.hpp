@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Fri Jun  2 09:39:14 2017 Stanislas Deneubourg
+// Last update Fri Jun  2 18:28:12 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -18,8 +18,7 @@
 #include <cstdlib>
 #include "Interface/IModel.hpp"
 #include "Model/MenuInGameModel.hpp"
-#include "Worms/HumanTeam.hpp"
-#include "Worms/BotTeam.hpp"
+#include "Worms/Team.hpp"
 
 namespace	GameNamespace
 {
@@ -77,12 +76,11 @@ namespace	GameNamespace
     irr::scene::ISceneNode				*skybox;
     irr::scene::ITerrainSceneNode			*backgroundTerrain;
     std::vector<irr::scene::IAnimatedMeshSceneNode *>	worm_mesh;
-    unsigned int							worms_in_human_team;
-    unsigned int							worms_in_bot_team;
-    unsigned int							number_of_human_teams;
-    unsigned int							number_of_bot_teams;
-    std::vector<HumanTeam>				human_teams;
-    std::vector<BotTeam>				bot_teams;
+    unsigned int					worms_per_team;
+    unsigned int	       				number_of_human_teams;
+    unsigned int			      		number_of_bot_teams;
+    unsigned int					number_of_teams;
+    std::vector<Team>					teams;
     std::vector<irr::core::vector3df>			worms_relative_pos;
 
     virtual	void					setModelProperties();
@@ -96,7 +94,8 @@ namespace	GameNamespace
 
     GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
 	       const size_t &, const size_t &, irr::IrrlichtDevice *,
-	       const bool &, const bool &, irr::s32, irr::s32);
+	       const bool &, const bool &,
+	       const irr::s32 &, const irr::s32 &, const irr::s32 &);
 
     virtual						~GameEngine();
     virtual EventStatus					launchModel();

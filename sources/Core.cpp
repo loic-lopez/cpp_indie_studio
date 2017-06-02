@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:51:01 2017 Loïc Dupil
-// Last update Fri Jun  2 17:06:39 2017 Stanislas Deneubourg
+// Last update Fri Jun  2 18:19:45 2017 Stanislas Deneubourg
 //
 
 #include "Core.hpp"
@@ -200,7 +200,7 @@ void						Core::launchGame()
 						   this->loadDir("./ressources/textures/ground/", ".bmp").size(),
 						   this->loadDir("./ressources/shapes/", ".dae").size(),
 						   this->device, this->playSound,
-						   this->drawWalls, this->NbrBotTeams, this->NbrHumanTeams);
+						   this->drawWalls, this->NbrBotTeams, this->NbrHumanTeams, this->NbrTeams);
   this->device->getCursorControl()->setVisible(false);
   this->gameEngine->setModelProperties();
   this->eventStatus = this->gameEngine->launchModel();

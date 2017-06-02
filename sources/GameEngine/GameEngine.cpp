@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Fri Jun  2 17:55:07 2017 Stanislas Deneubourg
+// Last update Fri Jun  2 18:29:54 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -17,8 +17,9 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
 				      irr::IrrlichtDevice *device,
 				      const bool &playSound,
 				      const bool &drawWalls,
-				      irr::s32 bot_teams,
-				      irr::s32 human_teams) : smgr(smgr), driver(driver),
+				      const irr::s32 &bot_teams,
+				      const irr::s32 &human_teams,
+				      const irr::s32 &teams) : smgr(smgr), driver(driver),
 							       device(device),
 							       nb_shapes(nb_shapes),
 							       menuInGame(new MenuInGame(this->device, this->driver,
@@ -40,10 +41,10 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
   this->file_texture = "./ressources/textures/ground/ground" + std::to_string(std::rand() % nb_textures) + ".bmp";
   this->worm_texture = "./ressources/textures/Worm/WormTextures.png";
   this->max_y = this->size_y * (-1);
-  this->worms_in_human_team = 4;
-  this->worms_in_bot_team = 4;
+  this->worms_per_team = 4;
   this->number_of_human_teams = human_teams;
   this->number_of_bot_teams = bot_teams;
+  this->number_of_teams = teams;
 }
 
 GameNamespace::GameEngine::~GameEngine()

@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 13:51:26 2017 Stanislas Deneubourg
-// Last update Thu Jun  1 13:46:46 2017 Stanislas Deneubourg
+// Last update Fri Jun  2 18:30:25 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -136,19 +136,14 @@ void	GameNamespace::GameEngine::backgroundGen()
 
 void	GameNamespace::GameEngine::teamsGen()
 {
-  for (unsigned int i = 0; i < this->number_of_human_teams; i++)
+  for (unsigned int i = 0; i < this->number_of_teams; i++)
     {
-      for (unsigned int j = 0; j < this->worms_in_human_team; j++)
+      for (unsigned int j = 0; j < this->worms_per_team; j++)
 	this->worms_relative_pos.push_back(this->wormsPosGen());
-      this->human_teams.emplace_back(this->worms_in_human_team, i, this->worms_relative_pos, this->worms, this->device, this->worm);
-      this->worm_mesh.push_back(this->worms);
-      this->worms_relative_pos.clear();
-    }
-  for (unsigned int i = 0; i < this->number_of_bot_teams; i++)
-    {
-      for (unsigned int j = 0; j < this->worms_in_bot_team; j++)
-	this->worms_relative_pos.push_back(this->wormsPosGen());
-      this->bot_teams.emplace_back(this->worms_in_bot_team, i, this->worms_relative_pos, this->worms, this->device, this->worm);
+      if (i < (this->number_of_teams - this->number_of_bot_teams))
+	this->teams.emplace_back(this->worms_per_team, i, this->worms_relative_pos, this->worms, this->device, this->worm, true);
+      else
+	this->teams.emplace_back(this->worms_per_team, i, this->worms_relative_pos, this->worms, this->device, this->worm, false);
       this->worm_mesh.push_back(this->worms);
       this->worms_relative_pos.clear();
     }

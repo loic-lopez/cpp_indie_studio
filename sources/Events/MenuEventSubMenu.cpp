@@ -116,6 +116,17 @@ void	MenuEvent::setPlayAGameSubMenu(irr::video::IVideoDriver *driver, irr::gui::
   this->addNbrBotTeamsButton->setUseAlphaChannel(true);
   this->addNbrBotTeamsButton->setVisible(false);
 
+  this->addNbrWormsPerTeamButton = guienv->addButton(irr::core::rect<irr::s32>((button_size.Width * 3) / 2,
+									       (button_size.Height * 5)
+									       + (button_size.Height / 2),
+									       button_size.Width * 3,
+									       (button_size.Height * 6)
+									       + (button_size.Height / 2)),
+					       tabctrl, MenuButton::PLAY_A_GAME_SUBMENU_ADD_WORMS_PER_TEAM, L"");
+  this->addNbrWormsPerTeamButton->setImage(addTexture);
+  this->addNbrWormsPerTeamButton->setUseAlphaChannel(true);
+  this->addNbrWormsPerTeamButton->setVisible(false);
+
   // SUBTRACT BUTTONS
   this->subtractNbrTeamButton =  guienv->addButton(irr::core::rect<irr::s32>(button_size.Width / 2,
 									     (button_size.Height),
@@ -146,15 +157,59 @@ void	MenuEvent::setPlayAGameSubMenu(irr::video::IVideoDriver *driver, irr::gui::
   this->subtractNbrBotTeamsButton->setUseAlphaChannel(true);
   this->subtractNbrBotTeamsButton->setVisible(false);
 
+  this->subtractNbrWormsPerTeamButton =  guienv->addButton(irr::core::rect<irr::s32>(button_size.Width / 2,
+										     (button_size.Height * 5)
+										     + (button_size.Height / 2),
+										 (button_size.Width * 3) / 2,
+										     (button_size.Height * 6)
+										     + (button_size.Height / 2)),
+						   tabctrl, MenuButton::PLAY_A_GAME_SUBMENU_SUBTRACT_WORMS_PER_TEAM, L"");
+  this->subtractNbrWormsPerTeamButton->setImage(subtractTexture);
+  this->subtractNbrWormsPerTeamButton->setUseAlphaChannel(true);
+  this->subtractNbrWormsPerTeamButton->setVisible(false);
+
   // PLAY BUTTON
   playTexture = driver->getTexture("ressources/buttons/play.png");
   button_size = playTexture->getSize();
   this->playButton = guienv->addButton(irr::core::rect<irr::s32>((button_size.Width / 3),
-								 button_size.Height * 5,
+								 ((button_size.Height / 2) * 14) - 38 / 2,
 								 (button_size.Width / 2) + 4 * 34,
-								 button_size.Height * 6),
+								 ((button_size.Height / 2) * 15) - 38 / 2),
 				       tabctrl, MenuButton::PLAY, L"");
   this->playButton->setImage(playTexture);
   this->playButton->setUseAlphaChannel(true);
   this->playButton->setVisible(false);
+}
+
+
+
+void MenuEvent::setSubButtonHidden()
+{
+  this->checkboxSound->setVisible(false);
+  this->backButton->setVisible(false);
+  this->checkboxWalls->setVisible(false);
+  this->savesListBox->setVisible(false);
+  this->addNbrTeamButton->setVisible(false);
+  this->subtractNbrTeamButton->setVisible(false);
+  this->playButton->setVisible(false);
+  this->addNbrHumanTeamsButton->setVisible(false);
+  this->subtractNbrHumanTeamsButton->setVisible(false);
+  this->subtractNbrBotTeamsButton->setVisible(false);
+  this->addNbrBotTeamsButton->setVisible(false);
+  this->addNbrWormsPerTeamButton->setVisible(false);
+  this->subtractNbrWormsPerTeamButton->setVisible(false);
+}
+
+void MenuEvent::setPlaySubMenuVisible()
+{
+  this->addNbrTeamButton->setVisible(true);
+  this->subtractNbrTeamButton->setVisible(true);
+  this->addNbrHumanTeamsButton->setVisible(true);
+  this->subtractNbrHumanTeamsButton->setVisible(true);
+  this->addNbrBotTeamsButton->setVisible(true);
+  this->subtractNbrBotTeamsButton->setVisible(true);
+  this->addNbrWormsPerTeamButton->setVisible(true);
+  this->subtractNbrWormsPerTeamButton->setVisible(true);
+  this->playButton->setVisible(true);
+  this->backButton->setVisible(true);
 }

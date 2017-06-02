@@ -10,8 +10,10 @@
 #ifndef CPP_INDIE_STUDIO_MENUEVENTCONTROLLER_HPP
 #define CPP_INDIE_STUDIO_MENUEVENTCONTROLLER_HPP
 
-#include <string>
+#include <ctime>
+#include <cstdlib>
 #include <vector>
+#include <string>
 #include "Dependencies/Dependencies.hpp"
 #include "EventStatus.hpp"
 #include "MenuButton.hpp"
@@ -23,6 +25,8 @@ private:
   void 			setMainButtonsHidden();
   void 			setMainButtonsVisible();
   void			setSubButtonHidden();
+  void			setPlaySubMenuVisible();
+
   irr::IrrlichtDevice	*device;
   EventStatus		*eventStatus;
   irr::s32		selected;
@@ -30,6 +34,7 @@ private:
   irr::s32		*NbrHumanTeams;
   irr::s32		*NbrBotTeams;
   irr::s32		*NbrTeams;
+  irr::s32		*NbrWormsPerTeam;
 
   // BUTTONS
   irr::gui::IGUIButton	*startButton;
@@ -58,6 +63,8 @@ private:
   irr::gui::IGUIButton	*addNbrHumanTeamsButton;
   irr::gui::IGUIButton	*subtractNbrBotTeamsButton;
   irr::gui::IGUIButton	*addNbrBotTeamsButton;
+  irr::gui::IGUIButton	*subtractNbrWormsPerTeamButton;
+  irr::gui::IGUIButton	*addNbrWormsPerTeamButton;
   irr::gui::IGUIButton	*playButton;
 
  public:
@@ -89,6 +96,7 @@ private:
   void		setNbrHumanTeams(irr::s32 *NbrHumanTeams);
   void		setNbrBotTeams(irr::s32 *NbrBotTeams);
   void		setNbrTeams(irr::s32 *NbrBotTeams);
+  void		setNbrWormsPerTeam(irr::s32 *NbrWormsPerTeam);
   void		setPlayAGameSubMenu(irr::video::IVideoDriver *driver, irr::gui::IGUIEnvironment *guienv,
 					  irr::gui::IGUITabControl*tabctrl);
 
@@ -98,6 +106,7 @@ private:
   irr::s32	const	&getNbrHumanTeams() const;
   irr::s32	const	&getNbrBotTeams() const;
   irr::s32	const	&getNbrTeams() const;
+  irr::s32	const	&getNbrWormsPerTeam() const;
 
 };
 #endif //CPP_INDIE_STUDIO_MENUEVENTCONTROLLER_HPP

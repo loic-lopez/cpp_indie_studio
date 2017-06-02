@@ -43,15 +43,7 @@ bool	MenuEvent::OnEvent(const irr::SEvent &event)
 		  {
 		    this->button = static_cast<MenuButton>(id);
 		    this->setMainButtonsHidden();
-
-		    this->addNbrTeamButton->setVisible(true);
-		    this->subtractNbrTeamButton->setVisible(true);
-		    this->addNbrHumanTeamsButton->setVisible(true);
-		    this->subtractNbrHumanTeamsButton->setVisible(true);
-		    this->addNbrBotTeamsButton->setVisible(true);
-		    this->subtractNbrBotTeamsButton->setVisible(true);
-		    this->playButton->setVisible(true);
-		    this->backButton->setVisible(true);
+		    this->setPlaySubMenuVisible();
 		    break;
 		  }
 	      case MenuButton::PLAY:
@@ -211,6 +203,20 @@ bool	MenuEvent::OnEvent(const irr::SEvent &event)
 		      }
 		    break;
 		  }
+	      case MenuButton::PLAY_A_GAME_SUBMENU_ADD_WORMS_PER_TEAM:
+		if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		  {
+		    if (*this->NbrWormsPerTeam < 8)
+		      *this->NbrWormsPerTeam += 1;
+		    break;
+		  }
+	      case MenuButton::PLAY_A_GAME_SUBMENU_SUBTRACT_WORMS_PER_TEAM:
+		if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		  {
+		    if (*this->NbrWormsPerTeam > 2)
+		      *this->NbrWormsPerTeam -= 1;
+		    break;
+		  }
 	      default:
 		break;
 	    }
@@ -313,17 +319,12 @@ irr::s32 const &MenuEvent::getNbrTeams() const
   return *this->NbrTeams;
 }
 
-void MenuEvent::setSubButtonHidden()
+irr::s32 const &MenuEvent::getNbrWormsPerTeam() const
 {
-  this->checkboxSound->setVisible(false);
-  this->backButton->setVisible(false);
-  this->checkboxWalls->setVisible(false);
-  this->savesListBox->setVisible(false);
-  this->addNbrTeamButton->setVisible(false);
-  this->subtractNbrTeamButton->setVisible(false);
-  this->playButton->setVisible(false);
-  this->addNbrHumanTeamsButton->setVisible(false);
-  this->subtractNbrHumanTeamsButton->setVisible(false);
-  this->subtractNbrBotTeamsButton->setVisible(false);
-  this->addNbrBotTeamsButton->setVisible(false);
+  return *this->NbrWormsPerTeam;
+}
+
+void	MenuEvent::setNbrWormsPerTeam(irr::s32 *NbrWormsPerTeam)
+{
+  this->NbrWormsPerTeam = NbrWormsPerTeam;
 }

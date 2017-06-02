@@ -13,7 +13,7 @@
 MenuModel::MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
 		     irr::scene::ISceneManager *smgr, irr::gui::IGUIEnvironment *guienv,
 		     std::vector<std::string> const &saves, bool &playSound, bool &drawWalls,
-		     irr::s32 *NbrHumanTeams, irr::s32 *NbrBotTeams, irr::s32 *NbrTeams)
+		     irr::s32 *NbrHumanTeams, irr::s32 *NbrBotTeams, irr::s32 *NbrTeams, irr::s32 *NbrWormsPerTeam)
   : _device(device), _driver(driver), _smgr(smgr),_guienv(guienv), event(device)
 {
   this->_device->setWindowCaption(L"Worms 3D");
@@ -30,6 +30,7 @@ MenuModel::MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driv
   this->event.setNbrBotTeams(NbrBotTeams);
   this->event.setNbrHumanTeams(NbrHumanTeams);
   this->event.setNbrTeams(NbrTeams);
+  this->event.setNbrWormsPerTeam(NbrWormsPerTeam);
 }
 
 MenuModel::~MenuModel()
@@ -200,4 +201,14 @@ void	MenuModel::drawPlaySubMenuText()
 					     this->midTabctrl.Y - (text_and_nbr.size() * 4),
 					     this->midTabctrl.X, (this->midTabctrl.Y / 2) + 38),
 		   irr::video::SColor(255, 255, 190, 0));
+
+  text_and_nbr.clear();
+  text_and_nbr = "Worms per team: ";
+  text_and_nbr += std::to_string(this->event.getNbrWormsPerTeam());
+  this->font->draw(text_and_nbr.c_str(),
+		   irr::core::rect<irr::s32>(this->midTabctrl.X - (text_and_nbr.size() * 4),
+					     this->midTabctrl.Y + (text_and_nbr.size() * 4),
+					     this->midTabctrl.X, (this->midTabctrl.Y / 2) + 38),
+		   irr::video::SColor(255, 255, 190, 0));
+
 }

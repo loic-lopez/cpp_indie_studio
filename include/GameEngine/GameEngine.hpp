@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Thu Jun  1 13:47:29 2017 Stanislas Deneubourg
+// Last update Fri Jun  2 09:39:14 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -96,7 +96,7 @@ namespace	GameNamespace
 
     GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
 	       const size_t &, const size_t &, irr::IrrlichtDevice *,
-	       const bool &, const bool &);
+	       const bool &, const bool &, irr::s32, irr::s32);
 
     virtual						~GameEngine();
     virtual EventStatus					launchModel();

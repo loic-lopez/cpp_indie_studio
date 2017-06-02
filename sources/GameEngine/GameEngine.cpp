@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Thu Jun  1 13:56:20 2017 Stanislas Deneubourg
+// Last update Fri Jun  2 09:41:56 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -16,7 +16,9 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
 				      const size_t &nb_shapes,
 				      irr::IrrlichtDevice *device,
 				      const bool &playSound,
-				      const bool &drawWalls) : smgr(smgr), driver(driver),
+				      const bool &drawWalls,
+				      irr::s32 bot_teams,
+				      irr::s32 human_teams) : smgr(smgr), driver(driver),
 							       device(device),
 							       nb_shapes(nb_shapes),
 							       menuInGame(new MenuInGame(this->device, this->driver,
@@ -40,8 +42,8 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
   this->max_y = this->size_y * (-1);
   this->worms_in_human_team = 4;
   this->worms_in_bot_team = 4;
-  this->number_of_human_teams = 1;
-  this->number_of_bot_teams = 1;
+  this->number_of_human_teams = human_teams;
+  this->number_of_bot_teams = bot_teams;
 }
 
 GameNamespace::GameEngine::~GameEngine()

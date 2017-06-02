@@ -16,7 +16,6 @@ SRC             =	sources/main.cpp								\
 			sources/GameEngine/GameEngine.cpp  						\
 			sources/GameEngine/GameEngineGeneration.cpp					\
 			sources/Events/EventReceiver.cpp 						\
-			sources/Events/MouseEvent.cpp 						\
 			sources/Model/SplashScreen.cpp  						\
 			sources/Model/MenuModel.cpp							\
 			sources/Events/MenuEvent.cpp							\

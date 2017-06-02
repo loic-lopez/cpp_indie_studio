@@ -29,7 +29,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
   this->file_shape = "./ressources/shapes/Rock_0.dae";
   this->worm = "ressources/textures/Worm/Worm.obj";
   this->lastFrame = this->device->getTimer()->getTime();
-  this->device->setEventReceiver(&this->mouseEvent);
+  this->device->setEventReceiver(&this->receiver);
   this->cameraMovementSpeed = 50.0f;
   this->generations = 5;
   this->size_x = 40;
@@ -93,79 +93,43 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	this->lastFrame = now;
 	irr::core::vector3df 	realTimeCameraPosition = this->gameCamera->getPosition();
 	irr::core::vector3df 	realTimeCameraTarget = this->gameCamera->getTarget();
-	irr::core::position2di 	mousePosition = this->mouseEvent.getMousePosition();
-	MouseWheelState 	mouseWheelState = this->mouseEvent.getMouseWheelState();
-	irr::EMOUSE_INPUT_EVENT	emouseInputEvent = this->mouseEvent.getMouseEvent();
 
-	/*
-	if (this->receiver.IsKeyDown(irr::KEY_KEY_A))
+	if (this->receiver.IsKeyDown(irr::KEY_UP))
 	  {
 	    realTimeCameraPosition.Y += this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.Y += this->cameraMovementSpeed * frameDeltaTime;
 	  }
-	else if (this->receiver.IsKeyDown(irr::KEY_KEY_E))
+	else if (this->receiver.IsKeyDown(irr::KEY_DOWN))
 	  {
 	    realTimeCameraPosition.Y -= this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.Y -= this->cameraMovementSpeed * frameDeltaTime;
 	  }
-	if (this->receiver.IsKeyDown(irr::KEY_KEY_Q))
+	if (this->receiver.IsKeyDown(irr::KEY_LEFT))
 	  {
 	    realTimeCameraPosition.X -= this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.X -= this->cameraMovementSpeed * frameDeltaTime;
 	  }
-	else if (this->receiver.IsKeyDown(irr::KEY_KEY_D))
+	else if (this->receiver.IsKeyDown(irr::KEY_RIGHT))
 	  {
 	    realTimeCameraPosition.X += this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.X += this->cameraMovementSpeed * frameDeltaTime;
 	  }
-	if (this->receiver.IsKeyDown(irr::KEY_KEY_Z))
+	if (this->receiver.IsKeyDown(irr::KEY_SHIFT))
 	  {
 	    realTimeCameraPosition.Z += this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.Z += this->cameraMovementSpeed * frameDeltaTime;
 	  }
-	else if (this->receiver.IsKeyDown(irr::KEY_KEY_S))
+	else if (this->receiver.IsKeyDown(irr::KEY_CONTROL))
 	  {
 	    realTimeCameraPosition.Z -= this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime;
-	  }
-	  */
-	std::cout << mousePosition.Y << std::endl;
-	if (mousePosition.Y < 40 && emouseInputEvent == irr::EMIE_MOUSE_MOVED) // Mettre a 20 une fois qu'on aura le menu
-	  {
-	    realTimeCameraPosition.Y += this->cameraMovementSpeed * frameDeltaTime / 2;
-	    realTimeCameraTarget.Y += this->cameraMovementSpeed * frameDeltaTime / 2;
-	  }
-	else if (mousePosition.Y > 1020 && emouseInputEvent == irr::EMIE_MOUSE_MOVED) // Mettre a 1040 une fois qu'on aura le menu
-	  {
-	    realTimeCameraPosition.Y -= this->cameraMovementSpeed * frameDeltaTime / 2;
-	    realTimeCameraTarget.Y -= this->cameraMovementSpeed * frameDeltaTime / 2;
-	  }
-	if (mousePosition.X < 20 && emouseInputEvent == irr::EMIE_MOUSE_MOVED)
-	  {
-	    realTimeCameraPosition.X -= this->cameraMovementSpeed * frameDeltaTime;
-	    realTimeCameraTarget.X -= this->cameraMovementSpeed * frameDeltaTime;
-	  }
-	else if (mousePosition.X > 1900 && emouseInputEvent == irr::EMIE_MOUSE_MOVED)
-	  {
-	    realTimeCameraPosition.X += this->cameraMovementSpeed * frameDeltaTime;
-	    realTimeCameraTarget.X += this->cameraMovementSpeed * frameDeltaTime;
-	  }
-	if (mouseWheelState == MouseWheelState::SCROLL_UP)
-	  {
-	    realTimeCameraPosition.Z += this->cameraMovementSpeed * frameDeltaTime / 2;
-	    realTimeCameraTarget.Z += this->cameraMovementSpeed * frameDeltaTime / 2;
-	  }
-	else if (mouseWheelState == MouseWheelState::SCROLL_DOWN)
-	  {
-	    realTimeCameraPosition.Z -= this->cameraMovementSpeed * frameDeltaTime / 2;
-	    realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime / 2;
 	  }
 	if (this->receiver.IsKeyUp(irr::KEY_ESCAPE) && eventStatusMenu != EventStatus::ENTER_IN_GAME)
 	  {
 	    this->device->getCursorControl()->setVisible(true);
 	    eventStatusMenu = this->menuInGame->launchModel();
 	    this->device->getCursorControl()->setVisible(false);
-	    this->device->setEventReceiver(&this->mouseEvent);
+	    this->device->setEventReceiver(&this->receiver);
 	    if (eventStatusMenu == EventStatus::QUIT || eventStatusMenu == EventStatus::BACK_TO_MENU)
 	      {
 		eventStatus = EventStatus::BACK_TO_MENU;

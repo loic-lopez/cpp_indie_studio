@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Fri Jun  2 09:41:56 2017 Stanislas Deneubourg
+// Last update Fri Jun  2 17:08:20 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -129,35 +129,36 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime;
 	  }
 	  */
-	if (mousePosition.Y > 1900 && emouseInputEvent == irr::EMIE_MOUSE_MOVED)
+	std::cout << mousePosition.Y << std::endl;
+	if (mousePosition.Y < 40 && emouseInputEvent == irr::EMIE_MOUSE_MOVED) // Mettre a 20 une fois qu'on aura le menu
 	  {
-	    realTimeCameraPosition.Y += this->cameraMovementSpeed * frameDeltaTime;
-	    realTimeCameraTarget.Y += this->cameraMovementSpeed * frameDeltaTime;
+	    realTimeCameraPosition.Y += this->cameraMovementSpeed * frameDeltaTime / 2;
+	    realTimeCameraTarget.Y += this->cameraMovementSpeed * frameDeltaTime / 2;
 	  }
-	else if (mousePosition.Y < 20 && emouseInputEvent == irr::EMIE_MOUSE_MOVED)
+	else if (mousePosition.Y > 1020 && emouseInputEvent == irr::EMIE_MOUSE_MOVED) // Mettre a 1040 une fois qu'on aura le menu
 	  {
-	    realTimeCameraPosition.Y -= this->cameraMovementSpeed * frameDeltaTime;
-	    realTimeCameraTarget.Y -= this->cameraMovementSpeed * frameDeltaTime;
+	    realTimeCameraPosition.Y -= this->cameraMovementSpeed * frameDeltaTime / 2;
+	    realTimeCameraTarget.Y -= this->cameraMovementSpeed * frameDeltaTime / 2;
 	  }
 	if (mousePosition.X < 20 && emouseInputEvent == irr::EMIE_MOUSE_MOVED)
 	  {
 	    realTimeCameraPosition.X -= this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.X -= this->cameraMovementSpeed * frameDeltaTime;
 	  }
-	else if (mousePosition.X > 20 && emouseInputEvent == irr::EMIE_MOUSE_MOVED)
+	else if (mousePosition.X > 1900 && emouseInputEvent == irr::EMIE_MOUSE_MOVED)
 	  {
 	    realTimeCameraPosition.X += this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.X += this->cameraMovementSpeed * frameDeltaTime;
 	  }
 	if (mouseWheelState == MouseWheelState::SCROLL_UP)
 	  {
-	    realTimeCameraPosition.Z += this->cameraMovementSpeed * frameDeltaTime;
-	    realTimeCameraTarget.Z += this->cameraMovementSpeed * frameDeltaTime;
+	    realTimeCameraPosition.Z += this->cameraMovementSpeed * frameDeltaTime / 2;
+	    realTimeCameraTarget.Z += this->cameraMovementSpeed * frameDeltaTime / 2;
 	  }
 	else if (mouseWheelState == MouseWheelState::SCROLL_DOWN)
 	  {
-	    realTimeCameraPosition.Z -= this->cameraMovementSpeed * frameDeltaTime;
-	    realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime;
+	    realTimeCameraPosition.Z -= this->cameraMovementSpeed * frameDeltaTime / 2;
+	    realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime / 2;
 	  }
 	if (this->receiver.IsKeyUp(irr::KEY_ESCAPE) && eventStatusMenu != EventStatus::ENTER_IN_GAME)
 	  {

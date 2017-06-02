@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 13:51:26 2017 Stanislas Deneubourg
-// Last update Fri Jun  2 18:30:25 2017 Stanislas Deneubourg
+// Last update Fri Jun  2 18:44:38 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -157,8 +157,8 @@ irr::core::vector3df	GameNamespace::GameEngine::wormsPosGen()
   
   for (int placed = 0; placed == 0;)
     {
-      x = rand() % this->size_x;
-      y = rand() % this->size_y;
+      x = std::rand() % this->size_x;
+      y = std::rand() % this->size_y;
       if (((y + 1) < this->size_y - 1) && ((y - 1) > 0) &&
 	  (this->gameMap.at(x + this->size_y * y).terrain) == GameNamespace::TerrainType::AIR
 	  && (this->gameMap.at(x + this->size_y * (y - 1)).terrain) == GameNamespace::TerrainType::AIR

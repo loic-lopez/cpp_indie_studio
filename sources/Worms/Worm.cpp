@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:43:41 2017 Stanislas Deneubourg
-// Last update Thu Jun  1 13:49:26 2017 Stanislas Deneubourg
+// Last update Fri Jun  2 18:44:59 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Worm.hpp"
@@ -14,7 +14,7 @@ Worm::Worm(int nb, irr::core::vector3df vector_pos,
 	   irr::scene::IAnimatedMeshSceneNode *worm_mesh,
 	   irr::IrrlichtDevice *device, std::string worm_file)
 {
-  int	dir = rand() % 3;
+  int	dir = std::rand() % 3;
   this->worm_name = "Player ";
   this->worm_name += std::to_string(nb);
   this->health_points = 100;

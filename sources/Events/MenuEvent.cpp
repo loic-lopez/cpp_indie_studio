@@ -5,7 +5,7 @@
 ** Login   <yassir.jabbari@epitech.eu>
 **
 ** Started on  Sat May 06 17:36:48 2017 Yassir Jabbari
-// Last update Sat May  6 18:26:44 2017 Jabbari Yassir
+// Last update Fri Jun  2 18:44:15 2017 Stanislas Deneubourg
 */
 
 #include "Events/MenuEvent.hpp"
@@ -14,7 +14,7 @@ MenuEvent::MenuEvent(irr::IrrlichtDevice *device)
 {
   this->device = device;
   this->button = MenuButton::STANDBY;
-  srand(time(NULL));
+  std::srand(std::time(nullptr));
 }
 
 bool	MenuEvent::OnEvent(const irr::SEvent &event)
@@ -128,7 +128,7 @@ bool	MenuEvent::OnEvent(const irr::SEvent &event)
 			*this->NbrTeams += 1;
 			if (*this->NbrBotTeams == *this->NbrHumanTeams)
 			  {
-			    if ((rand() % 2) == 0)
+			    if ((std::rand() % 2) == 0)
 			      *this->NbrHumanTeams += 1;
 			    else
 			      *this->NbrBotTeams += 1;
@@ -148,7 +148,7 @@ bool	MenuEvent::OnEvent(const irr::SEvent &event)
 			*this->NbrTeams -= 1;
 			if (*this->NbrBotTeams == *this->NbrHumanTeams)
 			  {
-			    if ((rand() % 2) == 0)
+			    if ((std::rand() % 2) == 0)
 			      *this->NbrHumanTeams -= 1;
 			    else
 			      *this->NbrBotTeams -= 1;

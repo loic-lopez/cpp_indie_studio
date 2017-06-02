@@ -93,7 +93,8 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	this->lastFrame = now;
 	irr::core::vector3df realTimeCameraPosition = this->gameCamera->getPosition();
 	irr::core::vector3df realTimeCameraTarget = this->gameCamera->getTarget();
-	
+
+	/*
 	if (this->receiver.IsKeyDown(irr::KEY_KEY_A))
 	  {
 	    realTimeCameraPosition.Y += this->cameraMovementSpeed * frameDeltaTime;
@@ -120,6 +121,37 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    realTimeCameraTarget.Z += this->cameraMovementSpeed * frameDeltaTime;
 	  }
 	else if (this->receiver.IsKeyDown(irr::KEY_KEY_S))
+	  {
+	    realTimeCameraPosition.Z -= this->cameraMovementSpeed * frameDeltaTime;
+	    realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime;
+	  }
+	  */
+	if (this->MouseEvent.Y > 1900 && this->MouseEvent.Event == irr::EMIE_MOUSE_MOVED)
+	  {
+	    realTimeCameraPosition.Y += this->cameraMovementSpeed * frameDeltaTime;
+	    realTimeCameraTarget.Y += this->cameraMovementSpeed * frameDeltaTime;
+	  }
+	else if (this->MouseEvent.Y < 20 && this->MouseEvent.Event == irr::EMIE_MOUSE_MOVED)
+	  {
+	    realTimeCameraPosition.Y -= this->cameraMovementSpeed * frameDeltaTime;
+	    realTimeCameraTarget.Y -= this->cameraMovementSpeed * frameDeltaTime;
+	  }
+	if (this->MouseEvent.X < 20 && this->MouseEvent.Event == irr::EMIE_MOUSE_MOVED)
+	  {
+	    realTimeCameraPosition.X -= this->cameraMovementSpeed * frameDeltaTime;
+	    realTimeCameraTarget.X -= this->cameraMovementSpeed * frameDeltaTime;
+	  }
+	else if (this->MouseEvent.X > 1060 && this->MouseEvent.Event == irr::EMIE_MOUSE_MOVED)
+	  {
+	    realTimeCameraPosition.X += this->cameraMovementSpeed * frameDeltaTime;
+	    realTimeCameraTarget.X += this->cameraMovementSpeed * frameDeltaTime;
+	  }
+	if (this->MouseEvent.Wheel > 0.0f)
+	  {
+	    realTimeCameraPosition.Z += this->cameraMovementSpeed * frameDeltaTime;
+	    realTimeCameraTarget.Z += this->cameraMovementSpeed * frameDeltaTime;
+	  }
+	else if (this->MouseEvent.Wheel < 0.0f)
 	  {
 	    realTimeCameraPosition.Z -= this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime;

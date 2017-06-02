@@ -84,6 +84,7 @@ namespace	GameNamespace
     std::vector<HumanTeam>				human_teams;
     std::vector<BotTeam>				bot_teams;
     std::vector<irr::core::vector3df>			worms_relative_pos;
+    irr::SEvent::SMouseInput				MouseEvent;
 
     virtual	void					setModelProperties();
     virtual	void					mapGen();

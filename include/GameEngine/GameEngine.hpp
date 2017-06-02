@@ -20,6 +20,7 @@
 #include "Model/MenuInGameModel.hpp"
 #include "Worms/HumanTeam.hpp"
 #include "Worms/BotTeam.hpp"
+#include "Events/MouseEvent.hpp"
 
 namespace	GameNamespace
 {
@@ -84,7 +85,7 @@ namespace	GameNamespace
     std::vector<HumanTeam>				human_teams;
     std::vector<BotTeam>				bot_teams;
     std::vector<irr::core::vector3df>			worms_relative_pos;
-    irr::SEvent::SMouseInput				MouseEvent;
+    MouseEvent						mouseEvent;
 
     virtual	void					setModelProperties();
     virtual	void					mapGen();

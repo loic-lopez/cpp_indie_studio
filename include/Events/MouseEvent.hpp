@@ -11,24 +11,28 @@
 #ifndef	MOUSE_EVENT_HPP
 #define	MOUSE_EVENT_HPP
 
-#include <string>
-#include <vector>
 #include "Dependencies/Dependencies.hpp"
-#include "Event/EventReceiver.hpp"
+#include "Events/MouseWheelState.hpp"
 
-class MouseEvent : public irr::iEventReceiver
+class MouseEvent : public irr::IEventReceiver
 {
-public:
+ private:
   struct SMouseState
   {
-    core::position2di	position;
-    bool		leftButtonDown;
-    SMouseState() : LeftButtonDown(false) {}
+    irr::core::position2di	Position;
+    bool			leftButtonDown;
+    MouseWheelState 		mouseWheelState;
+    SMouseState();
   }	MouseState;
+  irr::SEvent	event;
+public:
+
     
   MouseEvent();
   virtual bool	OnEvent(const irr::SEvent &event);
-  virtual
-}
+  irr::core::position2di	const	&getMousePosition() const;
+  MouseWheelState	const	&getMouseWheelState() const;
+  irr::EMOUSE_INPUT_EVENT const &getMouseEvent() const;
+};
 
 #endif

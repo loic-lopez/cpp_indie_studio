@@ -91,9 +91,13 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	const irr::u32 now = this->device->getTimer()->getTime();
 	const irr::f32 frameDeltaTime = (irr::f32)(now - this->lastFrame) / 1000.0f;
 	this->lastFrame = now;
-	irr::core::vector3df realTimeCameraPosition = this->gameCamera->getPosition();
-	irr::core::vector3df realTimeCameraTarget = this->gameCamera->getTarget();
+	irr::core::vector3df 	realTimeCameraPosition = this->gameCamera->getPosition();
+	irr::core::vector3df 	realTimeCameraTarget = this->gameCamera->getTarget();
+	irr::core::position2di 	mousePosition = this->mouseEvent.getMousePosition();
+	MouseWheelState 	mouseWheelState = this->mouseEvent.getMouseWheelState();
+	irr::EMOUSE_INPUT_EVENT	emouseInputEvent = this->mouseEvent.getMouseEvent();
 
+	std::cout << emouseInputEvent << std::endl;
 	/*
 	if (this->receiver.IsKeyDown(irr::KEY_KEY_A))
 	  {
@@ -126,32 +130,32 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime;
 	  }
 	  */
-	if (this->MouseEvent.Y > 1900 && this->MouseEvent.Event == irr::EMIE_MOUSE_MOVED)
+	if (mousePosition.Y > 1900 && emouseInputEvent == irr::EMIE_MOUSE_MOVED)
 	  {
 	    realTimeCameraPosition.Y += this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.Y += this->cameraMovementSpeed * frameDeltaTime;
 	  }
-	else if (this->MouseEvent.Y < 20 && this->MouseEvent.Event == irr::EMIE_MOUSE_MOVED)
+	else if (mousePosition.Y < 20 && emouseInputEvent == irr::EMIE_MOUSE_MOVED)
 	  {
 	    realTimeCameraPosition.Y -= this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.Y -= this->cameraMovementSpeed * frameDeltaTime;
 	  }
-	if (this->MouseEvent.X < 20 && this->MouseEvent.Event == irr::EMIE_MOUSE_MOVED)
+	if (mousePosition.X < 20 && emouseInputEvent == irr::EMIE_MOUSE_MOVED)
 	  {
 	    realTimeCameraPosition.X -= this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.X -= this->cameraMovementSpeed * frameDeltaTime;
 	  }
-	else if (this->MouseEvent.X > 1060 && this->MouseEvent.Event == irr::EMIE_MOUSE_MOVED)
+	else if (mousePosition.X > 20 && emouseInputEvent == irr::EMIE_MOUSE_MOVED)
 	  {
 	    realTimeCameraPosition.X += this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.X += this->cameraMovementSpeed * frameDeltaTime;
 	  }
-	if (this->MouseEvent.Wheel > 0.0f && this->MouseEvent.Event == irr::EMIE_MOUSE_WHEEL)
+	if (mouseWheelState == MouseWheelState::SCROLL_UP)
 	  {
 	    realTimeCameraPosition.Z += this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.Z += this->cameraMovementSpeed * frameDeltaTime;
 	  }
-	else if (this->MouseEvent.Wheel < 0.0f && this->MouseEvent.Event == irr::EMIE_MOUSE_WHEEL)
+	else if (mouseWheelState == MouseWheelState::SCROLL_DOWN)
 	  {
 	    realTimeCameraPosition.Z -= this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime;

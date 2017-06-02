@@ -17,20 +17,21 @@ MouseEvent::MouseEvent()
 
 bool MouseEvent::OnEvent(const irr::SEvent &event)
 {
-  if (event.EventType == irr::EET_MOUSE_INPUT_EVENT)
+  if (event.EventType == irr::EEVENT_TYPE::EET_MOUSE_INPUT_EVENT)
     {
       this->event = event;
       switch(event.MouseInput.Event)
 	{
-	  case irr::EMIE_MOUSE_MOVED:
+	  case irr::EMOUSE_INPUT_EVENT::EMIE_MOUSE_MOVED:
 	    {
 	      std::cout << "MOUSE MOVED" << std::endl;
 	      MouseState.Position.X = event.MouseInput.X;
 	      MouseState.Position.Y = event.MouseInput.Y;
 	      break;
 	    }
-	  case irr::EMIE_MOUSE_WHEEL:
+	  case irr::EMOUSE_INPUT_EVENT::EMIE_MOUSE_WHEEL:
 	    {
+	      std::cout << "WHEEL VALUE: " + std::to_string(event.MouseInput.Wheel) << std::endl;
 	      if (event.MouseInput.Wheel > 0)
 		MouseState.mouseWheelState = MouseWheelState::SCROLL_UP;
 	      else if (event.MouseInput.Wheel < 0)

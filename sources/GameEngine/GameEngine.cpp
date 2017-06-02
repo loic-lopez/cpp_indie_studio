@@ -146,12 +146,12 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    realTimeCameraPosition.X += this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.X += this->cameraMovementSpeed * frameDeltaTime;
 	  }
-	if (this->MouseEvent.Wheel > 0.0f)
+	if (this->MouseEvent.Wheel > 0.0f && this->MouseEvent.Event == irr::EMIE_MOUSE_WHEEL)
 	  {
 	    realTimeCameraPosition.Z += this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.Z += this->cameraMovementSpeed * frameDeltaTime;
 	  }
-	else if (this->MouseEvent.Wheel < 0.0f)
+	else if (this->MouseEvent.Wheel < 0.0f && this->MouseEvent.Event == irr::EMIE_MOUSE_WHEEL)
 	  {
 	    realTimeCameraPosition.Z -= this->cameraMovementSpeed * frameDeltaTime;
 	    realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime;

@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:51:11 2017 Stanislas Deneubourg
-// Last update Fri Jun  2 18:32:25 2017 Stanislas Deneubourg
+// Last update Sat Jun  3 10:04:18 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Team.hpp"
@@ -25,9 +25,9 @@ Team::Team(unsigned int players_, unsigned int team_nb,
       Worm	worm(i, vector_pos.at(i), worm_mesh, device, worm_file);
       this->team_players.push_back(worm);
       if (this->team_type == Team::TeamType::HUMAN_TEAM)
-	std::cout << "PLAYER " << i << " PLACED" << std::endl;
+      	std::cout << "PLAYER " << i << " PLACED" << std::endl;
       if (this->team_type == Team::TeamType::BOT_TEAM)
-	std::cout << "BOT " << i << " PLACED" << std::endl;
+      	std::cout << "BOT " << i << " PLACED" << std::endl;
     }
 }
 

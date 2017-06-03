@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 13:51:26 2017 Stanislas Deneubourg
-// Last update Fri Jun  2 18:44:38 2017 Stanislas Deneubourg
+// Last update Sat Jun  3 10:01:41 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -136,14 +136,30 @@ void	GameNamespace::GameEngine::backgroundGen()
 
 void	GameNamespace::GameEngine::teamsGen()
 {
+  int	bot_teams_left_to_emplace = this->number_of_bot_teams;
+  int	human_teams_left_to_emplace = this->number_of_bot_teams;
+  int	total_teams_left_to_emplace = this->number_of_teams;
+  int		which_team_type;
+  
   for (unsigned int i = 0; i < this->number_of_teams; i++)
     {
       for (unsigned int j = 0; j < this->worms_per_team; j++)
 	this->worms_relative_pos.push_back(this->wormsPosGen());
-      if (i < (this->number_of_teams - this->number_of_bot_teams))
-	this->teams.emplace_back(this->worms_per_team, i, this->worms_relative_pos, this->worms, this->device, this->worm, true);
+      which_team_type = (std::rand() % (total_teams_left_to_emplace));
+      if (which_team_type < bot_teams_left_to_emplace)
+	{
+	  this->teams.emplace_back(this->worms_per_team, i, this->worms_relative_pos, this->worms, this->device, this->worm, true);
+	  std::cout << "BOT TEAM PLACED" << std::endl;
+	  bot_teams_left_to_emplace--;
+	  total_teams_left_to_emplace--;
+	}
       else
-	this->teams.emplace_back(this->worms_per_team, i, this->worms_relative_pos, this->worms, this->device, this->worm, false);
+	{
+	  this->teams.emplace_back(this->worms_per_team, i, this->worms_relative_pos, this->worms, this->device, this->worm, false);
+	  std::cout << "HUMAN TEAM PLACED" << std::endl;
+	  human_teams_left_to_emplace--;
+	  total_teams_left_to_emplace--;
+	}
       this->worm_mesh.push_back(this->worms);
       this->worms_relative_pos.clear();
     }

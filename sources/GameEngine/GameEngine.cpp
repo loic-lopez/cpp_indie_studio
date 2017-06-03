@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Fri Jun  2 18:29:54 2017 Stanislas Deneubourg
+// Last update Sat Jun  3 09:48:06 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -19,13 +19,14 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
 				      const bool &drawWalls,
 				      const irr::s32 &bot_teams,
 				      const irr::s32 &human_teams,
-				      const irr::s32 &teams) : smgr(smgr), driver(driver),
-							       device(device),
-							       nb_shapes(nb_shapes),
-							       menuInGame(new MenuInGame(this->device, this->driver,
-											 this->smgr)),
-							       playSound(playSound),
-							       drawWalls(drawWalls)
+				      const irr::s32 &teams,
+				      const irr::s32 &worms_in_each_team) : smgr(smgr), driver(driver),
+									    device(device),
+									    nb_shapes(nb_shapes),
+									    menuInGame(new MenuInGame(this->device, this->driver,
+												      this->smgr)),
+									    playSound(playSound),
+									    drawWalls(drawWalls)
 {
   this->file_shape = "./ressources/shapes/Rock_0.dae";
   this->worm = "ressources/textures/Worm/Worm.obj";
@@ -41,7 +42,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
   this->file_texture = "./ressources/textures/ground/ground" + std::to_string(std::rand() % nb_textures) + ".bmp";
   this->worm_texture = "./ressources/textures/Worm/WormTextures.png";
   this->max_y = this->size_y * (-1);
-  this->worms_per_team = 4;
+  this->worms_per_team = worms_in_each_team;
   this->number_of_human_teams = human_teams;
   this->number_of_bot_teams = bot_teams;
   this->number_of_teams = teams;

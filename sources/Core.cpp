@@ -198,7 +198,7 @@ void						Core::launchGame()
 
 void						Core::launch()
 {
-  //  this->launchSplashScreen();
+  //this->launchSplashScreen();
   while(device->run())
     {
       if (this->eventStatus == EventStatus::QUIT)

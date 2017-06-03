@@ -31,7 +31,6 @@ class	SplashScreen : public IModel
 	       irr::video::IVideoDriver *driver,
 	       irr::IrrlichtDevice *device);
   virtual	~SplashScreen();
-  virtual void setBlockProperties(int, int);
 
   virtual EventStatus launchModel();
   virtual void setModelProperties();

@@ -53,6 +53,8 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
 
 GameNamespace::GameEngine::~GameEngine()
 {
+  this->driver->removeAllTextures();
+  this->smgr->clear();
 }
 
 void GameNamespace::GameEngine::setBlockProperties(int x, int y)
@@ -75,7 +77,7 @@ void GameNamespace::GameEngine::setBlockProperties(int x, int y)
 
 EventStatus GameNamespace::GameEngine::launchModel()
 {
-  EventStatus eventStatus = EventStatus::QUIT;
+  EventStatus eventStatus = EventStatus::STAND_BY;
   EventStatus eventStatusMenu = EventStatus::STAND_BY;
   irr::s32	lastFPS = -1;
 
@@ -128,31 +130,31 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	// FIN DE LA BOUCLE DE JEU
 	this->driver->beginScene();
 	this->smgr->drawAll();
-	if (this->receiver.IsKeyUp(irr::KEY_ESCAPE) && eventStatus != EventStatus::IN_GAME_MENU)
+	if (this->receiver.IsKeyUp(irr::KEY_ESCAPE) && eventStatus == EventStatus::STAND_BY)
 	  {
 	    this->device->setEventReceiver(&this->menuInGame->event);
-	    //this->menuInGame->event.showMenuInGameButtons();
 	    eventStatus = EventStatus::IN_GAME_MENU;
 	  }
 	else if (eventStatus == EventStatus::IN_GAME_MENU)
 	    {
-	      eventStatusMenu = this->menuInGame->launchModel();
-	      if (eventStatusMenu == EventStatus::QUIT || eventStatusMenu == EventStatus::BACK_TO_MENU)
+	      if (eventStatusMenu == EventStatus::STAND_BY)
 		{
-		  eventStatus = EventStatus::BACK_TO_MENU;
-		  break;
-		}
-	      else if (eventStatusMenu == EventStatus::ENTER_IN_GAME)
-		{
-		  this->device->setEventReceiver(&this->receiver);
-		  //this->menuInGame->event.hideMenuInGameButtons();
-		    eventStatus = EventStatus::STAND_BY;
+		  eventStatusMenu = this->menuInGame->launchModel();
+		  if (eventStatusMenu == EventStatus::QUIT || eventStatusMenu == EventStatus::BACK_TO_MENU)
+		    {
+		      eventStatus = eventStatusMenu;
+		      break;
+		    }
+		  if (eventStatusMenu == EventStatus::ENTER_IN_GAME)
+		    {
+		      this->device->setEventReceiver(&this->receiver);
+		      eventStatus = EventStatus::STAND_BY;
+		      eventStatusMenu = EventStatus::STAND_BY;
+		    }
 		}
 	    }
 	this->driver->endScene();
       }
-  this->driver->removeAllTextures();
-  this->smgr->clear();
   return (eventStatus);
 }
 

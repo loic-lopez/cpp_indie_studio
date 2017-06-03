@@ -17,7 +17,8 @@ public:
   EventReceiver();
   virtual bool 	OnEvent(const irr::SEvent& event);
   virtual bool 	IsKeyDown(irr::EKEY_CODE keyCode) const;
-  bool 		IsKeyUp(irr::EKEY_CODE keyCode);
+
+  virtual bool 		IsKeyUp(irr::EKEY_CODE keyCode);
 
  protected:
   bool 		KeyIsDown[irr::KEY_KEY_CODES_COUNT];

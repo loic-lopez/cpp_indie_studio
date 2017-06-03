@@ -36,7 +36,7 @@ MenuModel::MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driv
 
 MenuModel::~MenuModel()
 {
-  // this->skin->drop();
+  this->_guienv->clear();
 }
 
 void	MenuModel::setModelProperties()
@@ -55,9 +55,11 @@ void	MenuModel::setModelProperties()
   // CURSOR
   this->spriteBank = this->_guienv->addEmptySpriteBank(irr::io::path("ressources/cursor"));
   cursor = this->_driver->getTexture("ressources/cursor/cursor.png");
-  if (cursor)
-	this->cursorSize = cursor->getSize();
-  this->spriteBank->addTextureAsSprite(cursor);
+  if (cursor != nullptr)
+    {
+      this->cursorSize = cursor->getSize();
+      this->spriteBank->addTextureAsSprite(cursor);
+    }
   this->SetMenuModelMainOptions();
   this->setMenuModelSubButtons();
 
@@ -74,7 +76,7 @@ void	MenuModel::setModelProperties()
 									     tabctrlWidth - (this->midTabctrl.X / 8),
 									     tabctrlHeight - (this->midTabctrl.Y / 3)),
 							this->tabctrl, 1), this->_saves);
-  if (this->spriteBank)
+  if (this->spriteBank->getTexture(irr::u32(MenuModel::MenuSpriteName::SAVE_SUB_MENU)) != nullptr)
 	this->saveSubMenuSpriteSize = this->spriteBank->getTexture(irr::u32(MenuModel::MenuSpriteName::SAVE_SUB_MENU))->getSize();
   this->event.setPlayAGameSubMenu(this->_driver, this->_guienv, this->tabctrl);
 }
@@ -91,7 +93,8 @@ EventStatus	MenuModel::launchModel()
 	  this->_driver->beginScene();
 	  if (this->background != nullptr)
 	    this->_driver->draw2DImage(this->background, irr::core::position2d<int>(0, 0));
-	  if (this->spriteBank != nullptr && this->event.getPressedButton() == MenuButton::SAVES)
+	  if (this->spriteBank->getTexture(irr::u32(MenuModel::MenuSpriteName::SAVE_SUB_MENU)) != nullptr &&
+		  this->event.getPressedButton() == MenuButton::SAVES)
 	    {
 	      this->spriteBank->draw2DSprite(irr::u32(MenuModel::MenuSpriteName::SAVE_SUB_MENU),
 					     irr::core::position2di(
@@ -109,7 +112,7 @@ EventStatus	MenuModel::launchModel()
 	      break;
 	    }
 	  this->_guienv->drawAll();
-	  if (this->spriteBank != nullptr)
+	  if (this->spriteBank->getTexture(irr::u32(MenuModel::MenuSpriteName::CURSOR)) != nullptr)
 	    {
 	      irr::core::position2d<irr::s32> mousePosition = this->_device->getCursorControl()->getPosition();
 	      this->spriteBank->draw2DSprite(irr::u32(MenuModel::MenuSpriteName::CURSOR),

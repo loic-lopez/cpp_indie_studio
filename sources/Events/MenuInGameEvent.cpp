@@ -12,13 +12,14 @@
 
 MenuInGameEvent::MenuInGameEvent(irr::IrrlichtDevice *device)
 {
-  this->device = device;
-  this->guienv = this->device->getGUIEnvironment();
+  this->guienv = device->getGUIEnvironment();
+  this->driver = device->getVideoDriver();
+  this->eventStatus = EventStatus::STAND_BY;
 }
 
-bool MenuInGameEvent::OnEvent(const irr::SEvent &event)
+bool	MenuInGameEvent::OnEvent(const irr::SEvent &event)
 {
-  this->eventReceiver.OnEvent(event);
+  this->eventStatus = EventStatus::STAND_BY;
   if (event.EventType == irr::EET_GUI_EVENT)
     {
       irr::s32 id = event.GUIEvent.Caller->getID();
@@ -36,7 +37,7 @@ bool MenuInGameEvent::OnEvent(const irr::SEvent &event)
 	  case MenuInGameButton::BACK_TO_GAME:
 	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
 	    {
-		this->eventStatus = EventStatus ::ENTER_IN_GAME;
+		this->eventStatus = EventStatus::ENTER_IN_GAME;
 		break;
 	    }
 	  case MenuInGameButton::SAVE_CURRENT_GAME:
@@ -53,30 +54,34 @@ bool MenuInGameEvent::OnEvent(const irr::SEvent &event)
 		}
 	    }
 	  default:
-	    break;
+	    {
+	      break;
+	    }
 	}
     }
+  else
+    this->eventReceiver.OnEvent(event);
   return (false);
 }
 
-void 	MenuInGameEvent::setBackToGameButton()
+void 	MenuInGameEvent::setMenuInGameButtons(irr::gui::IGUITabControl *tabctrl)
 {
-}
+  irr::video::ITexture	*buttonTexture;
+  irr::core::dimension2d<irr::s32>	image_size;
 
-void 	MenuInGameEvent::hideMenuInGameButtons()
-{
-  this->backToGameButton->setVisible(false);
-  this->saveCurrentGameButton->setVisible(false);
-  this->soundOptionButton->setVisible(false);
-  this->backToMenuButton->setVisible(false);
-}
+  buttonTexture = this->driver->getTexture("ressources/buttons/back_to_game.png");
+  if (buttonTexture != nullptr)
+    {
+      image_size = buttonTexture->getSize();
+      this->backToGameButton = this->guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3) - (8 * 34) / 4,
+							(image_size.Height / 2) + 38,
+							(image_size.Width / 2) + 8 * 34,
+							image_size.Height + 38),
+			      tabctrl, MenuInGameButton::BACK_TO_GAME, L"");
+      this->backToGameButton->setImage(buttonTexture);
+      this->backToGameButton->setUseAlphaChannel(false);
 
-void 	MenuInGameEvent::showMenuInGameButtons()
-{
-  this->backToGameButton->setVisible(true);
-  this->saveCurrentGameButton->setVisible(true);
-  this->soundOptionButton->setVisible(true);
-  this->backToMenuButton->setVisible(true);
+    }
 }
 
 EventStatus const &MenuInGameEvent::getEventStatus() const

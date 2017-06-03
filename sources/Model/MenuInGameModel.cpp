@@ -49,6 +49,7 @@ void	MenuInGame::setModelProperties()
       this->cursorSize = cursor->getSize();
       this->spriteBank->addTextureAsSprite(cursor);
     }
+  this->event.setMenuInGameButtons(this->tabctrl);
 }
 
 #include <iostream>
@@ -56,7 +57,7 @@ void	MenuInGame::setModelProperties()
 EventStatus		MenuInGame::launchModel()
 {
   this->eventStatus = this->event.getEventStatus();
-  if (this->spriteBank != nullptr)
+  if (this->spriteBank->getTexture(irr::u32(MenuInGame::MenuInGameSpriteName::LITTLE_MENU)) != nullptr)
     this->spriteBank->draw2DSprite(irr::u32(MenuInGame::MenuInGameSpriteName::LITTLE_MENU),
 				  irr::core::position2di(0, 0),
 				  nullptr,
@@ -64,12 +65,9 @@ EventStatus		MenuInGame::launchModel()
   if (this->eventStatus == EventStatus::BACK_TO_MENU || this->eventStatus == EventStatus::QUIT)
     return (this->eventStatus);
   if (this->eventStatus == EventStatus::ENTER_IN_GAME || this->event.IsKeyUp(irr::KEY_ESCAPE))
-    {
-      std::cout << "PASSED" << std::endl;
-      return (EventStatus::ENTER_IN_GAME);
-    }
+    return (EventStatus::ENTER_IN_GAME);
   this->_guienv->drawAll();
-  if (this->spriteBank != nullptr)
+  if (this->spriteBank->getTexture(irr::u32(MenuInGame::MenuInGameSpriteName::CURSOR)) != nullptr)
     {
       irr::core::position2d<irr::s32> mousePosition = this->_device->getCursorControl()->getPosition();
 	  this->spriteBank->draw2DSprite(irr::u32(MenuInGame::MenuInGameSpriteName::CURSOR),

@@ -22,15 +22,12 @@ class		MenuInGameEvent : public EventReceiver
   virtual bool OnEvent(const irr::SEvent &event);
   bool 		IsKeyUp(irr::EKEY_CODE keyCode);
 
-  void 	setEventStatus(EventStatus &status);
-  void 	setBackToGameButton();
-  void	hideMenuInGameButtons();
-  void	showMenuInGameButtons();
-  EventStatus const &getEventStatus() const ;
+  void 	setMenuInGameButtons(irr::gui::IGUITabControl *tabctrl);
+  EventStatus const &getEventStatus() const;
 
  private:
-  irr::IrrlichtDevice				*device;
   irr::gui::IGUIEnvironment			*guienv;
+  irr::video::IVideoDriver				*driver;
   irr::gui::IGUIButton				*backToGameButton;
   irr::gui::IGUIButton				*saveCurrentGameButton;
   irr::gui::IGUIButton				*soundOptionButton;

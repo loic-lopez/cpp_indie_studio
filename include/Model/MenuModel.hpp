@@ -64,9 +64,9 @@ class		MenuModel : public IModel
   virtual 	void				setMenuModelSubButtons();
   virtual 	void				drawPlaySubMenuText();
 
-  enum		SpriteName	:	uint8_t
+  enum		MenuSpriteName	:	uint8_t
   {
-    BACKGROUND			=	0,
+    CURSOR			=	0,
     SAVE_SUB_MENU		=	1
   };
 };

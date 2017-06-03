@@ -20,6 +20,7 @@ MenuModel::MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driv
   this->_device->setEventReceiver(&this->event);
   this->skin = this->_guienv->createSkin(irr::gui::EGST_WINDOWS_METALLIC);
   this->_guienv->setSkin(this->skin);
+  this->skin->drop();
   this->font = this->_guienv->getFont("ressources/fonts/SoftMarshmallow.png");
   if (this->font != nullptr)
     this->_guienv->getSkin()->setFont(this->font);
@@ -74,7 +75,7 @@ void	MenuModel::setModelProperties()
 									     tabctrlHeight - (this->midTabctrl.Y / 3)),
 							this->tabctrl, 1), this->_saves);
   if (this->spriteBank)
-	this->saveSubMenuSpriteSize = this->spriteBank->getTexture(irr::u32(MenuModel::SpriteName::SAVE_SUB_MENU))->getSize();
+	this->saveSubMenuSpriteSize = this->spriteBank->getTexture(irr::u32(MenuModel::MenuSpriteName::SAVE_SUB_MENU))->getSize();
   this->event.setPlayAGameSubMenu(this->_driver, this->_guienv, this->tabctrl);
 }
 
@@ -87,12 +88,12 @@ EventStatus	MenuModel::launchModel()
     {
       if (this->_device->isWindowActive())
 	{
-	  this->_driver->beginScene(false, true, irr::video::SColor(0, 0, 0, 0));
+	  this->_driver->beginScene();
 	  if (this->background != nullptr)
 	    this->_driver->draw2DImage(this->background, irr::core::position2d<int>(0, 0));
 	  if (this->spriteBank != nullptr && this->event.getPressedButton() == MenuButton::SAVES)
 	    {
-	      this->spriteBank->draw2DSprite(irr::u32(MenuModel::SpriteName::SAVE_SUB_MENU),
+	      this->spriteBank->draw2DSprite(irr::u32(MenuModel::MenuSpriteName::SAVE_SUB_MENU),
 					     irr::core::position2di(
 						     (this->screenSize.Width / 2) - this->saveSubMenuSpriteSize.Width / 2,
 						     (this->screenSize.Height / 4) - this->saveSubMenuSpriteSize.Height / 2),
@@ -111,9 +112,9 @@ EventStatus	MenuModel::launchModel()
 	  if (this->spriteBank != nullptr)
 	    {
 	      irr::core::position2d<irr::s32> mousePosition = this->_device->getCursorControl()->getPosition();
-	      this->spriteBank->draw2DSprite(irr::u32(MenuModel::SpriteName::BACKGROUND),
-					     irr::core::position2di(mousePosition.X - cursorSize.Width / 4,
-								    mousePosition.Y - cursorSize.Height / 8),
+	      this->spriteBank->draw2DSprite(irr::u32(MenuModel::MenuSpriteName::CURSOR),
+					     irr::core::position2di(mousePosition.X - this->cursorSize.Width / 4,
+								    mousePosition.Y - this->cursorSize.Height / 8),
 					     nullptr,
 					     irr::video::SColor(255, 255, 255, 255), 0);
 	    }

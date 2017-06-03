@@ -34,4 +34,12 @@ enum 						MenuButton		: uint8_t
   STANDBY					=			17
 };
 
+enum						MenuInGameButton	: uint8_t
+{
+  BACK_TO_GAME					=			1,
+  SAVE_CURRENT_GAME				=			2,
+  SOUND_OPTION					=			3,
+  BACK_TO_MENU					=			4
+};
+
 #endif //CPP_INDIE_STUDIO_MENUBUTTON_HPP

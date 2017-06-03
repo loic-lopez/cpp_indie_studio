@@ -70,7 +70,7 @@ namespace	GameNamespace
     EventReceiver					receiver;
     irr::scene::IMeshSceneNode				*groundObject;
     irr::scene::IAnimatedMeshSceneNode			*worms;
-    std::unique_ptr<IModel>				menuInGame;
+    std::unique_ptr<MenuInGame>				menuInGame;
     bool						playSound;
     bool						drawWalls;
     irr::f32						block_size;

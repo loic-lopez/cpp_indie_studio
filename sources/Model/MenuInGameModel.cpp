@@ -12,89 +12,71 @@
 
 MenuInGame::MenuInGame(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
 		       irr::scene::ISceneManager *smgr) :
-	_device(device), _driver(driver), _smgr(smgr), event(device)
+	event(device), _device(device), _driver(driver), _smgr(smgr)
 {
   this->_guienv = this->_device->getGUIEnvironment();
-  this->_skin = this->_guienv->createSkin(irr::gui::EGST_BURNING_SKIN);
+  this->_skin = this->_guienv->createSkin(irr::gui::EGST_WINDOWS_METALLIC);
+  for (irr::s32 i = 0; i < irr::gui::EGDC_COUNT ; ++i)
+    this->_skin->setColor((irr::gui::EGUI_DEFAULT_COLOR) i, irr::video::SColor(0, 0, 0, 0));
   this->_guienv->setSkin(this->_skin);
   this->_skin->drop();
-  this->_font = this->_guienv->getFont("ressources/fonts/fonthaettenschweiler.bmp");
-  if (this->_font)
-    this->_guienv->getSkin()->setFont(this->_font);
-  this->textuPlay = nullptr;
 }
 
 MenuInGame::~MenuInGame()
 {
-}
-
-void MenuInGame::setModelProperties()
-{
-  const irr::core::dimension2du& screenSize = this->_driver->getScreenSize();
-
-  this->tabCtrl = this->_guienv->addTabControl(irr::core::rect<int>((screenSize.Width / 2) - (500 / 2),
-					       (screenSize.Height / 2) - (500 / 2), 950, 640), 0, false, false);
-  this->exitButton = this->_guienv->addButton(irr::core::rect<int>(30, 295, 200, 324),
-					      this->tabCtrl, 42, L"");
-  this->textuExit = this->_driver->getTexture("ressources/images/exit.png");
-  this->exitButton->setUseAlphaChannel(true);
-  this->exitButton->setDrawBorder(false);
-  this->exitButton->setImage(this->textuExit);
-  this->playButton = this->_guienv->addButton(irr::core::rect<int>(30, 20, 200, 49),
-					      this->tabCtrl, 1, L"");
-  this->textuPlay = this->_driver->getTexture("ressources/images/play.png");
-  this->playButton->setUseAlphaChannel(true);
-  this->playButton->setDrawBorder(false);
-  this->playButton->setImage(this->textuPlay);
-  this->saveButton = this->_guienv->addButton(irr::core::rect<int>(30, 70, 200, 99), this->tabCtrl, 2, L"");
-  this->textuSave = this->_driver->getTexture("ressources/images/save.png");
-  this->saveButton->setUseAlphaChannel(true);
-  this->saveButton->setDrawBorder(false);
-  this->saveButton->setImage(this->textuSave);
-  this->backToMenuButton = this->_guienv->addButton(irr::core::rect<int>(30, 120, 200, 149), this->tabCtrl, 3, L"");
-  this->textuBackToMenu = this->_driver->getTexture("ressources/images/menu.png");
-  this->backToMenuButton->setUseAlphaChannel(true);
-  this->backToMenuButton->setDrawBorder(false);
-  this->backToMenuButton->setImage(this->textuBackToMenu);
-  this->_driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
-  this->background = this->_driver->getTexture("ressources/images/MenuInGame.jpg");
-  this->_driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS,
-					this->_driver->getTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS));
-  this->event.setExitButton(this->exitButton);
-}
-
-EventStatus MenuInGame::launchModel()
-{
-  EventStatus 		event = EventStatus::IN_GAME_MENU;
-
-  this->event.setEventStatus(event);
-  this->_device->setEventReceiver(&this->event);
-  this->setModelProperties();
-  while (this->_device->run())
-    {
-      if (this->_device->isWindowActive())
-	{
-	  this->_driver->beginScene(false, true, irr::video::SColor(0, 0, 0, 0));
-	  if (this->background != nullptr)
-	    this->_driver->draw2DImage(this->background, irr::core::position2d<int>(0, 0));
-	  if (event == EventStatus::BACK_TO_MENU || event == EventStatus::QUIT)
-	    break;
-	  this->_guienv->drawAll();
-	  this->_driver->endScene();
-	  if (event == EventStatus::ENTER_IN_GAME || this->event.IsKeyUp(irr::KEY_ESCAPE))
-	    {
-	      event = EventStatus::ENTER_IN_GAME;
-	      break;
-	    }
-	}
-    }
-  this->_driver->removeAllTextures();
   this->_guienv->clear();
-  return (event);
 }
 
-void MenuInGame::setBlockProperties(int x, int y)
+void	MenuInGame::setModelProperties()
 {
-  (void)x;
-  (void)y;
+  this->screenSize = this->_driver->getScreenSize();
+  irr::video::ITexture			*texture;
+  irr::video::ITexture			*cursor;
+
+  this->tabctrl = this->_guienv->addTabControl(irr::core::rect<int>(screenSize.Width / 3,
+								    screenSize.Height / 5,
+								    screenSize.Width - (screenSize.Width / 3),
+								    screenSize.Height - (screenSize.Height / 7)),
+					       nullptr, false, false);
+  texture = this->_driver->getTexture("ressources/images/game_menu.png");
+  this->spriteBank = this->_guienv->addEmptySpriteBank(irr::io::path("ressources/images"));
+  if (texture != nullptr)
+    this->spriteBank->addTextureAsSprite(texture);
+
+  cursor = this->_driver->getTexture("ressources/cursor/cursor.png");
+  if (cursor != nullptr)
+    {
+      this->cursorSize = cursor->getSize();
+      this->spriteBank->addTextureAsSprite(cursor);
+    }
+}
+
+#include <iostream>
+
+EventStatus		MenuInGame::launchModel()
+{
+  this->eventStatus = this->event.getEventStatus();
+  if (this->spriteBank != nullptr)
+    this->spriteBank->draw2DSprite(irr::u32(MenuInGame::MenuInGameSpriteName::LITTLE_MENU),
+				  irr::core::position2di(0, 0),
+				  nullptr,
+				  irr::video::SColor(255, 255, 255, 255), 0);
+  if (this->eventStatus == EventStatus::BACK_TO_MENU || this->eventStatus == EventStatus::QUIT)
+    return (this->eventStatus);
+  if (this->eventStatus == EventStatus::ENTER_IN_GAME || this->event.IsKeyUp(irr::KEY_ESCAPE))
+    {
+      std::cout << "PASSED" << std::endl;
+      return (EventStatus::ENTER_IN_GAME);
+    }
+  this->_guienv->drawAll();
+  if (this->spriteBank != nullptr)
+    {
+      irr::core::position2d<irr::s32> mousePosition = this->_device->getCursorControl()->getPosition();
+	  this->spriteBank->draw2DSprite(irr::u32(MenuInGame::MenuInGameSpriteName::CURSOR),
+					 irr::core::position2di(mousePosition.X - this->cursorSize.Width / 4,
+								mousePosition.Y - this->cursorSize.Height / 8),
+					 nullptr,
+					 irr::video::SColor(255, 255, 255, 255), 0);
+    }
+  return (this->eventStatus);
 }

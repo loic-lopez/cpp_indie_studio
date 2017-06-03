@@ -13,6 +13,7 @@
 MenuInGameEvent::MenuInGameEvent(irr::IrrlichtDevice *device)
 {
   this->device = device;
+  this->guienv = this->device->getGUIEnvironment();
 }
 
 bool MenuInGameEvent::OnEvent(const irr::SEvent &event)
@@ -21,56 +22,69 @@ bool MenuInGameEvent::OnEvent(const irr::SEvent &event)
   if (event.EventType == irr::EET_GUI_EVENT)
     {
       irr::s32 id = event.GUIEvent.Caller->getID();
-      this->exitButton->setEnabled(true);
       switch (id)
 	{
-	  case 42 :
+	  /*
+	  case 42:
 	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
 	      {
 		*this->eventStatus = EventStatus::QUIT;
 		this->device->closeDevice();
 		break;
 	      }
-	  case 1 :
+	      */
+	  case MenuInGameButton::BACK_TO_GAME:
 	    if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
 	    {
-		*this->eventStatus = EventStatus ::ENTER_IN_GAME;
+		this->eventStatus = EventStatus ::ENTER_IN_GAME;
 		break;
 	    }
-	  case 2 :
+	  case MenuInGameButton::SAVE_CURRENT_GAME:
 	    {
-	      *this->eventStatus = EventStatus::SAVES;
+
 	      break;
 	    }
-	  case 3 :
+	  case MenuInGameButton::BACK_TO_MENU:
 	    {
 	      if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
 		{
-		  *this->eventStatus = EventStatus::BACK_TO_MENU;
+		  this->eventStatus = EventStatus::BACK_TO_MENU;
 		  break;
 		}
 	    }
+	  default:
+	    break;
 	}
     }
   return (false);
 }
 
-void MenuInGameEvent::setEventStatus(EventStatus &status)
+void 	MenuInGameEvent::setBackToGameButton()
 {
-  this->eventStatus = &status;
 }
 
-bool MenuInGameEvent::IsKeyDown(irr::EKEY_CODE keyCode) const
+void 	MenuInGameEvent::hideMenuInGameButtons()
 {
-  return (this->eventReceiver.IsKeyDown(keyCode));
+  this->backToGameButton->setVisible(false);
+  this->saveCurrentGameButton->setVisible(false);
+  this->soundOptionButton->setVisible(false);
+  this->backToMenuButton->setVisible(false);
+}
+
+void 	MenuInGameEvent::showMenuInGameButtons()
+{
+  this->backToGameButton->setVisible(true);
+  this->saveCurrentGameButton->setVisible(true);
+  this->soundOptionButton->setVisible(true);
+  this->backToMenuButton->setVisible(true);
+}
+
+EventStatus const &MenuInGameEvent::getEventStatus() const
+{
+  return this->eventStatus;
 }
 
 bool MenuInGameEvent::IsKeyUp(irr::EKEY_CODE keyCode)
 {
-  return (this->eventReceiver.IsKeyUp(keyCode));
-}
-
-void MenuInGameEvent::setExitButton(irr::gui::IGUIButton *exitButton)
-{
-  this->exitButton = exitButton;
+  return this->eventReceiver.IsKeyUp(keyCode);
 }

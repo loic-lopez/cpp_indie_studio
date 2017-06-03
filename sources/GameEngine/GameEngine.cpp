@@ -78,7 +78,8 @@ EventStatus GameNamespace::GameEngine::launchModel()
   EventStatus eventStatus = EventStatus::QUIT;
   EventStatus eventStatusMenu = EventStatus::STAND_BY;
   irr::s32	lastFPS = -1;
-  
+
+  this->menuInGame->setModelProperties();
   while(this->device->run())
     if (this->device->isWindowActive())
       {
@@ -93,20 +94,6 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->device->setWindowCaption(caption.c_str());
 	    lastFPS = fps;
 	  }
-	if (this->receiver.IsKeyUp(irr::KEY_ESCAPE) && eventStatusMenu != EventStatus::ENTER_IN_GAME)
-	  {
-	    this->device->getCursorControl()->setVisible(true);
-	    eventStatusMenu = this->menuInGame->launchModel();
-	    this->device->getCursorControl()->setVisible(false);
-	    this->device->setEventReceiver(&this->receiver);
-	    if (eventStatusMenu == EventStatus::QUIT || eventStatusMenu == EventStatus::BACK_TO_MENU)
-	      {
-		eventStatus = EventStatus::BACK_TO_MENU;
-		break;
-	      }
-	  }
-	else if (eventStatusMenu == EventStatus::ENTER_IN_GAME)
-	  eventStatusMenu = EventStatus::STAND_BY;
 
 	this->cameraMovements();
 	
@@ -139,9 +126,29 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	  }
 
 	// FIN DE LA BOUCLE DE JEU
-
-	this->driver->beginScene(true, true, 0);
+	this->driver->beginScene();
 	this->smgr->drawAll();
+	if (this->receiver.IsKeyUp(irr::KEY_ESCAPE) && eventStatus != EventStatus::IN_GAME_MENU)
+	  {
+	    this->device->setEventReceiver(&this->menuInGame->event);
+	    //this->menuInGame->event.showMenuInGameButtons();
+	    eventStatus = EventStatus::IN_GAME_MENU;
+	  }
+	else if (eventStatus == EventStatus::IN_GAME_MENU)
+	    {
+	      eventStatusMenu = this->menuInGame->launchModel();
+	      if (eventStatusMenu == EventStatus::QUIT || eventStatusMenu == EventStatus::BACK_TO_MENU)
+		{
+		  eventStatus = EventStatus::BACK_TO_MENU;
+		  break;
+		}
+	      else if (eventStatusMenu == EventStatus::ENTER_IN_GAME)
+		{
+		  this->device->setEventReceiver(&this->receiver);
+		  //this->menuInGame->event.hideMenuInGameButtons();
+		    eventStatus = EventStatus::STAND_BY;
+		}
+	    }
 	this->driver->endScene();
       }
   this->driver->removeAllTextures();

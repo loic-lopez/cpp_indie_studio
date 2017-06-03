@@ -7,24 +7,23 @@
 ** Started on  Mon May 08 16:15:32 2017 Yassir Jabbari
 // Last update Wed May 31 14:36:59 2017 Stanislas Deneubourg
 */
+
 #ifndef CPP_INDIE_STUDIO_MENUINGAMEMODEL_HPP
 #define CPP_INDIE_STUDIO_MENUINGAMEMODEL_HPP
 
-#include "Interface/IModel.hpp"
+#include "Dependencies/Dependencies.hpp"
+#include "Events/EventStatus.hpp"
 #include "Events/MenuInGameEvent.hpp"
 
-class 			MenuInGame : public IModel
+class 			MenuInGame
 {
  public:
   MenuInGame(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
 	     irr::scene::ISceneManager *smgr);
-  virtual ~MenuInGame();
-  virtual void setModelProperties();
-
-  virtual EventStatus launchModel();
-
- private:
-  virtual void setBlockProperties(int, int);
+  virtual 		~MenuInGame();
+  virtual void 		setModelProperties();
+  virtual EventStatus 	launchModel();
+  MenuInGameEvent	event;
 
  private:
   irr::IrrlichtDevice				*_device;
@@ -32,18 +31,18 @@ class 			MenuInGame : public IModel
   irr::scene::ISceneManager			*_smgr;
   irr::gui::IGUIEnvironment			*_guienv;
   irr::gui::IGUISkin				*_skin;
-  irr::gui::IGUIFont				*_font;
-  irr::gui::IGUITabControl			*tabCtrl;
-  irr::video::ITexture				*background;
-  MenuInGameEvent				event;
-  irr::gui::IGUIButton				*exitButton;
-  irr::gui::IGUIButton				*playButton;
-  irr::gui::IGUIButton				*saveButton;
-  irr::gui::IGUIButton				*backToMenuButton;
-  irr::video::ITexture				*textuExit;
-  irr::video::ITexture				*textuPlay;
-  irr::video::ITexture				*textuSave;
-  irr::video::ITexture				*textuBackToMenu;
+  irr::gui::IGUITabControl			*tabctrl;
+  EventStatus 					eventStatus;
+  irr::core::dimension2du		 	screenSize;
+  irr::gui::IGUISpriteBank			*spriteBank;
+  irr::core::dimension2d<irr::u32> 		cursorSize;
+
+  enum		MenuInGameSpriteName	:	uint8_t
+  {
+    LITTLE_MENU			=	0,
+    CURSOR			=	1
+  };
+
 };
 
 #endif //CPP_INDIE_STUDIO_MENUINGAMEMODEL_HPP

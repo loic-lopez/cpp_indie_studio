@@ -19,7 +19,7 @@ public:
   virtual bool 	IsKeyDown(irr::EKEY_CODE keyCode) const;
   bool 		IsKeyUp(irr::EKEY_CODE keyCode);
 
-private:
+ protected:
   bool 		KeyIsDown[irr::KEY_KEY_CODES_COUNT];
   buttonState	KeyIsUp[irr::KEY_KEY_CODES_COUNT];
 };

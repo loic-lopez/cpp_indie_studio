@@ -11,26 +11,32 @@
 #define CPP_INDIE_STUDIO_MENUINGAMEEVENTMODEL_HPP
 
 #include "Dependencies/Dependencies.hpp"
-#include "buttonState.hpp"
 #include "EventReceiver.hpp"
 #include "EventStatus.hpp"
+#include "MenuButton.hpp"
 
-class		MenuInGameEvent : public irr::IEventReceiver
+class		MenuInGameEvent : public EventReceiver
 {
  public:
   MenuInGameEvent(irr::IrrlichtDevice *device);
   virtual bool OnEvent(const irr::SEvent &event);
-  void setEventStatus(EventStatus &status);
-  virtual bool IsKeyDown(irr::EKEY_CODE keyCode) const;
-  bool 	IsKeyUp(irr::EKEY_CODE keyCode);
-  void setExitButton(irr::gui::IGUIButton *exitButton);
+  bool 		IsKeyUp(irr::EKEY_CODE keyCode);
+
+  void 	setEventStatus(EventStatus &status);
+  void 	setBackToGameButton();
+  void	hideMenuInGameButtons();
+  void	showMenuInGameButtons();
+  EventStatus const &getEventStatus() const ;
 
  private:
-  bool 			KeyIsDown[irr::KEY_KEY_CODES_COUNT];
-  irr::IrrlichtDevice	*device;
-  irr::gui::IGUIButton	*exitButton;
-  EventStatus 		*eventStatus;
-  EventReceiver	 	eventReceiver;
+  irr::IrrlichtDevice				*device;
+  irr::gui::IGUIEnvironment			*guienv;
+  irr::gui::IGUIButton				*backToGameButton;
+  irr::gui::IGUIButton				*saveCurrentGameButton;
+  irr::gui::IGUIButton				*soundOptionButton;
+  irr::gui::IGUIButton				*backToMenuButton;
+  EventStatus 					eventStatus;
+  EventReceiver	 				eventReceiver;
 };
 
 #endif //CPP_INDIE_STUDIO_MENUINGAMEEVENTMODEL_HPP

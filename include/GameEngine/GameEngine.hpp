@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Sat Jun  3 12:51:41 2017 Stanislas Deneubourg
+// Last update Sat Jun  3 14:35:19 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -82,6 +82,7 @@ namespace	GameNamespace
     unsigned int					number_of_teams;
     std::vector<Team>					teams;
     std::vector<irr::core::vector3df>			worms_relative_pos;
+    unsigned int					worm_number_atm;
 
     virtual	void					setModelProperties();
     virtual	void					mapGen();

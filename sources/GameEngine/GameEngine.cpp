@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Sat Jun  3 14:02:54 2017 Stanislas Deneubourg
+// Last update Sat Jun  3 14:36:09 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -46,6 +46,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
   this->number_of_human_teams = human_teams;
   this->number_of_bot_teams = bot_teams;
   this->number_of_teams = teams;
+  this->worm_number_atm = 0;
 }
 
 GameNamespace::GameEngine::~GameEngine()
@@ -176,6 +177,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	this->gameCamera->setPosition(realTimeCameraPosition);
 	this->gameCamera->setTarget(realTimeCameraTarget);
+	this->execGame();
 	this->driver->beginScene(true, true, 0);
 	this->smgr->drawAll();
 	this->driver->endScene();

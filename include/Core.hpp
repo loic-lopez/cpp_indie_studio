@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:21:55 2017 Loïc Dupil
-// Last update Fri Jun  2 18:39:28 2017 Stanislas Deneubourg
+// Last update Sat Jun  3 14:23:58 2017 Stanislas Deneubourg
 //
 
 #ifndef CORE_HPP
@@ -25,8 +25,6 @@ class Core : public ICore
   std::vector<std::string>			saves;
   std::vector<std::string>			soundlib;
   std::vector<irr::video::IImage *>		textures;
-  IModel					*gameEngine;
-  IModel					*menu;
   irr::IrrlichtDevice				*device;
   irr::video::IVideoDriver			*driver;
   irr::scene::ISceneManager			*smgr;

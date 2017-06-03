@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:51:01 2017 Loïc Dupil
-// Last update Sat Jun  3 09:46:15 2017 Stanislas Deneubourg
+// Last update Sat Jun  3 14:38:24 2017 Stanislas Deneubourg
 //
 
 #include "Core.hpp"
@@ -35,11 +35,8 @@ Core::Core()
 				irr::video::SColorf(0.5f, 0.5f, 0.5f));
   this->guienv = this->device->getGUIEnvironment();
 
-  // set ambient light
   this->smgr->setAmbientLight(irr::video::SColor(0.3, 255, 255, 255));
   this->device->getCursorControl()->setVisible(false);
-  this->gameEngine = nullptr;
-  this->menu = nullptr;
   this->eventStatus = EventStatus::STAND_BY;
   this->soundEngine = nullptr;
   this->drawWalls = true;
@@ -68,9 +65,6 @@ Core::~Core()
       this->soundEngine->stopAllSounds();
       this->soundEngine->drop();
     }
-
-  delete this->gameEngine;
-  delete this->menu;
 }
 
 std::vector<std::string>	Core::getSaves() const
@@ -182,39 +176,29 @@ void						Core::launchSplashScreen()
 void						Core::launchMenu()
 {
   this->device->getCursorControl()->setVisible(true);
-  this->menu = new MenuModel(this->device, this->driver,
-			     this->smgr, this->guienv, this->saves, this->playSound, this->drawWalls,
-			     &this->NbrHumanTeams, &this->NbrBotTeams, &this->NbrTeams, &this->WormsPerTeam);
-  this->menu->setModelProperties();
-  this->eventStatus = this->menu->launchModel();
-  if (eventStatus == EventStatus::ENTER_IN_GAME)
-    {
-      delete this->menu;
-      this->menu = nullptr;
-    }
+  std::unique_ptr<IModel> Menu(new MenuModel(this->device, this->driver,
+                             this->smgr, this->guienv, this->saves, this->playSound, this->drawWalls,
+					     &this->NbrHumanTeams, &this->NbrBotTeams, &this->NbrTeams, &this->WormsPerTeam));
+  Menu->setModelProperties();
+  this->eventStatus = Menu->launchModel();
 }
 
 void						Core::launchGame()
 {
-  this->gameEngine = new GameNamespace::GameEngine(this->smgr, this->driver,
-						   this->loadDir("./ressources/textures/ground/", ".bmp").size(),
-						   this->loadDir("./ressources/shapes/", ".dae").size(),
-						   this->device, this->playSound,
-						   this->drawWalls, this->NbrBotTeams, this->NbrHumanTeams,
-						   this->NbrTeams, this->WormsPerTeam);
+  std::unique_ptr<IModel> GameEngine(new GameNamespace::GameEngine(this->smgr, this->driver,
+								   this->loadDir("./ressources/textures/ground/", ".bmp").size(),
+								   this->loadDir("./ressources/shapes/", ".dae").size(),
+								   this->device, this->playSound,
+								   this->drawWalls, this->NbrBotTeams, this->NbrHumanTeams,
+								   this->NbrTeams, this->WormsPerTeam));
   this->device->getCursorControl()->setVisible(false);
-  this->gameEngine->setModelProperties();
-  this->eventStatus = this->gameEngine->launchModel();
-  if (this->eventStatus == EventStatus::BACK_TO_MENU)
-    {
-      delete this->gameEngine;
-      this->gameEngine = nullptr;
-    }
+  GameEngine->setModelProperties();
+  this->eventStatus = GameEngine->launchModel();
 }
 
 void						Core::launch()
 {
-  //this->launchSplashScreen();
+  //  this->launchSplashScreen();
   while(device->run())
     {
       if (this->eventStatus == EventStatus::QUIT)

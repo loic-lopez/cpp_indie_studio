@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Sat Jun  3 14:35:19 2017 Stanislas Deneubourg
+// Last update Sat Jun  3 17:14:28 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -15,6 +15,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <ctime>
 #include <cstdlib>
 #include "Interface/IModel.hpp"
 #include "Model/MenuInGameModel.hpp"
@@ -82,14 +83,19 @@ namespace	GameNamespace
     unsigned int					number_of_teams;
     std::vector<Team>					teams;
     std::vector<irr::core::vector3df>			worms_relative_pos;
-    unsigned int					worm_number_atm;
-
+    unsigned int					current_worm_id_playing;
+    unsigned int					current_team_id_playing;
+    std::time_t						turn_start;
+    double						turn_now;
+    bool						game_start;
+    double						turn_time_left;
+    
     virtual	void					setModelProperties();
     virtual	void					mapGen();
     virtual	void					backgroundGen();
     virtual	void					teamsGen();
     virtual	irr::core::vector3df			wormsPosGen();
-    virtual	void					execGame();
+    virtual	void					cameraMovements();
     virtual	void					setBlockProperties(int, int);
     
    public:

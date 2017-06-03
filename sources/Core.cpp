@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:51:01 2017 Loïc Dupil
-// Last update Sat Jun  3 14:38:24 2017 Stanislas Deneubourg
+// Last update Sat Jun  3 17:31:28 2017 Stanislas Deneubourg
 //
 
 #include "Core.hpp"
@@ -180,7 +180,8 @@ void						Core::launchMenu()
                              this->smgr, this->guienv, this->saves, this->playSound, this->drawWalls,
 					     &this->NbrHumanTeams, &this->NbrBotTeams, &this->NbrTeams, &this->WormsPerTeam));
   Menu->setModelProperties();
-  this->eventStatus = Menu->launchModel();
+  if (Menu)
+    this->eventStatus = Menu->launchModel();
 }
 
 void						Core::launchGame()
@@ -198,7 +199,7 @@ void						Core::launchGame()
 
 void						Core::launch()
 {
-  //this->launchSplashScreen();
+  //  this->launchSplashScreen();
   while(device->run())
     {
       if (this->eventStatus == EventStatus::QUIT)

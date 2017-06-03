@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 13:51:26 2017 Stanislas Deneubourg
-// Last update Sat Jun  3 10:01:41 2017 Stanislas Deneubourg
+// Last update Sat Jun  3 17:13:23 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -182,5 +182,7 @@ irr::core::vector3df	GameNamespace::GameEngine::wormsPosGen()
 	placed = 1;
     }
   this->gameMap.at(x + this->size_y * y).terrain = GameNamespace::TerrainType::WORM;
-  return (irr::core::vector3df(static_cast<float>(x * this->block_size), static_cast<float>((-y * (this->block_size / 3)) - 2.30), static_cast<float>(z)));
+  return (irr::core::vector3df(static_cast<float>(x * this->block_size),
+			       static_cast<float>((-y * (this->block_size / 3)) - 2.30),
+			       static_cast<float>(z)));
 }

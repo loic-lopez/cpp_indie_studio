@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Sat Jun  3 14:36:09 2017 Stanislas Deneubourg
+// Last update Sat Jun  3 17:20:54 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -46,7 +46,9 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
   this->number_of_human_teams = human_teams;
   this->number_of_bot_teams = bot_teams;
   this->number_of_teams = teams;
-  this->worm_number_atm = 0;
+  this->current_worm_id_playing = 0;
+  this->current_team_id_playing = 0;
+  this->game_start = false;
 }
 
 GameNamespace::GameEngine::~GameEngine()
@@ -91,42 +93,6 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->device->setWindowCaption(caption.c_str());
 	    lastFPS = fps;
 	  }
-	const irr::u32 now = this->device->getTimer()->getTime();
-	const irr::f32 frameDeltaTime = (irr::f32)(now - this->lastFrame) / 1000.0f;
-	this->lastFrame = now;
-	irr::core::vector3df 	realTimeCameraPosition = this->gameCamera->getPosition();
-	irr::core::vector3df 	realTimeCameraTarget = this->gameCamera->getTarget();
-
-	if (this->receiver.IsKeyDown(irr::KEY_UP))
-	  {
-	    realTimeCameraPosition.Y += this->cameraMovementSpeed * frameDeltaTime;
-	    realTimeCameraTarget.Y += this->cameraMovementSpeed * frameDeltaTime;
-	  }
-	else if (this->receiver.IsKeyDown(irr::KEY_DOWN))
-	  {
-	    realTimeCameraPosition.Y -= this->cameraMovementSpeed * frameDeltaTime;
-	    realTimeCameraTarget.Y -= this->cameraMovementSpeed * frameDeltaTime;
-	  }
-	if (this->receiver.IsKeyDown(irr::KEY_LEFT))
-	  {
-	    realTimeCameraPosition.X -= this->cameraMovementSpeed * frameDeltaTime;
-	    realTimeCameraTarget.X -= this->cameraMovementSpeed * frameDeltaTime;
-	  }
-	else if (this->receiver.IsKeyDown(irr::KEY_RIGHT))
-	  {
-	    realTimeCameraPosition.X += this->cameraMovementSpeed * frameDeltaTime;
-	    realTimeCameraTarget.X += this->cameraMovementSpeed * frameDeltaTime;
-	  }
-	if (this->receiver.IsKeyDown(irr::KEY_RSHIFT))
-	  {
-	    realTimeCameraPosition.Z += this->cameraMovementSpeed * frameDeltaTime;
-	    realTimeCameraTarget.Z += this->cameraMovementSpeed * frameDeltaTime;
-	  }
-	else if (this->receiver.IsKeyDown(irr::KEY_RCONTROL) || this->receiver.IsKeyDown(irr::KEY_LCONTROL))
-	  {
-	    realTimeCameraPosition.Z -= this->cameraMovementSpeed * frameDeltaTime;
-	    realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime;
-	  }
 	if (this->receiver.IsKeyUp(irr::KEY_ESCAPE) && eventStatusMenu != EventStatus::ENTER_IN_GAME)
 	  {
 	    this->device->getCursorControl()->setVisible(true);
@@ -140,44 +106,40 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	      }
 	  }
 	else if (eventStatusMenu == EventStatus::ENTER_IN_GAME)
-	    eventStatusMenu = EventStatus::STAND_BY;
+	  eventStatusMenu = EventStatus::STAND_BY;
 
-	// Algo de limitation de déplacement de la caméra
+	this->cameraMovements();
+	
+	// BOUCLE DE JEU
 
-	if (realTimeCameraPosition.X >= this->the_farthest_map_point + 50)
+	if (this->game_start == false)
 	  {
-	    realTimeCameraPosition.X = this->the_farthest_map_point + 50;
-	    realTimeCameraTarget.X = this->the_farthest_map_point + 50;
-	  }
-	else if (realTimeCameraPosition.X <= -50)
-	  {
-	    realTimeCameraPosition.X = -50;
-	    realTimeCameraTarget.X = -50;
-	  }
-	if (realTimeCameraPosition.Y >= this->size_y)
-	  {
-	    realTimeCameraPosition.Y = this->size_y;
-	    realTimeCameraTarget.Y = this->size_y;
-	  }
-	else if (realTimeCameraPosition.Y <= -this->size_y - 5)
-	  {
-	    realTimeCameraPosition.Y = -this->size_y - 5;
-	    realTimeCameraTarget.Y = -this->size_y - 5;
-	  }
-	if (realTimeCameraPosition.Z >= -20)
-	  {
-	    realTimeCameraPosition.Z = -20;
-	    realTimeCameraTarget.Z = 80;
-	  }
-	else if (realTimeCameraPosition.Z <= -120)
-	  {
-	    realTimeCameraPosition.Z = -120;
-	    realTimeCameraTarget.Z = -20;
+	    this->turn_start = std::time(NULL);
+	    this->game_start = true;
 	  }
 
-	this->gameCamera->setPosition(realTimeCameraPosition);
-	this->gameCamera->setTarget(realTimeCameraTarget);
-	this->execGame();
+	std::cout << "Team " << this->current_team_id_playing << " : ";
+	this->turn_now = this->teams.at(this->current_team_id_playing).play_team(this->worms, this->device,
+										 this->current_worm_id_playing, this->turn_start);
+	this->turn_time_left = 60 - this->turn_now;
+	std::cout << "Time left : " << this->turn_time_left << std::endl;
+	if (this->turn_time_left < 0)
+	  {
+	    if (this->current_team_id_playing < this->number_of_teams - 1)
+		this->current_team_id_playing++;
+	    else
+	      {
+		this->current_team_id_playing = 0;
+		if (this->current_worm_id_playing < this->worms_per_team - 1)
+		  this->current_worm_id_playing++;
+		else
+		  this->current_worm_id_playing = 0;
+	      }
+	    this->game_start = false;
+	  }
+
+	// FIN DE LA BOUCLE DE JEU
+
 	this->driver->beginScene(true, true, 0);
 	this->smgr->drawAll();
 	this->driver->endScene();
@@ -211,7 +173,6 @@ void GameNamespace::GameEngine::setModelProperties()
   this->mapGen();
   this->backgroundGen();
   this->teamsGen();
-  //  this->execGame();
 }
 
 GameNamespace::GameMap::GameMap(int x, int y)

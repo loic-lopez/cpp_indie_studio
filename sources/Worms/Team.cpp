@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:51:11 2017 Stanislas Deneubourg
-// Last update Sat Jun  3 13:29:16 2017 Stanislas Deneubourg
+// Last update Sat Jun  3 16:55:28 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Team.hpp"
@@ -20,10 +20,7 @@ Team::Team(unsigned int players_, unsigned int team_nb,
   this->team_name = "Humans ";
   this->team_name += team_nb;
   for (unsigned int i = 0; i < this->players; i++)
-    {
-      Worm	worm(i, vector_pos.at(i), worm_mesh, device, worm_file, is_bot);
-      this->team_players.push_back(worm);
-    }
+    this->team_players.push_back(Worm(i, vector_pos.at(i), worm_mesh, device, worm_file, is_bot));
 }
 
 Team::~Team()
@@ -32,10 +29,10 @@ Team::~Team()
     this->team_players.pop_back();
 }
 
-void	Team::play_team(irr::scene::IAnimatedMeshSceneNode *worms,
-			irr::IrrlichtDevice *device,
-			unsigned int i)
+double	Team::play_team(irr::scene::IAnimatedMeshSceneNode *worms,
+				irr::IrrlichtDevice *device,
+				unsigned int i, std::time_t turn_start)
 {
   std::cout << "Player " << i << " : ";
-  this->team_players.at(i).play_worm(worms, device);
+  return (this->team_players.at(i).play_worm(worms, device, turn_start));
 }

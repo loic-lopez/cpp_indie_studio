@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:50:07 2017 Stanislas Deneubourg
-// Last update Sat Jun  3 13:25:02 2017 Stanislas Deneubourg
+// Last update Sat Jun  3 16:55:54 2017 Stanislas Deneubourg
 //
 
 #ifndef TEAM_HPP
@@ -35,8 +35,9 @@ public:
        irr::IrrlichtDevice *device,
        std::string worm_file, bool is_bot);
   ~Team();
-  void                  play_team(irr::scene::IAnimatedMeshSceneNode *,
-				  irr::IrrlichtDevice *, unsigned int);
+  double		play_team(irr::scene::IAnimatedMeshSceneNode *,
+				  irr::IrrlichtDevice *,
+				  unsigned int, std::time_t);
 };
 
 #endif

@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:43:41 2017 Stanislas Deneubourg
-// Last update Sat Jun  3 13:29:49 2017 Stanislas Deneubourg
+// Last update Sat Jun  3 17:05:47 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Worm.hpp"
@@ -21,6 +21,7 @@ Worm::Worm(int nb, irr::core::vector3df vector_pos,
   this->health_points = 100;
   this->damage_received = 0;
   this->damage_dealt = 0;
+  this->total_time = 0;
   this->worm_type = static_cast<Worm::WormType>(is_bot);
   this->worm_position = vector_pos;
   irr::scene::IAnimatedMesh* m = device->getSceneManager()->getMesh(worm_file.c_str());
@@ -84,17 +85,24 @@ unsigned int Worm::getDamageReceived()
   return (this->damage_received);
 }
 
-void	Worm::play_worm(irr::scene::IAnimatedMeshSceneNode *worms,
-		  irr::IrrlichtDevice *device)
+double	Worm::play_worm(irr::scene::IAnimatedMeshSceneNode *worms,
+				irr::IrrlichtDevice *device,
+				std::time_t turn_start)
 {
+  std::time_t	end = std::time(NULL);
+  
   (void)worms;
   (void)device;
-  if (this->worm_type == Worm::WormType::HUMAN_WORM)
-    {
-      std::cout << "Human worm turn" << std::endl;
-    }
-  else if (this->worm_type == Worm::WormType::BOT_WORM)
-    {
-      std::cout << "Bot worm turn" << std::endl;
-    }
+
+  this->total_time = std::difftime(end, turn_start);
+  
+  // if (this->worm_type == Worm::WormType::HUMAN_WORM)
+  //   {
+  //     std::cout << "Human worm turn" << std::endl;
+  //   }
+  // else if (this->worm_type == Worm::WormType::BOT_WORM)
+  //   {
+  //     std::cout << "Bot worm turn" << std::endl;
+  //   }
+  return(this->total_time);
 }

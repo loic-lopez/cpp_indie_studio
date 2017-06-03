@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:39:05 2017 Stanislas Deneubourg
-// Last update Sat Jun  3 13:26:21 2017 Stanislas Deneubourg
+// Last update Sat Jun  3 16:59:39 2017 Stanislas Deneubourg
 //
 
 #ifndef	WORM_HPP
@@ -13,6 +13,7 @@
 
 #include <string>
 #include <cstdint>
+#include <ctime>
 #include <memory>
 #include <vector>
 #include <string>
@@ -36,6 +37,8 @@ private:
   irr::core::vector3df	worm_position;
   char			looking_direction;
   WormType		worm_type;
+  bool			canPlay;
+  double		total_time;
   
   void			setHealthPoints(int);
   void			setDamageDealt(int);
@@ -50,8 +53,9 @@ public:
   int			getHealthPoints();
   unsigned int		getDamageDealt();
   unsigned int		getDamageReceived();
-  void			play_worm(irr::scene::IAnimatedMeshSceneNode *,
-				  irr::IrrlichtDevice *);
+  double		play_worm(irr::scene::IAnimatedMeshSceneNode *,
+				  irr::IrrlichtDevice *,
+				  std::time_t);
 };
 
 #endif

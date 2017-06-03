@@ -123,6 +123,7 @@
     <ClCompile Include="sources\events\MenuInGameEvent.cpp" />
     <ClCompile Include="sources\gameengine\GameEngine.cpp" />
     <ClCompile Include="sources\gameengine\GameEngineGeneration.cpp" />
+    <ClCompile Include="sources\GameEngine\GameEngineLogic.cpp" />
     <ClCompile Include="sources\main.cpp" />
     <ClCompile Include="sources\model\MenuInGameModel.cpp" />
     <ClCompile Include="sources\model\MenuModel.cpp" />

@@ -54,7 +54,8 @@ void	MenuModel::setModelProperties()
   // CURSOR
   this->spriteBank = this->_guienv->addEmptySpriteBank(irr::io::path("ressources/cursor"));
   cursor = this->_driver->getTexture("ressources/cursor/cursor.png");
-  this->cursorSize = cursor->getSize();
+  if (cursor)
+	this->cursorSize = cursor->getSize();
   this->spriteBank->addTextureAsSprite(cursor);
   this->SetMenuModelMainOptions();
   this->setMenuModelSubButtons();
@@ -72,8 +73,8 @@ void	MenuModel::setModelProperties()
 									     tabctrlWidth - (this->midTabctrl.X / 8),
 									     tabctrlHeight - (this->midTabctrl.Y / 3)),
 							this->tabctrl, 1), this->_saves);
-
-  this->saveSubMenuSpriteSize = this->spriteBank->getTexture(irr::u32(MenuModel::SpriteName::SAVE_SUB_MENU))->getSize();
+  if (this->spriteBank)
+	this->saveSubMenuSpriteSize = this->spriteBank->getTexture(irr::u32(MenuModel::SpriteName::SAVE_SUB_MENU))->getSize();
   this->event.setPlayAGameSubMenu(this->_driver, this->_guienv, this->tabctrl);
 }
 
@@ -143,7 +144,8 @@ void	MenuModel::setMenuModelSubButtons()
 
 // CHECKBOXES
   texture = this->_driver->getTexture("ressources/buttons/checkboxes/sound_checked.png");
-  image_size = texture->getSize();
+  if (texture)
+	image_size = texture->getSize();
   this->checkboxSound = this->_guienv->addButton(irr::core::rect<int>((image_size.Width / 9),
 								      ((image_size.Height / 2)),
 								      (image_size.Width),
@@ -154,7 +156,8 @@ void	MenuModel::setMenuModelSubButtons()
 					  this->_driver->getTexture("ressources/buttons/checkboxes/sound_not_checked.png"));
 
   texture = this->_driver->getTexture("ressources/buttons/checkboxes/closed_map_checked.png");
-  image_size = texture->getSize();
+  if (texture)
+	image_size = texture->getSize();
   this->wallsCheckbox = this->_guienv->addButton(irr::core::rect<int>((image_size.Width / 9),
 								      ((image_size.Height / 2) * 4),
 								      (image_size.Width),
@@ -166,7 +169,8 @@ void	MenuModel::setMenuModelSubButtons()
 
   // BACK
   texture = this->_driver->getTexture("ressources/buttons/back.png");
-  image_size = texture->getSize();
+  if (texture)
+	  image_size = texture->getSize();
   this->event.setBackButton(this->_guienv->addButton(irr::core::rect<irr::s32>(this->tabctrl->getTabExtraWidth(),
 									       (image_size.Height * 8),
 									       (image_size.Width * 2),

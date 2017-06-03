@@ -17,7 +17,8 @@ void	MenuModel::SetMenuModelMainOptions()
 
   //play button
   texture = this->_driver->getTexture("ressources/buttons/play_a_game.png");
-  image_size = texture->getSize();
+  if (texture)
+	  image_size = texture->getSize();
   this->event.setStartButton(this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3) - (7 * 34) / 4,
 										(image_size.Height / 2),
 										(image_size.Width / 2) + 7 * 34,
@@ -26,7 +27,8 @@ void	MenuModel::SetMenuModelMainOptions()
 
   // OPTION BUTTON
   texture = this->_driver->getTexture("ressources/buttons/options.png");
-  image_size = texture->getSize();
+  if (texture)
+	  image_size = texture->getSize();
   this->event.setOptionButton(this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3) - (6 * 34) / 4,
 										 (image_size.Height * 3) / 2,
 										 (image_size.Width / 2) + 6 * 34,
@@ -36,7 +38,8 @@ void	MenuModel::SetMenuModelMainOptions()
   // SAVES BUTTON
   texture = this->_driver->getTexture("ressources/buttons/saves.png");
   this->spriteBank->addTextureAsSprite(this->_driver->getTexture("ressources/buttons/saves.png"));
-  image_size = texture->getSize();
+  if (texture)
+	image_size = texture->getSize();
   this->event.setSavesButton(this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3),
 									       (image_size.Height * 5) / 2,
 										(image_size.Width / 2) + 4 * 34,
@@ -45,7 +48,8 @@ void	MenuModel::SetMenuModelMainOptions()
 
   //exit button
   texture = this->_driver->getTexture("ressources/buttons/exit.png");
-  image_size = texture->getSize();
+  if (texture)
+	  image_size = texture->getSize();
   this->event.setExitButton(this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3) - (6 * 34) / 4,
 									       (image_size.Height * 7) / 2,
 									       (image_size.Width / 2) + 6 * 34,

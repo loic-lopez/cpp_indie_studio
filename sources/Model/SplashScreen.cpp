@@ -17,7 +17,6 @@ SplashScreen::SplashScreen(irr::scene::ISceneManager *smgr,
   this->smgr = smgr;
   this->device = device;
   this->lastFrame = this->device->getTimer()->getTime();
-  this->objectMovementSpeed = 50.0f;
   this->driver = driver;
 }
 

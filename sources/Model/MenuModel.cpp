@@ -5,7 +5,7 @@
 ** Login   <yassir.jabbari@epitech.eu>
 **
 ** Started on  Sat May 06 13:52:58 2017 Yassir Jabbari
-// Last update Wed May 31 14:41:04 2017 Stanislas Deneubourg
+// Last update Sat Jun  3 14:06:47 2017 Stanislas Deneubourg
 */
 
 #include "Model/MenuModel.hpp"
@@ -35,7 +35,7 @@ MenuModel::MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driv
 
 MenuModel::~MenuModel()
 {
-  this->skin->drop();
+  // this->skin->drop();
 }
 
 void	MenuModel::setModelProperties()

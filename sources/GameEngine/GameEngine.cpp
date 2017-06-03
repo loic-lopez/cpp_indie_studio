@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Sat Jun  3 09:48:06 2017 Stanislas Deneubourg
+// Last update Sat Jun  3 14:02:54 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -209,6 +209,7 @@ void GameNamespace::GameEngine::setModelProperties()
   this->mapGen();
   this->backgroundGen();
   this->teamsGen();
+  //  this->execGame();
 }
 
 GameNamespace::GameMap::GameMap(int x, int y)

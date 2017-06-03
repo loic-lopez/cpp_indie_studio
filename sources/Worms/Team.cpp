@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:51:11 2017 Stanislas Deneubourg
-// Last update Sat Jun  3 10:04:18 2017 Stanislas Deneubourg
+// Last update Sat Jun  3 13:29:16 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Team.hpp"
@@ -19,15 +19,10 @@ Team::Team(unsigned int players_, unsigned int team_nb,
   this->players = players_;
   this->team_name = "Humans ";
   this->team_name += team_nb;
-  this->team_type = static_cast<Team::TeamType>(is_bot);
   for (unsigned int i = 0; i < this->players; i++)
     {
-      Worm	worm(i, vector_pos.at(i), worm_mesh, device, worm_file);
+      Worm	worm(i, vector_pos.at(i), worm_mesh, device, worm_file, is_bot);
       this->team_players.push_back(worm);
-      if (this->team_type == Team::TeamType::HUMAN_TEAM)
-      	std::cout << "PLAYER " << i << " PLACED" << std::endl;
-      if (this->team_type == Team::TeamType::BOT_TEAM)
-      	std::cout << "BOT " << i << " PLACED" << std::endl;
     }
 }
 
@@ -35,4 +30,12 @@ Team::~Team()
 {
   for (int i = this->team_players.size() != 0; i > 0; i = this->team_players.size())
     this->team_players.pop_back();
+}
+
+void	Team::play_team(irr::scene::IAnimatedMeshSceneNode *worms,
+			irr::IrrlichtDevice *device,
+			unsigned int i)
+{
+  std::cout << "Player " << i << " : ";
+  this->team_players.at(i).play_worm(worms, device);
 }

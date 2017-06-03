@@ -5,14 +5,15 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:43:41 2017 Stanislas Deneubourg
-// Last update Fri Jun  2 18:44:59 2017 Stanislas Deneubourg
+// Last update Sat Jun  3 13:29:49 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Worm.hpp"
 
 Worm::Worm(int nb, irr::core::vector3df vector_pos,
 	   irr::scene::IAnimatedMeshSceneNode *worm_mesh,
-	   irr::IrrlichtDevice *device, std::string worm_file)
+	   irr::IrrlichtDevice *device, std::string worm_file,
+	   bool	is_bot)
 {
   int	dir = std::rand() % 3;
   this->worm_name = "Player ";
@@ -20,6 +21,7 @@ Worm::Worm(int nb, irr::core::vector3df vector_pos,
   this->health_points = 100;
   this->damage_received = 0;
   this->damage_dealt = 0;
+  this->worm_type = static_cast<Worm::WormType>(is_bot);
   this->worm_position = vector_pos;
   irr::scene::IAnimatedMesh* m = device->getSceneManager()->getMesh(worm_file.c_str());
   if (!m)
@@ -82,3 +84,17 @@ unsigned int Worm::getDamageReceived()
   return (this->damage_received);
 }
 
+void	Worm::play_worm(irr::scene::IAnimatedMeshSceneNode *worms,
+		  irr::IrrlichtDevice *device)
+{
+  (void)worms;
+  (void)device;
+  if (this->worm_type == Worm::WormType::HUMAN_WORM)
+    {
+      std::cout << "Human worm turn" << std::endl;
+    }
+  else if (this->worm_type == Worm::WormType::BOT_WORM)
+    {
+      std::cout << "Bot worm turn" << std::endl;
+    }
+}

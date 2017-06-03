@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Sat Jun  3 09:46:51 2017 Stanislas Deneubourg
+// Last update Sat Jun  3 12:51:41 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -88,6 +88,7 @@ namespace	GameNamespace
     virtual	void					backgroundGen();
     virtual	void					teamsGen();
     virtual	irr::core::vector3df			wormsPosGen();
+    virtual	void					execGame();
     virtual	void					setBlockProperties(int, int);
     
    public:

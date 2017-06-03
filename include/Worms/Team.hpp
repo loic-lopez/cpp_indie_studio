@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:50:07 2017 Stanislas Deneubourg
-// Last update Fri Jun  2 18:29:30 2017 Stanislas Deneubourg
+// Last update Sat Jun  3 13:25:02 2017 Stanislas Deneubourg
 //
 
 #ifndef TEAM_HPP
@@ -22,17 +22,11 @@
 class	Team
 {
 private:
-  enum class	TeamType : uint8_t
-    {
-      HUMAN_TEAM	=	0,
-      BOT_TEAM		=	1
-    };
   
   std::vector<Worm>			team_players;
   std::string				team_name;
   unsigned int				players;
   std::vector<irr::core::vector3df>	human_worms_relative_pos;
-  TeamType				team_type;
   
 public:
   Team(unsigned int players_, unsigned int team_nb,
@@ -41,6 +35,8 @@ public:
        irr::IrrlichtDevice *device,
        std::string worm_file, bool is_bot);
   ~Team();
+  void                  play_team(irr::scene::IAnimatedMeshSceneNode *,
+				  irr::IrrlichtDevice *, unsigned int);
 };
 
 #endif

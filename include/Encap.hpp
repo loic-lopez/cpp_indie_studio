@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 14:02:28 2017 Loïc Dupil
-// Last update Wed May  3 14:14:15 2017 Loïc Dupil
+// Last update Sat Jun  3 02:54:31 2017 yassir
 //
 
 #ifndef ENCAP_HPP
@@ -14,9 +14,14 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <cstdio>
-#include <unistd.h>
-#include "Dependencies/dirent.h"
 
+#ifdef _WIN32
+#include "Dependencies/dirent.h"
+#endif
+
+#ifdef linux
+#include <dirent.h>
+#endif
 class Encap
 {
 

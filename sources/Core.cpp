@@ -29,7 +29,6 @@ Core::Core()
   this->driverType = irr::video::EDT_OPENGL;
   this->device = irr::createDevice(this->driverType,
 				   irr::core::dimension2d<irr::u32>(1920, 1080), 32, false, false, false, nullptr);
-
   this->driver = device->getVideoDriver();
   this->smgr = device->getSceneManager();
   this->smgr->addLightSceneNode(nullptr, irr::core::vector3df(-15,5,-105),

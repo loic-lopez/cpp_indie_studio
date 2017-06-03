@@ -1,0 +1,6 @@
+﻿LINK : warning LNK4075: ' /INCREMENTAL' ignoré à cause de la spécification '/OPT:ICF'
+Core.obj : error LNK2019: symbole externe non résolu "__declspec(dllimport) class irrklang::ISoundEngine * __cdecl irrklang::createIrrKlangDevice(enum irrklang::E_SOUND_OUTPUT_DRIVER,int,char const *,char const *)" (__imp_?createIrrKlangDevice@irrklang@@YAPAVISoundEngine@1@W4E_SOUND_OUTPUT_DRIVER@1@HPBD1@Z) référencé dans la fonction "public: virtual void __thiscall Core::launchSplashScreen(void)" (?launchSplashScreen@Core@@UAEXXZ)
+Core.obj : error LNK2019: symbole externe non résolu __imp__createDevice référencé dans la fonction "public: __thiscall Core::Core(void)" (??0Core@@QAE@XZ)
+C:\Users\Yassir\Documents\Shared\cpp_indie_studio\irrlicht\lib\Win64-visualStudio\Irrlicht.lib : warning LNK4272: type d'ordinateur bibliothèque 'x64' en conflit avec le type d'ordinateur cible 'X86'
+C:\Users\Yassir\Documents\Shared\cpp_indie_studio\irrKlang\lib\Winx64-visualStudio\irrKlang.lib : warning LNK4272: type d'ordinateur bibliothèque 'x64' en conflit avec le type d'ordinateur cible 'X86'
+C:\Users\Yassir\Documents\Shared\cpp_indie_studio\Release\Indie Studio.exe : fatal error LNK1120: 2 externes non résolus

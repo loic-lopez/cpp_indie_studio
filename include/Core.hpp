@@ -20,7 +20,6 @@
 #include "Model/SplashScreen.hpp"
 #include "Events/EventStatus.hpp"
 
-
 class Core : public ICore
 {
   std::vector<std::string>			saves;

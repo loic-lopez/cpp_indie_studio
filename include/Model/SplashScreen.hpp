@@ -20,10 +20,8 @@ class	SplashScreen : public IModel
   irr::video::IVideoDriver 		*driver;
   irr::IrrlichtDevice 			*device;
   irr::u32 				lastFrame;
-  irr::f32 				objectMovementSpeed;
   irr::video::ITexture			*irrlichtLogo;
   irr::video::ITexture			*irrklangLogo;
-  irr::scene::ITextSceneNode		*textSceneNode;
   irr::gui::IGUIFont			*font;
 
  public:

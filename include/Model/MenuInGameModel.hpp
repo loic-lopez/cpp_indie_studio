@@ -13,17 +13,16 @@
 
 #include "Dependencies/Dependencies.hpp"
 #include "Events/EventStatus.hpp"
-#include "Events/MenuInGameEvent.hpp"
+#include "Events/EventReceiver.hpp"
 
 class 			MenuInGame
 {
  public:
   MenuInGame(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
-	     irr::scene::ISceneManager *smgr);
+	     irr::scene::ISceneManager *smgr, EventReceiver &receiver);
   virtual 		~MenuInGame();
   virtual void 		setModelProperties();
   virtual EventStatus 	launchModel();
-  MenuInGameEvent	event;
 
  private:
   irr::IrrlichtDevice				*_device;
@@ -36,6 +35,7 @@ class 			MenuInGame
   irr::core::dimension2du		 	screenSize;
   irr::gui::IGUISpriteBank			*spriteBank;
   irr::core::dimension2d<irr::u32> 		cursorSize;
+  EventReceiver 				&eventReceiver;
 
   enum		MenuInGameSpriteName	:	uint8_t
   {

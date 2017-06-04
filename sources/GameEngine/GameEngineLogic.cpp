@@ -15,35 +15,35 @@ void	GameNamespace::GameEngine::cameraMovements()
   irr::core::vector3df    realTimeCameraPosition = this->gameCamera->getPosition();
   irr::core::vector3df    realTimeCameraTarget = this->gameCamera->getTarget();
   const irr::u32		now = this->device->getTimer()->getTime();
-  const	irr::f32		frameDeltaTime = static_cast<irr::f32>((now - this->lastFrame) / 1000.0f);
+  const	auto		frameDeltaTime = static_cast<irr::f32>((now - this->lastFrame) / 1000.0f);
 
   this->lastFrame = now;
-  if (this->receiver.IsKeyDown(irr::KEY_UP))
+  if (this->eventReceiver.IsKeyDown(irr::KEY_UP))
     {
       realTimeCameraPosition.Y += this->cameraMovementSpeed * frameDeltaTime;
       realTimeCameraTarget.Y += this->cameraMovementSpeed * frameDeltaTime;
     }
-  else if (this->receiver.IsKeyDown(irr::KEY_DOWN))
+  else if (this->eventReceiver.IsKeyDown(irr::KEY_DOWN))
     {
       realTimeCameraPosition.Y -= this->cameraMovementSpeed * frameDeltaTime;
       realTimeCameraTarget.Y -= this->cameraMovementSpeed * frameDeltaTime;
     }
-  if (this->receiver.IsKeyDown(irr::KEY_LEFT))
+  if (this->eventReceiver.IsKeyDown(irr::KEY_LEFT))
     {
       realTimeCameraPosition.X -= this->cameraMovementSpeed * frameDeltaTime;
       realTimeCameraTarget.X -= this->cameraMovementSpeed * frameDeltaTime;
     }
-  else if (this->receiver.IsKeyDown(irr::KEY_RIGHT))
+  else if (this->eventReceiver.IsKeyDown(irr::KEY_RIGHT))
     {
       realTimeCameraPosition.X += this->cameraMovementSpeed * frameDeltaTime;
       realTimeCameraTarget.X += this->cameraMovementSpeed * frameDeltaTime;
     }
-  if (this->receiver.IsKeyDown(irr::KEY_RSHIFT))
+  if (this->eventReceiver.IsKeyDown(irr::KEY_RSHIFT))
     {
       realTimeCameraPosition.Z += this->cameraMovementSpeed * frameDeltaTime;
       realTimeCameraTarget.Z += this->cameraMovementSpeed * frameDeltaTime;
     }
-  else if (this->receiver.IsKeyDown(irr::KEY_RCONTROL) || this->receiver.IsKeyDown(irr::KEY_LCONTROL))
+  else if (this->eventReceiver.IsKeyDown(irr::KEY_RCONTROL) || this->eventReceiver.IsKeyDown(irr::KEY_LCONTROL))
     {
       realTimeCameraPosition.Z -= this->cameraMovementSpeed * frameDeltaTime;
       realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime;

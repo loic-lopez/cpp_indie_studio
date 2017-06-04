@@ -23,15 +23,18 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
 				      const irr::s32 &worms_in_each_team) : smgr(smgr), driver(driver),
 									    device(device),
 									    nb_shapes(nb_shapes),
-									    menuInGame(new MenuInGame(this->device, this->driver,
-												      this->smgr)),
+									    eventReceiver(device),
+									    menuInGame(new MenuInGame(this->device,
+												      this->driver,
+												      this->smgr,
+												      this->eventReceiver)),
 									    playSound(playSound),
 									    drawWalls(drawWalls)
 {
   this->file_shape = "./ressources/shapes/Rock_0.dae";
   this->worm = "ressources/textures/Worm/Worm.obj";
   this->lastFrame = this->device->getTimer()->getTime();
-  this->device->setEventReceiver(&this->receiver);
+  this->device->setEventReceiver(&this->eventReceiver);
   this->cameraMovementSpeed = 50.0f;
   this->generations = 5;
   this->size_x = 40;
@@ -130,11 +133,8 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	// FIN DE LA BOUCLE DE JEU
 	this->driver->beginScene();
 	this->smgr->drawAll();
-	if (this->receiver.IsKeyUp(irr::KEY_ESCAPE) && eventStatus == EventStatus::STAND_BY)
-	  {
-	    this->device->setEventReceiver(&this->menuInGame->event);
-	    eventStatus = EventStatus::IN_GAME_MENU;
-	  }
+	if (this->eventReceiver.IsKeyUp(irr::KEY_ESCAPE) && eventStatus == EventStatus::STAND_BY)
+	  eventStatus = EventStatus::IN_GAME_MENU;
 	else if (eventStatus == EventStatus::IN_GAME_MENU)
 	    {
 	      if (eventStatusMenu == EventStatus::STAND_BY)
@@ -147,7 +147,6 @@ EventStatus GameNamespace::GameEngine::launchModel()
 		    }
 		  if (eventStatusMenu == EventStatus::ENTER_IN_GAME)
 		    {
-		      this->device->setEventReceiver(&this->receiver);
 		      eventStatus = EventStatus::STAND_BY;
 		      eventStatusMenu = EventStatus::STAND_BY;
 		    }

@@ -11,8 +11,8 @@
 #include "Model/MenuInGameModel.hpp"
 
 MenuInGame::MenuInGame(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
-		       irr::scene::ISceneManager *smgr) :
-	event(device), _device(device), _driver(driver), _smgr(smgr)
+		       irr::scene::ISceneManager *smgr, EventReceiver &eventReceiver) :
+	_device(device), _driver(driver), _smgr(smgr), eventReceiver(eventReceiver)
 {
   this->_guienv = this->_device->getGUIEnvironment();
   this->_skin = this->_guienv->createSkin(irr::gui::EGST_WINDOWS_METALLIC);
@@ -49,14 +49,12 @@ void	MenuInGame::setModelProperties()
       this->cursorSize = cursor->getSize();
       this->spriteBank->addTextureAsSprite(cursor);
     }
-  this->event.setMenuInGameButtons(this->tabctrl);
+  this->eventReceiver.setMenuInGameButtons(this->tabctrl);
 }
-
-#include <iostream>
 
 EventStatus		MenuInGame::launchModel()
 {
-  this->eventStatus = this->event.getEventStatus();
+  this->eventStatus = this->eventReceiver.getEventStatus();
   if (this->spriteBank->getTexture(irr::u32(MenuInGame::MenuInGameSpriteName::LITTLE_MENU)) != nullptr)
     this->spriteBank->draw2DSprite(irr::u32(MenuInGame::MenuInGameSpriteName::LITTLE_MENU),
 				  irr::core::position2di(0, 0),
@@ -64,7 +62,7 @@ EventStatus		MenuInGame::launchModel()
 				  irr::video::SColor(255, 255, 255, 255), 0);
   if (this->eventStatus == EventStatus::BACK_TO_MENU || this->eventStatus == EventStatus::QUIT)
     return (this->eventStatus);
-  if (this->eventStatus == EventStatus::ENTER_IN_GAME || this->event.IsKeyUp(irr::KEY_ESCAPE))
+  if (this->eventStatus == EventStatus::ENTER_IN_GAME || this->eventReceiver.IsKeyUp(irr::KEY_ESCAPE))
     return (EventStatus::ENTER_IN_GAME);
   this->_guienv->drawAll();
   if (this->spriteBank->getTexture(irr::u32(MenuInGame::MenuInGameSpriteName::CURSOR)) != nullptr)

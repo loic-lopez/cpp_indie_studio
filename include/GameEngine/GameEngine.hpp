@@ -67,9 +67,9 @@ namespace	GameNamespace
     int                                                 generations;
     irr::u32						lastFrame;
     irr::f32						cameraMovementSpeed;
-    EventReceiver					receiver;
     irr::scene::IMeshSceneNode				*groundObject;
     irr::scene::IAnimatedMeshSceneNode			*worms;
+    EventReceiver					eventReceiver;
     std::unique_ptr<MenuInGame>				menuInGame;
     bool						playSound;
     bool						drawWalls;

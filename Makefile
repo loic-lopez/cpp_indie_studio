@@ -22,7 +22,6 @@ SRC             =	sources/main.cpp								\
 			sources/Events/MenuEvent.cpp							\
 			sources/Events/MenuEventSubMenu.cpp						\
 			sources/Model/MenuInGameModel.cpp						\
-			sources/Events/MenuInGameEvent.cpp						\
 			sources/Model/SetMenuModelMainOptions.cpp					\
 			sources/Worms/Team.cpp								\
 			sources/Worms/Worm.cpp								\

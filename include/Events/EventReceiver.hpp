@@ -34,5 +34,7 @@ public:
   irr::gui::IGUIButton				*saveCurrentGameButton;
   irr::gui::IGUIButton				*soundOptionButton;
   irr::gui::IGUIButton				*backToMenuButton;
+  irr::gui::IGUIButton				*exitGameButton;
+  irr::IrrlichtDevice				*device;
   EventStatus 					eventStatus;
 };

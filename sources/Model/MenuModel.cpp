@@ -36,6 +36,7 @@ MenuModel::MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driv
 
 MenuModel::~MenuModel()
 {
+  this->_driver->removeAllTextures();
   this->_guienv->clear();
 }
 
@@ -125,8 +126,6 @@ EventStatus	MenuModel::launchModel()
 	  this->_driver->endScene();
 	}
     }
-  this->_driver->removeAllTextures();
-  this->_guienv->clear();
   return (eventStatus);
 }
 

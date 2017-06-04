@@ -23,7 +23,8 @@ enum class EventStatus : uint16_t
   SAVES = 5,
   LOAD = 6,
   QUIT = 7,
-  SPLASH = 8
+  SPLASH = 8,
+  BACK_TO_GAME
 };
 
 #endif //CPP_INDIE_STUDIO_EVENTSTATUS_HPP

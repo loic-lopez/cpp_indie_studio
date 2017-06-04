@@ -56,7 +56,6 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
 
 GameNamespace::GameEngine::~GameEngine()
 {
-  this->driver->removeAllTextures();
   this->smgr->clear();
 }
 
@@ -80,8 +79,7 @@ void GameNamespace::GameEngine::setBlockProperties(int x, int y)
 
 EventStatus GameNamespace::GameEngine::launchModel()
 {
-  EventStatus eventStatus = EventStatus::STAND_BY;
-  EventStatus eventStatusMenu = EventStatus::STAND_BY;
+  EventStatus 	eventStatusMenu = EventStatus::STAND_BY;
   irr::s32	lastFPS = -1;
 
   this->menuInGame->setModelProperties();
@@ -110,11 +108,11 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->game_start = true;
 	  }
 
-	std::cout << "Team " << this->current_team_id_playing << " : ";
+	//std::cout << "Team " << this->current_team_id_playing << " : ";
 	this->turn_now = this->teams.at(this->current_team_id_playing).play_team(this->worms, this->device,
 										 this->current_worm_id_playing, this->turn_start);
 	this->turn_time_left = 60 - this->turn_now;
-	std::cout << "Time left : " << this->turn_time_left << std::endl;
+	//std::cout << "Time left : " << this->turn_time_left << std::endl;
 	if (this->turn_time_left < 0)
 	  {
 	    if (this->current_team_id_playing < this->number_of_teams - 1)
@@ -133,28 +131,19 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	// FIN DE LA BOUCLE DE JEU
 	this->driver->beginScene();
 	this->smgr->drawAll();
-	if (this->eventReceiver.IsKeyUp(irr::KEY_ESCAPE) && eventStatus == EventStatus::STAND_BY)
-	  eventStatus = EventStatus::IN_GAME_MENU;
-	else if (eventStatus == EventStatus::IN_GAME_MENU)
-	    {
-	      if (eventStatusMenu == EventStatus::STAND_BY)
-		{
-		  eventStatusMenu = this->menuInGame->launchModel();
-		  if (eventStatusMenu == EventStatus::QUIT || eventStatusMenu == EventStatus::BACK_TO_MENU)
-		    {
-		      eventStatus = eventStatusMenu;
-		      break;
-		    }
-		  if (eventStatusMenu == EventStatus::ENTER_IN_GAME)
-		    {
-		      eventStatus = EventStatus::STAND_BY;
-		      eventStatusMenu = EventStatus::STAND_BY;
-		    }
-		}
-	    }
+	if (eventStatusMenu != EventStatus::IN_GAME_MENU && this->eventReceiver.IsKeyUp(irr::KEY_ESCAPE))
+	  eventStatusMenu = EventStatus::IN_GAME_MENU;
+	if (eventStatusMenu == EventStatus::IN_GAME_MENU)
+	  {
+	    eventStatusMenu = this->menuInGame->launchModel();
+	    if (this->eventReceiver.IsKeyUp(irr::KEY_ESCAPE))
+	      eventStatusMenu = EventStatus::STAND_BY;
+	    else if (eventStatusMenu == EventStatus::QUIT || eventStatusMenu == EventStatus::BACK_TO_MENU)
+	      break;
+	  }
 	this->driver->endScene();
       }
-  return (eventStatus);
+  return (eventStatusMenu);
 }
 
 static void fixRandPosition(int &value, int stop)

@@ -24,6 +24,7 @@ MenuInGame::MenuInGame(irr::IrrlichtDevice *device, irr::video::IVideoDriver *dr
 
 MenuInGame::~MenuInGame()
 {
+  this->_driver->removeAllTextures();
   this->_guienv->clear();
 }
 
@@ -60,10 +61,6 @@ EventStatus		MenuInGame::launchModel()
 				  irr::core::position2di(0, 0),
 				  nullptr,
 				  irr::video::SColor(255, 255, 255, 255), 0);
-  if (this->eventStatus == EventStatus::BACK_TO_MENU || this->eventStatus == EventStatus::QUIT)
-    return (this->eventStatus);
-  if (this->eventStatus == EventStatus::ENTER_IN_GAME || this->eventReceiver.IsKeyUp(irr::KEY_ESCAPE))
-    return (EventStatus::ENTER_IN_GAME);
   this->_guienv->drawAll();
   if (this->spriteBank->getTexture(irr::u32(MenuInGame::MenuInGameSpriteName::CURSOR)) != nullptr)
     {

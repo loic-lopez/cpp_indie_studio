@@ -35,7 +35,8 @@ CXXFLAGS	+=	-I./irrlicht/include -I./include/
 
 CXXFLAGS	+=	-L./irrKlang/lib/linux64 -L./irrlicht/lib/Linux -L./bullet/lib -Wall -Werror
 
-CXXFLAGS	+=	-lIrrKlang -lIrrlicht -lGL -lGLU -lXrandr -lXxf86vm -lXext -lX11 -lXcursor -lBulletSoftBody -lBulletDynamics -lBulletCollision -lLinearMath
+CXXFLAGS	+=	-lIrrKlang -lIrrlicht -lGL -lGLU -lXrandr -lXxf86vm -lXext -lX11 -lXcursor -lBulletSoftBody \
+			-lBulletDynamics -lBulletCollision -lLinearMath -fexpensive-optimizations -faggressive-loop-optimizations
 
 CXXFLAGS	+=	-lpthread
 

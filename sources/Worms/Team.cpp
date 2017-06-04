@@ -33,6 +33,6 @@ double	Team::play_team(irr::scene::IAnimatedMeshSceneNode *worms,
 				irr::IrrlichtDevice *device,
 				unsigned int i, std::time_t turn_start)
 {
-  std::cout << "Player " << i << " : ";
+  //std::cout << "Player " << i << " : ";
   return (this->team_players.at(i).play_worm(worms, device, turn_start));
 }

@@ -179,9 +179,11 @@ void						Core::launchMenu()
   std::unique_ptr<IModel> Menu(new MenuModel(this->device, this->driver,
                              this->smgr, this->guienv, this->saves, this->playSound, this->drawWalls,
 					     &this->NbrHumanTeams, &this->NbrBotTeams, &this->NbrTeams, &this->WormsPerTeam));
-  Menu->setModelProperties();
-  if (Menu)
-    this->eventStatus = Menu->launchModel();
+  if (Menu != nullptr)
+    {
+      Menu->setModelProperties();
+      this->eventStatus = Menu->launchModel();
+    }
 }
 
 void						Core::launchGame()
@@ -192,9 +194,12 @@ void						Core::launchGame()
 								   this->device, this->playSound,
 								   this->drawWalls, this->NbrBotTeams, this->NbrHumanTeams,
 								   this->NbrTeams, this->WormsPerTeam));
-  this->device->getCursorControl()->setVisible(false);
-  GameEngine->setModelProperties();
-  this->eventStatus = GameEngine->launchModel();
+  if (GameEngine != nullptr)
+    {
+      this->device->getCursorControl()->setVisible(false);
+      GameEngine->setModelProperties();
+      this->eventStatus = GameEngine->launchModel();
+    }
 }
 
 void						Core::launch()

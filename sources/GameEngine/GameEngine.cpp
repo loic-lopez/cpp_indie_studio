@@ -102,9 +102,9 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	
 	// BOUCLE DE JEU
 
-	if (this->game_start == false)
+	if (!this->game_start)
 	  {
-	    this->turn_start = std::time(NULL);
+	    this->turn_start = std::time(nullptr);
 	    this->game_start = true;
 	  }
 

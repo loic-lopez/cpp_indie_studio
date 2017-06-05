@@ -60,5 +60,5 @@ re              :       fclean all
 
 install		:
 			make clean -C  ./irrlicht/source/Irrlicht/
-			make -C ./irrlicht/source/Irrlicht/
+			make NDEBUG=1 -C ./irrlicht/source/Irrlicht/
 			make clean -C  ./irrlicht/source/Irrlicht/

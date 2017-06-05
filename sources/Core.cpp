@@ -45,6 +45,7 @@ Core::Core()
   this->NbrHumanTeams = 1;
   this->NbrTeams = 2;
   this->WormsPerTeam = 2;
+  this->playMainSound = true;
 }
 
 Core::Core(Core const &obj)
@@ -166,7 +167,8 @@ std::vector<std::string>			Core::loadDir(const std::string &path, const std::str
 void						Core::launchSplashScreen()
 {
   this->soundEngine = irrklang::createIrrKlangDevice();
-  this->soundEngine->play2D("ressources/sounds/CarlOrff.ogg", true);
+  this->mainSound = this->soundEngine->play2D("ressources/sounds/CarlOrff.ogg", true,
+					      false, false, irrklang::E_STREAM_MODE::ESM_AUTO_DETECT, true);
   std::unique_ptr<IModel> splashScreen(new SplashScreen(this->smgr, this->driver, this->device));
 
   splashScreen->setModelProperties();
@@ -177,8 +179,11 @@ void						Core::launchMenu()
 {
   this->device->getCursorControl()->setVisible(true);
   std::unique_ptr<IModel> Menu(new MenuModel(this->device, this->driver,
-                             this->smgr, this->guienv, this->saves, this->playSound, this->drawWalls,
-					     &this->NbrHumanTeams, &this->NbrBotTeams, &this->NbrTeams, &this->WormsPerTeam));
+					     this->smgr, this->guienv, this->saves,
+					     this->playSound, this->drawWalls,
+					     &this->NbrHumanTeams, &this->NbrBotTeams,
+					     &this->NbrTeams, &this->WormsPerTeam,
+					     this->mainSound, &this->playMainSound));
   if (Menu != nullptr)
     {
       Menu->setModelProperties();
@@ -193,7 +198,8 @@ void						Core::launchGame()
 								   this->loadDir("./ressources/shapes/", ".dae").size(),
 								   this->device, this->playSound,
 								   this->drawWalls, this->NbrBotTeams, this->NbrHumanTeams,
-								   this->NbrTeams, this->WormsPerTeam));
+								   this->NbrTeams, this->WormsPerTeam,
+								   this->mainSound, &this->playMainSound));
   if (GameEngine != nullptr)
     {
       this->device->getCursorControl()->setVisible(false);
@@ -204,7 +210,7 @@ void						Core::launchGame()
 
 void						Core::launch()
 {
-  //  this->launchSplashScreen();
+   // this->launchSplashScreen();
   while(device->run())
     {
       if (this->eventStatus == EventStatus::QUIT)

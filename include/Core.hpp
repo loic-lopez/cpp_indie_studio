@@ -26,6 +26,8 @@ class Core : public ICore
   std::vector<std::string>			soundlib;
   std::vector<irr::video::IImage *>		textures;
   irr::IrrlichtDevice				*device;
+  irrklang::ISound				*mainSound;
+  bool 						playMainSound;
   irr::video::IVideoDriver			*driver;
   irr::scene::ISceneManager			*smgr;
   irr::video::E_DRIVER_TYPE			driverType;

@@ -24,7 +24,8 @@ class		MenuModel : public IModel
 	    irr::scene::ISceneManager *smgr,
 	    irr::gui::IGUIEnvironment *guienv,
 	    std::vector<std::string> const &saves, bool&, bool&,
-	    irr::s32 *NbrHumanTeams, irr::s32 *NbrBotTeams, irr::s32 *NbrTeams, irr::s32 *NbrWormsPerTeam);
+	    irr::s32 *NbrHumanTeams, irr::s32 *NbrBotTeams, irr::s32 *NbrTeams,
+	    irr::s32 *NbrWormsPerTeam, irrklang::ISound *mainSound, bool *playMainSound);
 
   virtual ~MenuModel();
   virtual void setModelProperties();

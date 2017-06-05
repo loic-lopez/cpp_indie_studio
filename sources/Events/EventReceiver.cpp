@@ -16,7 +16,7 @@ EventStatus const &EventReceiver::getEventStatus() const
   return this->eventStatus;
 }
 
-EventReceiver::EventReceiver(irr::IrrlichtDevice *device)
+EventReceiver::EventReceiver(irr::IrrlichtDevice *device, irrklang::ISound *mainSound, bool *playMainSound)
 {
   for (irr::u32 i = 0; i < irr::KEY_KEY_CODES_COUNT; ++i)
     this->KeyIsDown[i] = false;
@@ -28,7 +28,9 @@ EventReceiver::EventReceiver(irr::IrrlichtDevice *device)
   this->driver = device->getVideoDriver();
   this->eventStatus = EventStatus::IN_GAME_MENU;
   this->device = device;
-  this->isSoundCheckboxChecked = false;
+  this->isSoundCheckboxChecked = *playMainSound;
+  this->playMainSound = playMainSound;
+  this->mainSound = mainSound;
 }
 
 bool	EventReceiver::OnEvent(const irr::SEvent& event)
@@ -89,11 +91,13 @@ bool	EventReceiver::OnEvent(const irr::SEvent& event)
 		  if (this->isSoundCheckboxChecked)
 		    {
 		      this->soundCheckboxButton->setImage(this->soundCheckboxNotCheckedButton);
+		      this->mainSound->setIsPaused(true);
 		      this->isSoundCheckboxChecked = false;
 		    }
 		  else
 		    {
 		      this->soundCheckboxButton->setImage(this->soundCheckboxCheckedButton);
+		      this->mainSound->setIsPaused(false);
 		      this->isSoundCheckboxChecked = true;
 		    }
 		  break;
@@ -222,7 +226,8 @@ void	EventReceiver::setMenuInGameButtons(irr::gui::IGUITabControl *tabctrl)
     }
 
   this->soundCheckboxCheckedButton = this->driver->getTexture("ressources/buttons/checkboxes/sound_checked.png");
-  if (buttonTexture != nullptr)
+  this->soundCheckboxNotCheckedButton = this->driver->getTexture("ressources/buttons/checkboxes/sound_not_checked.png");
+  if (this->soundCheckboxNotCheckedButton != nullptr && this->soundCheckboxCheckedButton != nullptr)
     {
       this->soundCheckboxButton = this->guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3) - (20 * 34)
 													     / 5,
@@ -230,12 +235,14 @@ void	EventReceiver::setMenuInGameButtons(irr::gui::IGUITabControl *tabctrl)
 											   (image_size.Width / 2) + 8 * 34,
 											   image_size.Height + 38 * 2),
 								 tabctrl, MenuInGameButton::SOUND_OPTION_SUBMENU_SOUND_CHECKBOX, L"");
-      this->soundCheckboxButton->setImage(this->soundCheckboxCheckedButton);
+      if (*this->playMainSound)
+	this->soundCheckboxButton->setImage(this->soundCheckboxCheckedButton);
+      else
+	this->soundCheckboxButton->setImage(this->soundCheckboxNotCheckedButton);
       this->soundCheckboxButton->setUseAlphaChannel(true);
       this->soundCheckboxButton->setVisible(false);
     }
 
-  this->soundCheckboxNotCheckedButton = this->driver->getTexture("ressources/buttons/checkboxes/sound_not_checked.png");
   buttonTexture = this->driver->getTexture("ressources/buttons/back.png");
   if (buttonTexture != nullptr)
     {

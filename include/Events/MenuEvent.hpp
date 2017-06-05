@@ -28,6 +28,7 @@ private:
   void			setPlaySubMenuVisible();
 
   irr::IrrlichtDevice	*device;
+  irrklang::ISound	*mainSound;
   EventStatus		*eventStatus;
   irr::s32		selected;
   irr::gui::IGUIListBox *savesListBox;
@@ -67,8 +68,10 @@ private:
   irr::gui::IGUIButton	*addNbrWormsPerTeamButton;
   irr::gui::IGUIButton	*playButton;
 
+  bool 			*playMainSound;
+
  public:
-  MenuEvent(irr::IrrlichtDevice *device);
+  MenuEvent(irr::IrrlichtDevice *device, irrklang::ISound *mainSound, bool *playMainSound);
   virtual bool 	OnEvent(const irr::SEvent &event);
   void		setSelected(irr::s32 const &selected);
 

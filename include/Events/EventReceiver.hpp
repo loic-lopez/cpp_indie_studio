@@ -16,7 +16,8 @@
 class EventReceiver : public irr::IEventReceiver
 {
 public:
-  explicit 					EventReceiver(irr::IrrlichtDevice *device);
+  explicit 					EventReceiver(irr::IrrlichtDevice *device,
+								irrklang::ISound *mainSound, bool *playMainSound);
   bool 						OnEvent(const irr::SEvent& event) override;
   virtual 				bool	IsKeyDown(irr::EKEY_CODE keyCode) const;
   virtual 				bool	IsKeyUp(irr::EKEY_CODE keyCode);
@@ -30,6 +31,7 @@ public:
  protected:
   // ESSENTIALS
   bool 						KeyIsDown[irr::KEY_KEY_CODES_COUNT];
+  bool 						*playMainSound;
   buttonState					KeyIsUp[irr::KEY_KEY_CODES_COUNT];
   irr::gui::IGUIEnvironment			*guienv;
   irr::video::IVideoDriver			*driver;
@@ -46,6 +48,7 @@ public:
   irr::video::ITexture				*soundCheckboxNotCheckedButton;
   bool						isSoundCheckboxChecked;
   irr::gui::IGUIButton				*backButton;
+  irrklang::ISound 				*mainSound;
 
   // OTHER
   EventStatus 					eventStatus;

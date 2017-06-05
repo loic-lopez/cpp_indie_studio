@@ -10,10 +10,13 @@
 
 #include "Events/MenuEvent.hpp"
 
-MenuEvent::MenuEvent(irr::IrrlichtDevice *device)
+MenuEvent::MenuEvent(irr::IrrlichtDevice *device, irrklang::ISound *mainSound, bool *playMainSound)
 {
   this->device = device;
   this->button = MenuButton::STANDBY;
+  this->mainSound = mainSound;
+  this->playMainSound = playMainSound;
+  this->checkboxSoundStatus = *playMainSound;
   std::srand(std::time(nullptr));
 }
 
@@ -81,12 +84,17 @@ bool	MenuEvent::OnEvent(const irr::SEvent &event)
 		      {
 			this->checkboxSoundStatus = false;
 			this->checkboxSound->setImage(this->checkboxSoundNotChecked);
+			if (this->mainSound != nullptr)
+			  this->mainSound->setIsPaused(true);
 		      }
 		    else
 		      {
 			this->checkboxSoundStatus = true;
 			this->checkboxSound->setImage(this->checkboxSoundChecked);
+			if (this->mainSound != nullptr)
+			  this->mainSound->setIsPaused(false);
 		      }
+		    *this->playMainSound = this->checkboxSoundStatus;
 		    break;
 		  }
 	      case MenuButton::OPTION_MAP:

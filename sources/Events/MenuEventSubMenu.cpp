@@ -18,8 +18,10 @@ void	MenuEvent::setSoundCheckboxAndTextures(irr::gui::IGUIButton *checkboxSound,
   this->checkboxSound->setUseAlphaChannel(true);
   this->checkboxSound->setDrawBorder(false);
   this->checkboxSound->setVisible(false);
-  this->checkboxSound->setImage(checkboxSoundChecked);
-  this->checkboxSoundStatus = true;
+  if (this->checkboxSoundStatus)
+    this->checkboxSound->setImage(checkboxSoundChecked);
+  else
+    this->checkboxSound->setImage(checkboxSoundNotChecked);
   this->checkboxSoundChecked = checkboxSoundChecked;
   this->checkboxSoundNotChecked = checkboxSoundNotChecked;
 }

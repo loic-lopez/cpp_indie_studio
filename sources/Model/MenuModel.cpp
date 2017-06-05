@@ -13,8 +13,9 @@
 MenuModel::MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
 		     irr::scene::ISceneManager *smgr, irr::gui::IGUIEnvironment *guienv,
 		     std::vector<std::string> const &saves, bool &playSound, bool &drawWalls,
-		     irr::s32 *NbrHumanTeams, irr::s32 *NbrBotTeams, irr::s32 *NbrTeams, irr::s32 *NbrWormsPerTeam)
-  : _device(device), _driver(driver), _smgr(smgr),_guienv(guienv), event(device)
+		     irr::s32 *NbrHumanTeams, irr::s32 *NbrBotTeams, irr::s32 *NbrTeams, irr::s32 *NbrWormsPerTeam,
+		     irrklang::ISound *mainSound, bool *playMainSound)
+  : _device(device), _driver(driver), _smgr(smgr),_guienv(guienv), event(device, mainSound, playMainSound)
 {
   this->_device->setWindowCaption(L"Worms 3D");
   this->_device->setEventReceiver(&this->event);

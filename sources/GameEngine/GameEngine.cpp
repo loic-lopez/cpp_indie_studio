@@ -10,26 +10,22 @@
 
 #include "GameEngine/GameEngine.hpp"
 
-GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr,
-				      irr::video::IVideoDriver *driver,
-				      const size_t &nb_textures,
-				      const size_t &nb_shapes,
-				      irr::IrrlichtDevice *device,
-				      const bool &playSound,
-				      const bool &drawWalls,
-				      const irr::s32 &bot_teams,
-				      const irr::s32 &human_teams,
-				      const irr::s32 &teams,
-				      const irr::s32 &worms_in_each_team) : smgr(smgr), driver(driver),
-									    device(device),
-									    nb_shapes(nb_shapes),
-									    eventReceiver(device),
-									    menuInGame(new MenuInGame(this->device,
-												      this->driver,
-												      this->smgr,
-												      this->eventReceiver)),
-									    playSound(playSound),
-									    drawWalls(drawWalls)
+GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
+				      const size_t &nb_textures, const size_t &nb_shapes, irr::IrrlichtDevice *device,
+				      const bool &playSound, const bool &drawWalls, const irr::s32 &bot_teams,
+				      const irr::s32 &human_teams, const irr::s32 &teams, const irr::s32 &worms_in_each_team,
+				      irrklang::ISound *mainSound, bool *playMainSound) : smgr(smgr), driver(driver),
+											  device(device),
+												nb_shapes(nb_shapes),
+												eventReceiver(device,
+													      mainSound,
+													      playMainSound),
+												menuInGame(new MenuInGame(this->device,
+															  this->driver,
+															  this->smgr,
+															  this->eventReceiver)),
+												playSound(playSound),
+												drawWalls(drawWalls)
 {
   this->file_shape = "./ressources/shapes/Rock_0.dae";
   this->worm = "ressources/textures/Worm/Worm.obj";

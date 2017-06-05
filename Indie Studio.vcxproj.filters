@@ -33,9 +33,6 @@
     <ClCompile Include="sources\events\MenuEventSubMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sources\events\MenuInGameEvent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="sources\gameengine\GameEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

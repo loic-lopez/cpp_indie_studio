@@ -84,7 +84,8 @@ void	MenuEvent::setPlayAGameSubMenu(irr::video::IVideoDriver *driver, irr::gui::
 
   subtractTexture = driver->getTexture("ressources/buttons/subtract_button.png");
   addTexture = driver->getTexture("ressources/buttons/add_button.png");
-  button_size = subtractTexture->getSize();
+  if (addTexture != nullptr)
+	button_size = subtractTexture->getSize();
 
   // ADD BUTTONS
   this->addNbrTeamButton = guienv->addButton(irr::core::rect<irr::s32>((button_size.Width * 3) / 2,
@@ -170,15 +171,18 @@ void	MenuEvent::setPlayAGameSubMenu(irr::video::IVideoDriver *driver, irr::gui::
 
   // PLAY BUTTON
   playTexture = driver->getTexture("ressources/buttons/play.png");
-  button_size = playTexture->getSize();
-  this->playButton = guienv->addButton(irr::core::rect<irr::s32>((button_size.Width / 3),
-								 ((button_size.Height / 2) * 14) - 38 / 2,
-								 (button_size.Width / 2) + 4 * 34,
-								 ((button_size.Height / 2) * 15) - 38 / 2),
-				       tabctrl, MenuButton::PLAY, L"");
-  this->playButton->setImage(playTexture);
-  this->playButton->setUseAlphaChannel(true);
-  this->playButton->setVisible(false);
+  if (playTexture != nullptr)
+  {
+	  button_size = playTexture->getSize();
+	  this->playButton = guienv->addButton(irr::core::rect<irr::s32>((button_size.Width / 3),
+		  ((button_size.Height / 2) * 14) - 38 / 2,
+		  (button_size.Width / 2) + 4 * 34,
+		  ((button_size.Height / 2) * 15) - 38 / 2),
+		  tabctrl, MenuButton::PLAY, L"");
+	  this->playButton->setImage(playTexture);
+	  this->playButton->setUseAlphaChannel(true);
+	  this->playButton->setVisible(false);
+  }
 }
 
 

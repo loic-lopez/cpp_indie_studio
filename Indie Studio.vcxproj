@@ -120,7 +120,6 @@
     <ClCompile Include="sources\events\EventReceiver.cpp" />
     <ClCompile Include="sources\events\MenuEvent.cpp" />
     <ClCompile Include="sources\events\MenuEventSubMenu.cpp" />
-    <ClCompile Include="sources\events\MenuInGameEvent.cpp" />
     <ClCompile Include="sources\gameengine\GameEngine.cpp" />
     <ClCompile Include="sources\gameengine\GameEngineGeneration.cpp" />
     <ClCompile Include="sources\GameEngine\GameEngineLogic.cpp" />

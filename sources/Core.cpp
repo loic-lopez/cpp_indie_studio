@@ -59,12 +59,12 @@ Core				&Core::operator=(Core const &obj)
 
 Core::~Core()
 {
-  this->device->drop();
   if (this->soundEngine != nullptr)
     {
       this->soundEngine->stopAllSounds();
       this->soundEngine->drop();
     }
+  this->device->drop();
 }
 
 std::vector<std::string>	Core::getSaves() const

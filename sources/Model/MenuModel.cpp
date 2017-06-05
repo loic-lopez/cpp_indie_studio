@@ -36,7 +36,6 @@ MenuModel::MenuModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driv
 
 MenuModel::~MenuModel()
 {
-  this->_driver->removeAllTextures();
   this->_guienv->clear();
 }
 
@@ -54,7 +53,10 @@ void	MenuModel::setModelProperties()
 					       nullptr, false, false);
 
   // CURSOR
-  this->spriteBank = this->_guienv->addEmptySpriteBank(irr::io::path("ressources/cursor"));
+  if (this->_guienv->getSpriteBank(irr::io::path("ressources/buttons")) == nullptr)
+    this->spriteBank = this->_guienv->addEmptySpriteBank(irr::io::path("ressources/buttons"));
+  else
+    this->spriteBank = this->_guienv->getSpriteBank(irr::io::path("ressources/buttons"));
   cursor = this->_driver->getTexture("ressources/cursor/cursor.png");
   if (cursor != nullptr)
     {
@@ -147,29 +149,30 @@ void	MenuModel::setMenuModelSubButtons()
 
 // CHECKBOXES
   texture = this->_driver->getTexture("ressources/buttons/checkboxes/sound_checked.png");
-  if (texture)
-	image_size = texture->getSize();
-  this->checkboxSound = this->_guienv->addButton(irr::core::rect<int>((image_size.Width / 9),
-								      ((image_size.Height / 2)),
-								      (image_size.Width),
-								      ((image_size.Height) * 3) / 2),
-						 this->tabctrl, MenuButton::OPTION_SOUND, L"");
-  this->event.setSoundCheckboxAndTextures(this->checkboxSound,
-					  texture,
-					  this->_driver->getTexture("ressources/buttons/checkboxes/sound_not_checked.png"));
+  if (texture != nullptr)
+    {
+      image_size = texture->getSize();
+      this->checkboxSound = this->_guienv->addButton(irr::core::rect<int>((image_size.Width / 9),
+									  ((image_size.Height / 2)),
+									  (image_size.Width),
+									  ((image_size.Height) * 3) / 2),
+						     this->tabctrl, MenuButton::OPTION_SOUND, L"");
+      this->event.setSoundCheckboxAndTextures(this->checkboxSound,
+					      texture,
+					      this->_driver->getTexture("ressources/buttons/checkboxes/sound_not_checked.png"));
 
-  texture = this->_driver->getTexture("ressources/buttons/checkboxes/closed_map_checked.png");
-  if (texture)
-	image_size = texture->getSize();
-  this->wallsCheckbox = this->_guienv->addButton(irr::core::rect<int>((image_size.Width / 9),
-								      ((image_size.Height / 2) * 4),
-								      (image_size.Width),
-								      ((image_size.Height) * 6) / 2),
-						 this->tabctrl, MenuButton::OPTION_MAP, L"");
-  this->event.setWallsCheckboxAndTextures(this->wallsCheckbox,
-					  texture,
-					  this->_driver->getTexture("ressources/buttons/checkboxes/closed_map_not_checked.png"));
+      texture = this->_driver->getTexture("ressources/buttons/checkboxes/closed_map_checked.png");
+      image_size = texture->getSize();
+      this->wallsCheckbox = this->_guienv->addButton(irr::core::rect<int>((image_size.Width / 9),
+									  ((image_size.Height / 2) * 4),
+									  (image_size.Width),
+									  ((image_size.Height) * 6) / 2),
+						     this->tabctrl, MenuButton::OPTION_MAP, L"");
+      this->event.setWallsCheckboxAndTextures(this->wallsCheckbox,
+					      texture,
+					      this->_driver->getTexture("ressources/buttons/checkboxes/closed_map_not_checked.png"));
 
+    }
   // BACK
   texture = this->_driver->getTexture("ressources/buttons/back.png");
   if (texture)

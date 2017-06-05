@@ -59,7 +59,7 @@ GameNamespace::GameEngine::~GameEngine()
   this->smgr->clear();
 }
 
-void GameNamespace::GameEngine::setBlockProperties(int x, int y)
+void	GameNamespace::GameEngine::setBlockProperties(int x, int y)
 {
   this->groundObject = this->smgr->addMeshSceneNode(smgr->getMesh(file_shape.c_str()));
   if (this->groundObject != nullptr)
@@ -165,7 +165,7 @@ static void fixRandPosition(int &value, int stop)
     }
 }
 
-void GameNamespace::GameEngine::setModelProperties()
+void	GameNamespace::GameEngine::setModelProperties()
 {
   this->mapGen();
   this->backgroundGen();

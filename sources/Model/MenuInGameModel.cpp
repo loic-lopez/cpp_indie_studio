@@ -24,7 +24,6 @@ MenuInGame::MenuInGame(irr::IrrlichtDevice *device, irr::video::IVideoDriver *dr
 
 MenuInGame::~MenuInGame()
 {
-  this->_driver->removeAllTextures();
   this->_guienv->clear();
 }
 
@@ -40,7 +39,10 @@ void	MenuInGame::setModelProperties()
 								    screenSize.Height - (screenSize.Height / 7)),
 					       nullptr, false, false);
   texture = this->_driver->getTexture("ressources/images/game_menu.png");
-  this->spriteBank = this->_guienv->addEmptySpriteBank(irr::io::path("ressources/images"));
+  if (this->_guienv->getSpriteBank(irr::io::path("ressources/images")) == nullptr)
+    this->spriteBank = this->_guienv->addEmptySpriteBank(irr::io::path("ressources/images"));
+  else
+    this->spriteBank = this->_guienv->getSpriteBank(irr::io::path("ressources/images"));
   if (texture != nullptr)
     this->spriteBank->addTextureAsSprite(texture);
 

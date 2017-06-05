@@ -144,8 +144,8 @@ void	MenuModel::setSkinTransparency()
 
 void	MenuModel::setMenuModelSubButtons()
 {
-  irr::core::dimension2d<irr::s32>	image_size;
-  irr::video::ITexture			*texture;
+  irr::core::dimension2d<irr::s32> image_size;
+  irr::video::ITexture *texture;
 
 // CHECKBOXES
   texture = this->_driver->getTexture("ressources/buttons/checkboxes/sound_checked.png");
@@ -159,7 +159,8 @@ void	MenuModel::setMenuModelSubButtons()
 						     this->tabctrl, MenuButton::OPTION_SOUND, L"");
       this->event.setSoundCheckboxAndTextures(this->checkboxSound,
 					      texture,
-					      this->_driver->getTexture("ressources/buttons/checkboxes/sound_not_checked.png"));
+					      this->_driver->getTexture(
+						      "ressources/buttons/checkboxes/sound_not_checked.png"));
 
       texture = this->_driver->getTexture("ressources/buttons/checkboxes/closed_map_checked.png");
       image_size = texture->getSize();
@@ -170,18 +171,21 @@ void	MenuModel::setMenuModelSubButtons()
 						     this->tabctrl, MenuButton::OPTION_MAP, L"");
       this->event.setWallsCheckboxAndTextures(this->wallsCheckbox,
 					      texture,
-					      this->_driver->getTexture("ressources/buttons/checkboxes/closed_map_not_checked.png"));
+					      this->_driver->getTexture(
+						      "ressources/buttons/checkboxes/closed_map_not_checked.png"));
 
     }
   // BACK
   texture = this->_driver->getTexture("ressources/buttons/back.png");
-  if (texture)
-	  image_size = texture->getSize();
-  this->event.setBackButton(this->_guienv->addButton(irr::core::rect<irr::s32>(this->tabctrl->getTabExtraWidth(),
-									       (image_size.Height * 8),
-									       (image_size.Width * 2),
-									       (image_size.Height * 9)) ,
-						     this->tabctrl, MenuButton::BACK, L""), texture);
+  if (texture != nullptr)
+    {
+      image_size = texture->getSize();
+      this->event.setBackButton(this->_guienv->addButton(irr::core::rect<irr::s32>(this->tabctrl->getTabExtraWidth(),
+										   (image_size.Height * 8),
+										   (image_size.Width * 2),
+										   (image_size.Height * 9)) ,
+							 this->tabctrl, MenuButton::BACK, L""), texture);
+    }
 }
 
 void	MenuModel::drawPlaySubMenuText()

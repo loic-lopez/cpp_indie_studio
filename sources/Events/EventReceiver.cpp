@@ -10,6 +10,27 @@
 
 #include "Events/EventReceiver.hpp"
 
+
+EventStatus const &EventReceiver::getEventStatus() const
+{
+  return this->eventStatus;
+}
+
+EventReceiver::EventReceiver(irr::IrrlichtDevice *device)
+{
+  for (irr::u32 i = 0; i < irr::KEY_KEY_CODES_COUNT; ++i)
+    this->KeyIsDown[i] = false;
+
+  for(irr::u32 i = 0; i < irr::KEY_KEY_CODES_COUNT; i++)
+    this->KeyIsUp[i] = BS_DOWN;
+
+  this->guienv = device->getGUIEnvironment();
+  this->driver = device->getVideoDriver();
+  this->eventStatus = EventStatus::IN_GAME_MENU;
+  this->device = device;
+  this->isSoundCheckboxChecked = false;
+}
+
 bool	EventReceiver::OnEvent(const irr::SEvent& event)
 {
   this->eventStatus = EventStatus::IN_GAME_MENU;
@@ -43,11 +64,48 @@ bool	EventReceiver::OnEvent(const irr::SEvent& event)
 	    {
 	      break;
 	    }
+	  case MenuInGameButton::SOUND_OPTION:
+	    {
+	      if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		{
+		  this->setMainButtonsHidden();
+		  this->soundCheckboxButton->setVisible(true);
+		  this->backButton->setVisible(true);
+		  break;
+		}
+	    }
 	  case MenuInGameButton::BACK_TO_MENU:
 	    {
 	      if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
 		{
 		  this->eventStatus = EventStatus::BACK_TO_MENU;
+		  break;
+		}
+	    }
+	  case MenuInGameButton::SOUND_OPTION_SUBMENU_SOUND_CHECKBOX:
+	    {
+	      if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		{
+		  if (this->isSoundCheckboxChecked)
+		    {
+		      this->soundCheckboxButton->setImage(this->soundCheckboxNotCheckedButton);
+		      this->isSoundCheckboxChecked = false;
+		    }
+		  else
+		    {
+		      this->soundCheckboxButton->setImage(this->soundCheckboxCheckedButton);
+		      this->isSoundCheckboxChecked = true;
+		    }
+		  break;
+		}
+	    }
+	  case MenuInGameButton::SUBMENU_BACK:
+	    {
+	      if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		{
+		  this->setMainButtonsVisible();
+		  this->soundCheckboxButton->setVisible(false);
+		  this->backButton->setVisible(false);
 		  break;
 		}
 	    }
@@ -77,7 +135,7 @@ bool	EventReceiver::IsKeyUp(irr::EKEY_CODE	keyCode)
 
 void	EventReceiver::setMenuInGameButtons(irr::gui::IGUITabControl *tabctrl)
 {
-  irr::video::ITexture	*buttonTexture;
+  irr::video::ITexture			*buttonTexture;
   irr::core::dimension2d<irr::s32>	image_size;
 
   buttonTexture = this->driver->getTexture("ressources/buttons/back_to_game.png");
@@ -162,24 +220,52 @@ void	EventReceiver::setMenuInGameButtons(irr::gui::IGUITabControl *tabctrl)
       this->exitGameButton->setUseAlphaChannel(true);
 
     }
+
+  this->soundCheckboxCheckedButton = this->driver->getTexture("ressources/buttons/checkboxes/sound_checked.png");
+  if (buttonTexture != nullptr)
+    {
+      this->soundCheckboxButton = this->guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3) - (20 * 34)
+													     / 5,
+											   (image_size.Height / 2) + 38,
+											   (image_size.Width / 2) + 8 * 34,
+											   image_size.Height + 38 * 2),
+								 tabctrl, MenuInGameButton::SOUND_OPTION_SUBMENU_SOUND_CHECKBOX, L"");
+      this->soundCheckboxButton->setImage(this->soundCheckboxCheckedButton);
+      this->soundCheckboxButton->setUseAlphaChannel(true);
+      this->soundCheckboxButton->setVisible(false);
+    }
+
+  this->soundCheckboxNotCheckedButton = this->driver->getTexture("ressources/buttons/checkboxes/sound_not_checked.png");
+  buttonTexture = this->driver->getTexture("ressources/buttons/back.png");
+  if (buttonTexture != nullptr)
+    {
+      image_size = buttonTexture->getSize();
+      this->backButton = this->guienv->addButton(irr::core::rect<irr::s32>(tabctrl->getTabExtraWidth(),
+									   (image_size.Height * 8),
+									   (image_size.Width * 2),
+									   (image_size.Height * 9)),
+							 tabctrl, MenuInGameButton::SUBMENU_BACK, L"");
+      this->backButton->setImage(buttonTexture);
+      this->backButton->setUseAlphaChannel(true);
+      this->backButton->setVisible(false);
+    }
+
 }
 
-EventStatus const &EventReceiver::getEventStatus() const
+void	EventReceiver::setMainButtonsHidden()
 {
-  return this->eventStatus;
+  this->backToGameButton->setVisible(false);
+  this->saveCurrentGameButton->setVisible(false);
+  this->soundOptionButton->setVisible(false);
+  this->backToMenuButton->setVisible(false);
+  this->exitGameButton->setVisible(false);
 }
 
-EventReceiver::EventReceiver(irr::IrrlichtDevice *device)
+void 	EventReceiver::setMainButtonsVisible()
 {
-  for (irr::u32 i = 0; i < irr::KEY_KEY_CODES_COUNT; ++i)
-    this->KeyIsDown[i] = false;
-
-  for(irr::u32 i = 0; i < irr::KEY_KEY_CODES_COUNT; i++)
-    this->KeyIsUp[i] = BS_DOWN;
-
-  this->guienv = device->getGUIEnvironment();
-  this->driver = device->getVideoDriver();
-  this->eventStatus = EventStatus::IN_GAME_MENU;
-  this->device = device;
+  this->backToGameButton->setVisible(true);
+  this->saveCurrentGameButton->setVisible(true);
+  this->soundOptionButton->setVisible(true);
+  this->backToMenuButton->setVisible(true);
+  this->exitGameButton->setVisible(true);
 }
-

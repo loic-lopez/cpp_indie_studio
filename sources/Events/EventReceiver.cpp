@@ -100,6 +100,7 @@ bool	EventReceiver::OnEvent(const irr::SEvent& event)
 		      this->mainSound->setIsPaused(false);
 		      this->isSoundCheckboxChecked = true;
 		    }
+		  *this->playMainSound = this->isSoundCheckboxChecked;
 		  break;
 		}
 	    }

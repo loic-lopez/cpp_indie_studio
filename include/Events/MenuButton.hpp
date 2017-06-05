@@ -40,7 +40,9 @@ enum						MenuInGameButton	: uint8_t
   SAVE_CURRENT_GAME				=			2,
   SOUND_OPTION					=			3,
   BACK_TO_MENU					=			4,
-  EXIT_IN_GAME					=			5
+  EXIT_IN_GAME					=			5,
+  SOUND_OPTION_SUBMENU_SOUND_CHECKBOX		=			6,
+  SUBMENU_BACK					=			7
 };
 
 #endif //CPP_INDIE_STUDIO_MENUBUTTON_HPP

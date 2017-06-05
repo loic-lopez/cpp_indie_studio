@@ -187,7 +187,7 @@ void	MenuEvent::setPlayAGameSubMenu(irr::video::IVideoDriver *driver, irr::gui::
 
 
 
-void MenuEvent::setSubButtonHidden()
+void	MenuEvent::setSubButtonHidden()
 {
   this->checkboxSound->setVisible(false);
   this->backButton->setVisible(false);
@@ -204,7 +204,7 @@ void MenuEvent::setSubButtonHidden()
   this->subtractNbrWormsPerTeamButton->setVisible(false);
 }
 
-void MenuEvent::setPlaySubMenuVisible()
+void	MenuEvent::setPlaySubMenuVisible()
 {
   this->addNbrTeamButton->setVisible(true);
   this->subtractNbrTeamButton->setVisible(true);

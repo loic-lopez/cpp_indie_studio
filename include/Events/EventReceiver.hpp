@@ -16,25 +16,37 @@
 class EventReceiver : public irr::IEventReceiver
 {
 public:
-  explicit EventReceiver(irr::IrrlichtDevice *device);
-  bool 	OnEvent(const irr::SEvent& event) override;
-  virtual bool 	IsKeyDown(irr::EKEY_CODE keyCode) const;
-  virtual bool 	IsKeyUp(irr::EKEY_CODE keyCode);
+  explicit 					EventReceiver(irr::IrrlichtDevice *device);
+  bool 						OnEvent(const irr::SEvent& event) override;
+  virtual 				bool	IsKeyDown(irr::EKEY_CODE keyCode) const;
+  virtual 				bool	IsKeyUp(irr::EKEY_CODE keyCode);
 
   // custom functions
-  void setMenuInGameButtons(irr::gui::IGUITabControl *tabctrl);
-  EventStatus const &getEventStatus() const;
+  void 						setMenuInGameButtons(irr::gui::IGUITabControl *tabctrl);
+  EventStatus 				const	&getEventStatus() const;
+  void						setMainButtonsHidden();
+  void						setMainButtonsVisible();
 
  protected:
-  bool 		KeyIsDown[irr::KEY_KEY_CODES_COUNT];
-  buttonState	KeyIsUp[irr::KEY_KEY_CODES_COUNT];
+  // ESSENTIALS
+  bool 						KeyIsDown[irr::KEY_KEY_CODES_COUNT];
+  buttonState					KeyIsUp[irr::KEY_KEY_CODES_COUNT];
   irr::gui::IGUIEnvironment			*guienv;
   irr::video::IVideoDriver			*driver;
+  irr::IrrlichtDevice				*device;
+
+  // BUTTONS
   irr::gui::IGUIButton				*backToGameButton;
   irr::gui::IGUIButton				*saveCurrentGameButton;
   irr::gui::IGUIButton				*soundOptionButton;
   irr::gui::IGUIButton				*backToMenuButton;
   irr::gui::IGUIButton				*exitGameButton;
-  irr::IrrlichtDevice				*device;
+  irr::gui::IGUIButton				*soundCheckboxButton;
+  irr::video::ITexture				*soundCheckboxCheckedButton;
+  irr::video::ITexture				*soundCheckboxNotCheckedButton;
+  bool						isSoundCheckboxChecked;
+  irr::gui::IGUIButton				*backButton;
+
+  // OTHER
   EventStatus 					eventStatus;
 };

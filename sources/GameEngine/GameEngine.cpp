@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Tue Jun  6 10:49:27 2017 Stanislas Deneubourg
+// Last update Tue Jun  6 11:20:50 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -106,14 +106,14 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->game_start = true;
 	  }
 
-	//	std::cout << "Team " << this->current_team_id_playing << " : ";
+	std::cout << "Team " << this->current_team_id_playing << " : ";
 	this->turn_now = this->teams.at(this->current_team_id_playing).play_team(this->worms, this->device,
 										 this->current_worm_id_playing, this->turn_start);
 	if (this->is_game_paused == false)
-	  {
-	    this->turn_time_left = this->time_before_pause - this->turn_now;
-	    //   std::cout << "Time left : " << this->turn_time_left << std::endl;
-	  }
+	  this->turn_time_left = this->time_before_pause - this->turn_now;
+	else if (this->is_game_paused == true)
+	  this->turn_time_left = this->time_before_pause;
+	std::cout << "Time left : " << this->turn_time_left << std::endl;
 	if (this->turn_time_left < 0)
 	  {
 	    if (this->current_team_id_playing < this->number_of_teams - 1)

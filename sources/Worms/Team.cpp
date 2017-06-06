@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:51:11 2017 Stanislas Deneubourg
-// Last update Tue Jun  6 10:49:36 2017 Stanislas Deneubourg
+// Last update Tue Jun  6 11:20:59 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Team.hpp"
@@ -33,6 +33,6 @@ double	Team::play_team(irr::scene::IAnimatedMeshSceneNode *worms,
 				irr::IrrlichtDevice *device,
 				unsigned int i, std::time_t turn_start)
 {
-  //  std::cout << "Player " << i << " : ";
+  std::cout << "Player " << i << " : ";
   return (this->team_players.at(i).play_worm(worms, device, turn_start));
 }

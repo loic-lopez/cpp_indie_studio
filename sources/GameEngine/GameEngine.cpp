@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Sat Jun  3 17:20:54 2017 Stanislas Deneubourg
+// Last update Tue Jun  6 10:49:27 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -47,6 +47,8 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
   this->number_of_teams = teams;
   this->current_worm_id_playing = 0;
   this->current_team_id_playing = 0;
+  this->time_before_pause = 60;
+  this->is_game_paused = false;
   this->game_start = false;
 }
 
@@ -104,11 +106,14 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->game_start = true;
 	  }
 
-	//std::cout << "Team " << this->current_team_id_playing << " : ";
+	//	std::cout << "Team " << this->current_team_id_playing << " : ";
 	this->turn_now = this->teams.at(this->current_team_id_playing).play_team(this->worms, this->device,
 										 this->current_worm_id_playing, this->turn_start);
-	this->turn_time_left = 60 - this->turn_now;
-	//std::cout << "Time left : " << this->turn_time_left << std::endl;
+	if (this->is_game_paused == false)
+	  {
+	    this->turn_time_left = this->time_before_pause - this->turn_now;
+	    //   std::cout << "Time left : " << this->turn_time_left << std::endl;
+	  }
 	if (this->turn_time_left < 0)
 	  {
 	    if (this->current_team_id_playing < this->number_of_teams - 1)
@@ -122,18 +127,27 @@ EventStatus GameNamespace::GameEngine::launchModel()
 		  this->current_worm_id_playing = 0;
 	      }
 	    this->game_start = false;
+	    this->time_before_pause = 60;
 	  }
-
+	
 	// FIN DE LA BOUCLE DE JEU
 	this->driver->beginScene();
 	this->smgr->drawAll();
 	if (eventStatusMenu != EventStatus::IN_GAME_MENU && this->eventReceiver.IsKeyUp(irr::KEY_ESCAPE))
-	  eventStatusMenu = EventStatus::IN_GAME_MENU;
+	  {
+	    eventStatusMenu = EventStatus::IN_GAME_MENU;
+	    this->is_game_paused = true;
+	    this->time_before_pause = this->turn_time_left;
+	  }
 	if (eventStatusMenu == EventStatus::IN_GAME_MENU)
 	  {
 	    eventStatusMenu = this->menuInGame->launchModel();
 	    if (this->eventReceiver.IsKeyUp(irr::KEY_ESCAPE))
-	      eventStatusMenu = EventStatus::STAND_BY;
+	      {
+		eventStatusMenu = EventStatus::STAND_BY;
+		this->is_game_paused = false;
+		this->turn_start = std::time(nullptr);
+	      }
 	    else if (eventStatusMenu == EventStatus::QUIT || eventStatusMenu == EventStatus::BACK_TO_MENU)
 	      break;
 	  }

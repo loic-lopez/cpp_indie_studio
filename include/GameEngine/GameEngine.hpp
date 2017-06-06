@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Sat Jun  3 17:14:28 2017 Stanislas Deneubourg
+// Last update Tue Jun  6 10:36:57 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -89,6 +89,8 @@ namespace	GameNamespace
     double						turn_now;
     bool						game_start;
     double						turn_time_left;
+    double						time_before_pause;
+    bool						is_game_paused;
     
     virtual	void					setModelProperties();
     virtual	void					mapGen();

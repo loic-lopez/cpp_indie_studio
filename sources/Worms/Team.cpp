@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:51:11 2017 Stanislas Deneubourg
-// Last update Tue Jun  6 15:40:10 2017 Stanislas Deneubourg
+// Last update Wed Jun  7 11:56:59 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Team.hpp"
@@ -30,7 +30,6 @@ Team::~Team()
 
 double	Team::turn_of_that_team(unsigned int i, std::time_t turn_start)
 {
-  std::cout << "Player " << i << " : ";
   return (this->team_players.at(i).turn_of_that_worm(turn_start));
 }
 

@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Wed Jun  7 09:44:43 2017 Stanislas Deneubourg
+// Last update Wed Jun  7 11:26:37 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -89,6 +89,8 @@ namespace	GameNamespace
     bool						game_start;
     double						turn_time_left;
     double						time_before_pause;
+    double						time_before_sudden_death;
+    double						time_before_sudden_death_end_turn;
     bool						is_game_paused;
     irr::gui::IGUIEnvironment				*guienv;
     irr::gui::IGUISpriteBank				*spriteBank;

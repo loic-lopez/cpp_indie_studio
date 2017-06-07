@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Wed Jun  7 09:47:18 2017 Stanislas Deneubourg
+// Last update Wed Jun  7 12:01:30 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -48,6 +48,8 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
   this->current_worm_id_playing = 0;
   this->current_team_id_playing = 0;
   this->time_before_pause = 60;
+  this->time_before_sudden_death = 600;
+  this->time_before_sudden_death_end_turn = this->time_before_sudden_death;
   this->is_game_paused = false;
   this->game_start = false;
   this->guienv = this->device->getGUIEnvironment();
@@ -88,10 +90,12 @@ EventStatus GameNamespace::GameEngine::launchModel()
   EventStatus 	eventStatusMenu = EventStatus::STAND_BY;
   irr::s32	lastFPS = -1;
 
-  this->menuInGame->setModelProperties();
+  this->menuInGame->setModelProperties(); // Set des propriétés du menu ingame
   while(this->device->run())
     if (this->device->isWindowActive())
       {
+	// Affichage des FPS et du driver choisi
+	
 	const irr::s32 fps = this->driver->getFPS();
 	if (lastFPS != fps)
 	  {
@@ -110,16 +114,25 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	if (!this->game_start)
 	  {
-	    this->turn_start = std::time(nullptr);
+	    this->turn_start = std::time(nullptr); // Set du timer a chaque tour
 	    this->game_start = true;
 	  }
-	std::cout << "Team " << this->current_team_id_playing << " : ";
-	this->turn_now = this->teams.at(this->current_team_id_playing).turn_of_that_team(this->current_worm_id_playing, this->turn_start);
+        
+	this->turn_now = this->teams.at(this->current_team_id_playing).turn_of_that_team(this->current_worm_id_playing, this->turn_start); // Revoie le temps écoulé depuis le début du tour
+
+	// Bloquage du timer en cas de pause
 	if (this->is_game_paused == false)
-	  this->turn_time_left = this->time_before_pause - this->turn_now;
+	  {
+	    this->turn_time_left = this->time_before_pause - this->turn_now;
+	    this->time_before_sudden_death = this->time_before_sudden_death_end_turn - turn_time_left;
+	  }
 	else if (this->is_game_paused == true)
-	  this->turn_time_left = this->time_before_pause;
-	std::cout << "Time left : " << this->turn_time_left << std::endl;
+	  {
+	    this->turn_time_left = this->time_before_pause;
+	    this->time_before_sudden_death = this->time_before_sudden_death_end_turn - turn_time_left;
+	  }
+
+	// Si le temps est écoulé, au joueur suivant de jouer
 	if (this->turn_time_left < 0)
 	  {
 	    if (this->current_team_id_playing < this->number_of_teams - 1)
@@ -134,7 +147,10 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	      }
 	    this->game_start = false;
 	    this->time_before_pause = 60;
+	    this->time_before_sudden_death_end_turn -= turn_time_left;
 	  }
+
+	// Fonctions de mouvements des worms
 	if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_Q))
 	  this->teams.at(this->current_team_id_playing).team_move_left(this->current_worm_id_playing, this->device);
 	else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
@@ -145,26 +161,55 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	this->smgr->drawAll();
 	if (this->spriteBank->getTexture(0) != nullptr)
 	  {
-	    int			time_left_to_int = std::round(this->turn_time_left);
-	    std::string		string_timer = std::to_string(time_left_to_int);
+	    int			turn_time_left_to_int = std::round(this->turn_time_left);	// Affichage du timer du tour
+	    int			time_before_sudden_death_to_int = std::round(this->time_before_sudden_death); // Affichage du timer de mort subite
+	    std::string		string_turn_timer = std::to_string(turn_time_left_to_int);
+	    std::string		string_sudden_death_time;
+
+	    if (this->time_before_sudden_death > 60)
+	      {
+		string_sudden_death_time = std::to_string(time_before_sudden_death_to_int / 60);
+		string_sudden_death_time += ":";
+		string_sudden_death_time += std::to_string(60 - (time_before_sudden_death_to_int % 60));
+	      }
+	    else
+	      string_sudden_death_time = std::to_string(time_before_sudden_death_to_int % 60);
+	    std::cout << string_sudden_death_time << std::endl;		
 	    this->spriteBank->draw2DSprite(irr::u32(0),
 					   irr::core::position2di(this->screenSize.Width * 9 / 10,
 								  this->screenSize.Height * 9 / 10),
 					   nullptr,
 					   irr::video::SColor(255, 255, 255, 255), 0);
+
+	    // Affichage des deux timers dans la box
+	    
 	    if (this->turn_time_left > 10)
-	      this->font->draw(string_timer.c_str(),
+	      this->font->draw(string_turn_timer.c_str(),
 			       irr::core::rect<irr::s32>(this->screenSize.Width * 9 / 10 + 30,
 							 this->screenSize.Height * 9 / 10 + 30,
 							 this->screenSize.Width * 9 / 10 + 60,
 							 this->screenSize.Height * 9 / 10 + 60),
 			       irr::video::SColor(255, 255, 190, 0));
 	    else
-	      this->font->draw(string_timer.c_str(),
+	      this->font->draw(string_turn_timer.c_str(),
                                irr::core::rect<irr::s32>(this->screenSize.Width * 9 / 10 + 30,
                                                          this->screenSize.Height * 9 / 10 + 30,
                                                          this->screenSize.Width * 9 / 10 + 60,
                                                          this->screenSize.Height * 9 / 10 + 60),
+                               irr::video::SColor(255, 255, 0, 0));
+	    if (this->time_before_sudden_death > 60)
+              this->font->draw(string_sudden_death_time.c_str(),
+                               irr::core::rect<irr::s32>(this->screenSize.Width * 9 / 10 + 5,
+                                                         this->screenSize.Height * 9 / 10 + 5,
+                                                         this->screenSize.Width * 9 / 10 + 25,
+                                                         this->screenSize.Height * 9 / 10 + 25),
+                               irr::video::SColor(255, 255, 190, 0));
+            else
+              this->font->draw(string_sudden_death_time.c_str(),
+                               irr::core::rect<irr::s32>(this->screenSize.Width * 9 / 10 + 5,
+                                                         this->screenSize.Height * 9 / 10 + 5,
+                                                         this->screenSize.Width * 9 / 10 + 25,
+                                                         this->screenSize.Height * 9 / 10 + 25),
                                irr::video::SColor(255, 255, 0, 0));
 	  }
 	if (eventStatusMenu != EventStatus::IN_GAME_MENU && this->eventReceiver.IsKeyUp(irr::KEY_ESCAPE))

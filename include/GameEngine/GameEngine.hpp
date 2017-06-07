@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Wed Jun  7 11:26:37 2017 Stanislas Deneubourg
+// Last update Wed Jun  7 12:56:21 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -59,6 +59,8 @@ namespace	GameNamespace
     std::string						worm;
     const size_t					nb_shapes;
     float						the_farthest_map_point;
+
+    //Génération de map
     int                                                 fillProbe;
     int							max_y;
     int                                                 r1_cutoff;
@@ -66,6 +68,8 @@ namespace	GameNamespace
     int                                                 size_x;
     int                                                 size_y;
     int                                                 generations;
+
+    //Variables relatives à la boucle de jeu
     irr::u32						lastFrame;
     irr::f32						cameraMovementSpeed;
     irr::scene::IMeshSceneNode				*groundObject;
@@ -76,6 +80,8 @@ namespace	GameNamespace
     irr::f32						block_size;
     irr::scene::ISceneNode				*skybox;
     irr::scene::ITerrainSceneNode			*backgroundTerrain;
+
+    //Données des tours
     unsigned int					worms_per_team;
     unsigned int	       				number_of_human_teams;
     unsigned int			      		number_of_bot_teams;
@@ -84,6 +90,8 @@ namespace	GameNamespace
     std::vector<irr::core::vector3df>			worms_relative_pos;
     unsigned int					current_worm_id_playing;
     unsigned int					current_team_id_playing;
+
+    //Variables timer
     std::time_t						turn_start;
     double						turn_now;
     bool						game_start;
@@ -92,6 +100,8 @@ namespace	GameNamespace
     double						time_before_sudden_death;
     double						time_before_sudden_death_end_turn;
     bool						is_game_paused;
+
+    //Affichage timer
     irr::gui::IGUIEnvironment				*guienv;
     irr::gui::IGUISpriteBank				*spriteBank;
     irr::core::dimension2d<irr::u32>			timerSize;

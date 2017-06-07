@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Tue Jun  6 10:36:57 2017 Stanislas Deneubourg
+// Last update Wed Jun  7 09:44:43 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -16,6 +16,7 @@
 #include <string>
 #include <iostream>
 #include <ctime>
+#include <cmath>
 #include <cstdlib>
 #include "Interface/IModel.hpp"
 #include "Model/MenuInGameModel.hpp"
@@ -68,7 +69,6 @@ namespace	GameNamespace
     irr::u32						lastFrame;
     irr::f32						cameraMovementSpeed;
     irr::scene::IMeshSceneNode				*groundObject;
-    irr::scene::IAnimatedMeshSceneNode			*worms;
     EventReceiver					eventReceiver;
     std::unique_ptr<MenuInGame>				menuInGame;
     bool						playSound;
@@ -76,7 +76,6 @@ namespace	GameNamespace
     irr::f32						block_size;
     irr::scene::ISceneNode				*skybox;
     irr::scene::ITerrainSceneNode			*backgroundTerrain;
-    std::vector<irr::scene::IAnimatedMeshSceneNode *>	worm_mesh;
     unsigned int					worms_per_team;
     unsigned int	       				number_of_human_teams;
     unsigned int			      		number_of_bot_teams;
@@ -91,6 +90,13 @@ namespace	GameNamespace
     double						turn_time_left;
     double						time_before_pause;
     bool						is_game_paused;
+    irr::gui::IGUIEnvironment				*guienv;
+    irr::gui::IGUISpriteBank				*spriteBank;
+    irr::core::dimension2d<irr::u32>			timerSize;
+    irr::core::dimension2du				screenSize;
+    irr::gui::IGUISkin					*skin;
+    irr::gui::IGUIFont					*font;
+    
     
     virtual	void					setModelProperties();
     virtual	void					mapGen();

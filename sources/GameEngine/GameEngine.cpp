@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Tue Jun  6 11:28:00 2017 Stanislas Deneubourg
+// Last update Wed Jun  7 09:47:18 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -50,6 +50,14 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
   this->time_before_pause = 60;
   this->is_game_paused = false;
   this->game_start = false;
+  this->guienv = this->device->getGUIEnvironment();
+  this->screenSize = this->driver->getScreenSize();
+  this->skin = this->guienv->createSkin(irr::gui::EGST_WINDOWS_METALLIC);
+  this->guienv->setSkin(this->skin);
+  this->skin->drop();
+  this->font = this->guienv->getFont("ressources/fonts/SoftMarshmallow.png");
+  if (this->font != nullptr)
+    this->guienv->getSkin()->setFont(this->font);
 }
 
 GameNamespace::GameEngine::~GameEngine()
@@ -105,15 +113,13 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->turn_start = std::time(nullptr);
 	    this->game_start = true;
 	  }
-
-	//std::cout << "Team " << this->current_team_id_playing << " : ";
-	this->turn_now = this->teams.at(this->current_team_id_playing).play_team(this->worms, this->device,
-										 this->current_worm_id_playing, this->turn_start);
+	std::cout << "Team " << this->current_team_id_playing << " : ";
+	this->turn_now = this->teams.at(this->current_team_id_playing).turn_of_that_team(this->current_worm_id_playing, this->turn_start);
 	if (this->is_game_paused == false)
 	  this->turn_time_left = this->time_before_pause - this->turn_now;
 	else if (this->is_game_paused == true)
 	  this->turn_time_left = this->time_before_pause;
-	//	std::cout << "Time left : " << this->turn_time_left << std::endl;
+	std::cout << "Time left : " << this->turn_time_left << std::endl;
 	if (this->turn_time_left < 0)
 	  {
 	    if (this->current_team_id_playing < this->number_of_teams - 1)
@@ -129,10 +135,38 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->game_start = false;
 	    this->time_before_pause = 60;
 	  }
+	if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_Q))
+	  this->teams.at(this->current_team_id_playing).team_move_left(this->current_worm_id_playing, this->device);
+	else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
+	  this->teams.at(this->current_team_id_playing).team_move_right(this->current_worm_id_playing, this->device);
 	
 	// FIN DE LA BOUCLE DE JEU
 	this->driver->beginScene();
 	this->smgr->drawAll();
+	if (this->spriteBank->getTexture(0) != nullptr)
+	  {
+	    int			time_left_to_int = std::round(this->turn_time_left);
+	    std::string		string_timer = std::to_string(time_left_to_int);
+	    this->spriteBank->draw2DSprite(irr::u32(0),
+					   irr::core::position2di(this->screenSize.Width * 9 / 10,
+								  this->screenSize.Height * 9 / 10),
+					   nullptr,
+					   irr::video::SColor(255, 255, 255, 255), 0);
+	    if (this->turn_time_left > 10)
+	      this->font->draw(string_timer.c_str(),
+			       irr::core::rect<irr::s32>(this->screenSize.Width * 9 / 10 + 30,
+							 this->screenSize.Height * 9 / 10 + 30,
+							 this->screenSize.Width * 9 / 10 + 60,
+							 this->screenSize.Height * 9 / 10 + 60),
+			       irr::video::SColor(255, 255, 190, 0));
+	    else
+	      this->font->draw(string_timer.c_str(),
+                               irr::core::rect<irr::s32>(this->screenSize.Width * 9 / 10 + 30,
+                                                         this->screenSize.Height * 9 / 10 + 30,
+                                                         this->screenSize.Width * 9 / 10 + 60,
+                                                         this->screenSize.Height * 9 / 10 + 60),
+                               irr::video::SColor(255, 255, 0, 0));
+	  }
 	if (eventStatusMenu != EventStatus::IN_GAME_MENU && this->eventReceiver.IsKeyUp(irr::KEY_ESCAPE))
 	  {
 	    eventStatusMenu = EventStatus::IN_GAME_MENU;
@@ -161,27 +195,20 @@ EventStatus GameNamespace::GameEngine::launchModel()
   return (eventStatusMenu);
 }
 
-static void fixRandPosition(int &value, int stop)
-{
-  for (int end = value; end < stop; ++end)
-    {
-      end = std::rand() % 30;
-      value = end;
-    }
-  if (value == stop)
-    {
-      for (int end = value; end == stop; ++end)
-	{
-	  end = std::rand() % 30;
-	  value = end;
-	}
-      if (value < stop)
-	fixRandPosition(value, stop);
-    }
-}
-
 void	GameNamespace::GameEngine::setModelProperties()
 {
+  irr::video::ITexture		*timer;
+  
+  if (this->guienv->getSpriteBank(irr::io::path("ressources")) == nullptr)
+    this->spriteBank = this->guienv->addEmptySpriteBank(irr::io::path("ressources"));
+  else
+    this->spriteBank = this->guienv->getSpriteBank(irr::io::path("ressources"));
+  timer = this->driver->getTexture("ressources/images/timer.png");
+  if (timer != nullptr)
+    {
+      this->timerSize = timer->getSize();
+      this->spriteBank->addTextureAsSprite(timer);
+    }
   this->mapGen();
   this->backgroundGen();
   this->teamsGen();

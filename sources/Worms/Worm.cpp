@@ -5,13 +5,12 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:43:41 2017 Stanislas Deneubourg
-// Last update Sat Jun  3 17:05:47 2017 Stanislas Deneubourg
+// Last update Wed Jun  7 09:16:32 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Worm.hpp"
 
 Worm::Worm(int nb, irr::core::vector3df vector_pos,
-	   irr::scene::IAnimatedMeshSceneNode *worm_mesh,
 	   irr::IrrlichtDevice *device, std::string worm_file,
 	   bool	is_bot)
 {
@@ -22,32 +21,28 @@ Worm::Worm(int nb, irr::core::vector3df vector_pos,
   this->damage_received = 0;
   this->damage_dealt = 0;
   this->total_time = 0;
+  this->pos_x = vector_pos.X;
+  this->pos_y = vector_pos.Y;
+  this->pos_z = vector_pos.Z;
   this->worm_type = static_cast<Worm::WormType>(is_bot);
   this->worm_position = vector_pos;
-  irr::scene::IAnimatedMesh* m = device->getSceneManager()->getMesh(worm_file.c_str());
-  if (!m)
+  this->m = device->getSceneManager()->getMesh(worm_file.c_str());
+  if (!this->m)
     return;
-  irr::scene::IAnimatedMeshSceneNode* animworms = device->getSceneManager()->addAnimatedMeshSceneNode(m);
-  animworms->setAnimationSpeed(30);
-  worm_mesh = animworms;
-  worm_mesh->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-  worm_mesh->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
+  this->worm_mesh = device->getSceneManager()->addAnimatedMeshSceneNode(m);
+  this->worm_mesh->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  this->worm_mesh->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
   if (dir == 0)
-    {
-      this->looking_direction = 'r';
-      worm_mesh->setRotation(irr::core::vector3df(0.0, 90.0, 0.0));
-    }
+    this->worm_mesh->setRotation(irr::core::vector3df(0.0, 90.0, 0.0));
   else if (dir == 1)
-    {
-      this->looking_direction = 'l';
-      worm_mesh->setRotation(irr::core::vector3df(0.0, -90.0, 0.0));
-    }
+    this->worm_mesh->setRotation(irr::core::vector3df(0.0, -90.0, 0.0));
   else
-    {
-      this->looking_direction = 'm';
-      worm_mesh->setRotation(irr::core::vector3df(0.0, 180.0, 0.0));
-    }
-  worm_mesh->setPosition(vector_pos);
+    this->worm_mesh->setRotation(irr::core::vector3df(0.0, 180.0, 0.0));
+  this->looking_direction = static_cast<Worm::LookingDirection>(dir);
+  this->worm_mesh->setFrameLoop(0, 15);
+  this->worm_mesh->setAnimationSpeed(5);
+  std::cout << this->worm_mesh->getEndFrame() << std::endl;
+  this->worm_mesh->setPosition(irr::core::vector3df(this->pos_x, this->pos_y, this->pos_z));
 }
 
 Worm::~Worm()
@@ -85,24 +80,37 @@ unsigned int Worm::getDamageReceived()
   return (this->damage_received);
 }
 
-double	Worm::play_worm(irr::scene::IAnimatedMeshSceneNode *worms,
-				irr::IrrlichtDevice *device,
-				std::time_t turn_start)
+double	Worm::turn_of_that_worm(std::time_t turn_start)
 {
   std::time_t	end = std::time(NULL);
-  
-  (void)worms;
-  (void)device;
-
   this->total_time = std::difftime(end, turn_start);
-  
-  // if (this->worm_type == Worm::WormType::HUMAN_WORM)
-  //   {
-  //     std::cout << "Human worm turn" << std::endl;
-  //   }
-  // else if (this->worm_type == Worm::WormType::BOT_WORM)
-  //   {
-  //     std::cout << "Bot worm turn" << std::endl;
-  //   }
   return(this->total_time);
+}
+
+void	Worm::worm_move_left(irr::IrrlichtDevice *device)
+{
+  irr::f32		worm_movement_speed = 0.07f;
+
+  this->pos_x -= worm_movement_speed;
+  if (this->looking_direction == Worm::LookingDirection::RIGHT
+      || this->looking_direction == Worm::LookingDirection::FRONT)
+    {
+      this->worm_mesh->setRotation(irr::core::vector3df(0.0, -90.0, 0.0));
+      this->looking_direction = Worm::LookingDirection::LEFT;
+    }
+  this->worm_mesh->setPosition(irr::core::vector3df(this->pos_x, this->pos_y, this->pos_z));
+}
+
+void	Worm::worm_move_right(irr::IrrlichtDevice *device)
+{
+  irr::f32		worm_movement_speed = 0.07f;
+  
+  this->pos_x += worm_movement_speed;
+  if (this->looking_direction == Worm::LookingDirection::LEFT
+      || this->looking_direction == Worm::LookingDirection::FRONT)
+    {
+      this->worm_mesh->setRotation(irr::core::vector3df(0.0, 90.0, 0.0));
+      this->looking_direction = Worm::LookingDirection::RIGHT;
+    }
+  this->worm_mesh->setPosition(irr::core::vector3df(this->pos_x, this->pos_y, this->pos_z));
 }

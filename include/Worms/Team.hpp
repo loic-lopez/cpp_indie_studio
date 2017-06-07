@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:50:07 2017 Stanislas Deneubourg
-// Last update Sat Jun  3 16:55:54 2017 Stanislas Deneubourg
+// Last update Tue Jun  6 15:39:43 2017 Stanislas Deneubourg
 //
 
 #ifndef TEAM_HPP
@@ -31,13 +31,12 @@ private:
 public:
   Team(unsigned int players_, unsigned int team_nb,
        std::vector<irr::core::vector3df> vector_pos,
-       irr::scene::IAnimatedMeshSceneNode *worm_mesh,
        irr::IrrlichtDevice *device,
        std::string worm_file, bool is_bot);
   ~Team();
-  double		play_team(irr::scene::IAnimatedMeshSceneNode *,
-				  irr::IrrlichtDevice *,
-				  unsigned int, std::time_t);
+  double		turn_of_that_team(unsigned int, std::time_t);
+  void			team_move_left(unsigned int, irr::IrrlichtDevice *);
+  void			team_move_right(unsigned int, irr::IrrlichtDevice *);
 };
 
 #endif

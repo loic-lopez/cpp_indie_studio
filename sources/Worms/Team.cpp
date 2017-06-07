@@ -5,40 +5,40 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:51:11 2017 Stanislas Deneubourg
-// Last update Wed Jun  7 11:56:59 2017 Stanislas Deneubourg
+// Last update Wed Jun  7 16:39:12 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Team.hpp"
 
-Team::Team(unsigned int players_, unsigned int team_nb,
-	   std::vector<irr::core::vector3df> vector_pos,
+Team::Team(unsigned int players_, unsigned int teamNb,
+	   std::vector<irr::core::vector3df> vectorPos,
 	   irr::IrrlichtDevice *device,
-	   std::string worm_file, bool is_bot)
+	   std::string wormFile, bool isBot)
 {
   this->players = players_;
-  this->team_name = "Humans ";
-  this->team_name += team_nb;
+  this->teamName = "Humans ";
+  this->teamName += teamNb;
   for (unsigned int i = 0; i < this->players; i++)
-    this->team_players.push_back(Worm(i, vector_pos.at(i), device, worm_file, is_bot));
+    this->teamPlayers.push_back(Worm(i, vectorPos.at(i), device, wormFile, isBot));
 }
 
 Team::~Team()
 {
-  for (int i = this->team_players.size() != 0; i > 0; i = this->team_players.size())
-    this->team_players.pop_back();
+  for (int i = this->teamPlayers.size() != 0; i > 0; i = this->teamPlayers.size())
+    this->teamPlayers.pop_back();
 }
 
-double	Team::turn_of_that_team(unsigned int i, std::time_t turn_start)
+double	Team::turnOfThatTeam(unsigned int i, std::time_t turnStart)
 {
-  return (this->team_players.at(i).turn_of_that_worm(turn_start));
+  return (this->teamPlayers.at(i).turnOfThatWorm(turnStart));
 }
 
-void	Team::team_move_left(unsigned int i, irr::IrrlichtDevice *device)
+void	Team::teamMoveLeft(unsigned int i, irr::IrrlichtDevice *device)
 {
-  this->team_players.at(i).worm_move_left(device);
+  this->teamPlayers.at(i).wormMoveLeft(device);
 }
 
-void	Team::team_move_right(unsigned int i, irr::IrrlichtDevice *device)
+void	Team::teamMoveRight(unsigned int i, irr::IrrlichtDevice *device)
 {
-  this->team_players.at(i).worm_move_right(device);
+  this->teamPlayers.at(i).wormMoveRight(device);
 }

@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Sat Jun  3 17:10:57 2017 Stanislas Deneubourg
-// Last update Sat Jun  3 17:21:18 2017 Stanislas Deneubourg
+// Last update Wed Jun  7 13:40:33 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -48,25 +48,25 @@ void	GameNamespace::GameEngine::cameraMovements()
       realTimeCameraPosition.Z -= this->cameraMovementSpeed * frameDeltaTime;
       realTimeCameraTarget.Z -= this->cameraMovementSpeed * frameDeltaTime;
     }
-  if (realTimeCameraPosition.X >= this->the_farthest_map_point + 50)
+  if (realTimeCameraPosition.X >= this->theFarthestMapPoint + 50)
     {
-      realTimeCameraPosition.X = this->the_farthest_map_point + 50;
-      realTimeCameraTarget.X = this->the_farthest_map_point + 50;
+      realTimeCameraPosition.X = this->theFarthestMapPoint + 50;
+      realTimeCameraTarget.X = this->theFarthestMapPoint + 50;
     }
   else if (realTimeCameraPosition.X <= -50)
     {
       realTimeCameraPosition.X = -50;
       realTimeCameraTarget.X = -50;
     }
-  if (realTimeCameraPosition.Y >= this->size_y)
+  if (realTimeCameraPosition.Y >= this->sizeY)
     {
-      realTimeCameraPosition.Y = this->size_y;
-      realTimeCameraTarget.Y = this->size_y;
+      realTimeCameraPosition.Y = this->sizeY;
+      realTimeCameraTarget.Y = this->sizeY;
     }
-  else if (realTimeCameraPosition.Y <= -this->size_y - 5)
+  else if (realTimeCameraPosition.Y <= -this->sizeY - 5)
     {
-      realTimeCameraPosition.Y = -this->size_y - 5;
-      realTimeCameraTarget.Y = -this->size_y - 5;
+      realTimeCameraPosition.Y = -this->sizeY - 5;
+      realTimeCameraTarget.Y = -this->sizeY - 5;
     }
   if (realTimeCameraPosition.Z >= -20)
     {

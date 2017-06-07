@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Wed Jun  7 12:56:21 2017 Stanislas Deneubourg
+// Last update Wed Jun  7 13:16:36 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -51,22 +51,22 @@ namespace	GameNamespace
     irr::scene::ISceneManager				*smgr;
     irr::video::IVideoDriver				*driver;
     irr::IrrlichtDevice					*device;
-    irr::scene::IAnimatedMesh				*water_mesh;
+    irr::scene::IAnimatedMesh				*waterMesh;
     irr::scene::ISceneNode				*sea;
-    std::string						file_texture;
-    std::string						worm_texture;
-    std::string						file_shape;
+    std::string						fileTexture;
+    std::string						wormTexture;
+    std::string						fileShape;
     std::string						worm;
-    const size_t					nb_shapes;
-    float						the_farthest_map_point;
+    const size_t					nbShapes;
+    float						theFarthestMapPoint;
 
     //Génération de map
     int                                                 fillProbe;
-    int							max_y;
-    int                                                 r1_cutoff;
-    int                                                 r2_cutoff;
-    int                                                 size_x;
-    int                                                 size_y;
+    int							maxY;
+    int                                                 r1Cutoff;
+    int                                                 r2Cutoff;
+    int                                                 sizeX;
+    int                                                 sizeY;
     int                                                 generations;
 
     //Variables relatives à la boucle de jeu
@@ -77,29 +77,29 @@ namespace	GameNamespace
     std::unique_ptr<MenuInGame>				menuInGame;
     bool						playSound;
     bool						drawWalls;
-    irr::f32						block_size;
+    irr::f32						blockSize;
     irr::scene::ISceneNode				*skybox;
     irr::scene::ITerrainSceneNode			*backgroundTerrain;
 
     //Données des tours
-    unsigned int					worms_per_team;
-    unsigned int	       				number_of_human_teams;
-    unsigned int			      		number_of_bot_teams;
-    unsigned int					number_of_teams;
+    unsigned int					wormsPerTeam;
+    unsigned int	       				numberOfHumanTeams;
+    unsigned int			      		numberOfBotTeams;
+    unsigned int					numberOfTeams;
     std::vector<Team>					teams;
-    std::vector<irr::core::vector3df>			worms_relative_pos;
-    unsigned int					current_worm_id_playing;
-    unsigned int					current_team_id_playing;
+    std::vector<irr::core::vector3df>			wormsRelativePos;
+    unsigned int					currentWormIdPlaying;
+    unsigned int					currentTeamIdPlaying;
 
     //Variables timer
-    std::time_t						turn_start;
-    double						turn_now;
-    bool						game_start;
-    double						turn_time_left;
-    double						time_before_pause;
-    double						time_before_sudden_death;
-    double						time_before_sudden_death_end_turn;
-    bool						is_game_paused;
+    std::time_t						turnStart;
+    double						turnNow;
+    bool						gameStart;
+    double						turnTimeLeft;
+    double						timeBeforePause;
+    double						timeBeforeSuddenDeath;
+    double						timeBeforeSuddenDeathEndTurn;
+    bool						isGamePaused;
 
     //Affichage timer
     irr::gui::IGUIEnvironment				*guienv;

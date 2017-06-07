@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:39:05 2017 Stanislas Deneubourg
-// Last update Tue Jun  6 15:38:13 2017 Stanislas Deneubourg
+// Last update Wed Jun  7 16:35:10 2017 Stanislas Deneubourg
 //
 
 #ifndef	WORM_HPP
@@ -36,21 +36,31 @@ private:
       LEFT		=	1,
       FRONT		=	2
     };
+
+  enum class	WormStatus : uint8_t
+    {
+      WALKING		=	0,
+      IN_INVENTORY	=	1,
+      HOLDING_WEAPON	=	2,
+      USED_WEAPON	=	3
+    };
   
-  std::string				worm_name;
-  int					health_points;
-  unsigned int				damage_received;
-  unsigned int				damage_dealt;
-  irr::core::vector3df			worm_position;
-  WormType				worm_type;
-  LookingDirection			looking_direction;
+  std::string				wormName;
+  int					healthPoints;
+  unsigned int				damageReceived;
+  unsigned int				damageDealt;
+  irr::core::vector3df			wormPosition;
+  WormType				wormType;
+  LookingDirection			lookingDirection;
   bool					canPlay;
-  double				total_time;
-  irr::f32				pos_x;
-  irr::f32				pos_y;
-  irr::f32				pos_z;
+  double				totalTime;
+  irr::f32				posX;
+  irr::f32				posY;
+  irr::f32				posZ;
   irr::scene::IAnimatedMesh		*m;
-  irr::scene::IAnimatedMeshSceneNode	*worm_mesh;
+  irr::scene::IAnimatedMeshSceneNode	*wormMesh;
+  WormStatus				wormStatus;
+  //  Weapon				weaponSelected;
   
   void			setHealthPoints(int);
   void			setDamageDealt(int);
@@ -64,9 +74,9 @@ public:
   int			getHealthPoints();
   unsigned int		getDamageDealt();
   unsigned int		getDamageReceived();
-  double		turn_of_that_worm(std::time_t);
-  void			worm_move_left(irr::IrrlichtDevice *);
-  void			worm_move_right(irr::IrrlichtDevice *);
+  double		turnOfThatWorm(std::time_t);
+  void			wormMoveLeft(irr::IrrlichtDevice *);
+  void			wormMoveRight(irr::IrrlichtDevice *);
 };
 
 #endif

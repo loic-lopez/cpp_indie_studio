@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:50:07 2017 Stanislas Deneubourg
-// Last update Tue Jun  6 15:39:43 2017 Stanislas Deneubourg
+// Last update Wed Jun  7 16:30:03 2017 Stanislas Deneubourg
 //
 
 #ifndef TEAM_HPP
@@ -23,20 +23,20 @@ class	Team
 {
 private:
   
-  std::vector<Worm>			team_players;
-  std::string				team_name;
+  std::vector<Worm>			teamPlayers;
+  std::string				teamName;
   unsigned int				players;
-  std::vector<irr::core::vector3df>	human_worms_relative_pos;
+  std::vector<irr::core::vector3df>	humanWormsRelativePos;
   
 public:
-  Team(unsigned int players_, unsigned int team_nb,
-       std::vector<irr::core::vector3df> vector_pos,
-       irr::IrrlichtDevice *device,
-       std::string worm_file, bool is_bot);
+  Team(unsigned int, unsigned int,
+       std::vector<irr::core::vector3df>,
+       irr::IrrlichtDevice *,
+       std::string, bool);
   ~Team();
-  double		turn_of_that_team(unsigned int, std::time_t);
-  void			team_move_left(unsigned int, irr::IrrlichtDevice *);
-  void			team_move_right(unsigned int, irr::IrrlichtDevice *);
+  double		turnOfThatTeam(unsigned int, std::time_t);
+  void			teamMoveLeft(unsigned int, irr::IrrlichtDevice *);
+  void			teamMoveRight(unsigned int, irr::IrrlichtDevice *);
 };
 
 #endif

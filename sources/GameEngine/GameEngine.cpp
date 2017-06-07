@@ -5,53 +5,53 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Wed Jun  7 12:01:30 2017 Stanislas Deneubourg
+// Last update Wed Jun  7 17:24:29 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
 
 GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
-				      const size_t &nb_textures, const size_t &nb_shapes, irr::IrrlichtDevice *device,
-				      const bool &playSound, const bool &drawWalls, const irr::s32 &bot_teams,
-				      const irr::s32 &human_teams, const irr::s32 &teams, const irr::s32 &worms_in_each_team,
+				      const size_t &nbTextures, const size_t &nbShapes, irr::IrrlichtDevice *device,
+				      const bool &playSound, const bool &drawWalls, const irr::s32 &botTeams,
+				      const irr::s32 &humanTeams, const irr::s32 &teams, const irr::s32 &wormsInEachTeam,
 				      irrklang::ISound *mainSound, bool *playMainSound) : smgr(smgr), driver(driver),
 											  device(device),
-												nb_shapes(nb_shapes),
-												eventReceiver(device,
-													      mainSound,
-													      playMainSound),
-												menuInGame(new MenuInGame(this->device,
-															  this->driver,
-															  this->smgr,
-															  this->eventReceiver)),
-												playSound(playSound),
-												drawWalls(drawWalls)
+											  nbShapes(nbShapes),
+											  eventReceiver(device,
+													mainSound,
+													playMainSound),
+											  menuInGame(new MenuInGame(this->device,
+														    this->driver,
+														    this->smgr,
+														    this->eventReceiver)),
+											  playSound(playSound),
+											  drawWalls(drawWalls)
 {
-  this->file_shape = "./ressources/shapes/Rock_0.dae";
+  this->fileShape = "./ressources/shapes/Rock_0.dae";
   this->worm = "ressources/textures/Worm/Worm.obj";
   this->lastFrame = this->device->getTimer()->getTime();
   this->device->setEventReceiver(&this->eventReceiver);
   this->cameraMovementSpeed = 50.0f;
   this->generations = 5;
-  this->size_x = 40;
-  this->size_y = 40;
+  this->sizeX = 40;
+  this->sizeY = 40;
   this->fillProbe = (std::rand() % 21) + 30;
-  this->r1_cutoff = 3;
-  this->r2_cutoff = 2;
-  this->file_texture = "./ressources/textures/ground/ground" + std::to_string(std::rand() % nb_textures) + ".bmp";
-  this->worm_texture = "./ressources/textures/Worm/WormTextures.png";
-  this->max_y = this->size_y * (-1);
-  this->worms_per_team = worms_in_each_team;
-  this->number_of_human_teams = human_teams;
-  this->number_of_bot_teams = bot_teams;
-  this->number_of_teams = teams;
-  this->current_worm_id_playing = 0;
-  this->current_team_id_playing = 0;
-  this->time_before_pause = 60;
-  this->time_before_sudden_death = 600;
-  this->time_before_sudden_death_end_turn = this->time_before_sudden_death;
-  this->is_game_paused = false;
-  this->game_start = false;
+  this->r1Cutoff = 3;
+  this->r2Cutoff = 2;
+  this->fileTexture = "./ressources/textures/ground/ground" + std::to_string(std::rand() % nbTextures) + ".bmp";
+  this->wormTexture = "./ressources/textures/Worm/WormTextures.png";
+  this->maxY = this->sizeY * (-1);
+  this->wormsPerTeam = wormsInEachTeam;
+  this->numberOfHumanTeams = humanTeams;
+  this->numberOfBotTeams = botTeams;
+  this->numberOfTeams = teams;
+  this->currentWormIdPlaying = 0;
+  this->currentTeamIdPlaying = 0;
+  this->timeBeforePause = 60;
+  this->timeBeforeSuddenDeath = 600;
+  this->timeBeforeSuddenDeathEndTurn = this->timeBeforeSuddenDeath;
+  this->isGamePaused = false;
+  this->gameStart = false;
   this->guienv = this->device->getGUIEnvironment();
   this->screenSize = this->driver->getScreenSize();
   this->skin = this->guienv->createSkin(irr::gui::EGST_WINDOWS_METALLIC);
@@ -69,17 +69,17 @@ GameNamespace::GameEngine::~GameEngine()
 
 void	GameNamespace::GameEngine::setBlockProperties(int x, int y)
 {
-  this->groundObject = this->smgr->addMeshSceneNode(smgr->getMesh(file_shape.c_str()));
+  this->groundObject = this->smgr->addMeshSceneNode(smgr->getMesh(this->fileShape.c_str()));
   if (this->groundObject != nullptr)
     {
       this->groundObject->setMaterialTexture(0,
-					     this->driver->getTexture(file_texture.c_str())); // set diffuse texture
+					     this->driver->getTexture(this->fileTexture.c_str())); // set diffuse texture
       this->groundObject->setMaterialFlag(irr::video::EMF_LIGHTING, true); // enable dynamic lighting
       this->smgr->getMeshManipulator()->makePlanarTextureMapping(this->groundObject->getMesh(), 1.0f);
       this->groundObject->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
       irr::f32 minRadius = this->groundObject->getMesh()->getBoundingBox().getExtent().getLength() * 0.70f;
-      this->block_size = minRadius;
-      this->the_farthest_map_point = this->size_x * minRadius;
+      this->blockSize = minRadius;
+      this->theFarthestMapPoint = this->sizeX * minRadius;
       this->groundObject->setPosition(irr::core::vector3df(x * minRadius, -y * (minRadius / 3), 0));
       this->groundObjects.push_back(this->groundObject);
     }
@@ -112,69 +112,85 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	
 	// BOUCLE DE JEU
 
-	if (!this->game_start)
+	if (!this->gameStart)
 	  {
-	    this->turn_start = std::time(nullptr); // Set du timer a chaque tour
-	    this->game_start = true;
+	    this->turnStart = std::time(nullptr); // Set du timer a chaque tour
+	    this->gameStart = true;
 	  }
         
-	this->turn_now = this->teams.at(this->current_team_id_playing).turn_of_that_team(this->current_worm_id_playing, this->turn_start); // Revoie le temps écoulé depuis le début du tour
+	this->turnNow = this->teams.at(this->currentTeamIdPlaying).turnOfThatTeam(this->currentWormIdPlaying, this->turnStart); // Revoie le temps écoulé depuis le début du tour
 
 	// Bloquage du timer en cas de pause
-	if (this->is_game_paused == false)
+	if (this->isGamePaused == false)
 	  {
-	    this->turn_time_left = this->time_before_pause - this->turn_now;
-	    this->time_before_sudden_death = this->time_before_sudden_death_end_turn - turn_time_left;
+	    this->turnTimeLeft = this->timeBeforePause - this->turnNow;
+	    this->timeBeforeSuddenDeath = this->timeBeforeSuddenDeathEndTurn - turnTimeLeft;
 	  }
-	else if (this->is_game_paused == true)
+	else if (this->isGamePaused == true)
 	  {
-	    this->turn_time_left = this->time_before_pause;
-	    this->time_before_sudden_death = this->time_before_sudden_death_end_turn - turn_time_left;
+	    this->turnTimeLeft = this->timeBeforePause;
+	    this->timeBeforeSuddenDeath = this->timeBeforeSuddenDeathEndTurn - turnTimeLeft;
 	  }
 
 	// Si le temps est écoulé, au joueur suivant de jouer
-	if (this->turn_time_left < 0)
+	if (this->turnTimeLeft < 0)
 	  {
-	    if (this->current_team_id_playing < this->number_of_teams - 1)
-		this->current_team_id_playing++;
+	    if (this->currentTeamIdPlaying < this->numberOfTeams - 1)
+		this->currentTeamIdPlaying++;
 	    else
 	      {
-		this->current_team_id_playing = 0;
-		if (this->current_worm_id_playing < this->worms_per_team - 1)
-		  this->current_worm_id_playing++;
+		this->currentTeamIdPlaying = 0;
+		if (this->currentWormIdPlaying < this->wormsPerTeam - 1)
+		  this->currentWormIdPlaying++;
 		else
-		  this->current_worm_id_playing = 0;
+		  this->currentWormIdPlaying = 0;
 	      }
-	    this->game_start = false;
-	    this->time_before_pause = 60;
-	    this->time_before_sudden_death_end_turn -= turn_time_left;
+	    this->gameStart = false;
+	    this->timeBeforePause = 60;
+	    this->timeBeforeSuddenDeathEndTurn -= this->timeBeforePause;
 	  }
 
 	// Fonctions de mouvements des worms
 	if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_Q))
-	  this->teams.at(this->current_team_id_playing).team_move_left(this->current_worm_id_playing, this->device);
+	  this->teams.at(this->currentTeamIdPlaying).teamMoveLeft(this->currentWormIdPlaying, this->device);
 	else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
-	  this->teams.at(this->current_team_id_playing).team_move_right(this->current_worm_id_playing, this->device);
+	  this->teams.at(this->currentTeamIdPlaying).teamMoveRight(this->currentWormIdPlaying, this->device);
 	
 	// FIN DE LA BOUCLE DE JEU
 	this->driver->beginScene();
 	this->smgr->drawAll();
 	if (this->spriteBank->getTexture(0) != nullptr)
 	  {
-	    int			turn_time_left_to_int = std::round(this->turn_time_left);	// Affichage du timer du tour
-	    int			time_before_sudden_death_to_int = std::round(this->time_before_sudden_death); // Affichage du timer de mort subite
-	    std::string		string_turn_timer = std::to_string(turn_time_left_to_int);
-	    std::string		string_sudden_death_time;
+	    int			turnTimeLeftToInt = std::round(this->turnTimeLeft);	// Affichage du timer du tour
+	    int			timeBeforeSuddenDeathToInt = std::round(this->timeBeforeSuddenDeath); // Affichage du timer de mort subite
+	    std::string		stringTurnTimer = std::to_string(turnTimeLeftToInt);
+	    std::string		stringSuddenDeathTime;
 
-	    if (this->time_before_sudden_death > 60)
+	    if (this->timeBeforeSuddenDeath > 60)
 	      {
-		string_sudden_death_time = std::to_string(time_before_sudden_death_to_int / 60);
-		string_sudden_death_time += ":";
-		string_sudden_death_time += std::to_string(60 - (time_before_sudden_death_to_int % 60));
+		if ((60 - (timeBeforeSuddenDeathToInt % 60)) == 60)
+		  {
+		    stringSuddenDeathTime = std::to_string((timeBeforeSuddenDeathToInt / 60) + 1);
+		    stringSuddenDeathTime += ":";
+		    stringSuddenDeathTime += "00";
+		  }
+		else if ((60 - (timeBeforeSuddenDeathToInt % 60)) < 10)
+		  {
+		    stringSuddenDeathTime = std::to_string(timeBeforeSuddenDeathToInt / 60);
+		    stringSuddenDeathTime += ":";
+		    stringSuddenDeathTime += "0";
+		    stringSuddenDeathTime += std::to_string(60 - (timeBeforeSuddenDeathToInt % 60));
+		  }
+		else
+		  {
+		    stringSuddenDeathTime = std::to_string(timeBeforeSuddenDeathToInt / 60);
+		    stringSuddenDeathTime += ":";
+		    stringSuddenDeathTime += std::to_string(60 - (timeBeforeSuddenDeathToInt % 60));
+		  }	
 	      }
 	    else
-	      string_sudden_death_time = std::to_string(time_before_sudden_death_to_int % 60);
-	    std::cout << string_sudden_death_time << std::endl;		
+	      stringSuddenDeathTime += std::to_string(60 - (timeBeforeSuddenDeathToInt % 60));
+
 	    this->spriteBank->draw2DSprite(irr::u32(0),
 					   irr::core::position2di(this->screenSize.Width * 9 / 10,
 								  this->screenSize.Height * 9 / 10),
@@ -183,29 +199,29 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	    // Affichage des deux timers dans la box
 	    
-	    if (this->turn_time_left > 10)
-	      this->font->draw(string_turn_timer.c_str(),
+	    if (this->turnTimeLeft > 10)
+	      this->font->draw(stringTurnTimer.c_str(),
 			       irr::core::rect<irr::s32>(this->screenSize.Width * 9 / 10 + 30,
 							 this->screenSize.Height * 9 / 10 + 30,
 							 this->screenSize.Width * 9 / 10 + 60,
 							 this->screenSize.Height * 9 / 10 + 60),
 			       irr::video::SColor(255, 255, 190, 0));
 	    else
-	      this->font->draw(string_turn_timer.c_str(),
+	      this->font->draw(stringTurnTimer.c_str(),
                                irr::core::rect<irr::s32>(this->screenSize.Width * 9 / 10 + 30,
                                                          this->screenSize.Height * 9 / 10 + 30,
                                                          this->screenSize.Width * 9 / 10 + 60,
                                                          this->screenSize.Height * 9 / 10 + 60),
                                irr::video::SColor(255, 255, 0, 0));
-	    if (this->time_before_sudden_death > 60)
-              this->font->draw(string_sudden_death_time.c_str(),
+	    if (this->timeBeforeSuddenDeath > 60)
+              this->font->draw(stringSuddenDeathTime.c_str(),
                                irr::core::rect<irr::s32>(this->screenSize.Width * 9 / 10 + 5,
                                                          this->screenSize.Height * 9 / 10 + 5,
                                                          this->screenSize.Width * 9 / 10 + 25,
                                                          this->screenSize.Height * 9 / 10 + 25),
                                irr::video::SColor(255, 255, 190, 0));
             else
-              this->font->draw(string_sudden_death_time.c_str(),
+              this->font->draw(stringSuddenDeathTime.c_str(),
                                irr::core::rect<irr::s32>(this->screenSize.Width * 9 / 10 + 5,
                                                          this->screenSize.Height * 9 / 10 + 5,
                                                          this->screenSize.Width * 9 / 10 + 25,
@@ -215,8 +231,8 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	if (eventStatusMenu != EventStatus::IN_GAME_MENU && this->eventReceiver.IsKeyUp(irr::KEY_ESCAPE))
 	  {
 	    eventStatusMenu = EventStatus::IN_GAME_MENU;
-	    this->is_game_paused = true;
-	    this->time_before_pause = this->turn_time_left;
+	    this->isGamePaused = true;
+	    this->timeBeforePause = this->turnTimeLeft;
 	  }
 	if (eventStatusMenu == EventStatus::IN_GAME_MENU)
 	  {
@@ -224,13 +240,13 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    if (this->eventReceiver.IsKeyUp(irr::KEY_ESCAPE))
 	      {
 		eventStatusMenu = EventStatus::STAND_BY;
-		this->is_game_paused = false;
-		this->turn_start = std::time(nullptr);
+		this->isGamePaused = false;
+		this->turnStart = std::time(nullptr);
 	      }
 	    else if (eventStatusMenu == EventStatus::BACK_TO_GAME)
 	      {
-		this->is_game_paused = false;
-                this->turn_start = std::time(nullptr);
+		this->isGamePaused = false;
+                this->turnStart = std::time(nullptr);
 	      }
 	    else if (eventStatusMenu == EventStatus::QUIT || eventStatusMenu == EventStatus::BACK_TO_MENU)
 	      break;

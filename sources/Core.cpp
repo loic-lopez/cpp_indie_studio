@@ -5,13 +5,13 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:51:01 2017 Loïc Dupil
-// Last update Sat Jun  3 17:31:28 2017 Stanislas Deneubourg
+// Last update Wed Jun  7 16:16:13 2017 Stanislas Deneubourg
 //
 
 #include "Core.hpp"
 #include "Encap.hpp"
 
-static int check_extension_file(std::string const &filename, std::string const &extension)
+static int checkExtensionFile(std::string const &filename, std::string const &extension)
 {
   const auto &tmp = filename;
   std::size_t pos = tmp.find_last_of('.');
@@ -94,7 +94,7 @@ void				Core::fillSaves()
       file = direntp->d_name;
       if (direntp->d_name[0] != '.')
 	{
-	  if (direntp->d_type != 4 && (check_extension_file(file, ".xml") == 0))
+	  if (direntp->d_type != 4 && (checkExtensionFile(file, ".xml") == 0))
 	    this->saves.emplace_back(direntp->d_name);
 	}
     }
@@ -132,7 +132,7 @@ void						Core::fillSoundLib()
       file = direntp->d_name;
       if (direntp->d_name[0] != '.')
 	{
-	  if (direntp->d_type != 4 && (check_extension_file(file, ".ogg") == 0))
+	  if (direntp->d_type != 4 && (checkExtensionFile(file, ".ogg") == 0))
 	    this->soundlib.emplace_back(direntp->d_name);
 	}
     }
@@ -155,7 +155,7 @@ std::vector<std::string>			Core::loadDir(const std::string &path, const std::str
 
       if (direntp->d_name[0] != '.')
 	{
-	  if (direntp->d_type != 4 && (check_extension_file(direntp->d_name, file_extension) == 0))
+	  if (direntp->d_type != 4 && (checkExtensionFile(direntp->d_name, file_extension) == 0))
 	    content.emplace_back(direntp->d_name);
 	}
     }

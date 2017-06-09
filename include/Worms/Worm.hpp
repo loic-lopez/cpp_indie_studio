@@ -63,22 +63,22 @@ private:
   WormStatus				wormStatus;
   //  Weapon				weaponSelected;
   
-  void			setHealthPoints(int);
-  void			setDamageDealt(int);
-  void			setDamageReceived(int);
+  void					setHealthPoints(int);
+  void					setDamageDealt(int);
+  void					setDamageReceived(int);
   
 public:
-  Inventory             inventory;
+  Inventory             		inventory;
   Worm(int, irr::core::vector3df,
-       irr::IrrlichtDevice *, std::string,
+       irr::IrrlichtDevice *, std::string const &,
        bool);
   ~Worm();
-  int			getHealthPoints();
-  unsigned int		getDamageDealt();
-  unsigned int		getDamageReceived();
-  double		turnOfThatWorm(std::time_t);
-  void			wormMoveLeft(irr::IrrlichtDevice *);
-  void			wormMoveRight(irr::IrrlichtDevice *);
+  int					getHealthPoints();
+  unsigned int				getDamageDealt();
+  unsigned int				getDamageReceived();
+  double				turnOfThatWorm(std::time_t);
+  void					wormMoveLeft(irr::IrrlichtDevice *);
+  void					wormMoveRight(irr::IrrlichtDevice *);
 };
 
 #endif

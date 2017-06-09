@@ -11,7 +11,7 @@
 #include "Worms/Worm.hpp"
 
 Worm::Worm(int nb, irr::core::vector3df vectorPos,
-	   irr::IrrlichtDevice *device, std::string wormFile,
+	   irr::IrrlichtDevice *device, std::string const &wormFile,
 	   bool	isBot)
 {
   int	dir = std::rand() % 3;
@@ -27,7 +27,7 @@ Worm::Worm(int nb, irr::core::vector3df vectorPos,
   this->wormType = static_cast<Worm::WormType>(isBot);
   this->wormPosition = vectorPos;
   this->m = device->getSceneManager()->getMesh(wormFile.c_str());
-  if (!this->m)
+  if (this->m == nullptr)
     return;
   this->wormMesh = device->getSceneManager()->addAnimatedMeshSceneNode(m);
   this->wormMesh->setMaterialFlag(irr::video::EMF_LIGHTING, false);

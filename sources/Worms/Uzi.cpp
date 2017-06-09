@@ -13,6 +13,7 @@
 Uzi::Uzi()
 {
   this->bulletsNumber = 30;
+  this->damagePerBullet = 5;
 }
 
 Uzi::~Uzi()

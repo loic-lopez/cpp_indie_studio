@@ -12,7 +12,7 @@
 
 Uzi::Uzi()
 {
-
+  this->bulletsNumber = 30;
 }
 
 Uzi::~Uzi()

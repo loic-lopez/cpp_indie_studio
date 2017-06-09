@@ -19,26 +19,29 @@ Team::Team(unsigned int players_, unsigned int teamNb,
   this->teamName = "Humans ";
   this->teamName += teamNb;
   for (unsigned int i = 0; i < this->players; i++)
-    this->teamPlayers.push_back(Worm(i, vectorPos.at(i), device, wormFile, isBot));
+    this->teamPlayers.emplace_back(Worm(i, vectorPos.at(i), device, wormFile, isBot));
 }
 
 Team::~Team()
 {
-  for (int i = this->teamPlayers.size() != 0; i > 0; i = this->teamPlayers.size())
-    this->teamPlayers.pop_back();
 }
 
-double	Team::turnOfThatTeam(unsigned int i, std::time_t turnStart)
+double	Team::turnOfThatTeam(unsigned currentPlayer, std::time_t turnStart)
 {
-  return (this->teamPlayers.at(i).turnOfThatWorm(turnStart));
+  return (this->teamPlayers.at(currentPlayer).turnOfThatWorm(turnStart));
 }
 
-void	Team::teamMoveLeft(unsigned int i, irr::IrrlichtDevice *device)
+void	Team::teamMoveLeft(unsigned currentPlayer, irr::IrrlichtDevice *device)
 {
-  this->teamPlayers.at(i).wormMoveLeft(device);
+  this->teamPlayers.at(currentPlayer).wormMoveLeft(device);
 }
 
-void	Team::teamMoveRight(unsigned int i, irr::IrrlichtDevice *device)
+void	Team::teamMoveRight(unsigned currentPlayer, irr::IrrlichtDevice *device)
 {
-  this->teamPlayers.at(i).wormMoveRight(device);
+  this->teamPlayers.at(currentPlayer).wormMoveRight(device);
+}
+
+void 	Team::teamFire(size_t currentPlayer)
+{
+  this->teamPlayers.at(currentPlayer).inventory.fireWithSelectedWeapon(0);
 }

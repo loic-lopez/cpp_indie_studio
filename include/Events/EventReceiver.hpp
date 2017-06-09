@@ -16,6 +16,12 @@
 class EventReceiver : public irr::IEventReceiver
 {
 public:
+  struct SMouseState
+  {
+    bool 		LeftButtonDown;
+    SMouseState();
+  } MouseState;
+
   explicit 					EventReceiver(irr::IrrlichtDevice *device,
 								irrklang::ISound *mainSound, bool *playMainSound);
   bool 						OnEvent(const irr::SEvent& event) override;

@@ -44,7 +44,25 @@ bool	EventReceiver::OnEvent(const irr::SEvent& event)
 	this->KeyIsUp[event.KeyInput.Key] = buttonState::BS_UP;
       this->KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
     }
-  if (event.EventType == irr::EET_GUI_EVENT)
+  else if (event.EventType == irr::EET_MOUSE_INPUT_EVENT)
+      {
+	switch (event.MouseInput.Event)
+	  {
+	    case irr::EMIE_LMOUSE_PRESSED_DOWN:
+	      {
+		MouseState.LeftButtonDown = true;
+		break;
+	      }
+	    case irr::EMIE_LMOUSE_LEFT_UP:
+	      {
+		MouseState.LeftButtonDown = false;
+		break;
+	      }
+	    default:
+	      break;
+	  }
+      }
+  else if (event.EventType == irr::EET_GUI_EVENT)
     {
       irr::s32 id = event.GUIEvent.Caller->getID();
       switch (id)
@@ -276,4 +294,8 @@ void 	EventReceiver::setMainButtonsVisible()
   this->soundOptionButton->setVisible(true);
   this->backToMenuButton->setVisible(true);
   this->exitGameButton->setVisible(true);
+}
+
+EventReceiver::SMouseState::SMouseState() : LeftButtonDown(false)
+{
 }

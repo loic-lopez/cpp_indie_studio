@@ -37,6 +37,7 @@ public:
   double		turnOfThatTeam(unsigned int, std::time_t);
   void			teamMoveLeft(unsigned int, irr::IrrlichtDevice *);
   void			teamMoveRight(unsigned int, irr::IrrlichtDevice *);
+  void			teamFire(size_t);
 };
 
 #endif

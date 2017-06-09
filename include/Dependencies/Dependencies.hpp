@@ -20,5 +20,6 @@
 
 #include <irrKlang.h>
 #include <irrlicht.h>
+#include <btBulletDynamicsCommon.h>
 
 #endif //CPP_INDIE_STUDIO_DEPENDENCIES_HPP

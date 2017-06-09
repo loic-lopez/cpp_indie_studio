@@ -109,6 +109,9 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	  }
 
 	this->cameraMovements();
+
+	if (this->eventReceiver.MouseState.LeftButtonDown)
+	  this->teams.at(this->currentTeamIdPlaying).teamFire(this->currentWormIdPlaying);
 	
 	// BOUCLE DE JEU
 

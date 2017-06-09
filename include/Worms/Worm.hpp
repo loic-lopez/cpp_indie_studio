@@ -61,7 +61,6 @@ private:
   irr::scene::IAnimatedMesh		*m;
   irr::scene::IAnimatedMeshSceneNode	*wormMesh;
   WormStatus				wormStatus;
-  Inventory                             inventory;
   //  Weapon				weaponSelected;
   
   void			setHealthPoints(int);
@@ -69,6 +68,7 @@ private:
   void			setDamageReceived(int);
   
 public:
+  Inventory             inventory;
   Worm(int, irr::core::vector3df,
        irr::IrrlichtDevice *, std::string,
        bool);

@@ -16,8 +16,6 @@ MenuInGame::MenuInGame(irr::IrrlichtDevice *device, irr::video::IVideoDriver *dr
 {
   this->_guienv = this->_device->getGUIEnvironment();
   this->_skin = this->_guienv->createSkin(irr::gui::EGST_WINDOWS_METALLIC);
-  for (irr::s32 i = 0; i < irr::gui::EGDC_COUNT ; ++i)
-    this->_skin->setColor((irr::gui::EGUI_DEFAULT_COLOR) i, irr::video::SColor(0, 0, 0, 0));
   this->_guienv->setSkin(this->_skin);
   this->_skin->drop();
 }
@@ -33,6 +31,8 @@ void	MenuInGame::setModelProperties()
   irr::video::ITexture			*texture;
   irr::video::ITexture			*cursor;
 
+  for (irr::s32 i = 0; i < irr::gui::EGDC_COUNT ; ++i)
+    this->_guienv->getSkin()->setColor((irr::gui::EGUI_DEFAULT_COLOR) i, irr::video::SColor(0, 0, 0, 0));
   this->tabctrl = this->_guienv->addTabControl(irr::core::rect<int>(screenSize.Width / 3,
 								    screenSize.Height / 5,
 								    screenSize.Width - (screenSize.Width / 3),

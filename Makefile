@@ -25,6 +25,8 @@ SRC             =	sources/main.cpp								\
 			sources/Model/SetMenuModelMainOptions.cpp					\
 			sources/Worms/Team.cpp								\
 			sources/Worms/Worm.cpp								\
+			sources/Worms/Uzi.cpp								\
+			sources/Worms/Inventory.cpp							\
 
 
 OBJ             =       $(SRC:.cpp=.o)

@@ -20,6 +20,7 @@
 #include <iostream>
 #include <cstdlib>
 #include "Dependencies/Dependencies.hpp"
+#include "Worms/Inventory.hpp"
 
 class	Worm
 {  
@@ -60,6 +61,7 @@ private:
   irr::scene::IAnimatedMesh		*m;
   irr::scene::IAnimatedMeshSceneNode	*wormMesh;
   WormStatus				wormStatus;
+  Inventory                             inventory;
   //  Weapon				weaponSelected;
   
   void			setHealthPoints(int);

@@ -27,6 +27,7 @@ SRC             =	sources/main.cpp								\
 			sources/Worms/Worm.cpp								\
 			sources/Worms/Uzi.cpp								\
 			sources/Worms/Inventory.cpp							\
+			sources/Worms/Shotgun.cpp							\
 
 ECHO		=	/bin/echo -e
 
@@ -78,6 +79,6 @@ install		:
 			make clean -C  ./irrlicht/source/Irrlicht/
 
 .cpp.o:
-	@$(CC) $(CXXFLAGS) -c -o $@ $< && \
-	$(ECHO) $(GREEN) "[OK]" $(TEAL) $< "--->" $@ $(DEFAULT) || \
-	$(ECHO) $(RED) "[ERROR] doesn't exist" $(TEAL) $^ $(DEFAULT)
+			@$(CC) $(CXXFLAGS) -c -o $@ $< && \
+			$(ECHO) $(GREEN) "[OK]" $(TEAL) $< "--->" $@ $(DEFAULT) || \
+			$(ECHO) $(RED) "[ERROR] doesn't exist" $(TEAL) $^ $(DEFAULT)

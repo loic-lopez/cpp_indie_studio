@@ -8,12 +8,14 @@
 ** Last update ven. juin 09 14:31:33 2017 Loïc Lopez
 */
 
+// TODO: REMOVE PRINT
 #include <iostream>
 #include "Worms/Inventory.hpp"
 
 Inventory::Inventory()
 {
   this->weaponsInInventory.emplace_back(new Uzi);
+  this->weaponsInInventory.emplace_back(new Shotgun);
 }
 
 Inventory::~Inventory()

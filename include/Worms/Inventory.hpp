@@ -14,6 +14,7 @@
 #include <vector>
 #include <memory>
 #include "Worms/Uzi.hpp"
+#include "Worms/Shotgun.hpp"
 
 class	Inventory
 {

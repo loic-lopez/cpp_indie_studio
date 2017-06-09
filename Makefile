@@ -28,6 +28,12 @@ SRC             =	sources/main.cpp								\
 			sources/Worms/Uzi.cpp								\
 			sources/Worms/Inventory.cpp							\
 
+ECHO		=	/bin/echo -e
+
+DEFAULT		=	"\033[00m"
+GREEN		=	"\033[0;32m"
+TEAL		=	"\033[1;36m"
+RED		=	"\033[5;31m"
 
 OBJ             =       $(SRC:.cpp=.o)
 
@@ -50,13 +56,19 @@ RM              =       rm -f
 all             :       $(NAME)
 
 $(NAME)         :       $(OBJ)
-			$(CXX) -o $(NAME) $(OBJ) $(CXXFLAGS)
+			@$(CXX) -o $(NAME) $(OBJ) $(CXXFLAGS) && \
+			$(ECHO) $(GREEN) "[OK]"$(TEAL)"  BUILD :" $(NAME) $(DEFAULT)  || \
+			$(ECHO) $(RED) "[ERROR]" $(TEAL) $(NAME) $(DEFAULT)
 
 clean           :
-			$(RM) $(OBJ)
+			@$(RM) $(OBJ) && \
+			$(ECHO) $(GREEN) "[OK] remove" $(TEAL) $(OBJ) $(DEFAULT) || \
+			$(ECHO) $(RED) "[ERROR] doesn't exist" $(TEAL) $(OBJ) $(DEFAULT)
 
 fclean          :       clean
-			$(RM) $(NAME)
+			@$(RM) $(NAME) && \
+			$(ECHO) $(GREEN) "[OK] remove" $(TEAL) $(NAME) $(DEFAULT) || \
+			$(ECHO) $(RED) "[ERROR] doesn't exist" $(TEAL) $(NAME) $(DEFAULT)
 
 re              :       fclean all
 
@@ -64,3 +76,8 @@ install		:
 			make clean -C  ./irrlicht/source/Irrlicht/
 			make NDEBUG=1 -C ./irrlicht/source/Irrlicht/
 			make clean -C  ./irrlicht/source/Irrlicht/
+
+.cpp.o:
+	@$(CC) $(CXXFLAGS) -c -o $@ $< && \
+	$(ECHO) $(GREEN) "[OK]" $(TEAL) $< "--->" $@ $(DEFAULT) || \
+	$(ECHO) $(RED) "[ERROR] doesn't exist" $(TEAL) $^ $(DEFAULT)

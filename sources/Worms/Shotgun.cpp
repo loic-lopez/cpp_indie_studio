@@ -8,16 +8,35 @@
 // Last update Thu Jun  1 08:06:48 2017 Stanislas Deneubourg
 //
 
+
+// TODO: ENLEVER LES PRINTS
+#include <iostream>
 #include "Worms/Shotgun.hpp"
 
-Shotgun::Greande()
+Shotgun::Shotgun()
 {
   this->splash_damage_range = 0.5;
-  this->max_damage = 40;
+  this->chargerNumber = 4;
   this->weight = 0.1;
+  this->damagePerBullet = 5;
 }
 
 Shotgun::~Shotgun()
 {
+}
+
+bool	Shotgun::fire()
+{
+  if (this->chargerNumber > 0)
+    {
+      this->chargerNumber--;
+      std::cout << "FIRE SHOTGUN" << std::endl;
+      return (true);
+    }
+  else
+    {
+      std::cout << "NO MORE " << std::endl;
+      return (false);
+    }
 
 }

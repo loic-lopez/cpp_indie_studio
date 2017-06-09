@@ -16,8 +16,9 @@
 class	Uzi : public IWeapon
 {
  private:
-  int	bulletsNumber;
-  int 	damagePerBullet;
+  int		bulletsNumber;
+  int 		damagePerBullet;
+  float		weight;
 
  public:
   Uzi();

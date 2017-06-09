@@ -17,12 +17,15 @@ class	Shotgun : public IWeapon
 {
 private:
   float		splash_damage_range;
-  int		max_damage;
   float		weight;
+  int 		damagePerBullet;
+  int		chargerNumber;
   
 public:
   Shotgun();
   virtual ~Shotgun();
+
+  virtual	bool	fire();
 };
 
 #endif

@@ -1,17 +1,2 @@
-﻿  Core.cpp
-  Encap.cpp
-  EventReceiver.cpp
-  MenuEvent.cpp
-  MenuEventSubMenu.cpp
-  GameEngine.cpp
-  GameEngineGeneration.cpp
-  GameEngineLogic.cpp
-  main.cpp
-  MenuInGameModel.cpp
-  MenuModel.cpp
-  SetMenuModelMainOptions.cpp
-  SplashScreen.cpp
-  Team.cpp
-  Worm.cpp
-  Génération de code en cours...
+﻿  Shotgun.cpp
   Worms.vcxproj -> C:\Users\Yassir\Documents\Shared\cpp_indie_studio\x64\Release\Worms.exe

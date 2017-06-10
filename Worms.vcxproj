@@ -71,8 +71,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ExecutablePath>C:\Users\Yassir\Documents\Shared\cpp_indie_studio;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>C:\Users\Yassir\Documents\Shared\cpp_indie_studio\irrlicht\include;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\irrKlang\include;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Yassir\Documents\Shared\cpp_indie_studio\irrlicht\lib\Win64-visualStudio;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\irrKlang\lib\Winx64-visualStudio;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Yassir\Documents\Shared\cpp_indie_studio\bullet\include\bullet;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\irrlicht\include;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\irrKlang\include;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Yassir\Documents\Shared\cpp_indie_studio\bullet\lib\Windows;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\irrlicht\lib\Win64-visualStudio;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\irrKlang\lib\Winx64-visualStudio;$(LibraryPath)</LibraryPath>
     <SourcePath>C:\Users\Yassir\Documents\Shared\cpp_indie_studio\sources\Worms;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\sources\Model;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\sources\GameEngine;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\sources\Events;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\sources;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -118,7 +118,10 @@
     <ClCompile Include="sources\model\MenuModel.cpp" />
     <ClCompile Include="sources\model\SetMenuModelMainOptions.cpp" />
     <ClCompile Include="sources\model\SplashScreen.cpp" />
+    <ClCompile Include="sources\Worms\Inventory.cpp" />
+    <ClCompile Include="sources\Worms\Shotgun.cpp" />
     <ClCompile Include="sources\worms\Team.cpp" />
+    <ClCompile Include="sources\Worms\Uzi.cpp" />
     <ClCompile Include="sources\worms\Worm.cpp" />
   </ItemGroup>
   <ItemGroup>

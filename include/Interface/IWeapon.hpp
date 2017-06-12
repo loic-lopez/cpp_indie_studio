@@ -16,6 +16,7 @@ class	IWeapon
 public:
   virtual	~IWeapon() {};
   virtual	bool	fire() = 0;
+  virtual 	void	showWeapon() = 0;
 };
 
 #endif

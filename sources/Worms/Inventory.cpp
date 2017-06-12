@@ -30,3 +30,8 @@ void	Inventory::fireWithSelectedWeapon(size_t const &weaponSelectedInGui)
   else
     std::cout << "NO MORE BULLETS" << std::endl;
 }
+
+void	Inventory::showSelectedWeapon(size_t const &weaponSelectedInGui)
+{
+  this->weaponsInInventory.at(weaponSelectedInGui)->showWeapon();
+}

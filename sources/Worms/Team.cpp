@@ -45,3 +45,8 @@ void 	Team::teamFire(size_t currentPlayer)
 {
   this->teamPlayers.at(currentPlayer).inventory.fireWithSelectedWeapon(0);
 }
+
+void 	Team::showWormWeapon(size_t currentPlayer, size_t selectedWeapon)
+{
+  this->teamPlayers.at(currentPlayer).inventory.showSelectedWeapon(selectedWeapon);
+}

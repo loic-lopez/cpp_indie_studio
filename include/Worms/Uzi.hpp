@@ -24,6 +24,7 @@ class	Uzi : public IWeapon
   Uzi();
   virtual 	~Uzi();
   virtual	bool	fire();
+  virtual 	void	showWeapon();
 };
 
 #endif //CPP_INDIE_STUDIO_UZI_HPP

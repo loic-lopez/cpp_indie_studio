@@ -8,7 +8,6 @@
 // Last update Thu Jun  1 08:06:48 2017 Stanislas Deneubourg
 //
 
-
 // TODO: ENLEVER LES PRINTS
 #include <iostream>
 #include "Worms/Shotgun.hpp"
@@ -38,5 +37,10 @@ bool	Shotgun::fire()
       std::cout << "NO MORE " << std::endl;
       return (false);
     }
+
+}
+
+void  Shotgun::showWeapon()
+{
 
 }

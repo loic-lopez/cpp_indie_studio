@@ -35,3 +35,8 @@ bool	Uzi::fire()
   std::cout << "NO MORE BULLETS IN UZI" << std::endl;
   return (false);
 }
+
+void  Uzi::showWeapon()
+{
+
+}

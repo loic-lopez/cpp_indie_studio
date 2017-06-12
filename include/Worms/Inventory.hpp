@@ -24,6 +24,7 @@ class	Inventory
   Inventory();
   ~Inventory();
   void	fireWithSelectedWeapon(size_t const &weaponInGui);
+  void	showSelectedWeapon(size_t const &weaponSelectedInGui);
 };
 
 #endif //CPP_INDIE_STUDIO_INVENTORY_HPP

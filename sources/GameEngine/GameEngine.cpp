@@ -112,6 +112,10 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	if (this->eventReceiver.MouseState.LeftButtonDown)
 	  this->teams.at(this->currentTeamIdPlaying).teamFire(this->currentWormIdPlaying);
+
+	if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_I))
+	  this->teams.at(this->currentTeamIdPlaying).showWormWeapon(this->currentWormIdPlaying, 0);
+
 	
 	// BOUCLE DE JEU
 

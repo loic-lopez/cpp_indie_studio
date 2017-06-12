@@ -26,6 +26,7 @@ public:
   virtual ~Shotgun();
 
   virtual	bool	fire();
+  virtual 	void	showWeapon();
 };
 
 #endif

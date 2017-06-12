@@ -38,6 +38,7 @@ public:
   void			teamMoveLeft(unsigned int, irr::IrrlichtDevice *);
   void			teamMoveRight(unsigned int, irr::IrrlichtDevice *);
   void			teamFire(size_t);
+  void 			showWormWeapon(size_t, size_t);
 };
 
 #endif

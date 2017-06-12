@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:43:41 2017 Stanislas Deneubourg
-// Last update Wed Jun  7 16:40:01 2017 Stanislas Deneubourg
+// Last update Mon Jun 12 16:42:30 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Worm.hpp"
@@ -89,9 +89,7 @@ double	Worm::turnOfThatWorm(std::time_t turn_start)
 
 void	Worm::wormMoveLeft(irr::IrrlichtDevice *device)
 {
-  irr::f32		wormMovementSpeed = 0.07f;
-
-  this->posX -= wormMovementSpeed;
+  this->posX -= WORM_MOVEMENT_SPEED;
   if (this->lookingDirection == Worm::LookingDirection::RIGHT
       || this->lookingDirection == Worm::LookingDirection::FRONT)
     {
@@ -103,9 +101,7 @@ void	Worm::wormMoveLeft(irr::IrrlichtDevice *device)
 
 void	Worm::wormMoveRight(irr::IrrlichtDevice *device)
 {
-  irr::f32		wormMovementSpeed = 0.07f;
-  
-  this->posX += wormMovementSpeed;
+  this->posX += WORM_MOVEMENT_SPEED;
   if (this->lookingDirection == Worm::LookingDirection::LEFT
       || this->lookingDirection == Worm::LookingDirection::FRONT)
     {

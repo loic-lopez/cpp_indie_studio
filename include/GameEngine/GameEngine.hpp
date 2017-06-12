@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Wed Jun  7 13:16:36 2017 Stanislas Deneubourg
+// Last update Mon Jun 12 17:35:18 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -98,8 +98,10 @@ namespace	GameNamespace
     double						turnTimeLeft;
     double						timeBeforePause;
     double						timeBeforeSuddenDeath;
-    double						timeBeforeSuddenDeathEndTurn;
+    std::time_t						timeBeforeSuddenDeathEndTurn;
     bool						isGamePaused;
+    std::time_t						suddenDeathCooldown;
+    double						suddenDeathTimeBeforePause;
 
     //Affichage timer
     irr::gui::IGUIEnvironment				*guienv;

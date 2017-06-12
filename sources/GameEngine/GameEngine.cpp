@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Wed Jun  7 17:24:29 2017 Stanislas Deneubourg
+// Last update Mon Jun 12 17:38:50 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -49,7 +49,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
   this->currentTeamIdPlaying = 0;
   this->timeBeforePause = 60;
   this->timeBeforeSuddenDeath = 600;
-  this->timeBeforeSuddenDeathEndTurn = this->timeBeforeSuddenDeath;
+  this->suddenDeathTimeBeforePause = 0;
   this->isGamePaused = false;
   this->gameStart = false;
   this->guienv = this->device->getGUIEnvironment();
@@ -91,6 +91,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
   irr::s32	lastFPS = -1;
 
   this->menuInGame->setModelProperties(); // Set des propriétés du menu ingame
+  this->suddenDeathCooldown = std::time(nullptr);
   while(this->device->run())
     if (this->device->isWindowActive())
       {
@@ -130,13 +131,14 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	// Bloquage du timer en cas de pause
 	if (this->isGamePaused == false)
 	  {
+	    this->timeBeforeSuddenDeathEndTurn = std::time(nullptr);
 	    this->turnTimeLeft = this->timeBeforePause - this->turnNow;
-	    this->timeBeforeSuddenDeath = this->timeBeforeSuddenDeathEndTurn - turnTimeLeft;
+	    this->timeBeforeSuddenDeath = 600 - (std::difftime(this->timeBeforeSuddenDeathEndTurn, this->suddenDeathCooldown));
 	  }
 	else if (this->isGamePaused == true)
 	  {
 	    this->turnTimeLeft = this->timeBeforePause;
-	    this->timeBeforeSuddenDeath = this->timeBeforeSuddenDeathEndTurn - turnTimeLeft;
+	    //	    this->timeBeforeSuddenDeath = 600;
 	  }
 
 	// Si le temps est écoulé, au joueur suivant de jouer
@@ -154,7 +156,6 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	      }
 	    this->gameStart = false;
 	    this->timeBeforePause = 60;
-	    this->timeBeforeSuddenDeathEndTurn -= this->timeBeforePause;
 	  }
 
 	// Fonctions de mouvements des worms
@@ -169,34 +170,34 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	if (this->spriteBank->getTexture(0) != nullptr)
 	  {
 	    int			turnTimeLeftToInt = std::round(this->turnTimeLeft);	// Affichage du timer du tour
-	    int			timeBeforeSuddenDeathToInt = std::round(this->timeBeforeSuddenDeath); // Affichage du timer de mort subite
+	    int			timeBeforeSuddenDeathToInt = static_cast<int>(this->timeBeforeSuddenDeath); // Affichage du timer de mort subite
 	    std::string		stringTurnTimer = std::to_string(turnTimeLeftToInt);
 	    std::string		stringSuddenDeathTime;
 
 	    if (this->timeBeforeSuddenDeath > 60)
 	      {
-		if ((60 - (timeBeforeSuddenDeathToInt % 60)) == 60)
+		if ((timeBeforeSuddenDeathToInt % 60) == 60)
 		  {
-		    stringSuddenDeathTime = std::to_string((timeBeforeSuddenDeathToInt / 60) + 1);
+		    stringSuddenDeathTime = std::to_string(timeBeforeSuddenDeathToInt / 60);
 		    stringSuddenDeathTime += ":";
 		    stringSuddenDeathTime += "00";
 		  }
-		else if ((60 - (timeBeforeSuddenDeathToInt % 60)) < 10)
+		else if ((timeBeforeSuddenDeathToInt % 60) < 10)
 		  {
 		    stringSuddenDeathTime = std::to_string(timeBeforeSuddenDeathToInt / 60);
 		    stringSuddenDeathTime += ":";
 		    stringSuddenDeathTime += "0";
-		    stringSuddenDeathTime += std::to_string(60 - (timeBeforeSuddenDeathToInt % 60));
+		    stringSuddenDeathTime += std::to_string(timeBeforeSuddenDeathToInt % 60);
 		  }
 		else
 		  {
 		    stringSuddenDeathTime = std::to_string(timeBeforeSuddenDeathToInt / 60);
 		    stringSuddenDeathTime += ":";
-		    stringSuddenDeathTime += std::to_string(60 - (timeBeforeSuddenDeathToInt % 60));
-		  }	
+		    stringSuddenDeathTime += std::to_string(timeBeforeSuddenDeathToInt % 60);
+		  }
 	      }
 	    else
-	      stringSuddenDeathTime += std::to_string(60 - (timeBeforeSuddenDeathToInt % 60));
+	      stringSuddenDeathTime += std::to_string(timeBeforeSuddenDeathToInt % 60);
 
 	    this->spriteBank->draw2DSprite(irr::u32(0),
 					   irr::core::position2di(this->screenSize.Width * 9 / 10,
@@ -249,11 +250,13 @@ EventStatus GameNamespace::GameEngine::launchModel()
 		eventStatusMenu = EventStatus::STAND_BY;
 		this->isGamePaused = false;
 		this->turnStart = std::time(nullptr);
+		this->suddenDeathCooldown = std::time(nullptr);
 	      }
 	    else if (eventStatusMenu == EventStatus::BACK_TO_GAME)
 	      {
 		this->isGamePaused = false;
                 this->turnStart = std::time(nullptr);
+		this->suddenDeathCooldown = std::time(nullptr);
 	      }
 	    else if (eventStatusMenu == EventStatus::QUIT || eventStatusMenu == EventStatus::BACK_TO_MENU)
 	      break;

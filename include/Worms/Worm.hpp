@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:39:05 2017 Stanislas Deneubourg
-// Last update Wed Jun  7 16:35:10 2017 Stanislas Deneubourg
+// Last update Mon Jun 12 16:43:18 2017 Stanislas Deneubourg
 //
 
 #ifndef	WORM_HPP
@@ -21,6 +21,8 @@
 #include <cstdlib>
 #include "Dependencies/Dependencies.hpp"
 #include "Worms/Inventory.hpp"
+
+#define	WORM_MOVEMENT_SPEED	0.1f
 
 class	Worm
 {  

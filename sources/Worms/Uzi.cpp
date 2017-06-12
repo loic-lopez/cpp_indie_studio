@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  ven. juin 09 14:45:54 2017 Loïc Lopez
-** Last update ven. juin 09 14:45:54 2017 Loïc Lopez
+// Last update Mon Jun 12 18:21:05 2017 Stanislas Deneubourg
 */
 
 // TODO: ENLEVER LES PRINTS
@@ -39,8 +39,8 @@ bool	Uzi::fire()
 
 void	Uzi::showWeapon()
 {
-  this->uziSceneNode = this->device->getSceneManager()->addAnimatedMeshSceneNode(
-	  this->device->getSceneManager()->getMesh("ressources/weapons/Uzi/Uzi.obj"));
+  this->uziSceneNode = this->device->getSceneManager()->addMeshSceneNode
+    (this->device->getSceneManager()->getMesh("ressources/weapons/Uzi/Uzi.obj"));
   this->uziSceneNode->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   this->uziSceneNode->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
 }

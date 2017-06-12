@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:39:05 2017 Stanislas Deneubourg
-// Last update Mon Jun 12 16:43:18 2017 Stanislas Deneubourg
+// Last update Mon Jun 12 18:12:14 2017 Stanislas Deneubourg
 //
 
 #ifndef	WORM_HPP
@@ -57,9 +57,7 @@ private:
   LookingDirection			lookingDirection;
   bool					canPlay;
   double				totalTime;
-  irr::f32				posX;
-  irr::f32				posY;
-  irr::f32				posZ;
+  irr::core::vector3df			worm_pos;
   irr::scene::IAnimatedMesh		*m;
   irr::scene::IAnimatedMeshSceneNode	*wormMesh;
   WormStatus				wormStatus;

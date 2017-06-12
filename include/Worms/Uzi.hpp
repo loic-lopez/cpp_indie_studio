@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  ven. juin 09 14:34:24 2017 Loïc Lopez
-** Last update ven. juin 09 14:34:24 2017 Loïc Lopez
+// Last update Mon Jun 12 18:20:15 2017 Stanislas Deneubourg
 */
 
 #ifndef CPP_INDIE_STUDIO_UZI_HPP

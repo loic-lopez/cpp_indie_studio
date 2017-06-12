@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  ven. juin 09 14:31:33 2017 Loïc Lopez
-** Last update ven. juin 09 14:31:33 2017 Loïc Lopez
+// Last update Mon Jun 12 18:23:21 2017 Stanislas Deneubourg
 */
 
 // TODO: REMOVE PRINT
@@ -39,7 +39,7 @@ void	Inventory::showSelectedWeapon(size_t const &weaponSelectedInGui)
 void	Inventory::setWeaponPositionToWormPosition(size_t const &weaponSelectedInGui,
 						       const irr::core::vector3df &position)
 {
-
+  this->weaponsInInventory.at(weaponSelectedInGui)->setWeaponPosition(position);
 }
 
 void	Inventory::setWeaponRotationToWormPosition(size_t const &weaponSelectedInGui,

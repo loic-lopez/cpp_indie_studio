@@ -35,7 +35,7 @@ Worm::Worm(int nb, irr::core::vector3df vectorPos,
   if (dir == 0)
     this->wormMesh->setRotation(irr::core::vector3df(0.0, 90.0, 0.0));
   else if (dir == 1)
-    this->wormMesh->setRotation(irr::core::vector3df(0.0, -90.0, 0.0));
+    this->wormMesh->setRotation(irr::core::vector3df(0.0, -90.0f, 0.0));
   else
     this->wormMesh->setRotation(irr::core::vector3df(0.0, 180.0, 0.0));
   this->lookingDirection = static_cast<Worm::LookingDirection>(dir);

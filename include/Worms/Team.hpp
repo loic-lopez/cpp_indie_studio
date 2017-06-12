@@ -35,8 +35,8 @@ public:
        std::string const &, bool);
   ~Team();
   double		turnOfThatTeam(unsigned int, std::time_t);
-  void			teamMoveLeft(unsigned int, irr::IrrlichtDevice *);
-  void			teamMoveRight(unsigned int, irr::IrrlichtDevice *);
+  void			teamMoveLeft(unsigned int, size_t selectedWeapon);
+  void			teamMoveRight(unsigned int, size_t selectedWeapon);
   void			teamFire(size_t);
   void 			showWormWeapon(size_t, size_t);
 };

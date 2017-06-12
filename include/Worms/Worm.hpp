@@ -79,8 +79,8 @@ public:
   unsigned int				getDamageDealt();
   unsigned int				getDamageReceived();
   double				turnOfThatWorm(std::time_t);
-  void					wormMoveLeft(irr::IrrlichtDevice *);
-  void					wormMoveRight(irr::IrrlichtDevice *);
+  void					wormMoveLeft(size_t const &currentSelectedWeapon);
+  void					wormMoveRight(size_t const &currentSelectedWeapon);
 };
 
 #endif

@@ -82,24 +82,26 @@ unsigned int Worm::getDamageReceived()
 
 double	Worm::turnOfThatWorm(std::time_t turn_start)
 {
-  std::time_t	end = std::time(NULL);
+  std::time_t	end = std::time(nullptr);
   this->totalTime = std::difftime(end, turn_start);
   return(this->totalTime);
 }
 
-void	Worm::wormMoveLeft(irr::IrrlichtDevice *device)
+void	Worm::wormMoveLeft(size_t const &currentSelectedWeapon)
 {
   this->posX -= WORM_MOVEMENT_SPEED;
   if (this->lookingDirection == Worm::LookingDirection::RIGHT
       || this->lookingDirection == Worm::LookingDirection::FRONT)
     {
-      this->wormMesh->setRotation(irr::core::vector3df(0.0, -90.0, 0.0));
+      this->wormMesh->setRotation(irr::core::vector3df(0.0, -90.0f, 0.0));
       this->lookingDirection = Worm::LookingDirection::LEFT;
+      this->inventory.setWeaponRotationToWormPosition(currentSelectedWeapon, this->wormMesh->getRotation());
     }
   this->wormMesh->setPosition(irr::core::vector3df(this->posX, this->posY, this->posZ));
+  this->inventory.setWeaponPositionToWormPosition(currentSelectedWeapon, this->wormMesh->getPosition());
 }
 
-void	Worm::wormMoveRight(irr::IrrlichtDevice *device)
+void	Worm::wormMoveRight(size_t const &currentSelectedWeapon)
 {
   this->posX += WORM_MOVEMENT_SPEED;
   if (this->lookingDirection == Worm::LookingDirection::LEFT
@@ -107,6 +109,8 @@ void	Worm::wormMoveRight(irr::IrrlichtDevice *device)
     {
       this->wormMesh->setRotation(irr::core::vector3df(0.0, 90.0, 0.0));
       this->lookingDirection = Worm::LookingDirection::RIGHT;
+      this->inventory.setWeaponRotationToWormPosition(currentSelectedWeapon, this->wormMesh->getRotation());
     }
   this->wormMesh->setPosition(irr::core::vector3df(this->posX, this->posY, this->posZ));
+  this->inventory.setWeaponPositionToWormPosition(currentSelectedWeapon, this->wormMesh->getPosition());
 }

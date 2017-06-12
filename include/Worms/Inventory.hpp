@@ -23,8 +23,12 @@ class	Inventory
  public:
   Inventory(irr::IrrlichtDevice *device);
   ~Inventory();
-  void	fireWithSelectedWeapon(size_t const &weaponInGui);
+  void	fireWithSelectedWeapon(size_t const &weaponSelectedInGui);
   void	showSelectedWeapon(size_t const &weaponSelectedInGui);
+  void	setWeaponPositionToWormPosition(size_t const &weaponSelectedInGui,
+					      const irr::core::vector3df &position);
+  void	setWeaponRotationToWormPosition(size_t const &weaponSelectedInGui,
+					      const irr::core::vector3df &rotation);
 };
 
 #endif //CPP_INDIE_STUDIO_INVENTORY_HPP

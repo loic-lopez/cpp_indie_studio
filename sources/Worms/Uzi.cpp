@@ -17,11 +17,7 @@ Uzi::Uzi(irr::IrrlichtDevice *device)
   this->bulletsNumber = 30;
   this->damagePerBullet = 5;
   this->weight = 0;
-  this->uziSceneNode = device->getSceneManager()->addAnimatedMeshSceneNode(
-	  device->getSceneManager()->getMesh("ressources/weapons/Uzi/Uzi.obj"));
-  this->uziSceneNode->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-  this->uziSceneNode->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
-  this->uziSceneNode->setVisible(false);
+  this->device = device;
 }
 
 Uzi::~Uzi()
@@ -41,7 +37,27 @@ bool	Uzi::fire()
   return (false);
 }
 
-void  Uzi::showWeapon()
+void	Uzi::showWeapon()
 {
-  this->uziSceneNode->setVisible(true);
+  this->uziSceneNode = this->device->getSceneManager()->addAnimatedMeshSceneNode(
+	  this->device->getSceneManager()->getMesh("ressources/weapons/Uzi/Uzi.obj"));
+  this->uziSceneNode->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  this->uziSceneNode->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
 }
+
+void	Uzi::deleteWeapon()
+{
+  this->uziSceneNode->getParent()->removeChild(this->uziSceneNode);
+}
+
+void 	Uzi::setWeaponPosition(const irr::core::vector3df &position)
+{
+  this->uziSceneNode->setPosition(position);
+}
+
+void 	Uzi::setWeaponRotation(const irr::core::vector3df &rotation)
+{
+  this->uziSceneNode->setRotation(rotation);
+}
+
+

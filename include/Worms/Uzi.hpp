@@ -19,6 +19,7 @@ class	Uzi : public IWeapon
   int				bulletsNumber;
   int 				damagePerBullet;
   float				weight;
+  irr::IrrlichtDevice		*device;
   irr::scene::ISceneNode	*uziSceneNode;
 
  public:
@@ -26,6 +27,9 @@ class	Uzi : public IWeapon
   virtual 	~Uzi();
   virtual	bool	fire();
   virtual 	void	showWeapon();
+  virtual 	void	deleteWeapon();
+  virtual 	void	setWeaponPosition(const irr::core::vector3df &position);
+  virtual 	void	setWeaponRotation(const irr::core::vector3df &rotation);
 };
 
 #endif //CPP_INDIE_STUDIO_UZI_HPP

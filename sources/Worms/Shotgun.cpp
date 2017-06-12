@@ -12,12 +12,13 @@
 #include <iostream>
 #include "Worms/Shotgun.hpp"
 
-Shotgun::Shotgun()
+Shotgun::Shotgun(irr::IrrlichtDevice *device)
 {
   this->splash_damage_range = 0.5;
   this->chargerNumber = 4;
   this->weight = 0.1;
   this->damagePerBullet = 5;
+  this->device = device;
 }
 
 Shotgun::~Shotgun()
@@ -40,7 +41,22 @@ bool	Shotgun::fire()
 
 }
 
-void  Shotgun::showWeapon()
+void	Shotgun::showWeapon()
 {
 
+}
+
+void	Shotgun::deleteWeapon()
+{
+
+}
+
+void	Shotgun::setWeaponPosition(const irr::core::vector3df &position)
+{
+  this->shotgunSceneNode->setPosition(position);
+}
+
+void	Shotgun::setWeaponRotation(const irr::core::vector3df &rotation)
+{
+  this->shotgunSceneNode->setRotation(rotation);
 }

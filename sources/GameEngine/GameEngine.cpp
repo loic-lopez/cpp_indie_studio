@@ -160,9 +160,9 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	// Fonctions de mouvements des worms
 	if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_Q))
-	  this->teams.at(this->currentTeamIdPlaying).teamMoveLeft(this->currentWormIdPlaying, this->device);
+	  this->teams.at(this->currentTeamIdPlaying).teamMoveLeft(this->currentWormIdPlaying, 0);
 	else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
-	  this->teams.at(this->currentTeamIdPlaying).teamMoveRight(this->currentWormIdPlaying, this->device);
+	  this->teams.at(this->currentTeamIdPlaying).teamMoveRight(this->currentWormIdPlaying, 0);
 	
 	// FIN DE LA BOUCLE DE JEU
 	this->driver->beginScene();

@@ -15,7 +15,7 @@
 Inventory::Inventory(irr::IrrlichtDevice *device)
 {
   this->weaponsInInventory.emplace_back(new Uzi(device));
-  this->weaponsInInventory.emplace_back(new Shotgun);
+  this->weaponsInInventory.emplace_back(new Shotgun(device));
 }
 
 Inventory::~Inventory()
@@ -34,4 +34,16 @@ void	Inventory::fireWithSelectedWeapon(size_t const &weaponSelectedInGui)
 void	Inventory::showSelectedWeapon(size_t const &weaponSelectedInGui)
 {
   this->weaponsInInventory.at(weaponSelectedInGui)->showWeapon();
+}
+
+void	Inventory::setWeaponPositionToWormPosition(size_t const &weaponSelectedInGui,
+						       const irr::core::vector3df &position)
+{
+
+}
+
+void	Inventory::setWeaponRotationToWormPosition(size_t const &weaponSelectedInGui,
+						       const irr::core::vector3df &rotation)
+{
+  this->weaponsInInventory.at(weaponSelectedInGui)->setWeaponRotation(rotation);
 }

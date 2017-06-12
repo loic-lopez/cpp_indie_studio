@@ -16,17 +16,22 @@
 class	Shotgun : public IWeapon
 {
 private:
-  float		splash_damage_range;
-  float		weight;
-  int 		damagePerBullet;
-  int		chargerNumber;
+  float			splash_damage_range;
+  float			weight;
+  int 			damagePerBullet;
+  int			chargerNumber;
+  irr::IrrlichtDevice	*device;
+  irr::scene::ISceneNode	*shotgunSceneNode;
   
 public:
-  Shotgun();
+  Shotgun(irr::IrrlichtDevice *device);
   virtual ~Shotgun();
 
   virtual	bool	fire();
   virtual 	void	showWeapon();
+  virtual 	void	deleteWeapon();
+  virtual 	void	setWeaponPosition(const irr::core::vector3df &position);
+  virtual 	void	setWeaponRotation(const irr::core::vector3df &rotation);
 };
 
 #endif

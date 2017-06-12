@@ -31,14 +31,14 @@ double	Team::turnOfThatTeam(unsigned currentPlayer, std::time_t turnStart)
   return (this->teamPlayers.at(currentPlayer).turnOfThatWorm(turnStart));
 }
 
-void	Team::teamMoveLeft(unsigned currentPlayer, irr::IrrlichtDevice *device)
+void	Team::teamMoveLeft(unsigned currentPlayer, size_t selectedWeapon)
 {
-  this->teamPlayers.at(currentPlayer).wormMoveLeft(device);
+  this->teamPlayers.at(currentPlayer).wormMoveLeft(selectedWeapon);
 }
 
-void	Team::teamMoveRight(unsigned currentPlayer, irr::IrrlichtDevice *device)
+void	Team::teamMoveRight(unsigned currentPlayer, size_t selectedWeapon)
 {
-  this->teamPlayers.at(currentPlayer).wormMoveRight(device);
+  this->teamPlayers.at(currentPlayer).wormMoveRight(selectedWeapon);
 }
 
 void 	Team::teamFire(size_t currentPlayer)

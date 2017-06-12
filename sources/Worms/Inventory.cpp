@@ -12,9 +12,9 @@
 #include <iostream>
 #include "Worms/Inventory.hpp"
 
-Inventory::Inventory()
+Inventory::Inventory(irr::IrrlichtDevice *device)
 {
-  this->weaponsInInventory.emplace_back(new Uzi);
+  this->weaponsInInventory.emplace_back(new Uzi(device));
   this->weaponsInInventory.emplace_back(new Shotgun);
 }
 

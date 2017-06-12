@@ -12,11 +12,16 @@
 #include <iostream>
 #include "Worms/Uzi.hpp"
 
-Uzi::Uzi()
+Uzi::Uzi(irr::IrrlichtDevice *device)
 {
   this->bulletsNumber = 30;
   this->damagePerBullet = 5;
   this->weight = 0;
+  this->uziSceneNode = device->getSceneManager()->addAnimatedMeshSceneNode(
+	  device->getSceneManager()->getMesh("ressources/weapons/Uzi/Uzi.obj"));
+  this->uziSceneNode->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  this->uziSceneNode->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
+  this->uziSceneNode->setVisible(false);
 }
 
 Uzi::~Uzi()
@@ -38,5 +43,5 @@ bool	Uzi::fire()
 
 void  Uzi::showWeapon()
 {
-
+  this->uziSceneNode->setVisible(true);
 }

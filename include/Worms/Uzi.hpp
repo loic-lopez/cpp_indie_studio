@@ -16,12 +16,13 @@
 class	Uzi : public IWeapon
 {
  private:
-  int		bulletsNumber;
-  int 		damagePerBullet;
-  float		weight;
+  int				bulletsNumber;
+  int 				damagePerBullet;
+  float				weight;
+  irr::scene::ISceneNode	*uziSceneNode;
 
  public:
-  Uzi();
+  Uzi(irr::IrrlichtDevice *device);
   virtual 	~Uzi();
   virtual	bool	fire();
   virtual 	void	showWeapon();

@@ -11,6 +11,8 @@
 #ifndef	IWEAPON_HPP
 #define IWEAPON_HPP
 
+#include "Dependencies/Dependencies.hpp"
+
 class	IWeapon
 {
 public:

@@ -21,7 +21,7 @@ class	Inventory
  private:
   std::vector<std::shared_ptr<IWeapon>>	weaponsInInventory;
  public:
-  Inventory();
+  Inventory(irr::IrrlichtDevice *device);
   ~Inventory();
   void	fireWithSelectedWeapon(size_t const &weaponInGui);
   void	showSelectedWeapon(size_t const &weaponSelectedInGui);

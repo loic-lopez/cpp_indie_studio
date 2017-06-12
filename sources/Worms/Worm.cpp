@@ -96,7 +96,7 @@ void	Worm::wormMoveLeft(size_t const &currentSelectedWeapon)
       this->inventory.setWeaponRotationToWormPosition(currentSelectedWeapon, this->wormMesh->getRotation());
     }
   this->wormMesh->setPosition(this->worm_pos);
-  this->inventory.setWeaponPositionToWormPosition(currentSelectedWeapon, this->wormMesh->getPosition());
+  this->inventory.setWeaponPositionToWormPosition(currentSelectedWeapon, this->worm_pos);
 }
 
 void	Worm::wormMoveRight(size_t const &currentSelectedWeapon)
@@ -110,7 +110,7 @@ void	Worm::wormMoveRight(size_t const &currentSelectedWeapon)
       this->inventory.setWeaponRotationToWormPosition(currentSelectedWeapon, this->wormMesh->getRotation());
     }
   this->wormMesh->setPosition(this->worm_pos);
-  this->inventory.setWeaponPositionToWormPosition(currentSelectedWeapon, this->wormMesh->getPosition());
+  this->inventory.setWeaponPositionToWormPosition(currentSelectedWeapon, this->worm_pos);
 }
 
 const irr::core::vector3df	&Worm::wormGetPosition() const

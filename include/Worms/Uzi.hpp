@@ -21,6 +21,7 @@ class	Uzi : public IWeapon
   float				weight;
   irr::IrrlichtDevice		*device;
   irr::scene::ISceneNode	*uziSceneNode;
+  irr::core::aabbox3d<irr::f32>	uziBox;
 
  public:
   Uzi(irr::IrrlichtDevice *device);

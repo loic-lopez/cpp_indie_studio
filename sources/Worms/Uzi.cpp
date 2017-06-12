@@ -43,6 +43,8 @@ void	Uzi::showWeapon()
     (this->device->getSceneManager()->getMesh("ressources/weapons/Uzi/Uzi.obj"));
   this->uziSceneNode->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   this->uziSceneNode->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
+  this->uziSceneNode->setScale(irr::core::vector3df(0.5, 0.5, 0.5));
+  this->uziBox = this->uziSceneNode->getBoundingBox();
 }
 
 void	Uzi::deleteWeapon()
@@ -52,7 +54,19 @@ void	Uzi::deleteWeapon()
 
 void 	Uzi::setWeaponPosition(const irr::core::vector3df &position)
 {
-  this->uziSceneNode->setPosition(position);
+  irr::f32	yRotation = this->uziSceneNode->getRotation().Y;
+
+  if (yRotation == 90.0f)
+    this->uziSceneNode->setPosition(
+	    irr::core::vector3df(position.X + this->uziBox.getExtent().getLength() / 6,
+				 position.Y + this->uziBox.getExtent().getLength() / 2,
+				 position.Z - this->uziBox.getExtent().getLength() / 6));
+  else if (yRotation == -90.0f)
+    this->uziSceneNode->setPosition(
+	    irr::core::vector3df(position.X - this->uziBox.getExtent().getLength() / 6,
+				 position.Y + this->uziBox.getExtent().getLength() / 2,
+				 position.Z - this->uziBox.getExtent().getLength() / 6));
+
 }
 
 void 	Uzi::setWeaponRotation(const irr::core::vector3df &rotation)

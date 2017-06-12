@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Mon Jun 12 17:38:50 2017 Stanislas Deneubourg
+// Last update Mon Jun 12 18:04:02 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -133,7 +133,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	  {
 	    this->timeBeforeSuddenDeathEndTurn = std::time(nullptr);
 	    this->turnTimeLeft = this->timeBeforePause - this->turnNow;
-	    this->timeBeforeSuddenDeath = 600 - (std::difftime(this->timeBeforeSuddenDeathEndTurn, this->suddenDeathCooldown));
+	    this->timeBeforeSuddenDeath = 600 - this->suddenDeathTimeBeforePause - (std::difftime(this->timeBeforeSuddenDeathEndTurn, this->suddenDeathCooldown));
 	  }
 	else if (this->isGamePaused == true)
 	  {
@@ -251,12 +251,16 @@ EventStatus GameNamespace::GameEngine::launchModel()
 		this->isGamePaused = false;
 		this->turnStart = std::time(nullptr);
 		this->suddenDeathCooldown = std::time(nullptr);
+		this->timeBeforeSuddenDeathEndTurn = std::time(nullptr);
+		this->suddenDeathTimeBeforePause = 600 - this->timeBeforeSuddenDeath;
 	      }
 	    else if (eventStatusMenu == EventStatus::BACK_TO_GAME)
 	      {
 		this->isGamePaused = false;
                 this->turnStart = std::time(nullptr);
 		this->suddenDeathCooldown = std::time(nullptr);
+		this->timeBeforeSuddenDeathEndTurn = std::time(nullptr);
+		this->suddenDeathTimeBeforePause = 600 - this->timeBeforeSuddenDeath;
 	      }
 	    else if (eventStatusMenu == EventStatus::QUIT || eventStatusMenu == EventStatus::BACK_TO_MENU)
 	      break;

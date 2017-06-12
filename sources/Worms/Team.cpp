@@ -17,7 +17,7 @@ Team::Team(unsigned int players_, unsigned int teamNb,
 {
   this->players = players_;
   this->teamName = "Humans ";
-  this->teamName += teamNb;
+  this->teamName += std::to_string(teamNb);
   for (unsigned int i = 0; i < this->players; i++)
     this->teamPlayers.emplace_back(Worm(i, vectorPos.at(i), device, wormFile, isBot));
 }

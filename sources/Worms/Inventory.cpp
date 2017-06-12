@@ -23,9 +23,9 @@ Inventory::~Inventory()
 
 }
 
-void	Inventory::fireWithSelectedWeapon(size_t const &weaponInGui)
+void	Inventory::fireWithSelectedWeapon(size_t const &weaponSelectedInGui)
 {
-  if (this->weaponsInInventory.at(weaponInGui)->fire())
+  if (this->weaponsInInventory.at(weaponSelectedInGui)->fire())
     std::cout << "FIRE !" << std::endl;
   else
     std::cout << "NO MORE BULLETS" << std::endl;

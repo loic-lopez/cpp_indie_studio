@@ -13,7 +13,7 @@
 Team::Team(unsigned int players_, unsigned int teamNb,
 	   std::vector<irr::core::vector3df> vectorPos,
 	   irr::IrrlichtDevice *device,
-	   std::string wormFile, bool isBot)
+	   std::string const &wormFile, bool isBot)
 {
   this->players = players_;
   this->teamName = "Humans ";

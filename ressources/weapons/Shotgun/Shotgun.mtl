@@ -1,0 +1,14 @@
+# Blender MTL File: 'Shotgun.blend'
+# Material Count: 1
+
+newmtl RefRep.235_Gun.png
+Ns 92.156863
+Ka 1.000000 1.000000 1.000000
+Kd 0.512000 0.512000 0.512000
+Ks 0.250000 0.250000 0.250000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Texture/Gun.png
+map_Tr Texture/Gun.png

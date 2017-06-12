@@ -22,6 +22,7 @@ private:
   int			chargerNumber;
   irr::IrrlichtDevice	*device;
   irr::scene::ISceneNode	*shotgunSceneNode;
+  irr::core::aabbox3d<irr::f32>	shotgunBox;
   
 public:
   Shotgun(irr::IrrlichtDevice *device);

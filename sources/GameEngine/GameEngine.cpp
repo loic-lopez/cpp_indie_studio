@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Mon Jun 12 18:04:02 2017 Stanislas Deneubourg
+// Last update Mon Jun 12 18:35:46 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -155,7 +155,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 		  this->currentWormIdPlaying = 0;
 	      }
 	    this->gameStart = false;
-	    this->timeBeforePause = 60;
+	    this->timeBeforePause = 59;
 	  }
 
 	// Fonctions de mouvements des worms

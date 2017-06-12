@@ -49,4 +49,8 @@ void 	Team::teamFire(size_t currentPlayer)
 void 	Team::showWormWeapon(size_t currentPlayer, size_t selectedWeapon)
 {
   this->teamPlayers.at(currentPlayer).inventory.showSelectedWeapon(selectedWeapon);
+  this->teamPlayers.at(currentPlayer).inventory.
+	  setWeaponPositionToWormPosition(selectedWeapon, this->teamPlayers.at(currentPlayer).wormGetPosition());
+  this->teamPlayers.at(currentPlayer).inventory.
+	  setWeaponRotationToWormPosition(selectedWeapon, this->teamPlayers.at(currentPlayer).wormGetRotation());
 }

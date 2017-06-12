@@ -114,3 +114,13 @@ void	Worm::wormMoveRight(size_t const &currentSelectedWeapon)
   this->wormMesh->setPosition(irr::core::vector3df(this->posX, this->posY, this->posZ));
   this->inventory.setWeaponPositionToWormPosition(currentSelectedWeapon, this->wormMesh->getPosition());
 }
+
+const irr::core::vector3df	&Worm::wormGetPosition() const
+{
+  return this->wormMesh->getPosition();
+}
+
+const irr::core::vector3df	&Worm::wormGetRotation() const
+{
+  return this->wormMesh->getRotation();
+}

@@ -81,6 +81,8 @@ public:
   double				turnOfThatWorm(std::time_t);
   void					wormMoveLeft(size_t const &currentSelectedWeapon);
   void					wormMoveRight(size_t const &currentSelectedWeapon);
+  const irr::core::vector3df 		&wormGetPosition() const;
+  const irr::core::vector3df 		&wormGetRotation() const;
 };
 
 #endif

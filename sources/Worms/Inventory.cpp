@@ -20,7 +20,7 @@ Inventory::Inventory(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driv
   this->_guienv->setSkin(this->_skin);
   this->_skin->drop();
   this->weaponsInInventory.emplace_back(new Uzi(device, soundEngine));
-  this->weaponsInInventory.emplace_back(new Shotgun(device));
+  this->weaponsInInventory.emplace_back(new Shotgun(device, soundEngine));
 }
 
 Inventory::~Inventory()

@@ -1,2 +1,25 @@
-﻿  Shotgun.cpp
-  Worms.vcxproj -> C:\Users\Yassir\Documents\Shared\cpp_indie_studio\x64\Release\Worms.exe
+﻿  Core.cpp
+  Encap.cpp
+  Inventory.cpp
+sources\Worms\Inventory.cpp(23): error C2661: 'Shotgun::Shotgun' : aucune fonction surchargée ne nécessite 2 arguments
+sources\Worms\Inventory.cpp(23): error C2672: 'std::vector<std::shared_ptr<IWeapon>,std::allocator<_Ty>>::emplace_back' : fonction correspondante surchargée introuvable
+          with
+          [
+              _Ty=std::shared_ptr<IWeapon>
+          ]
+  Shotgun.cpp
+  Uzi.cpp
+  EventReceiver.cpp
+  MenuEvent.cpp
+  MenuEventSubMenu.cpp
+  GameEngine.cpp
+  GameEngineGeneration.cpp
+  GameEngineLogic.cpp
+  main.cpp
+  MenuInGameModel.cpp
+  MenuModel.cpp
+  SetMenuModelMainOptions.cpp
+  SplashScreen.cpp
+  Team.cpp
+  Worm.cpp
+  Génération de code en cours...

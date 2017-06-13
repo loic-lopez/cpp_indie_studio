@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:43:41 2017 Stanislas Deneubourg
-// Last update Tue Jun 13 17:33:27 2017 Stanislas Deneubourg
+// Last update Tue Jun 13 17:45:44 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Worm.hpp"
@@ -31,11 +31,11 @@ Worm::Worm(int nb, irr::core::vector3df vectorPos,
   this->wormMesh->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   this->wormMesh->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
   if (dir == 0)
-    this->wormMesh->setRotation(irr::core::vector3df(0.0, 90.0, 0.0));
+    this->wormMesh->setRotation(irr::core::vector3df(0.0, -90.0, 0.0));
   else if (dir == 1)
-    this->wormMesh->setRotation(irr::core::vector3df(0.0, -90.0f, 0.0));
+    this->wormMesh->setRotation(irr::core::vector3df(0.0, 90.0, 0.0));
   else
-    this->wormMesh->setRotation(irr::core::vector3df(0.0, 180.0, 0.0));
+    this->wormMesh->setRotation(irr::core::vector3df(0.0, 0.0, 0.0));
   this->lookingDirection = static_cast<Worm::LookingDirection>(dir);
   this->wormMesh->setFrameLoop(0, 25);
   this->wormMesh->setAnimationSpeed(0);
@@ -111,7 +111,7 @@ void	Worm::wormMoveLeft(size_t const &currentSelectedWeapon)
   if (this->lookingDirection == Worm::LookingDirection::RIGHT
       || this->lookingDirection == Worm::LookingDirection::FRONT)
     {
-      this->wormMesh->setRotation(irr::core::vector3df(0.0, -90.0f, 0.0));
+      this->wormMesh->setRotation(irr::core::vector3df(0.0, 90.0f, 0.0));
       this->lookingDirection = Worm::LookingDirection::LEFT;
       this->inventory.setWeaponRotationToWormPosition(currentSelectedWeapon, this->wormMesh->getRotation());
     }
@@ -126,7 +126,7 @@ void	Worm::wormMoveRight(size_t const &currentSelectedWeapon)
   if (this->lookingDirection == Worm::LookingDirection::LEFT
       || this->lookingDirection == Worm::LookingDirection::FRONT)
     {
-      this->wormMesh->setRotation(irr::core::vector3df(0.0, 90.0, 0.0));
+      this->wormMesh->setRotation(irr::core::vector3df(0.0, -90.0, 0.0));
       this->lookingDirection = Worm::LookingDirection::RIGHT;
       this->inventory.setWeaponRotationToWormPosition(currentSelectedWeapon, this->wormMesh->getRotation());
     }

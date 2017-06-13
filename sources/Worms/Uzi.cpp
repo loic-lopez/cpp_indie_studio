@@ -85,7 +85,10 @@ bool	Uzi::updateBullets()
       auto bulletPosition = firedBullet.bullet->getPosition();
       if (bulletPosition.X < firedBullet.startBulletX + UZI_BULLET_RANGE)
 	{
-	  bulletPosition.X += UZI_BULLET_SPEED;
+	  if (firedBullet.startBulletRotationY == 90)
+	    bulletPosition.X += UZI_BULLET_SPEED;
+	  else
+	    bulletPosition.X -= UZI_BULLET_SPEED;
 	  firedBullet.bullet->setPosition(bulletPosition);
 	}
       else
@@ -118,6 +121,7 @@ Uzi::Bullet::Bullet(const irr::core::vector3df &position,
   this->bullet->setPosition(irr::core::vector3df(position.X,
 						 position.Y + uziBox.getExtent().getLength() / 5,
 						 position.Z));
+  this->startBulletRotationY = rotation.Y;
 }
 
 void	Uzi::Bullet::deleteBullet()

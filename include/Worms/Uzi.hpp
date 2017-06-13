@@ -24,6 +24,7 @@ class	Uzi : public IWeapon
   {
     irr::scene::ISceneNode 	*bullet;
     irr::f32 			startBulletX;
+    irr::f32 			startBulletRotationY;
 
     Bullet(const irr::core::vector3df &position,
 	   const irr::core::vector3df &rotation,

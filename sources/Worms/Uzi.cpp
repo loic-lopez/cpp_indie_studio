@@ -87,8 +87,7 @@ bool	Uzi::updateBullets()
       auto bulletPosition = firedBullet.bullet->getPosition();
       if (firedBullet.startBulletRotationY == 90)
 	{
-	  if (bulletPosition.X < firedBullet.startBulletX + UZI_BULLET_RANGE && firedBullet.startBulletX -
-										UZI_BULLET_RANGE > bulletPosition.X)
+	  if (bulletPosition.X < firedBullet.startBulletX + UZI_BULLET_RANGE)
 	    {
 	      bulletPosition.X += UZI_BULLET_SPEED;
 	      firedBullet.bullet->setPosition(bulletPosition);

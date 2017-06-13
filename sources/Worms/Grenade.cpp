@@ -10,7 +10,7 @@
 
 #include "Worms/Grenade.hpp"
 
-Grenade::Greande()
+Grenade::Grenade()
 {
   this->splash_damage_range = 5;
   this->max_damage = 55;

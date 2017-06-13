@@ -1,9 +1,9 @@
 //
 // GameEngine.cpp for GameEngine.cpp in /home/deneub_s/cpp_indie_studio
-// 
+//
 // Made by Stanislas Deneubourg
 // Login   <deneub_s@epitech.net>
-// 
+//
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
 // Last update Mon Jun 12 18:35:46 2017 Stanislas Deneubourg
 //
@@ -96,7 +96,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
     if (this->device->isWindowActive())
       {
 	// Affichage des FPS et du driver choisi
-	
+
 	const irr::s32 fps = this->driver->getFPS();
 	if (lastFPS != fps)
 	  {
@@ -115,9 +115,12 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	  this->teams.at(this->currentTeamIdPlaying).teamFire(this->currentWormIdPlaying);
 
 	if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_I))
-	  this->teams.at(this->currentTeamIdPlaying).showWormWeapon(this->currentWormIdPlaying, 0);
+	  {
+	    eventStatusMenu = EventStatus::INVENTORY;
+	    //this->teams.at(this->currentTeamIdPlaying).showWormWeapon(this->currentWormIdPlaying, 0);
+	  }
 
-	
+
 	// BOUCLE DE JEU
 
 	if (!this->gameStart)
@@ -125,7 +128,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->turnStart = std::time(nullptr); // Set du timer a chaque tour
 	    this->gameStart = true;
 	  }
-        
+
 	this->turnNow = this->teams.at(this->currentTeamIdPlaying).turnOfThatTeam(this->currentWormIdPlaying, this->turnStart); // Revoie le temps écoulé depuis le début du tour
 
 	// Bloquage du timer en cas de pause
@@ -136,16 +139,16 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->timeBeforeSuddenDeath = 600 - this->suddenDeathTimeBeforePause - (std::difftime(this->timeBeforeSuddenDeathEndTurn, this->suddenDeathCooldown));
 	  }
 	else if (this->isGamePaused == true)
-	  {
-	    this->turnTimeLeft = this->timeBeforePause;
-	    //	    this->timeBeforeSuddenDeath = 600;
-	  }
+	    {
+	      this->turnTimeLeft = this->timeBeforePause;
+	      //	    this->timeBeforeSuddenDeath = 600;
+	    }
 
 	// Si le temps est écoulé, au joueur suivant de jouer
 	if (this->turnTimeLeft < 0)
 	  {
 	    if (this->currentTeamIdPlaying < this->numberOfTeams - 1)
-		this->currentTeamIdPlaying++;
+	      this->currentTeamIdPlaying++;
 	    else
 	      {
 		this->currentTeamIdPlaying = 0;
@@ -162,8 +165,8 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_Q))
 	  this->teams.at(this->currentTeamIdPlaying).teamMoveLeft(this->currentWormIdPlaying, 0);
 	else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
-	  this->teams.at(this->currentTeamIdPlaying).teamMoveRight(this->currentWormIdPlaying, 0);
-	
+	    this->teams.at(this->currentTeamIdPlaying).teamMoveRight(this->currentWormIdPlaying, 0);
+
 	// FIN DE LA BOUCLE DE JEU
 	this->driver->beginScene();
 	this->smgr->drawAll();
@@ -183,18 +186,18 @@ EventStatus GameNamespace::GameEngine::launchModel()
 		    stringSuddenDeathTime += "00";
 		  }
 		else if ((timeBeforeSuddenDeathToInt % 60) < 10)
-		  {
-		    stringSuddenDeathTime = std::to_string(timeBeforeSuddenDeathToInt / 60);
-		    stringSuddenDeathTime += ":";
-		    stringSuddenDeathTime += "0";
-		    stringSuddenDeathTime += std::to_string(timeBeforeSuddenDeathToInt % 60);
-		  }
-		else
-		  {
-		    stringSuddenDeathTime = std::to_string(timeBeforeSuddenDeathToInt / 60);
-		    stringSuddenDeathTime += ":";
-		    stringSuddenDeathTime += std::to_string(timeBeforeSuddenDeathToInt % 60);
-		  }
+		    {
+		      stringSuddenDeathTime = std::to_string(timeBeforeSuddenDeathToInt / 60);
+		      stringSuddenDeathTime += ":";
+		      stringSuddenDeathTime += "0";
+		      stringSuddenDeathTime += std::to_string(timeBeforeSuddenDeathToInt % 60);
+		    }
+		  else
+		    {
+		      stringSuddenDeathTime = std::to_string(timeBeforeSuddenDeathToInt / 60);
+		      stringSuddenDeathTime += ":";
+		      stringSuddenDeathTime += std::to_string(timeBeforeSuddenDeathToInt % 60);
+		    }
 	      }
 	    else
 	      stringSuddenDeathTime += std::to_string(timeBeforeSuddenDeathToInt % 60);
@@ -206,7 +209,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 					   irr::video::SColor(255, 255, 255, 255), 0);
 
 	    // Affichage des deux timers dans la box
-	    
+
 	    if (this->turnTimeLeft > 10)
 	      this->font->draw(stringTurnTimer.c_str(),
 			       irr::core::rect<irr::s32>(this->screenSize.Width * 9 / 10 + 30,
@@ -216,25 +219,25 @@ EventStatus GameNamespace::GameEngine::launchModel()
 			       irr::video::SColor(255, 255, 190, 0));
 	    else
 	      this->font->draw(stringTurnTimer.c_str(),
-                               irr::core::rect<irr::s32>(this->screenSize.Width * 9 / 10 + 30,
-                                                         this->screenSize.Height * 9 / 10 + 30,
-                                                         this->screenSize.Width * 9 / 10 + 60,
-                                                         this->screenSize.Height * 9 / 10 + 60),
-                               irr::video::SColor(255, 255, 0, 0));
+			       irr::core::rect<irr::s32>(this->screenSize.Width * 9 / 10 + 30,
+							 this->screenSize.Height * 9 / 10 + 30,
+							 this->screenSize.Width * 9 / 10 + 60,
+							 this->screenSize.Height * 9 / 10 + 60),
+			       irr::video::SColor(255, 255, 0, 0));
 	    if (this->timeBeforeSuddenDeath > 60)
-              this->font->draw(stringSuddenDeathTime.c_str(),
-                               irr::core::rect<irr::s32>(this->screenSize.Width * 9 / 10 + 5,
-                                                         this->screenSize.Height * 9 / 10 + 5,
-                                                         this->screenSize.Width * 9 / 10 + 25,
-                                                         this->screenSize.Height * 9 / 10 + 25),
-                               irr::video::SColor(255, 255, 190, 0));
-            else
-              this->font->draw(stringSuddenDeathTime.c_str(),
-                               irr::core::rect<irr::s32>(this->screenSize.Width * 9 / 10 + 5,
-                                                         this->screenSize.Height * 9 / 10 + 5,
-                                                         this->screenSize.Width * 9 / 10 + 25,
-                                                         this->screenSize.Height * 9 / 10 + 25),
-                               irr::video::SColor(255, 255, 0, 0));
+	      this->font->draw(stringSuddenDeathTime.c_str(),
+			       irr::core::rect<irr::s32>(this->screenSize.Width * 9 / 10 + 5,
+							 this->screenSize.Height * 9 / 10 + 5,
+							 this->screenSize.Width * 9 / 10 + 25,
+							 this->screenSize.Height * 9 / 10 + 25),
+			       irr::video::SColor(255, 255, 190, 0));
+	    else
+	      this->font->draw(stringSuddenDeathTime.c_str(),
+			       irr::core::rect<irr::s32>(this->screenSize.Width * 9 / 10 + 5,
+							 this->screenSize.Height * 9 / 10 + 5,
+							 this->screenSize.Width * 9 / 10 + 25,
+							 this->screenSize.Height * 9 / 10 + 25),
+			       irr::video::SColor(255, 255, 0, 0));
 	  }
 	if (eventStatusMenu != EventStatus::IN_GAME_MENU && this->eventReceiver.IsKeyUp(irr::KEY_ESCAPE))
 	  {
@@ -255,15 +258,15 @@ EventStatus GameNamespace::GameEngine::launchModel()
 		this->suddenDeathTimeBeforePause = 600 - this->timeBeforeSuddenDeath;
 	      }
 	    else if (eventStatusMenu == EventStatus::BACK_TO_GAME)
-	      {
-		this->isGamePaused = false;
-                this->turnStart = std::time(nullptr);
-		this->suddenDeathCooldown = std::time(nullptr);
-		this->timeBeforeSuddenDeathEndTurn = std::time(nullptr);
-		this->suddenDeathTimeBeforePause = 600 - this->timeBeforeSuddenDeath;
-	      }
-	    else if (eventStatusMenu == EventStatus::QUIT || eventStatusMenu == EventStatus::BACK_TO_MENU)
-	      break;
+		{
+		  this->isGamePaused = false;
+		  this->turnStart = std::time(nullptr);
+		  this->suddenDeathCooldown = std::time(nullptr);
+		  this->timeBeforeSuddenDeathEndTurn = std::time(nullptr);
+		  this->suddenDeathTimeBeforePause = 600 - this->timeBeforeSuddenDeath;
+		}
+	      else if (eventStatusMenu == EventStatus::QUIT || eventStatusMenu == EventStatus::BACK_TO_MENU)
+		  break;
 	  }
 	this->driver->endScene();
       }
@@ -273,7 +276,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 void	GameNamespace::GameEngine::setModelProperties()
 {
   irr::video::ITexture		*timer;
-  
+
   if (this->guienv->getSpriteBank(irr::io::path("ressources")) == nullptr)
     this->spriteBank = this->guienv->addEmptySpriteBank(irr::io::path("ressources"));
   else

@@ -18,8 +18,20 @@
 
 class	Inventory
 {
+ public:
+  enum class	weaponsId : uint16_t
+  {
+    UZI = 0,
+    SHOTGUN = 1,
+    GRENADE = 2
+  };
+
  private:
   std::vector<std::shared_ptr<IWeapon>>	weaponsInInventory;
+  irr::IrrlichtDevice				*_device;
+
+  weaponsId 					*id;
+
  public:
   Inventory(irr::IrrlichtDevice *device);
   ~Inventory();
@@ -29,6 +41,7 @@ class	Inventory
 					      const irr::core::vector3df &position);
   void	setWeaponRotationToWormPosition(size_t const &weaponSelectedInGui,
 					      const irr::core::vector3df &rotation);
+  void launchInventory();
 };
 
 #endif //CPP_INDIE_STUDIO_INVENTORY_HPP

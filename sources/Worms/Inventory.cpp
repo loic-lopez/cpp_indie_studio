@@ -12,7 +12,8 @@
 #include <iostream>
 #include "Worms/Inventory.hpp"
 
-Inventory::Inventory(irr::IrrlichtDevice *device)
+Inventory::Inventory(irr::IrrlichtDevice *device) :
+	_device(device)
 {
   this->weaponsInInventory.emplace_back(new Uzi(device));
   this->weaponsInInventory.emplace_back(new Shotgun(device));
@@ -46,4 +47,9 @@ void	Inventory::setWeaponRotationToWormPosition(size_t const &weaponSelectedInGu
 						       const irr::core::vector3df &rotation)
 {
   this->weaponsInInventory.at(weaponSelectedInGui)->setWeaponRotation(rotation);
+}
+
+void Inventory::launchInventory()
+{
+
 }

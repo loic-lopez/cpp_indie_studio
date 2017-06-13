@@ -11,7 +11,6 @@
 #ifndef CPP_INDIE_STUDIO_UZI_HPP
 #define CPP_INDIE_STUDIO_UZI_HPP
 
-#include <vector>
 #include "Interface/IWeapon.hpp"
 
 #define	UZI_BULLET_SPEED	4.0f
@@ -20,18 +19,17 @@
 class	Uzi : public IWeapon
 {
  private:
-  struct Bullet
-  {
-    irr::scene::ISceneNode 	*bullet;
-    irr::f32 			startBulletX;
-    irr::f32 			startBulletRotationY;
+   struct Bullet
+    {
+      irr::scene::ISceneNode 	*bullet;
+      irr::f32 			startBulletX;
+      irr::f32 			startBulletRotationY;
 
-    Bullet(const irr::core::vector3df &position,
-	   const irr::core::vector3df &rotation,
-	   irr::IrrlichtDevice *device, irr::core::aabbox3d<irr::f32> const &uziBox);
-    void	deleteBullet();
-  };
-
+      Bullet(const irr::core::vector3df &position,
+	     const irr::core::vector3df &rotation,
+	     irr::IrrlichtDevice *device, irr::core::aabbox3d<irr::f32> const &uziBox);
+      void	deleteBullet();
+    };
   int				bulletsNumber;
   irr::IrrlichtDevice		*device;
   irrklang::ISoundEngine	*soundEngine;

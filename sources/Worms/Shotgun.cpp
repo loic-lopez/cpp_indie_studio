@@ -9,16 +9,19 @@
 //
 
 // TODO: ENLEVER LES PRINTS
+#include <ctime>
 #include <iostream>
 #include "Worms/Shotgun.hpp"
 
-Shotgun::Shotgun(irr::IrrlichtDevice *device)
+Shotgun::Shotgun(irr::IrrlichtDevice *device, irrklang::ISoundEngine *soundEngine)
 {
   this->splash_damage_range = 0.5;
   this->chargerNumber = 4;
   this->weight = 0.1;
   this->damagePerBullet = 5;
   this->device = device;
+  this->soundEngine = soundEngine;
+  std::srand(std::time(nullptr));
 }
 
 Shotgun::~Shotgun()
@@ -29,16 +32,16 @@ bool	Shotgun::fire()
 {
   if (this->chargerNumber > 0)
     {
+      irr::core::vector3df	position = this->shotgunSceneNode->getPosition();
+      irr::core::vector3df	rotation = this->shotgunSceneNode->getRotation();
+      for (size_t i = 0; i < SHOTGUN_BULLETS_PER_CHARGER; i++)
+	this->firedBullets.emplace_back(position, rotation, this->device, this->shotgunBox);
       this->chargerNumber--;
       std::cout << "FIRE SHOTGUN" << std::endl;
       return (true);
     }
-  else
-    {
-      std::cout << "NO MORE " << std::endl;
-      return (false);
-    }
-
+  std::cout << "NO MORE " << std::endl;
+  return (false);
 }
 
 void	Shotgun::showWeapon()
@@ -53,7 +56,7 @@ void	Shotgun::showWeapon()
 
 void	Shotgun::deleteWeapon()
 {
-
+  this->shotgunSceneNode->getParent()->removeChild(this->shotgunSceneNode);
 }
 
 void	Shotgun::setWeaponPosition(const irr::core::vector3df &position)
@@ -79,5 +82,76 @@ void	Shotgun::setWeaponRotation(const irr::core::vector3df &rotation)
 
 bool	Shotgun::updateBullets()
 {
-  return true;
+  size_t i = 0;
+  std::vector<size_t>	toRemove;
+
+  for (auto &firedBullet: this->firedBullets)
+    {
+      auto bulletPosition = firedBullet.bullet->getPosition();
+      if (firedBullet.startBulletRotationY == 90)
+	{
+	  if (bulletPosition.X < firedBullet.startBulletX + SHOTGUN_BULLET_RANGE)
+	    {
+	      bulletPosition.X += SHOTGUN_BULLET_SPEED;
+	      firedBullet.bullet->setPosition(bulletPosition);
+	    }
+	  else
+	    toRemove.push_back(i);
+	}
+      else
+	if (bulletPosition.X > firedBullet.startBulletX - SHOTGUN_BULLET_RANGE)
+	  {
+	    bulletPosition.X -= SHOTGUN_BULLET_SPEED;
+	    firedBullet.bullet->setPosition(bulletPosition);
+	  }
+	else
+	  toRemove.push_back(i);
+      i++;
+    }
+
+  if (toRemove.size() == firedBullets.size() && !firedBullets.empty())
+    {
+      i = toRemove.size() - 1;
+      for (; i > 0; i--)
+	{
+	  this->firedBullets.at(i).deleteBullet();
+	  this->firedBullets.erase(this->firedBullets.begin() + i);
+	}
+      this->firedBullets.at(i).deleteBullet();
+      this->firedBullets.erase(this->firedBullets.begin() + i);
+      this->firedBullets.empty();
+    }
+  return !this->firedBullets.empty();
+}
+
+Shotgun::Bullet::Bullet(const irr::core::vector3df &position, const irr::core::vector3df &rotation,
+			irr::IrrlichtDevice *device, irr::core::aabbox3d<irr::f32> const &uziBox)
+{
+  int 	randomPosY = std::rand() % 5;
+  int 	randHB = std::rand() % 10;
+
+  this->bullet = device->getSceneManager()->addMeshSceneNode
+	  (device->getSceneManager()->getMesh("ressources/weapons/Bullet/bullet.obj"));
+  this->bullet->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  this->bullet->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
+  this->bullet->setScale(irr::core::vector3df(0.1, 0.1, 0.1));
+  this->bullet->setRotation(rotation);
+  this->startBulletX = position.X;
+  if (randHB >= 5)
+    this->bullet->setPosition(irr::core::vector3df(position.X,
+						     position.Y + static_cast<irr::f32>(
+									  uziBox.getExtent().getLength() / 5
+									  + randomPosY / 10.0f),
+						     position.Z));
+  else
+    this->bullet->setPosition(irr::core::vector3df(position.X,
+						   (position.Y + uziBox.getExtent().getLength() / 5)
+						   - randomPosY / 10.0f,
+						   position.Z));
+  this->startBulletRotationY = rotation.Y;
+}
+
+void	Shotgun::Bullet::deleteBullet()
+{
+  this->bullet->getParent()->removeChild(this->bullet);
 }

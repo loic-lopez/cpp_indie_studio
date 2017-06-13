@@ -13,9 +13,24 @@
 
 #include "Interface/IWeapon.hpp"
 
+#define	SHOTGUN_BULLETS_PER_CHARGER 10
+#define	SHOTGUN_BULLET_SPEED	2.0f
+#define SHOTGUN_BULLET_RANGE	25.0f
+
 class	Shotgun : public IWeapon
 {
 private:
+  struct Bullet
+  {
+    irr::scene::ISceneNode 	*bullet;
+    irr::f32 			startBulletX;
+    irr::f32 			startBulletRotationY;
+
+    Bullet(const irr::core::vector3df &position,
+	   const irr::core::vector3df &rotation,
+	   irr::IrrlichtDevice *device, irr::core::aabbox3d<irr::f32> const &uziBox);
+    void	deleteBullet();
+  };
   float			splash_damage_range;
   float			weight;
   int 			damagePerBullet;
@@ -23,9 +38,11 @@ private:
   irr::IrrlichtDevice	*device;
   irr::scene::ISceneNode	*shotgunSceneNode;
   irr::core::aabbox3d<irr::f32>	shotgunBox;
+  irrklang::ISoundEngine	*soundEngine;
+  std::vector<Bullet>		firedBullets;
   
 public:
-  explicit Shotgun(irr::IrrlichtDevice *device);
+  explicit Shotgun(irr::IrrlichtDevice *device, irrklang::ISoundEngine *soundEngine);
   ~Shotgun() override;
 
   bool	fire() 		override;

@@ -11,7 +11,7 @@
 #ifndef	IWEAPON_HPP
 #define IWEAPON_HPP
 
-#include <ctime>
+#include <vector>
 #include "Dependencies/Dependencies.hpp"
 
 class	IWeapon

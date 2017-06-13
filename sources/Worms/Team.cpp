@@ -42,9 +42,9 @@ void	Team::teamMoveRight(unsigned currentPlayer, size_t selectedWeapon)
   this->teamPlayers.at(currentPlayer).wormMoveRight(selectedWeapon);
 }
 
-bool 	Team::teamFire(size_t currentPlayer)
+bool 	Team::teamFire(size_t currentPlayer, size_t selectedWeapon)
 {
-  return this->teamPlayers.at(currentPlayer).inventory.fireWithSelectedWeapon(0);
+  return this->teamPlayers.at(currentPlayer).inventory.fireWithSelectedWeapon(selectedWeapon);
 }
 
 void 	Team::showWormWeapon(size_t currentPlayer, size_t selectedWeapon)

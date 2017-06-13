@@ -37,7 +37,7 @@ public:
   double		turnOfThatTeam(unsigned int, std::time_t);
   void			teamMoveLeft(unsigned int, size_t selectedWeapon);
   void			teamMoveRight(unsigned int, size_t selectedWeapon);
-  bool			teamFire(size_t);
+  bool			teamFire(size_t, size_t selectedWeapon);
   void 			showWormWeapon(size_t, size_t);
   bool			updateTeamWormBullets(unsigned currentPlayer, size_t selectedWeapon);
   void 			teamLaunchInventory(unsigned int);

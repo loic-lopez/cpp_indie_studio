@@ -74,8 +74,8 @@ void	GameNamespace::GameEngine::setBlockProperties(int x, int y)
     {
       this->groundObject->setMaterialTexture(0,
 					     this->driver->getTexture(this->fileTexture.c_str()));
-      this->groundObject->setMaterialFlag(irr::video::EMF_LIGHTING, true);
-      this->groundObject->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, true);
+      this->groundObject->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+      this->groundObject->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
       this->smgr->getMeshManipulator()->makePlanarTextureMapping(this->groundObject->getMesh(), 1.0f);
       this->groundObject->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
       irr::f32 minRadius = this->groundObject->getMesh()->getBoundingBox().getExtent().getLength() * 0.70f;
@@ -95,7 +95,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
   this->menuInGame->setModelProperties(); // Set des propriétés du menu ingame
   this->suddenDeathCooldown = std::time(nullptr);
-  this->teams.at(this->currentTeamIdPlaying).showWormWeapon(this->currentWormIdPlaying, 0);
+  this->teams.at(this->currentTeamIdPlaying).showWormWeapon(this->currentWormIdPlaying, 1);
   while(this->device->run())
     if (this->device->isWindowActive())
       {
@@ -115,14 +115,15 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	this->cameraMovements();
 
-	if (this->eventReceiver.MouseState.LeftButtonDown && !this->soundEngine->isCurrentlyPlaying("ressources/sounds/Uzi.wav"))
+	if (this->eventReceiver.IsKeyUp(irr::KEY_SPACE))
 	  {
-	    canFire = this->teams.at(this->currentTeamIdPlaying).teamFire(this->currentWormIdPlaying);
+	    canFire = this->teams.at(this->currentTeamIdPlaying).teamFire(this->currentWormIdPlaying, 1);
 	    displayBullet = true;
 	  }
 
 	if (canFire || displayBullet)
-	  displayBullet = this->teams.at(this->currentTeamIdPlaying).updateTeamWormBullets(this->currentWormIdPlaying, 0);
+	  displayBullet = this->teams.at(this->currentTeamIdPlaying)
+		  .updateTeamWormBullets(this->currentWormIdPlaying, 1);
 
 	if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_I))
 	  {
@@ -173,9 +174,9 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	// Fonctions de mouvements des worms
 	if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_Q))
-	  this->teams.at(this->currentTeamIdPlaying).teamMoveLeft(this->currentWormIdPlaying, 0);
+	  this->teams.at(this->currentTeamIdPlaying).teamMoveLeft(this->currentWormIdPlaying, 1);
 	else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
-	    this->teams.at(this->currentTeamIdPlaying).teamMoveRight(this->currentWormIdPlaying, 0);
+	    this->teams.at(this->currentTeamIdPlaying).teamMoveRight(this->currentWormIdPlaying, 1);
 
 	// FIN DE LA BOUCLE DE JEU
 	this->driver->beginScene();

@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 //
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Tue Jun 13 17:32:47 2017 Stanislas Deneubourg
+// Last update Tue Jun 13 17:52:42 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -60,13 +60,6 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
   this->font = this->guienv->getFont("ressources/fonts/SoftMarshmallow.png");
   if (this->font != nullptr)
     this->guienv->getSkin()->setFont(this->font);
-  this->collisionConfiguration = new btDefaultCollisionConfiguration();
-  this->broadphaseInterface = new btAxisSweep3(btVector3(-1000, -1000, -1000), btVector3(1000, 1000, 1000));
-  this->dispatcher = new btCollisionDispatcher(this->collisionConfiguration);
-  this->solver = new btSequentialImpulseConstraintSolver();
-  this->World = new btDiscreteDynamicsWorld(this->dispatcher, this->broadphaseInterface, this->solver, this->collisionConfiguration);
-  this->ClearObject();
-
 }
 
 GameNamespace::GameEngine::~GameEngine()
@@ -219,12 +212,6 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	  }
 	this->driver->endScene();
       }
-  this->ClearObject();
-  delete this->World;
-  delete this->solver;
-  delete this->dispatcher;
-  delete this->broadphaseInterface;
-  delete this->collisionConfiguration;
   return (eventStatusMenu);
 }
 

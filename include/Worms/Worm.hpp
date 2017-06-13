@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:39:05 2017 Stanislas Deneubourg
-// Last update Mon Jun 12 18:12:14 2017 Stanislas Deneubourg
+// Last update Tue Jun 13 17:51:12 2017 Stanislas Deneubourg
 //
 
 #ifndef	WORM_HPP
@@ -72,7 +72,7 @@ public:
   Inventory             		inventory;
   Worm(int, irr::core::vector3df,
        irr::IrrlichtDevice *, std::string const &,
-       bool, btDiscreteDynamicsWorld *, std::list<btRigidBody *> &);
+       bool);
   ~Worm();
   int					getHealthPoints();
   unsigned int				getDamageDealt();

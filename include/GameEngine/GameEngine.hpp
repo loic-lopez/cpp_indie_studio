@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Tue Jun 13 17:32:08 2017 Stanislas Deneubourg
+// Last update Tue Jun 13 17:51:54 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -60,13 +60,6 @@ namespace	GameNamespace
     std::string						worm;
     const size_t					nbShapes;
     float						theFarthestMapPoint;
-    std::list<btRigidBody *>				rigidBodyObjects;
-    btDiscreteDynamicsWorld				*World;
-    btDefaultCollisionConfiguration			*collisionConfiguration;
-    btBroadphaseInterface				*broadphaseInterface;
-    btCollisionDispatcher				*dispatcher;
-    btSequentialImpulseConstraintSolver			*solver;
-
 
     //Génération de map
     int                                                 fillProbe;
@@ -128,9 +121,6 @@ namespace	GameNamespace
     virtual	void					cameraMovements();
     virtual	void					setBlockProperties(int, int);
     virtual	void					triggerTimer();
-    virtual 	void 					UpdatePhysics(irr::u32);
-    virtual 	void 					UpdateRender(btRigidBody *);
-    virtual 	void 					ClearObject();
 
    public:
 

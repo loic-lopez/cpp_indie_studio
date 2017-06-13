@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:51:11 2017 Stanislas Deneubourg
-// Last update Wed Jun  7 16:39:12 2017 Stanislas Deneubourg
+// Last update Tue Jun 13 17:52:11 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Team.hpp"
@@ -13,13 +13,13 @@
 Team::Team(unsigned int players_, unsigned int teamNb,
 	   std::vector<irr::core::vector3df> vectorPos,
 	   irr::IrrlichtDevice *device,
-	   std::string const &wormFile, bool isBot, btDiscreteDynamicsWorld *World, std::list<btRigidBody *> &list)
+	   std::string const &wormFile, bool isBot)
 {
   this->players = players_;
   this->teamName = "Humans ";
   this->teamName += std::to_string(teamNb);
   for (unsigned int i = 0; i < this->players; i++)
-    this->teamPlayers.emplace_back(Worm(i, vectorPos.at(i), device, wormFile, isBot, World, list));
+    this->teamPlayers.emplace_back(Worm(i, vectorPos.at(i), device, wormFile, isBot));
 }
 
 Team::~Team()

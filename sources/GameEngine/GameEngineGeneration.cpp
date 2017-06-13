@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 13:51:26 2017 Stanislas Deneubourg
-// Last update Wed Jun  7 16:37:58 2017 Stanislas Deneubourg
+// Last update Tue Jun 13 17:53:01 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -147,14 +147,14 @@ void	GameNamespace::GameEngine::teamsGen()
       whichTeamType = (std::rand() % (totalTeamsLeftToEmplace));
       if (whichTeamType < botTeamsLeftToEmplace)
 	{
-	  this->teams.emplace_back(this->wormsPerTeam, i, this->wormsRelativePos, this->device, this->worm, true, this->World, this->rigidBodyObjects);
+	  this->teams.emplace_back(this->wormsPerTeam, i, this->wormsRelativePos, this->device, this->worm, true);
 	  std::cout << "BOT TEAM PLACED" << std::endl;
 	  botTeamsLeftToEmplace--;
 	  totalTeamsLeftToEmplace--;
 	}
       else
 	{
-	  this->teams.emplace_back(this->wormsPerTeam, i, this->wormsRelativePos, this->device, this->worm, false, this->World, this->rigidBodyObjects);
+	  this->teams.emplace_back(this->wormsPerTeam, i, this->wormsRelativePos, this->device, this->worm, false);
 	  std::cout << "HUMAN TEAM PLACED" << std::endl;
 	  humanTeamsLeftToEmplace--;
 	  totalTeamsLeftToEmplace--;

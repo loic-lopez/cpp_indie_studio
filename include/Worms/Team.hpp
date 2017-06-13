@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:50:07 2017 Stanislas Deneubourg
-// Last update Wed Jun  7 16:30:03 2017 Stanislas Deneubourg
+// Last update Tue Jun 13 17:51:24 2017 Stanislas Deneubourg
 //
 
 #ifndef TEAM_HPP
@@ -32,7 +32,7 @@ public:
   Team(unsigned int, unsigned int,
        std::vector<irr::core::vector3df>,
        irr::IrrlichtDevice *,
-       std::string const &, bool, btDiscreteDynamicsWorld *, std::list<btRigidBody *> &);
+       std::string const &, bool);
   ~Team();
   double		turnOfThatTeam(unsigned int, std::time_t);
   void			teamMoveLeft(unsigned int, size_t selectedWeapon);

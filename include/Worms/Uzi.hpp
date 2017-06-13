@@ -24,13 +24,14 @@ class	Uzi : public IWeapon
   irr::core::aabbox3d<irr::f32>	uziBox;
 
  public:
-  Uzi(irr::IrrlichtDevice *device);
-  virtual 	~Uzi();
-  virtual	bool	fire();
-  virtual 	void	showWeapon();
-  virtual 	void	deleteWeapon();
-  virtual 	void	setWeaponPosition(const irr::core::vector3df &position);
-  virtual 	void	setWeaponRotation(const irr::core::vector3df &rotation);
+  explicit	Uzi(irr::IrrlichtDevice *device);
+  ~Uzi() 		override;
+  bool		fire()	override;
+  void		showWeapon() override;
+  void		deleteWeapon() override;
+  void		setWeaponPosition(const irr::core::vector3df &position) override;
+  void		setWeaponRotation(const irr::core::vector3df &rotation) override;
+  void		displayBullets() override;
 };
 
 #endif //CPP_INDIE_STUDIO_UZI_HPP

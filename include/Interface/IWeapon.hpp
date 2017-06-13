@@ -22,6 +22,7 @@ public:
   virtual 	void	deleteWeapon() = 0;
   virtual 	void	setWeaponPosition(const irr::core::vector3df &position) = 0;
   virtual 	void	setWeaponRotation(const irr::core::vector3df &rotation) = 0;
+  virtual 	void	displayBullets() = 0;
 };
 
 #endif

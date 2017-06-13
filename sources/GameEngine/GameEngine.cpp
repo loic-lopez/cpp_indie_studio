@@ -90,7 +90,13 @@ EventStatus GameNamespace::GameEngine::launchModel()
 {
   EventStatus 	eventStatusMenu = EventStatus::STAND_BY;
   irr::s32	lastFPS = -1;
+  irr::scene::ISceneNode *bullet;
 
+  bullet = this->device->getSceneManager()->addMeshSceneNode
+	  (this->device->getSceneManager()->getMesh("ressources/weapons/Bullet/bullet.obj"));
+  bullet->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  bullet->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
+  bullet->setPosition(irr::core::vector3df(0, 20, 0));
   this->menuInGame->setModelProperties(); // Set des propriétés du menu ingame
   this->suddenDeathCooldown = std::time(nullptr);
   while(this->device->run())

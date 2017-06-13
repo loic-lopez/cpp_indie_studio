@@ -25,14 +25,15 @@ private:
   irr::core::aabbox3d<irr::f32>	shotgunBox;
   
 public:
-  Shotgun(irr::IrrlichtDevice *device);
-  virtual ~Shotgun();
+  explicit Shotgun(irr::IrrlichtDevice *device);
+  ~Shotgun() override;
 
-  virtual	bool	fire();
-  virtual 	void	showWeapon();
-  virtual 	void	deleteWeapon();
-  virtual 	void	setWeaponPosition(const irr::core::vector3df &position);
-  virtual 	void	setWeaponRotation(const irr::core::vector3df &rotation);
+  bool	fire() 		override;
+  void	showWeapon() 	override;
+  void	deleteWeapon() 	override;
+  void	setWeaponPosition(const irr::core::vector3df &position) override;
+  void	setWeaponRotation(const irr::core::vector3df &rotation) override;
+  void	displayBullets() override;
 };
 
 #endif

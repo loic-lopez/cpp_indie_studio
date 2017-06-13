@@ -187,6 +187,11 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->isGamePaused = true;
 	    this->timeBeforePause = this->turnTimeLeft;
 	  }
+	if (eventStatusMenu == EventStatus::INVENTORY)
+	  {
+	    this->teams.at(this->currentTeamIdPlaying).teamLaunchInventory(this->currentWormIdPlaying);
+	    //this->teams.at(this->currentTeamIdPlaying).teamMoveLeft(this->currentWormIdPlaying, 0);
+	  }
 	if (eventStatusMenu == EventStatus::IN_GAME_MENU)
 	  {
 	    eventStatusMenu = this->menuInGame->launchModel();

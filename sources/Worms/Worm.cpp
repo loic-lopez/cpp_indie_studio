@@ -12,7 +12,7 @@
 
 Worm::Worm(int nb, irr::core::vector3df vectorPos,
 	   irr::IrrlichtDevice *device, std::string const &wormFile,
-	   bool	isBot) : inventory(device)
+	   bool	isBot, irr::video::IVideoDriver	*driver) : inventory(device, driver)
 {
   int	dir = std::rand() % 3;
   this->wormName = "Player ";

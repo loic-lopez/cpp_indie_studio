@@ -12,9 +12,13 @@
 #include <iostream>
 #include "Worms/Inventory.hpp"
 
-Inventory::Inventory(irr::IrrlichtDevice *device) :
-	_device(device)
+Inventory::Inventory(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver) :
+	_device(device), _driver(driver)
 {
+  this->_guienv = this->_device->getGUIEnvironment();
+  this->_skin = this->_guienv->createSkin(irr::gui::EGST_WINDOWS_METALLIC);
+  this->_guienv->setSkin(this->_skin);
+  this->_skin->drop();
   this->weaponsInInventory.emplace_back(new Uzi(device));
   this->weaponsInInventory.emplace_back(new Shotgun(device));
 }
@@ -48,6 +52,27 @@ void	Inventory::setWeaponRotationToWormPosition(size_t const &weaponSelectedInGu
 
 void Inventory::launchInventory()
 {
+  irr::video::ITexture                   *texture;
+
+  for (irr::s32 i = 0; i < irr::gui::EGDC_COUNT ; ++i)
+    this->_guienv->getSkin()->setColor((irr::gui::EGUI_DEFAULT_COLOR) i, irr::video::SColor(0, 0, 0, 0));
+  /*this->tabctrl = this->_guienv->addTabControl(irr::core::rect<int>(screenSize.Width / 3,
+                                                                    screenSize.Height / 5,
+                                                                    screenSize.Width - (screenSize.Width / 3),
+                                                                    screenSize.Height - (screenSize.Height / 7)),
+                                               nullptr, false, false);*/
+  texture = this->_driver->getTexture("ressources/inventory/inventory.png");
+  if (this->_guienv->getSpriteBank(irr::io::path("ressources/inventory/weapons")) == nullptr)
+    this->spriteBank = this->_guienv->addEmptySpriteBank(irr::io::path("ressources/inventory/weapons"));
+  else
+    this->spriteBank = this->_guienv->getSpriteBank(irr::io::path("ressources/inventory/weapons"));
+  if (texture != nullptr)
+    this->spriteBank->addTextureAsSprite(texture);
+  if (this->spriteBank->getTexture(irr::u32(0)) != nullptr)
+    this->spriteBank->draw2DSprite(irr::u32(0),
+				   irr::core::position2di(0, 0),
+				   nullptr,
+				   irr::video::SColor(255, 255, 255, 255), 0);
 
 }
 

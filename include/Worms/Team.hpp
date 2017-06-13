@@ -32,7 +32,7 @@ public:
   Team(unsigned int, unsigned int,
        std::vector<irr::core::vector3df>,
        irr::IrrlichtDevice *,
-       std::string const &, bool);
+       std::string const &, bool, irr::video::IVideoDriver *);
   ~Team();
   double		turnOfThatTeam(unsigned int, std::time_t);
   void			teamMoveLeft(unsigned int, size_t selectedWeapon);
@@ -40,6 +40,7 @@ public:
   bool			teamFire(size_t);
   void 			showWormWeapon(size_t, size_t);
   bool			updateTeamWormBullets(unsigned currentPlayer, size_t selectedWeapon);
+  void 			teamLaunchInventory(unsigned int);
 };
 
 #endif

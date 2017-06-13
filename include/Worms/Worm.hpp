@@ -72,7 +72,7 @@ public:
   Inventory             		inventory;
   Worm(int, irr::core::vector3df,
        irr::IrrlichtDevice *, std::string const &,
-       bool);
+       bool, irr::video::IVideoDriver *);
   ~Worm();
   int					getHealthPoints();
   unsigned int				getDamageDealt();

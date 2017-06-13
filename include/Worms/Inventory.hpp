@@ -29,11 +29,18 @@ class	Inventory
  private:
   std::vector<std::shared_ptr<IWeapon>>	weaponsInInventory;
   irr::IrrlichtDevice				*_device;
+  irr::video::IVideoDriver			*_driver;
+  irr::scene::ISceneManager			*_smgr;
+  irr::gui::IGUIEnvironment			*_guienv;
+  irr::gui::IGUISkin				*_skin;
+  irr::gui::IGUITabControl			*tabctrl;
+  irr::core::dimension2du		 	screenSize;
+  irr::gui::IGUISpriteBank			*spriteBank;
 
   weaponsId 					*id;
 
  public:
-  Inventory(irr::IrrlichtDevice *device);
+  Inventory(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver);
   ~Inventory();
   bool	fireWithSelectedWeapon(size_t const &weaponSelectedInGui);
   void	showSelectedWeapon(size_t const &weaponSelectedInGui);

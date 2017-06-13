@@ -11,6 +11,19 @@
 #include "Core.hpp"
 #include "Encap.hpp"
 
+static int checkExtensionFile(std::string const &filename, std::string const &extension)
+{
+  const auto &tmp = filename;
+  std::size_t pos = tmp.find_last_of('.');
+
+  if (pos == std::string::npos || tmp.substr(pos, tmp.size()) != extension)
+    {
+      std::cout << "Error: Bad file extension." << std::endl;
+      return (-1);
+    }
+  return (0);
+}
+
 Core::Core()
 {
   this->driverType = irr::video::EDT_OPENGL;

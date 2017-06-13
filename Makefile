@@ -5,7 +5,7 @@
 ## Login   <jabbar_y@epitech.net>
 ## 
 ## Started on  Mon May  1 12:13:34 2017 Jabbari Yassir
-## Last update Tue Jun 13 14:31:23 2017 Loïc Dupil
+## Last update Tue Jun 13 17:53:51 2017 Stanislas Deneubourg
 ##
 
 NAME            =       indie_studio
@@ -28,7 +28,6 @@ SRC             =	sources/main.cpp								\
 			sources/Worms/Uzi.cpp								\
 			sources/Worms/Inventory.cpp							\
 			sources/Worms/Shotgun.cpp							\
-			sources/GameEngine/GameEnginePhysic.cpp					\
 
 ECHO		=	/bin/echo -e
 

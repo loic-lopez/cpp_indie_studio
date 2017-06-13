@@ -146,5 +146,8 @@
     <ClInclude Include="include\worms\Worm.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Worms\Inventory.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -104,6 +104,11 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Link>
+      <ShowProgress>LinkVerbose</ShowProgress>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="sources\Core.cpp" />
     <ClCompile Include="sources\Encap.cpp" />
@@ -147,6 +152,7 @@
     <ClInclude Include="include\model\MenuModel.hpp" />
     <ClInclude Include="include\model\SplashScreen.hpp" />
     <ClInclude Include="include\worms\Grenade.hpp" />
+    <ClInclude Include="include\Worms\Inventory.hpp" />
     <ClInclude Include="include\worms\Shotgun.hpp" />
     <ClInclude Include="include\worms\Team.hpp" />
     <ClInclude Include="include\worms\Worm.hpp" />

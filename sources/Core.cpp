@@ -210,6 +210,7 @@ void						Core::launchGame()
 
 void						Core::launch()
 {
+  // TODO: REMOVE COMMENT !
   //  this->launchSplashScreen();
   while(device->run())
     {

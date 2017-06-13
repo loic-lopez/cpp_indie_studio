@@ -73,8 +73,9 @@ void	GameNamespace::GameEngine::setBlockProperties(int x, int y)
   if (this->groundObject != nullptr)
     {
       this->groundObject->setMaterialTexture(0,
-					     this->driver->getTexture(this->fileTexture.c_str())); // set diffuse texture
-      this->groundObject->setMaterialFlag(irr::video::EMF_LIGHTING, true); // enable dynamic lighting
+					     this->driver->getTexture(this->fileTexture.c_str()));
+      this->groundObject->setMaterialFlag(irr::video::EMF_LIGHTING, true);
+      this->groundObject->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, true);
       this->smgr->getMeshManipulator()->makePlanarTextureMapping(this->groundObject->getMesh(), 1.0f);
       this->groundObject->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
       irr::f32 minRadius = this->groundObject->getMesh()->getBoundingBox().getExtent().getLength() * 0.70f;

@@ -41,9 +41,9 @@ void	Team::teamMoveRight(unsigned currentPlayer, size_t selectedWeapon)
   this->teamPlayers.at(currentPlayer).wormMoveRight(selectedWeapon);
 }
 
-void 	Team::teamFire(size_t currentPlayer)
+bool 	Team::teamFire(size_t currentPlayer)
 {
-  this->teamPlayers.at(currentPlayer).inventory.fireWithSelectedWeapon(0);
+  return this->teamPlayers.at(currentPlayer).inventory.fireWithSelectedWeapon(0);
 }
 
 void 	Team::showWormWeapon(size_t currentPlayer, size_t selectedWeapon)
@@ -53,4 +53,9 @@ void 	Team::showWormWeapon(size_t currentPlayer, size_t selectedWeapon)
 	  setWeaponPositionToWormPosition(selectedWeapon, this->teamPlayers.at(currentPlayer).wormGetPosition());
   this->teamPlayers.at(currentPlayer).inventory.
 	  setWeaponRotationToWormPosition(selectedWeapon, this->teamPlayers.at(currentPlayer).wormGetRotation());
+}
+
+bool	Team::updateTeamWormBullets(unsigned currentPlayer, size_t selectedWeapon)
+{
+  return this->teamPlayers.at(currentPlayer).inventory.updateWeaponBullets(selectedWeapon);
 }

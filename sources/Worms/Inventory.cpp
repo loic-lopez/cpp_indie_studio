@@ -24,12 +24,9 @@ Inventory::~Inventory()
 
 }
 
-void	Inventory::fireWithSelectedWeapon(size_t const &weaponSelectedInGui)
+bool	Inventory::fireWithSelectedWeapon(size_t const &weaponSelectedInGui)
 {
-  if (this->weaponsInInventory.at(weaponSelectedInGui)->fire())
-    std::cout << "FIRE !" << std::endl;
-  else
-    std::cout << "NO MORE BULLETS" << std::endl;
+  return this->weaponsInInventory.at(weaponSelectedInGui)->fire();
 }
 
 void	Inventory::showSelectedWeapon(size_t const &weaponSelectedInGui)
@@ -52,4 +49,9 @@ void	Inventory::setWeaponRotationToWormPosition(size_t const &weaponSelectedInGu
 void Inventory::launchInventory()
 {
 
+}
+
+bool	Inventory::updateWeaponBullets(size_t const &weaponSelectedInGui)
+{
+  return this->weaponsInInventory.at(weaponSelectedInGui)->updateBullets();
 }

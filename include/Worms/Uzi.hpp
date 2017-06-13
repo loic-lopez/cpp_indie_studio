@@ -14,25 +14,29 @@
 #include <vector>
 #include "Interface/IWeapon.hpp"
 
+#define	UZI_BULLET_SPEED	4.0f
+#define UZI_BULLET_RANGE	50.0f
+
 class	Uzi : public IWeapon
 {
  private:
-  class Bullet
+  struct Bullet
   {
-   private:
-    irr::scene::ISceneNode *bullet;
-   public:
+    irr::scene::ISceneNode 	*bullet;
+    irr::f32 			startBulletX;
+
     Bullet(const irr::core::vector3df &position,
-	   const irr::core::vector3df &rotation, irr::IrrlichtDevice *device);
+	   const irr::core::vector3df &rotation,
+	   irr::IrrlichtDevice *device, irr::core::aabbox3d<irr::f32> const &uziBox);
+    void	deleteBullet();
   };
 
   int				bulletsNumber;
-  int 				damagePerBullet;
-  float				weight;
   irr::IrrlichtDevice		*device;
   irr::scene::ISceneNode	*uziSceneNode;
   irr::core::aabbox3d<irr::f32>	uziBox;
   std::vector<Bullet>		firedBullets;
+  int 				damagePerBullet;
 
  public:
   explicit	Uzi(irr::IrrlichtDevice *device);
@@ -42,7 +46,7 @@ class	Uzi : public IWeapon
   void		deleteWeapon() override;
   void		setWeaponPosition(const irr::core::vector3df &position) override;
   void		setWeaponRotation(const irr::core::vector3df &rotation) override;
-  void		displayBullets() override;
+  bool		updateBullets() override;
 };
 
 #endif //CPP_INDIE_STUDIO_UZI_HPP

@@ -77,7 +77,7 @@ void	Shotgun::setWeaponRotation(const irr::core::vector3df &rotation)
   this->shotgunSceneNode->setRotation(rotation);
 }
 
-void Shotgun::displayBullets()
+bool	Shotgun::updateBullets()
 {
-
+  return true;
 }

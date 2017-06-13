@@ -15,9 +15,8 @@
 Uzi::Uzi(irr::IrrlichtDevice *device)
 {
   this->bulletsNumber = 30;
-  this->damagePerBullet = 5;
-  this->weight = 0;
   this->device = device;
+  this->damagePerBullet = 5;
 }
 
 Uzi::~Uzi()
@@ -29,6 +28,8 @@ bool	Uzi::fire()
 {
   if (this->bulletsNumber > 0)
     {
+      this->firedBullets.emplace_back(this->uziSceneNode->getPosition(),
+				      this->uziSceneNode->getRotation(), this->device, this->uziBox);
       std::cout << "FIRE WITH UZI" << std::endl;
       this->bulletsNumber--;
       return (true);
@@ -74,20 +75,52 @@ void 	Uzi::setWeaponRotation(const irr::core::vector3df &rotation)
   this->uziSceneNode->setRotation(rotation);
 }
 
-void	Uzi::displayBullets()
+bool	Uzi::updateBullets()
 {
+  size_t i = 0;
+  std::vector<size_t>	toRemove;
 
+  for (auto &firedBullet: this->firedBullets)
+    {
+      auto bulletPosition = firedBullet.bullet->getPosition();
+      if (bulletPosition.X < firedBullet.startBulletX + UZI_BULLET_RANGE)
+	{
+	  bulletPosition.X += UZI_BULLET_SPEED;
+	  firedBullet.bullet->setPosition(bulletPosition);
+	}
+      else
+	toRemove.push_back(i);
+      i++;
+    }
+
+  if (!toRemove.empty())
+    for (auto &bulletToRemove: toRemove)
+      {
+	this->firedBullets.at(bulletToRemove).deleteBullet();
+	this->firedBullets.erase(this->firedBullets.begin() + bulletToRemove);
+      }
+
+  return !this->firedBullets.empty();
 }
 
 
 Uzi::Bullet::Bullet(const irr::core::vector3df &position,
-		    const irr::core::vector3df &rotation, irr::IrrlichtDevice *device)
+		    const irr::core::vector3df &rotation,
+		    irr::IrrlichtDevice *device, irr::core::aabbox3d<irr::f32> const &uziBox)
 {
   this->bullet = device->getSceneManager()->addMeshSceneNode
 	  (device->getSceneManager()->getMesh("ressources/weapons/Bullet/bullet.obj"));
   this->bullet->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   this->bullet->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
-  this->bullet->setPosition(position);
-  this->bullet->setScale(irr::core::vector3df(0.15, 0.15, 0.15));
+  this->bullet->setScale(irr::core::vector3df(0.075, 0.075, 0.075));
   this->bullet->setRotation(rotation);
+  this->startBulletX = position.X;
+  this->bullet->setPosition(irr::core::vector3df(position.X,
+						 position.Y + uziBox.getExtent().getLength() / 5,
+						 position.Z));
+}
+
+void	Uzi::Bullet::deleteBullet()
+{
+  this->bullet->getParent()->removeChild(this->bullet);
 }

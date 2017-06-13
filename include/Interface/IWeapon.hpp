@@ -11,6 +11,7 @@
 #ifndef	IWEAPON_HPP
 #define IWEAPON_HPP
 
+#include <ctime>
 #include "Dependencies/Dependencies.hpp"
 
 class	IWeapon
@@ -22,7 +23,7 @@ public:
   virtual 	void	deleteWeapon() = 0;
   virtual 	void	setWeaponPosition(const irr::core::vector3df &position) = 0;
   virtual 	void	setWeaponRotation(const irr::core::vector3df &rotation) = 0;
-  virtual 	void	displayBullets() = 0;
+  virtual 	bool	updateBullets() = 0;
 };
 
 #endif

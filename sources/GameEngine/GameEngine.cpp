@@ -86,52 +86,28 @@ void	GameNamespace::GameEngine::setBlockProperties(int x, int y)
       this->smgr->getMeshManipulator()->makePlanarTextureMapping(this->groundObject->getMesh(), 1.0f);
       this->groundObject->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
       irr::f32 minRadius = this->groundObject->getMesh()->getBoundingBox().getExtent().getLength() * 0.70f;
-      irr::core::vector3d<irr::f32> 	*edges = new irr::core::vector3d<irr::f32>[8];
-      irr::core::aabbox3d<irr::f32>	BoundingBox = this->groundObject->getTransformedBoundingBox();
-      BoundingBox.getEdges(edges);
-      irr::f32 	heigt = edges[1].Y - edges[0].Y;
-      irr::f32 	width = (edges[5].X - edges[1].X) * 0.70f;
-      irr::f32 	depth = edges[2].Z - edges[0].Z;
       this->blockSize = minRadius;
       this->theFarthestMapPoint = this->sizeX * minRadius;
       this->groundObject->setPosition(irr::core::vector3df(x * minRadius, -y * (minRadius / 3), 0));
-      btTransform	Transform;
-      Transform.setIdentity();
-      Transform.setOrigin(btVector3(x * minRadius, -y * (minRadius / 3), 0));
-      std::cout << Transform.getOrigin().m_floats[0] << std::endl;
-      std::cout << Transform.getOrigin().m_floats[1] << std::endl;
-      std::cout << Transform.getOrigin().m_floats[2] << std::endl;
-      btDefaultMotionState	*MotionState = new btDefaultMotionState(Transform);
-      btVector3		halfExtent(heigt * 0.5f, width * 0.5f, depth * 0.5f);
-      btCollisionShape	*Shape = new btBoxShape(halfExtent);
-      btVector3		LocalInertia;
-      Shape->calculateLocalInertia(0, LocalInertia);
-      btRigidBody	*Body = new btRigidBody(0, MotionState, Shape, LocalInertia);
-      Body->setUserPointer((void *)(this->groundObject));
-      this->World->addRigidBody(Body);
-      this->rigidBodyObjects.push_back(Body);
       this->groundObjects.push_back(this->groundObject);
     }
 }
 
 EventStatus GameNamespace::GameEngine::launchModel()
 {
+  bool 		canFire = true;
+  bool 		displayBullet = false;
   EventStatus 	eventStatusMenu = EventStatus::STAND_BY;
   irr::s32	lastFPS = -1;
-  irr::u32		timeStemp = this->device->getTimer()->getTime();
-  irr::u32		deltaTime = 0;
 
   this->menuInGame->setModelProperties(); // Set des propriétés du menu ingame
   this->suddenDeathCooldown = std::time(nullptr);
-//  this->teams.at(this->currentTeamIdPlaying).showWormWeapon(this->currentWormIdPlaying, 0);
+  this->teams.at(this->currentTeamIdPlaying).showWormWeapon(this->currentWormIdPlaying, 0);
   while(this->device->run())
     if (this->device->isWindowActive())
       {
 	// Affichage des FPS et du driver choisi
 
-	deltaTime = this->device->getTimer()->getTime() - timeStemp;
-	timeStemp = this->device->getTimer()->getTime();
-	this->UpdatePhysics(deltaTime);
 	const irr::s32 fps = this->driver->getFPS();
 	if (lastFPS != fps)
 	  {
@@ -147,7 +123,13 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	this->cameraMovements();
 
 	if (this->eventReceiver.MouseState.LeftButtonDown)
-	  this->teams.at(this->currentTeamIdPlaying).teamFire(this->currentWormIdPlaying);
+	  {
+	    canFire = this->teams.at(this->currentTeamIdPlaying).teamFire(this->currentWormIdPlaying);
+	    displayBullet = true;
+	  }
+
+	if (canFire || displayBullet)
+	  displayBullet = this->teams.at(this->currentTeamIdPlaying).updateTeamWormBullets(this->currentWormIdPlaying, 0);
 
 	if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_I))
 	  {

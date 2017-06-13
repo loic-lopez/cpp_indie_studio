@@ -33,7 +33,7 @@ public:
   void	deleteWeapon() 	override;
   void	setWeaponPosition(const irr::core::vector3df &position) override;
   void	setWeaponRotation(const irr::core::vector3df &rotation) override;
-  void	displayBullets() override;
+  bool	updateBullets() override;
 };
 
 #endif

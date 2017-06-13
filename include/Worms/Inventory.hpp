@@ -40,7 +40,8 @@ class	Inventory
   weaponsId 					*id;
 
  public:
-  Inventory(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver);
+  Inventory(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
+	    irrklang::ISoundEngine *soundEngine);
   ~Inventory();
   bool	fireWithSelectedWeapon(size_t const &weaponSelectedInGui);
   void	showSelectedWeapon(size_t const &weaponSelectedInGui);

@@ -13,13 +13,14 @@
 Team::Team(unsigned int players_, unsigned int teamNb,
 	   std::vector<irr::core::vector3df> vectorPos,
 	   irr::IrrlichtDevice *device,
-	   std::string const &wormFile, bool isBot, irr::video::IVideoDriver *driver)
+	   std::string const &wormFile, bool isBot,
+	   irr::video::IVideoDriver *driver, irrklang::ISoundEngine *soundEngine)
 {
   this->players = players_;
   this->teamName = "Humans ";
   this->teamName += std::to_string(teamNb);
   for (unsigned int i = 0; i < this->players; i++)
-    this->teamPlayers.emplace_back(Worm(i, vectorPos.at(i), device, wormFile, isBot, driver));
+    this->teamPlayers.emplace_back(Worm(i, vectorPos.at(i), device, wormFile, isBot, driver, soundEngine));
 }
 
 Team::~Team()
@@ -60,7 +61,7 @@ bool	Team::updateTeamWormBullets(unsigned currentPlayer, size_t selectedWeapon)
   return this->teamPlayers.at(currentPlayer).inventory.updateWeaponBullets(selectedWeapon);
 }
 
-void Team::teamLaunchInventory(unsigned int currentWormIdPlaying)
+void	Team::teamLaunchInventory(unsigned int currentWormIdPlaying)
 {
   this->teamPlayers.at(currentWormIdPlaying).inventory.launchInventory();
 }

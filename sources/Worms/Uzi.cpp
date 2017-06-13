@@ -12,11 +12,12 @@
 #include <iostream>
 #include "Worms/Uzi.hpp"
 
-Uzi::Uzi(irr::IrrlichtDevice *device)
+Uzi::Uzi(irr::IrrlichtDevice *device, irrklang::ISoundEngine *soundEngine)
 {
   this->bulletsNumber = 30;
   this->device = device;
   this->damagePerBullet = 5;
+  this->soundEngine = soundEngine;
 }
 
 Uzi::~Uzi()
@@ -30,6 +31,7 @@ bool	Uzi::fire()
     {
       this->firedBullets.emplace_back(this->uziSceneNode->getPosition(),
 				      this->uziSceneNode->getRotation(), this->device, this->uziBox);
+      this->soundEngine->play2D("ressources/sound/Uzi.wav");
       std::cout << "FIRE WITH UZI" << std::endl;
       this->bulletsNumber--;
       return (true);

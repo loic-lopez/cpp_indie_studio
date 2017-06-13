@@ -14,19 +14,19 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
 				      const size_t &nbTextures, const size_t &nbShapes, irr::IrrlichtDevice *device,
 				      const bool &playSound, const bool &drawWalls, const irr::s32 &botTeams,
 				      const irr::s32 &humanTeams, const irr::s32 &teams, const irr::s32 &wormsInEachTeam,
-				      irrklang::ISound *mainSound, bool *playMainSound) : smgr(smgr), driver(driver),
-											  device(device),
-											  nbShapes(nbShapes),
-											  eventReceiver(device,
-													mainSound,
-													playMainSound),
-											  menuInGame(new MenuInGame(this->device,
-														    this->driver,
-														    this->smgr,
-														    this->eventReceiver)),
-											  playSound(playSound),
-											  drawWalls(drawWalls)
+				      irrklang::ISound *mainSound, bool *playMainSound,
+				      irrklang::ISoundEngine *soundEngine) : smgr(smgr), driver(driver), device(device),
+									     nbShapes(nbShapes), eventReceiver(device,
+													       mainSound,
+													       playMainSound),
+									     menuInGame(new MenuInGame(this->device,
+												       this->driver,
+												       this->smgr,
+												       this->eventReceiver)),
+									     playSound(playSound),
+									     drawWalls(drawWalls)
 {
+  this->soundEngine = soundEngine;
   this->fileShape = "./ressources/shapes/Rock_0.dae";
   this->worm = "ressources/textures/Worm/Worm.b3d";
   this->lastFrame = this->device->getTimer()->getTime();

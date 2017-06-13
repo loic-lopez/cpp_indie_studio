@@ -32,7 +32,7 @@ public:
   Team(unsigned int, unsigned int,
        std::vector<irr::core::vector3df>,
        irr::IrrlichtDevice *,
-       std::string const &, bool, irr::video::IVideoDriver *);
+       std::string const &, bool, irr::video::IVideoDriver *, irrklang::ISoundEngine *soundEngine);
   ~Team();
   double		turnOfThatTeam(unsigned int, std::time_t);
   void			teamMoveLeft(unsigned int, size_t selectedWeapon);

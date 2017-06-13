@@ -44,6 +44,7 @@ namespace	GameNamespace
   class	GameEngine : public IModel
   {
   private:
+    irrklang::ISoundEngine				*soundEngine;
     std::vector<irr::scene::IMeshSceneNode *>		groundObjects;
     std::vector<irr::scene::IAnimatedMeshSceneNode *>	wormObjects;
     irr::scene::ICameraSceneNode			*gameCamera;
@@ -128,7 +129,8 @@ namespace	GameNamespace
 	       const size_t &, const size_t &, irr::IrrlichtDevice *,
 	       const bool &, const bool &,
 	       const irr::s32 &, const irr::s32 &,
-	       const irr::s32 &, const irr::s32 &, irrklang::ISound *mainSound, bool *playMainSound);
+	       const irr::s32 &, const irr::s32 &,
+	       irrklang::ISound *mainSound, bool *playMainSound, irrklang::ISoundEngine *soundEngine);
 
     virtual						~GameEngine();
     virtual EventStatus					launchModel();

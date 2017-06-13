@@ -12,14 +12,14 @@
 #include <iostream>
 #include "Worms/Inventory.hpp"
 
-Inventory::Inventory(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver) :
-	_device(device), _driver(driver)
+Inventory::Inventory(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
+		     irrklang::ISoundEngine *soundEngine) : _device(device), _driver(driver)
 {
   this->_guienv = this->_device->getGUIEnvironment();
   this->_skin = this->_guienv->createSkin(irr::gui::EGST_WINDOWS_METALLIC);
   this->_guienv->setSkin(this->_skin);
   this->_skin->drop();
-  this->weaponsInInventory.emplace_back(new Uzi(device));
+  this->weaponsInInventory.emplace_back(new Uzi(device, soundEngine));
   this->weaponsInInventory.emplace_back(new Shotgun(device));
 }
 

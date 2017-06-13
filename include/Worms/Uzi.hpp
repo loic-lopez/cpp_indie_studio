@@ -34,13 +34,14 @@ class	Uzi : public IWeapon
 
   int				bulletsNumber;
   irr::IrrlichtDevice		*device;
+  irrklang::ISoundEngine	*soundEngine;
   irr::scene::ISceneNode	*uziSceneNode;
   irr::core::aabbox3d<irr::f32>	uziBox;
   std::vector<Bullet>		firedBullets;
   int 				damagePerBullet;
 
  public:
-  explicit	Uzi(irr::IrrlichtDevice *device);
+  explicit	Uzi(irr::IrrlichtDevice *device, irrklang::ISoundEngine *soundEngine);
   ~Uzi() 		override;
   bool		fire()	override;
   void		showWeapon() override;

@@ -50,10 +50,6 @@ public:
   virtual std::vector<std::string>			getSaves() const;
   virtual void						setSave(const std::string &);
   virtual void						fillSaves();
-  virtual std::vector<irr::video::IImage *>		getTextures() const;
-  virtual void						fillTextures();
-  virtual std::vector<std::string>			getSoundLib() const;
-  virtual void						fillSoundLib();
   virtual std::vector<std::string>			loadDir(const std::string &, const std::string &file_extension);
   virtual void						launchSplashScreen();
   virtual void						launchMenu();

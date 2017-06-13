@@ -11,19 +11,6 @@
 #include "Core.hpp"
 #include "Encap.hpp"
 
-static int checkExtensionFile(std::string const &filename, std::string const &extension)
-{
-  const auto &tmp = filename;
-  std::size_t pos = tmp.find_last_of('.');
-
-  if (pos == std::string::npos || tmp.substr(pos, tmp.size()) != extension)
-    {
-      std::cout << "Error: Bad file extension." << std::endl;
-      return (-1);
-    }
-  return (0);
-}
-
 Core::Core()
 {
   this->driverType = irr::video::EDT_OPENGL;
@@ -97,44 +84,6 @@ void				Core::fillSaves()
 	{
 	  if (direntp->d_type != 4 && (checkExtensionFile(file, ".xml") == 0))
 	    this->saves.emplace_back(direntp->d_name);
-	}
-    }
-  Encap::c_closedir(dir);
-}
-
-std::vector<irr::video::IImage *>		Core::getTextures() const
-{
-  return (this->textures);
-}
-
-void						Core::fillTextures()
-{
-  return ;
-}
-
-std::vector<std::string>			Core::getSoundLib() const
-{
-  return (this->soundlib);
-}
-
-void						Core::fillSoundLib()
-{
-  DIR				*dir;
-  struct dirent			*direntp;
-  std::string			file;
-
-  if ((dir = Encap::c_opendir("ressources/sounds/")) == nullptr)
-    {
-      std::cerr << "No saves directory" << std::endl;
-      return ;
-    }
-  while ((direntp = Encap::c_readdir(dir)) != nullptr)
-    {
-      file = direntp->d_name;
-      if (direntp->d_name[0] != '.')
-	{
-	  if (direntp->d_type != 4 && (checkExtensionFile(file, ".ogg") == 0))
-	    this->soundlib.emplace_back(direntp->d_name);
 	}
     }
   Encap::c_closedir(dir);

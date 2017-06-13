@@ -18,7 +18,6 @@ int	main()
   std::srand(std::time(nullptr));
 
   core->fillSaves();
-  core->fillSoundLib();
   core->launch();
   return (0);
 }

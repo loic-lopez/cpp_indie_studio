@@ -22,10 +22,6 @@ class ICore
   virtual std::vector<std::string> getSaves() const = 0;
   virtual void setSave(const std::string &) = 0;
   virtual void fillSaves() = 0;
-  virtual void fillTextures() = 0;
-  virtual std::vector<irr::video::IImage *> getTextures() const = 0;
-  virtual void fillSoundLib() = 0;
-  virtual std::vector<std::string> getSoundLib() const = 0;
   virtual std::vector<std::string> loadDir(const std::string &, const std::string &) = 0;
   virtual void launchSplashScreen() = 0;
   virtual void launchMenu() = 0;

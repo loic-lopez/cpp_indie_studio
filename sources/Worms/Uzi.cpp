@@ -31,7 +31,7 @@ bool	Uzi::fire()
     {
       this->firedBullets.emplace_back(this->uziSceneNode->getPosition(),
 				      this->uziSceneNode->getRotation(), this->device, this->uziBox);
-      this->soundEngine->play2D("ressources/sound/Uzi.wav");
+      this->soundEngine->play2D("ressources/sounds/Uzi.wav");
       std::cout << "FIRE WITH UZI" << std::endl;
       this->bulletsNumber--;
       return (true);
@@ -85,16 +85,25 @@ bool	Uzi::updateBullets()
   for (auto &firedBullet: this->firedBullets)
     {
       auto bulletPosition = firedBullet.bullet->getPosition();
-      if (bulletPosition.X < firedBullet.startBulletX + UZI_BULLET_RANGE)
+      if (firedBullet.startBulletRotationY == 90)
 	{
-	  if (firedBullet.startBulletRotationY == 90)
-	    bulletPosition.X += UZI_BULLET_SPEED;
+	  if (bulletPosition.X < firedBullet.startBulletX + UZI_BULLET_RANGE && firedBullet.startBulletX -
+										UZI_BULLET_RANGE > bulletPosition.X)
+	    {
+	      bulletPosition.X += UZI_BULLET_SPEED;
+	      firedBullet.bullet->setPosition(bulletPosition);
+	    }
 	  else
-	    bulletPosition.X -= UZI_BULLET_SPEED;
-	  firedBullet.bullet->setPosition(bulletPosition);
+	    toRemove.push_back(i);
 	}
       else
-	toRemove.push_back(i);
+	if (bulletPosition.X > firedBullet.startBulletX - UZI_BULLET_RANGE)
+	  {
+	    bulletPosition.X -= UZI_BULLET_SPEED;
+	    firedBullet.bullet->setPosition(bulletPosition);
+	  }
+	else
+	  toRemove.push_back(i);
       i++;
     }
 
@@ -104,7 +113,6 @@ bool	Uzi::updateBullets()
 	this->firedBullets.at(bulletToRemove).deleteBullet();
 	this->firedBullets.erase(this->firedBullets.begin() + bulletToRemove);
       }
-
   return !this->firedBullets.empty();
 }
 
@@ -117,7 +125,7 @@ Uzi::Bullet::Bullet(const irr::core::vector3df &position,
 	  (device->getSceneManager()->getMesh("ressources/weapons/Bullet/bullet.obj"));
   this->bullet->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   this->bullet->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
-  this->bullet->setScale(irr::core::vector3df(0.075, 0.075, 0.075));
+  this->bullet->setScale(irr::core::vector3df(0.25, 0.25, 0.25));
   this->bullet->setRotation(rotation);
   this->startBulletX = position.X;
   this->bullet->setPosition(irr::core::vector3df(position.X,

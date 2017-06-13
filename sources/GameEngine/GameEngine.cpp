@@ -115,7 +115,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	this->cameraMovements();
 
-	if (this->eventReceiver.MouseState.LeftButtonDown)
+	if (this->eventReceiver.MouseState.LeftButtonDown && !this->soundEngine->isCurrentlyPlaying("ressources/sounds/Uzi.wav"))
 	  {
 	    canFire = this->teams.at(this->currentTeamIdPlaying).teamFire(this->currentWormIdPlaying);
 	    displayBullet = true;

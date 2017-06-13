@@ -11,17 +11,28 @@
 #ifndef CPP_INDIE_STUDIO_UZI_HPP
 #define CPP_INDIE_STUDIO_UZI_HPP
 
+#include <vector>
 #include "Interface/IWeapon.hpp"
 
 class	Uzi : public IWeapon
 {
  private:
+  class Bullet
+  {
+   private:
+    irr::scene::ISceneNode *bullet;
+   public:
+    Bullet(const irr::core::vector3df &position,
+	   const irr::core::vector3df &rotation, irr::IrrlichtDevice *device);
+  };
+
   int				bulletsNumber;
   int 				damagePerBullet;
   float				weight;
   irr::IrrlichtDevice		*device;
   irr::scene::ISceneNode	*uziSceneNode;
   irr::core::aabbox3d<irr::f32>	uziBox;
+  std::vector<Bullet>		firedBullets;
 
  public:
   explicit	Uzi(irr::IrrlichtDevice *device);

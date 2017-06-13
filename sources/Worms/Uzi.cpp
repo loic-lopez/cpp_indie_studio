@@ -80,3 +80,14 @@ void	Uzi::displayBullets()
 }
 
 
+Uzi::Bullet::Bullet(const irr::core::vector3df &position,
+		    const irr::core::vector3df &rotation, irr::IrrlichtDevice *device)
+{
+  this->bullet = device->getSceneManager()->addMeshSceneNode
+	  (device->getSceneManager()->getMesh("ressources/weapons/Bullet/bullet.obj"));
+  this->bullet->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  this->bullet->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
+  this->bullet->setPosition(position);
+  this->bullet->setScale(irr::core::vector3df(0.15, 0.15, 0.15));
+  this->bullet->setRotation(rotation);
+}

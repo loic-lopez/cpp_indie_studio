@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Mon Jun 12 17:35:18 2017 Stanislas Deneubourg
+// Last update Tue Jun 13 17:32:08 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -127,6 +127,7 @@ namespace	GameNamespace
     virtual	irr::core::vector3df			wormsPosGen();
     virtual	void					cameraMovements();
     virtual	void					setBlockProperties(int, int);
+    virtual	void					triggerTimer();
     virtual 	void 					UpdatePhysics(irr::u32);
     virtual 	void 					UpdateRender(btRigidBody *);
     virtual 	void 					ClearObject();

@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:43:41 2017 Stanislas Deneubourg
-// Last update Mon Jun 12 18:16:01 2017 Stanislas Deneubourg
+// Last update Tue Jun 13 17:33:27 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Worm.hpp"
@@ -37,8 +37,8 @@ Worm::Worm(int nb, irr::core::vector3df vectorPos,
   else
     this->wormMesh->setRotation(irr::core::vector3df(0.0, 180.0, 0.0));
   this->lookingDirection = static_cast<Worm::LookingDirection>(dir);
-  this->wormMesh->setFrameLoop(0, 15);
-  this->wormMesh->setAnimationSpeed(5);
+  this->wormMesh->setFrameLoop(0, 25);
+  this->wormMesh->setAnimationSpeed(0);
   this->wormMesh->setPosition(this->worm_pos);
   this->wormStatus = Worm::WormStatus::WALKING;
   irr::core::vector3d<irr::f32> 	*edges = new irr::core::vector3d<irr::f32>[8];
@@ -107,6 +107,7 @@ double	Worm::turnOfThatWorm(std::time_t turn_start)
 void	Worm::wormMoveLeft(size_t const &currentSelectedWeapon)
 {
   this->worm_pos.X -= WORM_MOVEMENT_SPEED;
+  this->wormMesh->setAnimationSpeed(10);
   if (this->lookingDirection == Worm::LookingDirection::RIGHT
       || this->lookingDirection == Worm::LookingDirection::FRONT)
     {
@@ -121,6 +122,7 @@ void	Worm::wormMoveLeft(size_t const &currentSelectedWeapon)
 void	Worm::wormMoveRight(size_t const &currentSelectedWeapon)
 {
   this->worm_pos.X += WORM_MOVEMENT_SPEED;
+  this->wormMesh->setAnimationSpeed(10);
   if (this->lookingDirection == Worm::LookingDirection::LEFT
       || this->lookingDirection == Worm::LookingDirection::FRONT)
     {

@@ -12,7 +12,7 @@
 
 Worm::Worm(int nb, irr::core::vector3df vectorPos,
 	   irr::IrrlichtDevice *device, std::string const &wormFile,
-	   bool	isBot) : inventory(device)
+	   bool	isBot, btDiscreteDynamicsWorld *World, std::list<btRigidBody *> &rigidBodyObjects) : inventory(device)
 {
   int	dir = std::rand() % 3;
   this->wormName = "Player ";
@@ -41,6 +41,25 @@ Worm::Worm(int nb, irr::core::vector3df vectorPos,
   this->wormMesh->setAnimationSpeed(5);
   this->wormMesh->setPosition(this->worm_pos);
   this->wormStatus = Worm::WormStatus::WALKING;
+  irr::core::vector3d<irr::f32> 	*edges = new irr::core::vector3d<irr::f32>[8];
+  irr::core::aabbox3d<irr::f32>	BoundingBox = this->wormMesh->getTransformedBoundingBox();
+  BoundingBox.getEdges(edges);
+  irr::f32 	heigt = edges[1].Y - edges[0].Y;
+  irr::f32 	width = edges[5].X - edges[1].X;
+  irr::f32 	depth = edges[2].Z - edges[0].Z;
+  btTransform	Transform;
+  Transform.setIdentity();
+  Transform.setOrigin(btVector3(vectorPos.X, vectorPos.Y, vectorPos.Z));
+  btDefaultMotionState	*MotionState = new btDefaultMotionState(Transform);
+  btVector3		halfExtent(heigt * 0.5f, width * 0.5f, depth * 0.5f);
+  btCollisionShape	*Shape = new btBoxShape(halfExtent);
+  btVector3		LocalInertia;
+  Shape->calculateLocalInertia(1.0f, LocalInertia);
+  btRigidBody	*Body = new btRigidBody(1.0f, MotionState, Shape, LocalInertia);
+  Body->setUserPointer((void *)(this->wormMesh));
+  World->addRigidBody(Body);
+  rigidBodyObjects.push_back(Body);
+
 }
 
 Worm::~Worm()

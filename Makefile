@@ -5,7 +5,7 @@
 ## Login   <jabbar_y@epitech.net>
 ## 
 ## Started on  Mon May  1 12:13:34 2017 Jabbari Yassir
-## Last update Sat Jun  3 17:16:50 2017 Stanislas Deneubourg
+## Last update Tue Jun 13 14:31:23 2017 Loïc Dupil
 ##
 
 NAME            =       indie_studio
@@ -28,6 +28,7 @@ SRC             =	sources/main.cpp								\
 			sources/Worms/Uzi.cpp								\
 			sources/Worms/Inventory.cpp							\
 			sources/Worms/Shotgun.cpp							\
+			sources/GameEngine/GameEnginePhysic.cpp					\
 
 ECHO		=	/bin/echo -e
 
@@ -49,7 +50,7 @@ CXXFLAGS	+=	-lIrrKlang -lIrrlicht -lGL -lGLU -lXrandr -lXxf86vm -lXext -lX11 -lX
 
 CXXFLAGS	+=	-lpthread
 
-CXX             =       g++ -g
+CXX             =       g++ -g3
 
 RM              =       rm -f
 

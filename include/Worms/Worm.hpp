@@ -19,6 +19,7 @@
 #include <string>
 #include <iostream>
 #include <cstdlib>
+#include <list>
 #include "Dependencies/Dependencies.hpp"
 #include "Worms/Inventory.hpp"
 
@@ -71,7 +72,7 @@ public:
   Inventory             		inventory;
   Worm(int, irr::core::vector3df,
        irr::IrrlichtDevice *, std::string const &,
-       bool);
+       bool, btDiscreteDynamicsWorld *, std::list<btRigidBody *> &);
   ~Worm();
   int					getHealthPoints();
   unsigned int				getDamageDealt();

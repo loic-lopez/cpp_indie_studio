@@ -32,7 +32,7 @@ public:
   Team(unsigned int, unsigned int,
        std::vector<irr::core::vector3df>,
        irr::IrrlichtDevice *,
-       std::string const &, bool);
+       std::string const &, bool, btDiscreteDynamicsWorld *, std::list<btRigidBody *> &);
   ~Team();
   double		turnOfThatTeam(unsigned int, std::time_t);
   void			teamMoveLeft(unsigned int, size_t selectedWeapon);

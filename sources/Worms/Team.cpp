@@ -13,13 +13,13 @@
 Team::Team(unsigned int players_, unsigned int teamNb,
 	   std::vector<irr::core::vector3df> vectorPos,
 	   irr::IrrlichtDevice *device,
-	   std::string const &wormFile, bool isBot)
+	   std::string const &wormFile, bool isBot, btDiscreteDynamicsWorld *World, std::list<btRigidBody *> &list)
 {
   this->players = players_;
   this->teamName = "Humans ";
   this->teamName += std::to_string(teamNb);
   for (unsigned int i = 0; i < this->players; i++)
-    this->teamPlayers.emplace_back(Worm(i, vectorPos.at(i), device, wormFile, isBot));
+    this->teamPlayers.emplace_back(Worm(i, vectorPos.at(i), device, wormFile, isBot, World, list));
 }
 
 Team::~Team()

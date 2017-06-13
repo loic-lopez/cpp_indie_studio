@@ -18,6 +18,7 @@
 #include <ctime>
 #include <cmath>
 #include <cstdlib>
+#include <list>
 #include "Interface/IModel.hpp"
 #include "Model/MenuInGameModel.hpp"
 #include "Worms/Team.hpp"
@@ -59,6 +60,13 @@ namespace	GameNamespace
     std::string						worm;
     const size_t					nbShapes;
     float						theFarthestMapPoint;
+    std::list<btRigidBody *>				rigidBodyObjects;
+    btDiscreteDynamicsWorld				*World;
+    btDefaultCollisionConfiguration			*collisionConfiguration;
+    btBroadphaseInterface				*broadphaseInterface;
+    btCollisionDispatcher				*dispatcher;
+    btSequentialImpulseConstraintSolver			*solver;
+
 
     //Génération de map
     int                                                 fillProbe;
@@ -119,7 +127,10 @@ namespace	GameNamespace
     virtual	irr::core::vector3df			wormsPosGen();
     virtual	void					cameraMovements();
     virtual	void					setBlockProperties(int, int);
-    
+    virtual 	void 					UpdatePhysics(irr::u32);
+    virtual 	void 					UpdateRender(btRigidBody *);
+    virtual 	void 					ClearObject();
+
    public:
 
     GameEngine(irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,

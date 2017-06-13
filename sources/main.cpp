@@ -20,12 +20,5 @@ int	main()
   core->fillSaves();
   core->fillSoundLib();
   core->launch();
-  /*for (size_t i = 0; i < saves.size() ; i++)
-      std::cout << "sauvegarde nommée : \"" << saves[i] << "\" à été trouvée." << std::endl;
-  saves = bite->getSoundLib();
-  for (size_t i = 0; i < saves.size() ; i++)
-      std::cout << "Fichier son nommé : \"" << saves[i] << "\" à été trouvé." << std::endl;
-  */
   return (0);
-  
 }

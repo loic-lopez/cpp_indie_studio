@@ -5,7 +5,7 @@
 ** Login   <yassir.jabbari@epitech.eu>
 **
 ** Started on  Sat May 06 17:31:42 2017 Yassir Jabbari
-// Last update Sat May  6 18:30:54 2017 Jabbari Yassir
+// Last update Wed Jun 14 10:56:06 2017 Stanislas Deneubourg
 */
 #ifndef CPP_INDIE_STUDIO_MENUEVENTCONTROLLER_HPP
 #define CPP_INDIE_STUDIO_MENUEVENTCONTROLLER_HPP
@@ -73,6 +73,7 @@ private:
  public:
   MenuEvent(irr::IrrlichtDevice *device, irrklang::ISound *mainSound, bool *playMainSound);
   virtual bool 	OnEvent(const irr::SEvent &event);
+  virtual	~MenuEvent();
   void		setSelected(irr::s32 const &selected);
 
   //MAIN BUTTONS

@@ -5,7 +5,7 @@
 ** Login   <yassir.jabbari@epitech.eu>
 **
 ** Started on  Sat May 06 13:52:58 2017 Yassir Jabbari
-// Last update Sat Jun  3 14:06:47 2017 Stanislas Deneubourg
+// Last update Wed Jun 14 10:48:19 2017 Stanislas Deneubourg
 */
 
 #include "Model/MenuModel.hpp"
@@ -125,7 +125,6 @@ EventStatus	MenuModel::launchModel()
 					     nullptr,
 					     irr::video::SColor(255, 255, 255, 255), 0);
 	    }
-
 	  this->_driver->endScene();
 	}
     }

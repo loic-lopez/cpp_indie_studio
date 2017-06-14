@@ -5,7 +5,7 @@
 ** Login   <yassir.jabbari@epitech.eu>
 **
 ** Started on  Sat May 06 17:36:48 2017 Yassir Jabbari
-// Last update Fri Jun  2 18:44:15 2017 Stanislas Deneubourg
+// Last update Wed Jun 14 11:02:32 2017 Stanislas Deneubourg
 */
 
 #include "Events/MenuEvent.hpp"
@@ -53,7 +53,7 @@ bool	MenuEvent::OnEvent(const irr::SEvent &event)
 		if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
 		  {
 		    *this->eventStatus = EventStatus::ENTER_IN_GAME;
-		    break;
+		    return true;
 		  }
 	      case MenuButton::SAVES:
 		if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
@@ -335,4 +335,9 @@ irr::s32 const &MenuEvent::getNbrWormsPerTeam() const
 void	MenuEvent::setNbrWormsPerTeam(irr::s32 *NbrWormsPerTeam)
 {
   this->NbrWormsPerTeam = NbrWormsPerTeam;
+}
+
+MenuEvent::~MenuEvent()
+{
+
 }

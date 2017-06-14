@@ -86,8 +86,8 @@ void	GameNamespace::GameEngine::setBlockProperties(int x, int y)
       irr::core::vector3d<irr::f32>	*edge = new irr::core::vector3d<irr::f32>[8];
       irr::core::aabbox3d<irr::f32>	boundingBox = this->groundObject->getTransformedBoundingBox();
       boundingBox.getEdges(edge);
-      this->terrainShapes.push_back(boundingBox);
-      this->terrainBoundingBox.push_back(edge);
+      this->terrainShapes.push_back(edge);
+      this->terrainBoundingBox.push_back(boundingBox);
     }
 }
 
@@ -119,6 +119,8 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	  }
 
 	this->cameraMovements();
+
+	this->Gravity();
 
 	if (this->eventReceiver.IsKeyDown(irr::KEY_SPACE))
 	  {

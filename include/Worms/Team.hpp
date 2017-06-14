@@ -43,6 +43,7 @@ public:
   void 			teamLaunchInventory(unsigned int);
   void			teamResetAnimationSpeed(unsigned int);
   void 			poisonEffect();
+  void 			gravity(std::vector<irr::core::vector3d<irr::f32> *>);
 };
 
 #endif

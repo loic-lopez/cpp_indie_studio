@@ -158,6 +158,14 @@ void 	GameNamespace::GameEngine::poisonEffect()
 {
   for (unsigned int i = 0; i < this->teams.size(); i++)
     {
-      this->teams[i].poisonEffect();
+      this->teams.at(i).poisonEffect();
     }
+}
+
+void 	GameNamespace::GameEngine::Gravity()
+{
+  for (unsigned int i = 0; i < this->teams.size(); i++)
+  {
+    this->teams.at(i).gravity(this->terrainShapes);
+  }
 }

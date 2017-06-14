@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Sat Jun  3 17:10:57 2017 Stanislas Deneubourg
-// Last update Tue Jun 13 17:29:17 2017 Stanislas Deneubourg
+// Last update Wed Jun 14 18:13:26 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -166,6 +166,6 @@ void 	GameNamespace::GameEngine::Gravity()
 {
   for (unsigned int i = 0; i < this->teams.size(); i++)
   {
-    this->teams.at(i).gravity(this->terrainShapes);
+    this->teams.at(i).gravity(this->groundObjects, this->terrainShapes);
   }
 }

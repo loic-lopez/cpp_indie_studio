@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:51:11 2017 Stanislas Deneubourg
-// Last update Wed Jun 14 14:11:31 2017 Stanislas Deneubourg
+// Last update Wed Jun 14 18:38:59 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Team.hpp"
@@ -78,10 +78,11 @@ void 	Team::poisonEffect()
     }
 }
 
-void 	Team::gravity(std::vector<irr::core::vector3d<irr::f32> *> terrainShapes)
+void 	Team::gravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
+		      std::vector<irr::core::vector3d<irr::f32> *> edges)
 {
   for (unsigned int i = 0; i < this->teamPlayers.size(); i++)
     {
-      this->teamPlayers.at(i).wormGravity(terrainShapes);
+      this->teamPlayers.at(i).wormGravity(groundObjects, edges);
     }
 }

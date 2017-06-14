@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:43:41 2017 Stanislas Deneubourg
-// Last update Wed Jun 14 14:07:15 2017 Stanislas Deneubourg
+// Last update Wed Jun 14 18:51:10 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Worm.hpp"
@@ -134,16 +134,22 @@ const irr::core::vector3df	&Worm::wormGetRotation() const
   return this->wormMesh->getRotation();
 }
 
-void 	Worm::wormGravity(std::vector<irr::core::vector3d<irr::f32> *> terrainShapes)
+void 	Worm::wormGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
+			  std::vector<irr::core::vector3d<irr::f32> *> edges)
 {
   int collision = 0;
-  for (unsigned int i = 0; i < terrainShapes.size(); i++)
+  for (unsigned int i = 0; i < groundObjects.size(); i++)
     {
-	//      if (((this->edge[0].Y >= terrainShapes.at(i)[0].Y && this->edge[0].Y < terrainShapes.at(i)[1].Y)
-	//	  || (this->edge[4].Y >= terrainShapes.at(i)[4].Y && this->edge[4].Y < terrainShapes.at(i)[5].Y))
-      //     && ((this->edge[0].X >= terrainShapes.at(i)[0].X && this->edge[0].X < terrainShapes.at(i)[4].X)
-      //  || (this->edge[4].X >= terrainShapes.at(i)[0].X && this->edge[4].X < terrainShapes.at(i)[4].X)))
-      //collision = 1;
+      
+      // if (i == groundObjects.size() - 1)
+      // 	{
+	  if ((this->wormMesh->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 1.0)
+	      && (this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y - 0.8)
+	      && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X - 2.2)
+	      && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X + 2.2))
+	    collision = 1;
+	  // std::cout << "LA PUTAIN DE POS EN Y DU PUTAIN DE DERNIER MESH DE MERDE C'EST : " << groundObjects.at(i)->getPosition().Y << std::endl;
+	// }
     }
   if (collision == 0)
     {

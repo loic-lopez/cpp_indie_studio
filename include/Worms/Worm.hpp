@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:39:05 2017 Stanislas Deneubourg
-// Last update Wed Jun 14 14:02:25 2017 Stanislas Deneubourg
+// Last update Wed Jun 14 17:57:03 2017 Stanislas Deneubourg
 //
 
 #ifndef	WORM_HPP
@@ -85,7 +85,8 @@ private:
   void					wormMoveRight(size_t const &currentSelectedWeapon);
   const irr::core::vector3df 		&wormGetPosition() const;
   const irr::core::vector3df 		&wormGetRotation() const;
-  void 					wormGravity(std::vector<irr::core::vector3d<irr::f32> *>);
+  void 					wormGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
+						    std::vector<irr::core::vector3d<irr::f32> *> edges);
 };
 
 #endif

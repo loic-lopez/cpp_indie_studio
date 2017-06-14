@@ -46,7 +46,7 @@ public:
   ~Shotgun() override;
 
   bool	fire() 		override;
-  void	showWeapon() 	override;
+  void	showWeapon(const irr::core::vector3df &position, const irr::core::vector3df &rotation) 	override;
   void	deleteWeapon() 	override;
   void	setWeaponPosition(const irr::core::vector3df &position) override;
   void	setWeaponRotation(const irr::core::vector3df &rotation) override;

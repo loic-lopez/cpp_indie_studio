@@ -19,7 +19,7 @@ class	IWeapon
 public:
   virtual	~IWeapon() {};
   virtual	bool	fire() = 0;
-  virtual 	void	showWeapon() = 0;
+  virtual 	void	showWeapon(const irr::core::vector3df &position, const irr::core::vector3df &rotation) = 0;
   virtual 	void	deleteWeapon() = 0;
   virtual 	void	setWeaponPosition(const irr::core::vector3df &position) = 0;
   virtual 	void	setWeaponRotation(const irr::core::vector3df &rotation) = 0;

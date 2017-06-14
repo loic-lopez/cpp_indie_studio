@@ -40,12 +40,14 @@ bool	Uzi::fire()
   return (false);
 }
 
-void	Uzi::showWeapon()
+void	Uzi::showWeapon(const irr::core::vector3df &position, const irr::core::vector3df &rotation)
 {
   this->uziSceneNode = this->device->getSceneManager()->addMeshSceneNode
     (this->device->getSceneManager()->getMesh("ressources/weapons/Uzi/Uzi.obj"));
   this->uziSceneNode->setMaterialFlag(irr::video::EMF_LIGHTING, true);
   this->uziSceneNode->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, true);
+  this->setWeaponRotation(rotation);
+  this->setWeaponPosition(position);
   this->uziSceneNode->setScale(irr::core::vector3df(0.5, 0.5, 0.5));
   this->uziBox = this->uziSceneNode->getBoundingBox();
 }

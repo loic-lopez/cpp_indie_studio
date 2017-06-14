@@ -32,13 +32,15 @@ bool	Surrender::fire()
   return (false);
 }
 
-void	Surrender::showWeapon()
+void	Surrender::showWeapon(const irr::core::vector3df &position, const irr::core::vector3df &rotation)
 {
   this->surrenderSceneNode = this->device->getSceneManager()->addMeshSceneNode
 	  (this->device->getSceneManager()->getMesh("ressources/weapons/Surrender/Surrender.obj"));
   this->surrenderSceneNode->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   this->surrenderSceneNode->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
   this->surrenderBox = this->surrenderSceneNode->getBoundingBox();
+  this->setWeaponRotation(rotation);
+  this->setWeaponPosition(position);
 }
 
 void	Surrender::deleteWeapon()

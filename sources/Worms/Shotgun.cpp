@@ -44,12 +44,14 @@ bool	Shotgun::fire()
   return (false);
 }
 
-void	Shotgun::showWeapon()
+void	Shotgun::showWeapon(const irr::core::vector3df &position, const irr::core::vector3df &rotation)
 {
   this->shotgunSceneNode = this->device->getSceneManager()->addMeshSceneNode
 	  (this->device->getSceneManager()->getMesh("ressources/weapons/Shotgun/Shotgun.obj"));
   this->shotgunSceneNode->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   this->shotgunSceneNode->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
+  this->setWeaponRotation(rotation);
+  this->setWeaponPosition(position);
   this->shotgunSceneNode->setScale(irr::core::vector3df(0.5, 0.5, 0.5));
   this->shotgunBox = this->shotgunSceneNode->getBoundingBox();
 }

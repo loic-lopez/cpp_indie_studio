@@ -41,6 +41,7 @@ public:
   void 			showWormWeapon(size_t, size_t);
   bool			updateTeamWormBullets(unsigned currentPlayer, size_t selectedWeapon);
   void 			teamLaunchInventory(unsigned int);
+  void 			poisonEffect();
 };
 
 #endif

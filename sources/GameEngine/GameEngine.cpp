@@ -95,7 +95,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
   this->menuInGame->setModelProperties(); // Set des propriétés du menu ingame
   this->suddenDeathCooldown = std::time(nullptr);
-  this->teams.at(this->currentTeamIdPlaying).showWormWeapon(this->currentWormIdPlaying, 1);
+  this->teams.at(this->currentTeamIdPlaying).showWormWeapon(this->currentWormIdPlaying, 0);
   while(this->device->run())
     if (this->device->isWindowActive())
       {
@@ -115,9 +115,11 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	this->cameraMovements();
 
-	if (this->eventReceiver.IsKeyUp(irr::KEY_SPACE))
+	this->poisonEffect();
+
+	if (this->eventReceiver.IsKeyDown(irr::KEY_SPACE))
 	  {
-	    canFire = this->teams.at(this->currentTeamIdPlaying).teamFire(this->currentWormIdPlaying, 1);
+	    canFire = this->teams.at(this->currentTeamIdPlaying).teamFire(this->currentWormIdPlaying, 0);
 	    displayBullet = true;
 	  }
 
@@ -173,9 +175,9 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	// Fonctions de mouvements des worms
 	if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_Q))
-	  this->teams.at(this->currentTeamIdPlaying).teamMoveLeft(this->currentWormIdPlaying, 1);
+	  this->teams.at(this->currentTeamIdPlaying).teamMoveLeft(this->currentWormIdPlaying, 0);
 	else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
-	    this->teams.at(this->currentTeamIdPlaying).teamMoveRight(this->currentWormIdPlaying, 1);
+	    this->teams.at(this->currentTeamIdPlaying).teamMoveRight(this->currentWormIdPlaying, 0);
 
 	// FIN DE LA BOUCLE DE JEU
 	this->driver->beginScene();

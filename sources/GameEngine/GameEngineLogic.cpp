@@ -153,3 +153,11 @@ void	GameNamespace::GameEngine::triggerTimer()
 			 irr::video::SColor(255, 255, 0, 0));
     }
 }
+
+void 	GameNamespace::GameEngine::poisonEffect()
+{
+  for (unsigned int i = 0; i < this->teams.size(); i++)
+    {
+      this->teams[i].poisonEffect();
+    }
+}

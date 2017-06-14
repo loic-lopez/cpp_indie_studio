@@ -42,6 +42,7 @@ Worm::Worm(int nb, irr::core::vector3df vectorPos,
   this->wormMesh->setAnimationSpeed(0);
   this->wormMesh->setPosition(this->worm_pos);
   this->wormStatus = Worm::WormStatus::WALKING;
+  this->isPoisoned = false;
 
 }
 
@@ -126,3 +127,4 @@ const irr::core::vector3df	&Worm::wormGetRotation() const
 {
   return this->wormMesh->getRotation();
 }
+

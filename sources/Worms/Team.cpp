@@ -65,3 +65,19 @@ void	Team::teamLaunchInventory(unsigned int currentWormIdPlaying)
 {
   this->teamPlayers.at(currentWormIdPlaying).inventory.launchInventory();
 }
+
+void 	Team::poisonEffect()
+{
+  int	pv;
+  for (unsigned int i = 0; i < this->teamPlayers.size(); i++)
+    {
+      if (this->teamPlayers[i].isPoisoned)
+	{
+	  pv = this->teamPlayers[i].getHealthPoints();
+	  if (pv > 5)
+	    this->teamPlayers[i].setHealthPoints(-5);
+	  else
+	    this->teamPlayers[i].setHealthPoints(-pv + 1);
+	}
+    }
+}

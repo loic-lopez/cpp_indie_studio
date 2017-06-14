@@ -77,3 +77,11 @@ void 	Team::poisonEffect()
 	}
     }
 }
+
+void 	Team::gravity(std::vector<irr::core::vector3d<irr::f32> *> terrainShapes)
+{
+  for (unsigned int i = 0; i < this->teamPlayers.size(); i++)
+    {
+      this->teamPlayers.at(i).wormGravity(terrainShapes);
+    }
+}

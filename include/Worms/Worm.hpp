@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:39:05 2017 Stanislas Deneubourg
-// Last update Tue Jun 13 17:51:12 2017 Stanislas Deneubourg
+// Last update Wed Jun 14 14:02:25 2017 Stanislas Deneubourg
 //
 
 #ifndef	WORM_HPP
@@ -78,6 +78,7 @@ public:
   unsigned int				getDamageDealt();
   unsigned int				getDamageReceived();
   double				turnOfThatWorm(std::time_t);
+  void					wormResetAnimationSpeed();
   void					wormMoveLeft(size_t const &currentSelectedWeapon);
   void					wormMoveRight(size_t const &currentSelectedWeapon);
   const irr::core::vector3df 		&wormGetPosition() const;

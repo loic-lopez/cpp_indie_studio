@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 //
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Wed Jun 14 11:15:07 2017 Stanislas Deneubourg
+// Last update Wed Jun 14 14:08:55 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -130,7 +130,6 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    eventStatusMenu = EventStatus::INVENTORY;
 	  }
 
-
 	// BOUCLE DE JEU
 
 	if (!this->gameStart)
@@ -172,10 +171,22 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	  }
 
 	// Fonctions de mouvements des worms
+	
+	if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_Q))
+	  this->teams.at(this->currentTeamIdPlaying).teamResetAnimationSpeed(this->currentWormIdPlaying);
 	if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_Q))
-	  this->teams.at(this->currentTeamIdPlaying).teamMoveLeft(this->currentWormIdPlaying, 1);
+	  {
+	    this->teams.at(this->currentTeamIdPlaying).teamMoveLeft(this->currentWormIdPlaying, 1);
+	    
+	  }
 	else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
+	  {
 	    this->teams.at(this->currentTeamIdPlaying).teamMoveRight(this->currentWormIdPlaying, 1);
+
+	  }
+	if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_D))
+	  this->teams.at(this->currentTeamIdPlaying).teamResetAnimationSpeed(this->currentWormIdPlaying);
+	  
 
 	// FIN DE LA BOUCLE DE JEU
 	this->driver->beginScene();

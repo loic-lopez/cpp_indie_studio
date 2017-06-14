@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:50:07 2017 Stanislas Deneubourg
-// Last update Tue Jun 13 17:51:24 2017 Stanislas Deneubourg
+// Last update Wed Jun 14 14:01:59 2017 Stanislas Deneubourg
 //
 
 #ifndef TEAM_HPP
@@ -41,6 +41,7 @@ public:
   void 			showWormWeapon(size_t, size_t);
   bool			updateTeamWormBullets(unsigned currentPlayer, size_t selectedWeapon);
   void 			teamLaunchInventory(unsigned int);
+  void			teamResetAnimationSpeed(unsigned int);
 };
 
 #endif

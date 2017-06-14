@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:51:11 2017 Stanislas Deneubourg
-// Last update Tue Jun 13 17:52:11 2017 Stanislas Deneubourg
+// Last update Wed Jun 14 14:03:16 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Team.hpp"
@@ -64,4 +64,9 @@ bool	Team::updateTeamWormBullets(unsigned currentPlayer, size_t selectedWeapon)
 void	Team::teamLaunchInventory(unsigned int currentWormIdPlaying)
 {
   this->teamPlayers.at(currentWormIdPlaying).inventory.launchInventory();
+}
+
+void    Team::teamResetAnimationSpeed(unsigned int currentWormIdPlaying)
+{
+  this->teamPlayers.at(currentWormIdPlaying).wormResetAnimationSpeed();
 }

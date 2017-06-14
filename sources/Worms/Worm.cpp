@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:43:41 2017 Stanislas Deneubourg
-// Last update Tue Jun 13 17:50:34 2017 Stanislas Deneubourg
+// Last update Wed Jun 14 14:07:15 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Worm.hpp"
@@ -38,7 +38,7 @@ Worm::Worm(int nb, irr::core::vector3df vectorPos,
   else
     this->wormMesh->setRotation(irr::core::vector3df(0.0, 0.0, 0.0));
   this->lookingDirection = static_cast<Worm::LookingDirection>(dir);
-  this->wormMesh->setFrameLoop(0, 25);
+  this->wormMesh->setFrameLoop(0, 20);
   this->wormMesh->setAnimationSpeed(0);
   this->wormMesh->setPosition(this->worm_pos);
   this->wormStatus = Worm::WormStatus::WALKING;
@@ -115,6 +115,11 @@ void	Worm::wormMoveRight(size_t const &currentSelectedWeapon)
     }
   this->wormMesh->setPosition(this->worm_pos);
   this->inventory.setWeaponPositionToWormPosition(currentSelectedWeapon, this->worm_pos);
+}
+
+void	Worm::wormResetAnimationSpeed()
+{
+  this->wormMesh->setAnimationSpeed(0);
 }
 
 const irr::core::vector3df	&Worm::wormGetPosition() const

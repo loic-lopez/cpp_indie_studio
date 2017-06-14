@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:43:41 2017 Stanislas Deneubourg
-// Last update Wed Jun 14 18:51:10 2017 Stanislas Deneubourg
+// Last update Wed Jun 14 18:58:55 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Worm.hpp"
@@ -140,16 +140,11 @@ void 	Worm::wormGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
   int collision = 0;
   for (unsigned int i = 0; i < groundObjects.size(); i++)
     {
-      
-      // if (i == groundObjects.size() - 1)
-      // 	{
-	  if ((this->wormMesh->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 1.0)
-	      && (this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y - 0.8)
-	      && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X - 2.2)
-	      && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X + 2.2))
-	    collision = 1;
-	  // std::cout << "LA PUTAIN DE POS EN Y DU PUTAIN DE DERNIER MESH DE MERDE C'EST : " << groundObjects.at(i)->getPosition().Y << std::endl;
-	// }
+      if ((this->wormMesh->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 1.0)
+	  && (this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y - 0.8)
+	  && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X - 2.3)
+	  && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X + 2.3))
+	collision = 1;
     }
   if (collision == 0)
     {

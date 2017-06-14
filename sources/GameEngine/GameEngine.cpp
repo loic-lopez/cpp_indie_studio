@@ -83,6 +83,11 @@ void	GameNamespace::GameEngine::setBlockProperties(int x, int y)
       this->theFarthestMapPoint = this->sizeX * minRadius;
       this->groundObject->setPosition(irr::core::vector3df(x * minRadius, -y * (minRadius / 3), 0));
       this->groundObjects.push_back(this->groundObject);
+      irr::core::vector3d<irr::f32>	*edge = new irr::core::vector3d<irr::f32>[8];
+      irr::core::aabbox3d<irr::f32>	boundingBox = this->groundObject->getTransformedBoundingBox();
+      boundingBox.getEdges(edge);
+      this->terrainShapes.push_back(boundingBox);
+      this->terrainBoundingBox.push_back(edge);
     }
 }
 

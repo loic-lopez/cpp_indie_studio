@@ -64,6 +64,9 @@ private:
   WormStatus				wormStatus;
   void					setDamageDealt(int);
   void					setDamageReceived(int);
+  irr::core::vector3d<irr::f32>		*edge;
+  irr::core::aabbox3d<irr::f32>		boundingBox;
+
  public:
 
   //  Weapon				weaponSelected;

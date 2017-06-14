@@ -61,6 +61,8 @@ namespace	GameNamespace
     std::string						worm;
     const size_t					nbShapes;
     float						theFarthestMapPoint;
+    std::vector<irr::core::aabbox3d<irr::f32>>		terrainShapes;
+    std::vector<irr::core::vector3d<irr::f32> *>	terrainBoundingBox;
 
     //Génération de map
     int                                                 fillProbe;

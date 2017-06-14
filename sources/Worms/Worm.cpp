@@ -43,6 +43,9 @@ Worm::Worm(int nb, irr::core::vector3df vectorPos,
   this->wormMesh->setPosition(this->worm_pos);
   this->wormStatus = Worm::WormStatus::WALKING;
   this->isPoisoned = false;
+  this->edge = new irr::core::vector3d<irr::f32>[8];
+  this->boundingBox = this->wormMesh->getTransformedBoundingBox();
+  this->boundingBox.getEdges(this->edge);
 
 }
 

@@ -147,7 +147,7 @@ void	GameNamespace::GameEngine::teamsGen()
 	{
 	  this->teams.emplace_back(this->wormsPerTeam, i, this->wormsRelativePos,
 				   this->device, this->worm, true,
-				   this->driver, this->soundEngine);
+				   this->driver, this->soundEngine, this->eventReceiver);
 	  std::cout << "BOT TEAM PLACED" << std::endl;
 	  botTeamsLeftToEmplace--;
 	  totalTeamsLeftToEmplace--;
@@ -155,7 +155,7 @@ void	GameNamespace::GameEngine::teamsGen()
       else
 	{
 	  this->teams.emplace_back(this->wormsPerTeam, i, this->wormsRelativePos, this->device,
-				   this->worm, false, this->driver, this->soundEngine);
+				   this->worm, false, this->driver, this->soundEngine, this->eventReceiver);
 	  std::cout << "HUMAN TEAM PLACED" << std::endl;
 	  humanTeamsLeftToEmplace--;
 	  totalTeamsLeftToEmplace--;

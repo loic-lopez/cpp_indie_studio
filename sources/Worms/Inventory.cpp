@@ -13,7 +13,7 @@
 #include "Worms/Inventory.hpp"
 
 Inventory::Inventory(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
-		     irrklang::ISoundEngine *soundEngine) : _device(device), _driver(driver)
+		     irrklang::ISoundEngine *soundEngine, EventReceiver &eventReceiver) : _device(device), _driver(driver), eventReceiver(eventReceiver)
 {
   this->_guienv = this->_device->getGUIEnvironment();
   this->_skin = this->_guienv->createSkin(irr::gui::EGST_WINDOWS_METALLIC);
@@ -54,6 +54,7 @@ void	Inventory::setWeaponRotationToWormPosition(size_t const &weaponSelectedInGu
 void Inventory::launchInventory()
 {
   irr::video::ITexture                   *texture;
+  irr::video::ITexture			*cursor;
 
   for (irr::s32 i = 0; i < irr::gui::EGDC_COUNT ; ++i)
     this->_guienv->getSkin()->setColor((irr::gui::EGUI_DEFAULT_COLOR) i, irr::video::SColor(0, 0, 0, 0));
@@ -69,11 +70,26 @@ void Inventory::launchInventory()
     this->spriteBank = this->_guienv->getSpriteBank(irr::io::path("ressources/inventory/weapons"));
   if (texture != nullptr)
     this->spriteBank->addTextureAsSprite(texture);
+  cursor = this->_driver->getTexture("ressources/cursor/cursor.png");
+  if (cursor != nullptr)
+    {
+      this->cursorSize = cursor->getSize();
+      this->spriteBank->addTextureAsSprite(cursor);
+    }
   if (this->spriteBank->getTexture(irr::u32(0)) != nullptr)
     this->spriteBank->draw2DSprite(irr::u32(0),
 				   irr::core::position2di(0, 0),
 				   nullptr,
 				   irr::video::SColor(255, 255, 255, 255), 0);
+  if (this->spriteBank->getTexture(irr::u32(1)) != nullptr)
+    {
+      irr::core::position2d<irr::s32> mousePosition = this->_device->getCursorControl()->getPosition();
+      this->spriteBank->draw2DSprite(irr::u32(1),
+				     irr::core::position2di(mousePosition.X - this->cursorSize.Width / 4,
+							    mousePosition.Y - this->cursorSize.Height / 8),
+				     nullptr,
+				     irr::video::SColor(255, 255, 255, 255), 0);
+    }
 }
 
 bool	Inventory::updateWeaponBullets(size_t const &weaponSelectedInGui)

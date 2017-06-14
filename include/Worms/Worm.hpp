@@ -71,7 +71,7 @@ private:
   Inventory             		inventory;
   Worm(int, irr::core::vector3df,
        irr::IrrlichtDevice *, std::string const &,
-       bool, irr::video::IVideoDriver *, irrklang::ISoundEngine *soundEngine);
+       bool, irr::video::IVideoDriver *, irrklang::ISoundEngine *soundEngine, EventReceiver &eventReceiver);
   ~Worm();
   int					getHealthPoints();
   void					setHealthPoints(int);

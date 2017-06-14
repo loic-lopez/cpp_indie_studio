@@ -16,6 +16,7 @@
 #include "Worms/Uzi.hpp"
 #include "Worms/Shotgun.hpp"
 #include "Worms/Surrender.hpp"
+#include "Events/EventReceiver.hpp"
 
 class	Inventory
 {
@@ -31,18 +32,19 @@ class	Inventory
   std::vector<std::shared_ptr<IWeapon>>	weaponsInInventory;
   irr::IrrlichtDevice				*_device;
   irr::video::IVideoDriver			*_driver;
-  irr::scene::ISceneManager			*_smgr;
   irr::gui::IGUIEnvironment			*_guienv;
   irr::gui::IGUISkin				*_skin;
   irr::gui::IGUITabControl			*tabctrl;
   irr::core::dimension2du		 	screenSize;
   irr::gui::IGUISpriteBank			*spriteBank;
+  irr::core::dimension2d<irr::u32> 		cursorSize;
+  EventReceiver 				&eventReceiver;
 
   weaponsId 					*id;
 
  public:
   Inventory(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
-	    irrklang::ISoundEngine *soundEngine);
+	    irrklang::ISoundEngine *soundEngine, EventReceiver &receiver);
   ~Inventory();
   bool	fireWithSelectedWeapon(size_t const &weaponSelectedInGui);
   void	showSelectedWeapon(size_t const &weaponSelectedInGui);

@@ -14,13 +14,13 @@ Team::Team(unsigned int players_, unsigned int teamNb,
 	   std::vector<irr::core::vector3df> vectorPos,
 	   irr::IrrlichtDevice *device,
 	   std::string const &wormFile, bool isBot,
-	   irr::video::IVideoDriver *driver, irrklang::ISoundEngine *soundEngine)
+	   irr::video::IVideoDriver *driver, irrklang::ISoundEngine *soundEngine, EventReceiver &eventReceiver)
 {
   this->players = players_;
   this->teamName = "Humans ";
   this->teamName += std::to_string(teamNb);
   for (unsigned int i = 0; i < this->players; i++)
-    this->teamPlayers.emplace_back(Worm(i, vectorPos.at(i), device, wormFile, isBot, driver, soundEngine));
+    this->teamPlayers.emplace_back(Worm(i, vectorPos.at(i), device, wormFile, isBot, driver, soundEngine, eventReceiver));
 }
 
 Team::~Team()

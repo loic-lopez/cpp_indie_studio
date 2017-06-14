@@ -8,6 +8,8 @@
 // Last update Fri May  5 18:19:34 2017 Stanislas Deneubourg
 //
 
+#ifndef EVENTRECEIVER_HPP
+  #define EVENTRECEIVER_HPP
 #include "Dependencies/Dependencies.hpp"
 #include "Events/buttonState.hpp"
 #include "Events/EventStatus.hpp"
@@ -59,3 +61,5 @@ public:
   // OTHER
   EventStatus 					eventStatus;
 };
+
+#endif //EVENTRECEIVER_HPP

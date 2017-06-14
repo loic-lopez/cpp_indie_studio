@@ -127,11 +127,6 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	  displayBullet = this->teams.at(this->currentTeamIdPlaying)
 		  .updateTeamWormBullets(this->currentWormIdPlaying, 1);
 
-	if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_I))
-	  {
-	    eventStatusMenu = EventStatus::INVENTORY;
-	  }
-
 	// BOUCLE DE JEU
 
 	if (!this->gameStart)
@@ -194,8 +189,14 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->isGamePaused = true;
 	    this->timeBeforePause = this->turnTimeLeft;
 	  }
+	if (eventStatusMenu != EventStatus::INVENTORY && this->eventReceiver.IsKeyUp(irr::KEY_KEY_I))
+	  eventStatusMenu = EventStatus::INVENTORY;
 	if (eventStatusMenu == EventStatus::INVENTORY)
-	  this->teams.at(this->currentTeamIdPlaying).teamLaunchInventory(this->currentWormIdPlaying);
+	  {
+	    this->teams.at(this->currentTeamIdPlaying).teamLaunchInventory(this->currentWormIdPlaying);
+	    if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_I))
+	      eventStatusMenu = EventStatus::STAND_BY;
+	  }
 	if (eventStatusMenu == EventStatus::IN_GAME_MENU)
 	  {
 	    eventStatusMenu = this->menuInGame->launchModel();

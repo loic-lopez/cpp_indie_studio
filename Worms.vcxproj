@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{F282073B-E592-40CC-A5EA-861C3EAFEF32}</ProjectGuid>
+    <ProjectGuid>{6B3EA291-818F-42EE-AB7C-2D8CE055B467}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -44,6 +44,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -70,14 +71,14 @@
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <ExecutablePath>C:\Users\Yassir\Documents\Shared\cpp_indie_studio;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>C:\Users\Yassir\Documents\Shared\cpp_indie_studio\bullet\include\bullet;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\irrlicht\include;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\irrKlang\include;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Yassir\Documents\Shared\cpp_indie_studio\bullet\lib\Windows;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\irrlicht\lib\Win64-visualStudio;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\irrKlang\lib\Winx64-visualStudio;$(LibraryPath)</LibraryPath>
-    <SourcePath>C:\Users\Yassir\Documents\Shared\cpp_indie_studio\sources\Worms;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\sources\Model;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\sources\GameEngine;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\sources\Events;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\sources;$(SourcePath)</SourcePath>
+    <IncludePath>C:\Users\frenc\Documents\Shared\cpp_indie_studio\irrlicht\include;C:\Users\frenc\Documents\Shared\cpp_indie_studio\irrKlang\include;C:\Users\frenc\Documents\Shared\cpp_indie_studio\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\frenc\Documents\Shared\cpp_indie_studio\irrlicht\lib\Win64-visualStudio;C:\Users\frenc\Documents\Shared\cpp_indie_studio\irrKlang\lib\Winx64-visualStudio;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>C:\Users\frenc\Documents\Shared\cpp_indie_studio;C:\Users\frenc\Documents\Shared\cpp_indie_studio\x64\Release;$(ExecutablePath)</ExecutablePath>
+    <OutDir>.</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -86,12 +87,12 @@
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -99,15 +100,15 @@
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <Link>
-      <ShowProgress>LinkVerbose</ShowProgress>
-    </Link>
+    <ClCompile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="sources\Core.cpp" />
@@ -119,14 +120,17 @@
     <ClCompile Include="sources\gameengine\GameEngineGeneration.cpp" />
     <ClCompile Include="sources\gameengine\GameEngineLogic.cpp" />
     <ClCompile Include="sources\main.cpp" />
+    <ClCompile Include="sources\model\InventoryModel.cpp" />
     <ClCompile Include="sources\model\MenuInGameModel.cpp" />
     <ClCompile Include="sources\model\MenuModel.cpp" />
     <ClCompile Include="sources\model\SetMenuModelMainOptions.cpp" />
     <ClCompile Include="sources\model\SplashScreen.cpp" />
-    <ClCompile Include="sources\Worms\Inventory.cpp" />
-    <ClCompile Include="sources\Worms\Shotgun.cpp" />
+    <ClCompile Include="sources\worms\Grenade.cpp" />
+    <ClCompile Include="sources\worms\Inventory.cpp" />
+    <ClCompile Include="sources\worms\Shotgun.cpp" />
+    <ClCompile Include="sources\worms\Surrender.cpp" />
     <ClCompile Include="sources\worms\Team.cpp" />
-    <ClCompile Include="sources\Worms\Uzi.cpp" />
+    <ClCompile Include="sources\worms\Uzi.cpp" />
     <ClCompile Include="sources\worms\Worm.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -148,13 +152,16 @@
     <ClInclude Include="include\interface\ICore.hpp" />
     <ClInclude Include="include\interface\IModel.hpp" />
     <ClInclude Include="include\interface\IWeapon.hpp" />
+    <ClInclude Include="include\model\InventoryModel.hpp" />
     <ClInclude Include="include\model\MenuInGameModel.hpp" />
     <ClInclude Include="include\model\MenuModel.hpp" />
     <ClInclude Include="include\model\SplashScreen.hpp" />
     <ClInclude Include="include\worms\Grenade.hpp" />
-    <ClInclude Include="include\Worms\Inventory.hpp" />
+    <ClInclude Include="include\worms\Inventory.hpp" />
     <ClInclude Include="include\worms\Shotgun.hpp" />
+    <ClInclude Include="include\worms\Surrender.hpp" />
     <ClInclude Include="include\worms\Team.hpp" />
+    <ClInclude Include="include\worms\Uzi.hpp" />
     <ClInclude Include="include\worms\Worm.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -42,6 +42,9 @@
     <ClCompile Include="sources\gameengine\GameEngineLogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="sources\model\InventoryModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="sources\model\MenuInGameModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -54,19 +57,25 @@
     <ClCompile Include="sources\model\SplashScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="sources\worms\Grenade.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\worms\Inventory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\worms\Shotgun.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\worms\Surrender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="sources\worms\Team.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="sources\worms\Uzi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="sources\worms\Worm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\Worms\Inventory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\Worms\Uzi.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\Worms\Shotgun.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -125,6 +134,9 @@
     <ClInclude Include="include\interface\IWeapon.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\model\InventoryModel.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\model\MenuInGameModel.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -137,16 +149,22 @@
     <ClInclude Include="include\worms\Grenade.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\worms\Inventory.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\worms\Shotgun.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\worms\Surrender.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\worms\Team.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\worms\Worm.hpp">
+    <ClInclude Include="include\worms\Uzi.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Worms\Inventory.hpp">
+    <ClInclude Include="include\worms\Worm.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -31,15 +31,17 @@ void InventoryModel::setModelProperties()
   irr::video::ITexture                  *texture;
   irr::video::ITexture			*cursor;
 
+
   /*for (irr::s32 i = 0; i < irr::gui::EGDC_COUNT ; ++i)
     this->_guienv->getSkin()->setColor((irr::gui::EGUI_DEFAULT_COLOR) i, irr::video::SColor(0, 0, 0, 0));*/
-  this->tabctrl = this->_guienv->addTabControl(irr::core::rect<int>(screenSize.Width / 3,
-								    screenSize.Height / 5,
-								    screenSize.Width ,
-								    screenSize.Height),
+  texture = this->_driver->getTexture("ressources/inventory/inventory.png");
+  this->backgroundSize = texture->getSize();
+  this->tabctrl = this->_guienv->addTabControl(irr::core::rect<int>(this->screenSize.Width / 3 + this->backgroundSize.Width / 5,
+								    this->screenSize.Height / 6,
+								    this->screenSize.Width / 3 + this->backgroundSize.Width + (this->backgroundSize.Width / 5),
+								    screenSize.Height - this->backgroundSize.Height / 5),
 					       nullptr, false, false);
   this->hideTabCtrl();
-  texture = this->_driver->getTexture("ressources/inventory/inventory.png");
   if (this->_guienv->getSpriteBank(irr::io::path("ressources/inventory/weapons")) == nullptr)
     this->spriteBank = this->_guienv->addEmptySpriteBank(irr::io::path("ressources/inventory/weapons"));
   else
@@ -60,7 +62,7 @@ EventStatus InventoryModel::launchModel()
   this->eventStatus = this->eventReceiver.getEventStatus();
   if (this->spriteBank->getTexture(irr::u32(0)) != nullptr)
   this->spriteBank->draw2DSprite(irr::u32(0),
-				 irr::core::position2di(0, 0),
+				 irr::core::position2di(this->screenSize.Width / 3 + this->backgroundSize.Width / 5, this->screenSize.Height / 6),
 				 nullptr,
 				 irr::video::SColor(255, 255, 255, 255), 0);
   this->_guienv->drawAll();

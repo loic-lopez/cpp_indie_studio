@@ -34,6 +34,7 @@ class 	InventoryModel
   irr::core::dimension2d<irr::u32> 		cursorSize;
   EventReceiver 				&eventReceiver;
   EventStatus 					eventStatus;
+  irr::core::dimension2d<irr::u32>		backgroundSize;
 
   weaponsId 					*id;
  public:

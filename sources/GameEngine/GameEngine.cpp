@@ -125,7 +125,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	if (canFire || displayBullet)
 	  displayBullet = this->teams.at(this->currentTeamIdPlaying)
-		  .updateTeamWormBullets(this->currentWormIdPlaying, 0);
+		  .updateTeamWormBullets(this->currentWormIdPlaying, 1);
 
 	if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_I))
 	  {

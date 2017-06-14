@@ -115,8 +115,6 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	this->cameraMovements();
 
-	this->poisonEffect();
-
 	if (this->eventReceiver.IsKeyDown(irr::KEY_SPACE))
 	  {
 	    canFire = this->teams.at(this->currentTeamIdPlaying).teamFire(this->currentWormIdPlaying, 1);
@@ -131,6 +129,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	if (!this->gameStart)
 	  {
+	    this->soundEngine->play2D("ressources/sounds/StartRound.wav");
 	    this->turnStart = std::time(nullptr); // Set du timer a chaque tour
 	    this->gameStart = true;
 	  }
@@ -163,6 +162,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 		else
 		  this->currentWormIdPlaying = 0;
 	      }
+	    this->poisonEffect();
 	    this->gameStart = false;
 	    this->timeBeforePause = 59;
 	  }

@@ -21,7 +21,6 @@ Shotgun::Shotgun(irr::IrrlichtDevice *device, irrklang::ISoundEngine *soundEngin
   this->damagePerBullet = 5;
   this->device = device;
   this->soundEngine = soundEngine;
-  std::srand(std::time(nullptr));
 }
 
 Shotgun::~Shotgun()

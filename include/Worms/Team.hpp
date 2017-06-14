@@ -41,6 +41,7 @@ public:
   bool			updateTeamWormBullets(unsigned currentPlayer, size_t selectedWeapon);
   void			teamResetAnimationSpeed(unsigned int);
   void 			poisonEffect();
+  void 			gravity(std::vector<irr::core::vector3d<irr::f32> *>);
 };
 
 #endif

@@ -21,9 +21,8 @@ Worm::Worm(int nb, irr::core::vector3df vectorPos,
   this->damageReceived = 0;
   this->damageDealt = 0;
   this->totalTime = 0;
-  this->worm_pos = vectorPos;
+  this->wormPos = vectorPos;
   this->wormType = static_cast<Worm::WormType>(isBot);
-  this->wormPosition = vectorPos;
   this->m = device->getSceneManager()->getMesh(wormFile.c_str());
   if (this->m == nullptr)
     return;
@@ -39,7 +38,7 @@ Worm::Worm(int nb, irr::core::vector3df vectorPos,
   this->lookingDirection = static_cast<Worm::LookingDirection>(dir);
   this->wormMesh->setFrameLoop(0, 20);
   this->wormMesh->setAnimationSpeed(0);
-  this->wormMesh->setPosition(this->worm_pos);
+  this->wormMesh->setPosition(this->wormPos);
   this->wormStatus = Worm::WormStatus::WALKING;
   this->isPoisoned = false;
   this->edge = new irr::core::vector3d<irr::f32>[8];
@@ -92,7 +91,7 @@ double	Worm::turnOfThatWorm(std::time_t turn_start)
 
 void	Worm::wormMoveLeft(size_t const &currentSelectedWeapon)
 {
-  this->worm_pos.X -= WORM_MOVEMENT_SPEED;
+  this->wormPos.X -= WORM_MOVEMENT_SPEED;
   this->wormMesh->setAnimationSpeed(10);
   if (this->lookingDirection == Worm::LookingDirection::RIGHT
       || this->lookingDirection == Worm::LookingDirection::FRONT)
@@ -101,13 +100,13 @@ void	Worm::wormMoveLeft(size_t const &currentSelectedWeapon)
       this->lookingDirection = Worm::LookingDirection::LEFT;
       this->inventory.setWeaponRotationToWormPosition(currentSelectedWeapon, this->wormMesh->getRotation());
     }
-  this->wormMesh->setPosition(this->worm_pos);
-  this->inventory.setWeaponPositionToWormPosition(currentSelectedWeapon, this->worm_pos);
+  this->wormMesh->setPosition(this->wormPos);
+  this->inventory.setWeaponPositionToWormPosition(currentSelectedWeapon, this->wormPos);
 }
 
 void	Worm::wormMoveRight(size_t const &currentSelectedWeapon)
 {
-  this->worm_pos.X += WORM_MOVEMENT_SPEED;
+  this->wormPos.X += WORM_MOVEMENT_SPEED;
   this->wormMesh->setAnimationSpeed(10);
   if (this->lookingDirection == Worm::LookingDirection::LEFT
       || this->lookingDirection == Worm::LookingDirection::FRONT)
@@ -116,8 +115,8 @@ void	Worm::wormMoveRight(size_t const &currentSelectedWeapon)
       this->lookingDirection = Worm::LookingDirection::RIGHT;
       this->inventory.setWeaponRotationToWormPosition(currentSelectedWeapon, this->wormMesh->getRotation());
     }
-  this->wormMesh->setPosition(this->worm_pos);
-  this->inventory.setWeaponPositionToWormPosition(currentSelectedWeapon, this->worm_pos);
+  this->wormMesh->setPosition(this->wormPos);
+  this->inventory.setWeaponPositionToWormPosition(currentSelectedWeapon, this->wormPos);
 }
 
 void	Worm::wormResetAnimationSpeed()
@@ -127,7 +126,7 @@ void	Worm::wormResetAnimationSpeed()
 
 const irr::core::vector3df	&Worm::wormGetPosition() const
 {
-  return (this->worm_pos);
+  return (this->wormPos);
 }
 
 const irr::core::vector3df	&Worm::wormGetRotation() const
@@ -135,3 +134,20 @@ const irr::core::vector3df	&Worm::wormGetRotation() const
   return this->wormMesh->getRotation();
 }
 
+void 	Worm::wormGravity(std::vector<irr::core::vector3d<irr::f32> *> terrainShapes)
+{
+  int collision = 0;
+  for (unsigned int i = 0; i < terrainShapes.size(); i++)
+    {
+	//      if (((this->edge[0].Y >= terrainShapes.at(i)[0].Y && this->edge[0].Y < terrainShapes.at(i)[1].Y)
+	//	  || (this->edge[4].Y >= terrainShapes.at(i)[4].Y && this->edge[4].Y < terrainShapes.at(i)[5].Y))
+      //     && ((this->edge[0].X >= terrainShapes.at(i)[0].X && this->edge[0].X < terrainShapes.at(i)[4].X)
+      //  || (this->edge[4].X >= terrainShapes.at(i)[0].X && this->edge[4].X < terrainShapes.at(i)[4].X)))
+      //collision = 1;
+    }
+  if (collision == 0)
+    {
+      this->wormPos.Y -= WORM_MOVEMENT_SPEED;
+      this->wormMesh->setPosition(this->wormPos);
+    }
+}

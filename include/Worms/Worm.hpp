@@ -53,12 +53,11 @@ private:
   int					healthPoints;
   unsigned int				damageReceived;
   unsigned int				damageDealt;
-  irr::core::vector3df			wormPosition;
   WormType				wormType;
   LookingDirection			lookingDirection;
   bool					canPlay;
   double				totalTime;
-  irr::core::vector3df			worm_pos;
+  irr::core::vector3df			wormPos;
   irr::scene::IAnimatedMesh		*m;
   irr::scene::IAnimatedMeshSceneNode	*wormMesh;
   WormStatus				wormStatus;
@@ -86,6 +85,7 @@ private:
   void					wormMoveRight(size_t const &currentSelectedWeapon);
   const irr::core::vector3df 		&wormGetPosition() const;
   const irr::core::vector3df 		&wormGetRotation() const;
+  void 					wormGravity(std::vector<irr::core::vector3d<irr::f32> *>);
 };
 
 #endif

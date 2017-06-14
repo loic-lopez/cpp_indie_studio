@@ -21,6 +21,7 @@
 #include <list>
 #include "Interface/IModel.hpp"
 #include "Model/MenuInGameModel.hpp"
+#include "Model/InventoryModel.hpp"
 #include "Worms/Team.hpp"
 
 namespace	GameNamespace
@@ -79,6 +80,7 @@ namespace	GameNamespace
     irr::scene::IMeshSceneNode				*groundObject;
     EventReceiver					eventReceiver;
     std::unique_ptr<MenuInGame>				menuInGame;
+    std::unique_ptr<InventoryModel>			inventoryModel;
     bool						playSound;
     bool						drawWalls;
     irr::f32						blockSize;

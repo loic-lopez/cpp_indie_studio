@@ -23,6 +23,9 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
 												       this->driver,
 												       this->smgr,
 												       this->eventReceiver)),
+									     inventoryModel(new InventoryModel(this->device,
+													       this->driver,
+													       this->eventReceiver)),
 									     playSound(playSound),
 									     drawWalls(drawWalls)
 {
@@ -95,10 +98,13 @@ EventStatus GameNamespace::GameEngine::launchModel()
 {
   bool 		canFire = true;
   bool 		displayBullet = false;
+  bool 		alreadyInMenu = false;
   EventStatus 	eventStatusMenu = EventStatus::STAND_BY;
+  EventStatus 	eventStatusInventory = EventStatus::STAND_BY;
   irr::s32	lastFPS = -1;
 
   this->menuInGame->setModelProperties(); // Set des propriétés du menu ingame
+  this->inventoryModel->setModelProperties();
   this->suddenDeathCooldown = std::time(nullptr);
   this->teams.at(this->currentTeamIdPlaying).showWormWeapon(this->currentWormIdPlaying, 1);
   while(this->device->run())
@@ -188,31 +194,47 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	this->driver->beginScene();
 	this->smgr->drawAll();
 	this->triggerTimer();
-	if (eventStatusMenu != EventStatus::IN_GAME_MENU && this->eventReceiver.IsKeyUp(irr::KEY_ESCAPE))
+	if (eventStatusInventory != EventStatus::INVENTORY
+	    && eventStatusMenu != EventStatus::IN_GAME_MENU && this->eventReceiver.IsKeyUp(irr::KEY_KEY_I) && !alreadyInMenu)
+	  {
+	    this->inventoryModel->showTabCtrl();
+	    eventStatusInventory = EventStatus::INVENTORY;
+	    alreadyInMenu = true;
+	  }
+	else if (eventStatusMenu != EventStatus::IN_GAME_MENU
+	    && eventStatusInventory != EventStatus::INVENTORY && this->eventReceiver.IsKeyUp(irr::KEY_ESCAPE) && !alreadyInMenu)
 	  {
 	    eventStatusMenu = EventStatus::IN_GAME_MENU;
+	    this->menuInGame->showTabCtrl();
 	    this->isGamePaused = true;
+	    alreadyInMenu = true;
 	    this->timeBeforePause = this->turnTimeLeft;
 	  }
-	if (eventStatusMenu != EventStatus::INVENTORY && this->eventReceiver.IsKeyUp(irr::KEY_KEY_I))
-	  eventStatusMenu = EventStatus::INVENTORY;
-	if (eventStatusMenu == EventStatus::INVENTORY)
+	if (eventStatusInventory == EventStatus::INVENTORY && eventStatusMenu != EventStatus::IN_GAME_MENU)
 	  {
-	    this->teams.at(this->currentTeamIdPlaying).teamLaunchInventory(this->currentWormIdPlaying);
+	    this->inventoryModel->launchModel();
 	    if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_I))
-	      eventStatusMenu = EventStatus::STAND_BY;
+	      {
+		eventStatusInventory = EventStatus::STAND_BY;
+		eventStatusMenu = EventStatus::STAND_BY;
+		this->inventoryModel->hideTabCtrl();
+		alreadyInMenu = false;
+	      }
 	  }
-	if (eventStatusMenu == EventStatus::IN_GAME_MENU)
+	else if (eventStatusMenu == EventStatus::IN_GAME_MENU && eventStatusInventory != EventStatus::INVENTORY)
 	  {
 	    eventStatusMenu = this->menuInGame->launchModel();
 	    if (this->eventReceiver.IsKeyUp(irr::KEY_ESCAPE))
 	      {
 		eventStatusMenu = EventStatus::STAND_BY;
+		eventStatusInventory = EventStatus::STAND_BY;
 		this->isGamePaused = false;
 		this->turnStart = std::time(nullptr);
 		this->suddenDeathCooldown = std::time(nullptr);
 		this->timeBeforeSuddenDeathEndTurn = std::time(nullptr);
 		this->suddenDeathTimeBeforePause = 600 - this->timeBeforeSuddenDeath;
+		alreadyInMenu = false;
+		this->menuInGame->hideTabCtrl();
 	      }
 	    else if (eventStatusMenu == EventStatus::BACK_TO_GAME)
 		{
@@ -221,6 +243,8 @@ EventStatus GameNamespace::GameEngine::launchModel()
 		  this->suddenDeathCooldown = std::time(nullptr);
 		  this->timeBeforeSuddenDeathEndTurn = std::time(nullptr);
 		  this->suddenDeathTimeBeforePause = 600 - this->timeBeforeSuddenDeath;
+		  alreadyInMenu = false;
+		  this->menuInGame->hideTabCtrl();
 		}
 	      else if (eventStatusMenu == EventStatus::QUIT || eventStatusMenu == EventStatus::BACK_TO_MENU)
 		  break;

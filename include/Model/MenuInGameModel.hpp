@@ -20,9 +20,11 @@ class 			MenuInGame
  public:
   MenuInGame(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
 	     irr::scene::ISceneManager *smgr, EventReceiver &receiver);
-  virtual 		~MenuInGame();
-  virtual void 		setModelProperties();
-  virtual EventStatus 	launchModel();
+  ~MenuInGame();
+  void 		setModelProperties();
+  EventStatus 	launchModel();
+  void		showTabCtrl();
+  void		hideTabCtrl();
 
  private:
   irr::IrrlichtDevice				*_device;

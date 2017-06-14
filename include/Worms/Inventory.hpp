@@ -16,35 +16,16 @@
 #include "Worms/Uzi.hpp"
 #include "Worms/Shotgun.hpp"
 #include "Worms/Surrender.hpp"
-#include "Events/EventReceiver.hpp"
 
 class	Inventory
 {
- public:
-  enum class	weaponsId : uint16_t
-  {
-    UZI = 0,
-    SHOTGUN = 1,
-    GRENADE = 2
-  };
-
- private:
+  private:
   std::vector<std::shared_ptr<IWeapon>>	weaponsInInventory;
   irr::IrrlichtDevice				*_device;
-  irr::video::IVideoDriver			*_driver;
-  irr::gui::IGUIEnvironment			*_guienv;
-  irr::gui::IGUISkin				*_skin;
-  irr::gui::IGUITabControl			*tabctrl;
-  irr::core::dimension2du		 	screenSize;
-  irr::gui::IGUISpriteBank			*spriteBank;
-  irr::core::dimension2d<irr::u32> 		cursorSize;
-  EventReceiver 				&eventReceiver;
-
-  weaponsId 					*id;
 
  public:
-  Inventory(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
-	    irrklang::ISoundEngine *soundEngine, EventReceiver &receiver);
+  Inventory(irr::IrrlichtDevice *device,
+	    irrklang::ISoundEngine *soundEngine);
   ~Inventory();
   bool	fireWithSelectedWeapon(size_t const &weaponSelectedInGui);
   void   showSelectedWeapon(size_t const &weaponSelectedInGui, const irr::core::vector3df &position,
@@ -53,7 +34,6 @@ class	Inventory
 					      const irr::core::vector3df &position);
   void	setWeaponRotationToWormPosition(size_t const &weaponSelectedInGui,
 					      const irr::core::vector3df &rotation);
-  void	launchInventory();
   bool	updateWeaponBullets(size_t const &weaponSelectedInGui);
 };
 

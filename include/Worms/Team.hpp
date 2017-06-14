@@ -31,8 +31,7 @@ private:
 public:
   Team(unsigned int, unsigned int,
        std::vector<irr::core::vector3df>,
-       irr::IrrlichtDevice *,
-       std::string const &, bool, irr::video::IVideoDriver *, irrklang::ISoundEngine *soundEngine, EventReceiver &eventReceiver);
+       std::string const &, bool, irr::IrrlichtDevice *device, irrklang::ISoundEngine *soundEngine);
   ~Team();
   double		turnOfThatTeam(unsigned int, std::time_t);
   void			teamMoveLeft(unsigned int, size_t selectedWeapon);
@@ -40,7 +39,6 @@ public:
   bool			teamFire(size_t, size_t selectedWeapon);
   void 			showWormWeapon(size_t, size_t);
   bool			updateTeamWormBullets(unsigned currentPlayer, size_t selectedWeapon);
-  void 			teamLaunchInventory(unsigned int);
   void			teamResetAnimationSpeed(unsigned int);
   void 			poisonEffect();
 };

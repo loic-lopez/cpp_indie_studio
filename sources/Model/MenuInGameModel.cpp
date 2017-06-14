@@ -31,14 +31,15 @@ void	MenuInGame::setModelProperties()
   irr::video::ITexture			*texture;
   irr::video::ITexture			*cursor;
 
-  for (irr::s32 i = 0; i < irr::gui::EGDC_COUNT ; ++i)
+  /*for (irr::s32 i = 0; i < irr::gui::EGDC_COUNT ; ++i)
     this->_guienv->getSkin()->setColor((irr::gui::EGUI_DEFAULT_COLOR) i, irr::video::SColor(0, 0, 0, 0));
-  this->tabctrl = this->_guienv->addTabControl(irr::core::rect<int>(screenSize.Width / 3,
+  */this->tabctrl = this->_guienv->addTabControl(irr::core::rect<int>(screenSize.Width / 3,
 								    screenSize.Height / 5,
 								    screenSize.Width - (screenSize.Width / 3),
 								    screenSize.Height - (screenSize.Height / 7)),
 					       nullptr, false, false);
   texture = this->_driver->getTexture("ressources/images/game_menu.png");
+  this->tabctrl->setVisible(false);
   if (this->_guienv->getSpriteBank(irr::io::path("ressources/images")) == nullptr)
     this->spriteBank = this->_guienv->addEmptySpriteBank(irr::io::path("ressources/images"));
   else
@@ -74,4 +75,14 @@ EventStatus		MenuInGame::launchModel()
 					 irr::video::SColor(255, 255, 255, 255), 0);
     }
   return (this->eventStatus);
+}
+
+void	MenuInGame::showTabCtrl()
+{
+  this->tabctrl->setVisible(true);
+}
+
+void	MenuInGame::hideTabCtrl()
+{
+  this->tabctrl->setVisible(false);
 }

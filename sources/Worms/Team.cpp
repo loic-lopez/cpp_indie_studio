@@ -12,15 +12,15 @@
 
 Team::Team(unsigned int players_, unsigned int teamNb,
 	   std::vector<irr::core::vector3df> vectorPos,
-	   irr::IrrlichtDevice *device,
 	   std::string const &wormFile, bool isBot,
-	   irr::video::IVideoDriver *driver, irrklang::ISoundEngine *soundEngine, EventReceiver &eventReceiver)
+	   irr::IrrlichtDevice *device,
+	   irrklang::ISoundEngine *soundEngine)
 {
   this->players = players_;
   this->teamName = "Humans ";
   this->teamName += std::to_string(teamNb);
   for (unsigned int i = 0; i < this->players; i++)
-    this->teamPlayers.emplace_back(Worm(i, vectorPos.at(i), device, wormFile, isBot, driver, soundEngine, eventReceiver));
+    this->teamPlayers.emplace_back(Worm(i, vectorPos.at(i), device, wormFile, isBot, soundEngine));
 }
 
 Team::~Team()
@@ -49,21 +49,12 @@ bool 	Team::teamFire(size_t currentPlayer, size_t selectedWeapon)
 
 void 	Team::showWormWeapon(size_t currentPlayer, size_t selectedWeapon)
 {
-  this->teamPlayers.at(currentPlayer).inventory.showSelectedWeapon(selectedWeapon);
-  this->teamPlayers.at(currentPlayer).inventory.
-	  setWeaponPositionToWormPosition(selectedWeapon, this->teamPlayers.at(currentPlayer).wormGetPosition());
-  this->teamPlayers.at(currentPlayer).inventory.
-	  setWeaponRotationToWormPosition(selectedWeapon, this->teamPlayers.at(currentPlayer).wormGetRotation());
+  this->teamPlayers.at(currentPlayer).inventory.showSelectedWeapon(selectedWeapon, this->teamPlayers.at(currentPlayer).wormGetPosition(), this->teamPlayers.at(currentPlayer).wormGetRotation());
 }
 
 bool	Team::updateTeamWormBullets(unsigned currentPlayer, size_t selectedWeapon)
 {
   return this->teamPlayers.at(currentPlayer).inventory.updateWeaponBullets(selectedWeapon);
-}
-
-void	Team::teamLaunchInventory(unsigned int currentWormIdPlaying)
-{
-  this->teamPlayers.at(currentWormIdPlaying).inventory.launchInventory();
 }
 
 void    Team::teamResetAnimationSpeed(unsigned int currentWormIdPlaying)

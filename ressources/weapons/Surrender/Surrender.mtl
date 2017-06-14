@@ -1,0 +1,26 @@
+# Blender MTL File: 'Surrender.blend'
+# Material Count: 2
+
+newmtl RefRep.294_Flag2.png
+Ns 92.156863
+Ka 1.000000 1.000000 1.000000
+Kd 0.512000 0.512000 0.512000
+Ks 0.250000 0.250000 0.250000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Textures/Flag2.png
+map_Tr Textures/Flag2.png
+
+newmtl RefRep.296_Flag1.png
+Ns 92.156863
+Ka 1.000000 1.000000 1.000000
+Kd 0.512000 0.512000 0.512000
+Ks 0.250000 0.250000 0.250000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Textures/Flag1.png
+map_Tr Textures/Flag1.png

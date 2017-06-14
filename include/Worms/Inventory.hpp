@@ -13,14 +13,9 @@
 
 #include <vector>
 #include <memory>
-#ifdef _MSC_VER
-#pragma comment(lib, "Irrlicht.lib")
-#pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
-#pragma comment(lib, "irrKlang.lib")
-#include <windows.h>
-#endif
 #include "Worms/Uzi.hpp"
 #include "Worms/Shotgun.hpp"
+#include "Worms/Surrender.hpp"
 
 class	Inventory
 {

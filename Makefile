@@ -28,6 +28,7 @@ SRC             =	sources/main.cpp								\
 			sources/Worms/Uzi.cpp								\
 			sources/Worms/Inventory.cpp							\
 			sources/Worms/Shotgun.cpp							\
+			sources/Worms/Surrender.cpp							\
 
 ECHO		=	/bin/echo -e
 

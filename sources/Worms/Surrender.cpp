@@ -50,29 +50,24 @@ void	Surrender::setWeaponPosition(const irr::core::vector3df &position)
 {
   irr::f32	yRotation = this->surrenderSceneNode->getRotation().Y;
 
-  if (yRotation == 180)
+  if (yRotation == 0)
     this->surrenderSceneNode->setPosition(
 	    irr::core::vector3df(position.X + this->surrenderBox.getExtent().getLength() / 6,
 				 position.Y + this->surrenderBox.getExtent().getLength() / 2,
 				 position.Z - this->surrenderBox.getExtent().getLength() / 5));
   else
-      this->surrenderSceneNode->setPosition(
-	      irr::core::vector3df(position.X - this->surrenderBox.getExtent().getLength() / 6,
+    this->surrenderSceneNode->setPosition(
+	    irr::core::vector3df(position.X - this->surrenderBox.getExtent().getLength() / 6,
 				   position.Y + this->surrenderBox.getExtent().getLength() / 2,
 				   position.Z - this->surrenderBox.getExtent().getLength() / 5));
 }
 
-#include <iostream>
-
 void	Surrender::setWeaponRotation(const irr::core::vector3df &rotation)
 {
-  /*
-  if (rotation.Y == 90.0f)
-    this->surrenderSceneNode->setRotation(irr::core::vector3df(rotation.X, (rotation.Y - 90), rotation.Z));
+  if (rotation.Y != 90.0f)
+    this->surrenderSceneNode->setRotation(irr::core::vector3df(rotation.X, rotation.Y - 90, rotation.Z));
   else
-*/
-      this->surrenderSceneNode->setRotation(irr::core::vector3df(rotation.X, rotation.Y - 90, rotation.Z));
-
+    this->surrenderSceneNode->setRotation(irr::core::vector3df(rotation.X, rotation.Y + 90, rotation.Z));
 }
 
 bool	Surrender::updateBullets()

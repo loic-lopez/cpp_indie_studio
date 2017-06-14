@@ -45,4 +45,11 @@ enum						MenuInGameButton	: uint8_t
   SUBMENU_BACK					=			7
 };
 
+enum 						InventoryButton		: uint8_t
+{
+  SHOTGUN					=			1,
+  UZI						=			2,
+  GRENADE					=			3
+};
+
 #endif //CPP_INDIE_STUDIO_MENUBUTTON_HPP

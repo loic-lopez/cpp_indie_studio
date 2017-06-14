@@ -47,7 +47,8 @@ class	Inventory
 	    irrklang::ISoundEngine *soundEngine, EventReceiver &receiver);
   ~Inventory();
   bool	fireWithSelectedWeapon(size_t const &weaponSelectedInGui);
-  void	showSelectedWeapon(size_t const &weaponSelectedInGui);
+  void   showSelectedWeapon(size_t const &weaponSelectedInGui, const irr::core::vector3df &position,
+			     const irr::core::vector3df &rotation);
   void	setWeaponPositionToWormPosition(size_t const &weaponSelectedInGui,
 					      const irr::core::vector3df &position);
   void	setWeaponRotationToWormPosition(size_t const &weaponSelectedInGui,

@@ -34,9 +34,10 @@ bool	Inventory::fireWithSelectedWeapon(size_t const &weaponSelectedInGui)
   return this->weaponsInInventory.at(weaponSelectedInGui)->fire();
 }
 
-void	Inventory::showSelectedWeapon(size_t const &weaponSelectedInGui)
+void    Inventory::showSelectedWeapon(size_t const &weaponSelectedInGui,
+				      const irr::core::vector3df &position, const irr::core::vector3df &rotation)
 {
-  this->weaponsInInventory.at(weaponSelectedInGui)->showWeapon();
+  this->weaponsInInventory.at(weaponSelectedInGui)->showWeapon(position, rotation);
 }
 
 void	Inventory::setWeaponPositionToWormPosition(size_t const &weaponSelectedInGui,
@@ -76,6 +77,7 @@ void Inventory::launchInventory()
       this->cursorSize = cursor->getSize();
       this->spriteBank->addTextureAsSprite(cursor);
     }
+  this->eventReceiver.setInventoryButtons(this->tabctrl);
   if (this->spriteBank->getTexture(irr::u32(0)) != nullptr)
     this->spriteBank->draw2DSprite(irr::u32(0),
 				   irr::core::position2di(0, 0),

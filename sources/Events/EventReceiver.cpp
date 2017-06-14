@@ -156,6 +156,26 @@ bool	EventReceiver::IsKeyUp(irr::EKEY_CODE	keyCode)
   return (false);
 }
 
+
+void	EventReceiver::setInventoryButtons(irr::gui::IGUITabControl *tabctrl)
+{
+  irr::video::ITexture			*buttonTexture;
+  irr::core::dimension2d<irr::s32>	image_size;
+
+  buttonTexture = this->driver->getTexture("ressources/inventory/weapons/shotgun.png");
+  if (buttonTexture != nullptr)
+    {
+      image_size = buttonTexture->getSize();
+      this->shotgunButton = this->guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3) - (15 * 34) / 5,
+									      (image_size.Height / 2) + 38,
+									      (image_size.Width / 2) + 8 * 34,
+									      image_size.Height + 38),
+						    tabctrl, InventoryButton::SHOTGUN, L"");
+      this->shotgunButton->setImage(buttonTexture);
+      this->shotgunButton->setUseAlphaChannel(true);
+    }
+}
+
 void	EventReceiver::setMenuInGameButtons(irr::gui::IGUITabControl *tabctrl)
 {
   irr::video::ITexture			*buttonTexture;

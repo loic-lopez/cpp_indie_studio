@@ -34,6 +34,7 @@ bool	Shotgun::fire()
     {
       irr::core::vector3df	position = this->shotgunSceneNode->getPosition();
       irr::core::vector3df	rotation = this->shotgunSceneNode->getRotation();
+      this->soundEngine->play2D("ressources/sounds/Shotgun.wav");
       for (size_t i = 0; i < SHOTGUN_BULLETS_PER_CHARGER; i++)
 	this->firedBullets.emplace_back(position, rotation, this->device, this->shotgunBox);
       this->chargerNumber--;

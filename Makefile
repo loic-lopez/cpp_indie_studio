@@ -5,7 +5,7 @@
 ## Login   <jabbar_y@epitech.net>
 ## 
 ## Started on  Mon May  1 12:13:34 2017 Jabbari Yassir
-## Last update Tue Jun 13 17:53:51 2017 Stanislas Deneubourg
+## Last update Wed Jun 14 14:41:28 2017 Stanislas Deneubourg
 ##
 
 NAME            =       indie_studio
@@ -39,14 +39,13 @@ RED		=	"\033[5;31m"
 
 OBJ             =       $(SRC:.cpp=.o)
 
-CXXFLAGS	+=	-I./irrKlang/include -I./bullet/include/bullet
+CXXFLAGS	+=	-I./irrKlang/include
 
 CXXFLAGS	+=	-I./irrlicht/include -I./include/
 
-CXXFLAGS	+=	-L./irrKlang/lib/linux64 -L./irrlicht/lib/Linux -L./bullet/lib -Wall -Werror
+CXXFLAGS	+=	-L./irrKlang/lib/linux64 -L./irrlicht/lib/Linux -Wall -Werror
 
-CXXFLAGS	+=	-lIrrKlang -lIrrlicht -lGL -lGLU -lXrandr -lXxf86vm -lXext -lX11 -lXcursor -lBulletSoftBody \
-			-lBulletDynamics -lBulletCollision -lLinearMath -fexpensive-optimizations -faggressive-loop-optimizations
+CXXFLAGS	+=	-lIrrKlang -lIrrlicht -lGL -lGLU -lXrandr -lXxf86vm -lXext -lX11 -lXcursor -fexpensive-optimizations -faggressive-loop-optimizations
 
 CXXFLAGS	+=	-lpthread
 

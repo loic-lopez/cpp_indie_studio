@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  mer. mai 31 15:19:42 2017 Loïc Lopez
-** Last update mer. mai 31 15:19:42 2017 Loïc Lopez
+// Last update Wed Jun 14 14:41:00 2017 Stanislas Deneubourg
 */
 
 #ifndef CPP_INDIE_STUDIO_DEPENDENCIES_HPP
@@ -20,6 +20,5 @@
 
 #include <irrKlang.h>
 #include <irrlicht.h>
-#include <btBulletDynamicsCommon.h>
 
 #endif //CPP_INDIE_STUDIO_DEPENDENCIES_HPP

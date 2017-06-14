@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:51:01 2017 Loïc Dupil
-// Last update Mon Jun 12 18:41:51 2017 Stanislas Deneubourg
+// Last update Wed Jun 14 10:35:26 2017 Stanislas Deneubourg
 //
 
 #include "Core.hpp"
@@ -155,6 +155,7 @@ void						Core::launchMenu()
 
 void						Core::launchGame()
 {
+  std::cout << "test debug -7" << std::endl;
   std::unique_ptr<IModel> GameEngine(new GameNamespace::GameEngine(this->smgr, this->driver,
 								   this->loadDir("./ressources/textures/ground/", ".bmp").size(),
 								   this->loadDir("./ressources/shapes/", ".dae").size(),
@@ -162,10 +163,14 @@ void						Core::launchGame()
 								   this->drawWalls, this->NbrBotTeams, this->NbrHumanTeams,
 								   this->NbrTeams, this->WormsPerTeam,
 								   this->mainSound, &this->playMainSound, this->soundEngine));
+  std::cout << "test debug -6" << std::endl;
   if (GameEngine != nullptr)
     {
+      std::cout << "test debug -5" << std::endl;
       this->device->getCursorControl()->setVisible(false);
+      std::cout << "test debug -4" << std::endl;
       GameEngine->setModelProperties();
+      std::cout << "test debug -3" << std::endl;
       this->eventStatus = GameEngine->launchModel();
     }
 }

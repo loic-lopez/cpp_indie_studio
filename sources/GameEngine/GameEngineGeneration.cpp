@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 13:51:26 2017 Stanislas Deneubourg
-// Last update Tue Jun 13 17:53:01 2017 Stanislas Deneubourg
+// Last update Wed Jun 14 10:21:27 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -17,9 +17,11 @@ void	GameNamespace::GameEngine::mapGen()
   for (int i = 0; i < this->sizeY; i++)
     for (int j = 0; j < this->sizeX; j++)
       this->gameMap.emplace_back(j, i);
+  std::cout << "for 1" << std::endl;
   for (int i = 0; i < this->sizeY; i++)
     for (int j = 0; j < this->sizeX; j++)
       this->gameMap2.emplace_back(j, i);
+  std::cout << "for 2" << std::endl;
   for (int i = 0; i < this->sizeY * this->sizeX; i++)
     {
       if ((i % this->sizeY) == 0 || (i % this->sizeX) == this->sizeX - 1)
@@ -29,8 +31,10 @@ void	GameNamespace::GameEngine::mapGen()
       else
         this->gameMap.at(i).terrain = GameNamespace::TerrainType::AIR;
     }
+  std::cout << "for 3" << std::endl;
   for (int i = 0; i < this->sizeY * this->sizeX; i++)
     this->gameMap2.at(i).terrain = GameNamespace::TerrainType::GROUND;
+  std::cout << "for 4" << std::endl;
   for (int i = 0; i < this->generations; i++)
     {
       for (y1 = 1; y1 < this->sizeY - 1; y1++)
@@ -66,6 +70,7 @@ void	GameNamespace::GameEngine::mapGen()
         for (x1 = 1; x1 < this->sizeX - 1; x1++)
           this->gameMap.at(x1 + this->sizeY * y1) = this->gameMap2.at(x1 + this->sizeY * y1);
     }
+  std::cout << "for 5" << std::endl;
   if (this->drawWalls)
     {
       for (int i = 0; i < this->sizeX * this->sizeY; i++)
@@ -75,18 +80,19 @@ void	GameNamespace::GameEngine::mapGen()
           if (i >= (this->sizeX * (this->sizeY - 1)))
             this->gameMap.at(i).terrain = GameNamespace::TerrainType::AIR;
         }
-
+      std::cout << "for 6" << std::endl;
     }
   else
     {
       for (int i = 0; i < this->sizeX * this->sizeY; i++)
         if ((i < this->sizeX) || ((i % this->sizeX) == 0) || ((i % this->sizeX) == this->sizeX - 1) || (i >= (this->sizeX * (this->sizeY - 1))))
           this->gameMap.at(i).terrain = GameNamespace::TerrainType::AIR;
+      std::cout << "for 7" << std::endl;
     }
-
   for (int i = 0; i < this->sizeX * this->sizeY; i++)
     if (this->gameMap.at(i).terrain == GameNamespace::TerrainType::GROUND)
       this->setBlockProperties(this->gameMap.at(i).x, this->gameMap.at(i).y);
+  std::cout << "for 8" << std::endl;
 }
 
 void	GameNamespace::GameEngine::backgroundGen()

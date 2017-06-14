@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Thu Jun  1 08:05:48 2017 Stanislas Deneubourg
-// Last update Thu Jun  1 08:06:48 2017 Stanislas Deneubourg
+// Last update Wed Jun 14 09:58:38 2017 Stanislas Deneubourg
 //
 
 // TODO: ENLEVER LES PRINTS
@@ -77,7 +77,7 @@ void	Shotgun::setWeaponPosition(const irr::core::vector3df &position)
 
 void	Shotgun::setWeaponRotation(const irr::core::vector3df &rotation)
 {
-  this->shotgunSceneNode->setRotation(rotation);
+  this->shotgunSceneNode->setRotation(irr::core::vector3df(rotation.X, -rotation.Y, rotation.Z));
 }
 
 bool	Shotgun::updateBullets()

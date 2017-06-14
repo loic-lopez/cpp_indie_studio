@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 //
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Tue Jun 13 17:52:42 2017 Stanislas Deneubourg
+// Last update Wed Jun 14 10:25:50 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -26,6 +26,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
 									     playSound(playSound),
 									     drawWalls(drawWalls)
 {
+  std::cout << "test debug -2" << std::endl;
   this->soundEngine = soundEngine;
   this->fileShape = "./ressources/shapes/Rock_0.dae";
   this->worm = "ressources/textures/Worm/Worm.b3d";
@@ -60,6 +61,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
   this->font = this->guienv->getFont("ressources/fonts/SoftMarshmallow.png");
   if (this->font != nullptr)
     this->guienv->getSkin()->setFont(this->font);
+  std::cout << "test debug -1" << std::endl;
 }
 
 GameNamespace::GameEngine::~GameEngine()
@@ -123,12 +125,11 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	if (canFire || displayBullet)
 	  displayBullet = this->teams.at(this->currentTeamIdPlaying)
-		  .updateTeamWormBullets(this->currentWormIdPlaying, 1);
+		  .updateTeamWormBullets(this->currentWormIdPlaying, 0);
 
 	if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_I))
 	  {
 	    eventStatusMenu = EventStatus::INVENTORY;
-	    //this->teams.at(this->currentTeamIdPlaying).showWormWeapon(this->currentWormIdPlaying, 0);
 	  }
 
 
@@ -222,6 +223,7 @@ void	GameNamespace::GameEngine::setModelProperties()
 {
   irr::video::ITexture		*timer;
 
+  std::cout << "test debug 0" << std::endl;
   if (this->guienv->getSpriteBank(irr::io::path("ressources")) == nullptr)
     this->spriteBank = this->guienv->addEmptySpriteBank(irr::io::path("ressources"));
   else
@@ -232,9 +234,13 @@ void	GameNamespace::GameEngine::setModelProperties()
       this->timerSize = timer->getSize();
       this->spriteBank->addTextureAsSprite(timer);
     }
+  std::cout << "test debug 1" << std::endl;
   this->mapGen();
+  std::cout << "test debug 2" << std::endl;
   this->backgroundGen();
+  std::cout << "test debug 3" << std::endl;
   this->teamsGen();
+  std::cout << "test debug 4" << std::endl;
 }
 
 GameNamespace::GameMap::GameMap(int x, int y)

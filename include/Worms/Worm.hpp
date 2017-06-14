@@ -62,19 +62,19 @@ private:
   irr::scene::IAnimatedMesh		*m;
   irr::scene::IAnimatedMeshSceneNode	*wormMesh;
   WormStatus				wormStatus;
-  //  Weapon				weaponSelected;
-  
-  void					setHealthPoints(int);
   void					setDamageDealt(int);
   void					setDamageReceived(int);
-  
-public:
+ public:
+
+  //  Weapon				weaponSelected;
+  bool 					isPoisoned;
   Inventory             		inventory;
   Worm(int, irr::core::vector3df,
        irr::IrrlichtDevice *, std::string const &,
        bool, irr::video::IVideoDriver *, irrklang::ISoundEngine *soundEngine);
   ~Worm();
   int					getHealthPoints();
+  void					setHealthPoints(int);
   unsigned int				getDamageDealt();
   unsigned int				getDamageReceived();
   double				turnOfThatWorm(std::time_t);

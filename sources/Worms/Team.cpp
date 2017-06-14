@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:51:11 2017 Stanislas Deneubourg
-// Last update Wed Jun 14 14:03:16 2017 Stanislas Deneubourg
+// Last update Wed Jun 14 14:11:31 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Team.hpp"
@@ -69,4 +69,20 @@ void	Team::teamLaunchInventory(unsigned int currentWormIdPlaying)
 void    Team::teamResetAnimationSpeed(unsigned int currentWormIdPlaying)
 {
   this->teamPlayers.at(currentWormIdPlaying).wormResetAnimationSpeed();
+}
+
+void 	Team::poisonEffect()
+{
+  int	pv;
+  for (unsigned int i = 0; i < this->teamPlayers.size(); i++)
+    {
+      if (this->teamPlayers[i].isPoisoned)
+	{
+	  pv = this->teamPlayers[i].getHealthPoints();
+	  if (pv > 5)
+	    this->teamPlayers[i].setHealthPoints(-5);
+	  else
+	    this->teamPlayers[i].setHealthPoints(-pv + 1);
+	}
+    }
 }

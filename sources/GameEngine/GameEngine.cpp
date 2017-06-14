@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 //
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Wed Jun 14 14:08:55 2017 Stanislas Deneubourg
+// Last update Wed Jun 14 14:14:34 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -115,7 +115,9 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	this->cameraMovements();
 
-	if (this->eventReceiver.IsKeyUp(irr::KEY_SPACE))
+	this->poisonEffect();
+
+	if (this->eventReceiver.IsKeyDown(irr::KEY_SPACE))
 	  {
 	    canFire = this->teams.at(this->currentTeamIdPlaying).teamFire(this->currentWormIdPlaying, 1);
 	    displayBullet = true;
@@ -175,15 +177,9 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_Q))
 	  this->teams.at(this->currentTeamIdPlaying).teamResetAnimationSpeed(this->currentWormIdPlaying);
 	if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_Q))
-	  {
-	    this->teams.at(this->currentTeamIdPlaying).teamMoveLeft(this->currentWormIdPlaying, 1);
-	    
-	  }
+	  this->teams.at(this->currentTeamIdPlaying).teamMoveLeft(this->currentWormIdPlaying, 1);
 	else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
-	  {
-	    this->teams.at(this->currentTeamIdPlaying).teamMoveRight(this->currentWormIdPlaying, 1);
-
-	  }
+	  this->teams.at(this->currentTeamIdPlaying).teamMoveRight(this->currentWormIdPlaying, 1);
 	if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_D))
 	  this->teams.at(this->currentTeamIdPlaying).teamResetAnimationSpeed(this->currentWormIdPlaying);
 	  

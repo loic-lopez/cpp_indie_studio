@@ -122,6 +122,7 @@ namespace	GameNamespace
     virtual	void					cameraMovements();
     virtual	void					setBlockProperties(int, int);
     virtual	void					triggerTimer();
+    virtual 	void 					poisonEffect();
 
    public:
 

@@ -15,9 +15,9 @@
 Inventory::Inventory(irr::IrrlichtDevice *device,
 		     irrklang::ISoundEngine *soundEngine) : _device(device)
 {
-  this->weaponsInInventory.emplace_back(static_cast<IWeapon *>(new Uzi(device, soundEngine)));
-  this->weaponsInInventory.emplace_back(static_cast<IWeapon *>(new Shotgun(device, soundEngine)));
-  this->weaponsInInventory.emplace_back(static_cast<IWeapon *>(new Surrender(device, soundEngine)));
+  this->weaponsInInventory.emplace_back(reinterpret_cast<IWeapon *>(new Uzi(device, soundEngine)));
+  this->weaponsInInventory.emplace_back(reinterpret_cast<IWeapon *>(new Shotgun(device, soundEngine)));
+  this->weaponsInInventory.emplace_back(reinterpret_cast<IWeapon *>(new Surrender(device, soundEngine)));
 }
 
 Inventory::~Inventory()

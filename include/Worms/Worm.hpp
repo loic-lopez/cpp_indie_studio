@@ -22,6 +22,7 @@
 #include <list>
 #include "Dependencies/Dependencies.hpp"
 #include "Worms/Inventory.hpp"
+#include "GameEngine/GameMap.hpp"
 
 #define	WORM_MOVEMENT_SPEED	0.1f
 
@@ -97,7 +98,7 @@ private:
   void					wormLeftCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects);
   void					wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects);
   bool const 				&getWormType() const;
-  void					playWormBot();
+  void					playWormBot(std::vector<GameNamespace::GameMap> const &gameMap);
 };
 
 #endif

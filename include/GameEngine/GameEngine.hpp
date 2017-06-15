@@ -23,25 +23,10 @@
 #include "Model/MenuInGameModel.hpp"
 #include "Model/InventoryModel.hpp"
 #include "Worms/Team.hpp"
+#include "GameEngine/GameMap.hpp"
 
 namespace	GameNamespace
 {
-  enum		class	TerrainType : uint16_t
-    {
-    AIR = 0,
-    GROUND = 1,
-    WORM = 2
-    };
-    
-  struct	GameMap
-  {
-    int x;
-    int y;
-    TerrainType terrain;
-
-    GameMap(int, int);
-  };
-  
   class	GameEngine : public IModel
   {
   private:

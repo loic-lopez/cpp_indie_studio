@@ -125,9 +125,9 @@ void	Team::playTeamHuman(unsigned int currentPlayer)
     this->teamResetAnimationSpeed(currentPlayer);
 }
 
-void	Team::playTeamBot(unsigned int currentPlayer)
+void	Team::playTeamBot(unsigned int currentPlayer, std::vector<GameNamespace::GameMap> const &gameMap)
 {
-
+  this->teamPlayers.at(currentPlayer).playWormBot(gameMap);
 }
 
 void	Team::playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon)

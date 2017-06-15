@@ -20,6 +20,7 @@
 #include "Worms/Worm.hpp"
 #include "Events/EventReceiver.hpp"
 #include "Events/MenuButton.hpp"
+#include "GameEngine/GameMap.hpp"
 
 class	Team
 {
@@ -56,7 +57,7 @@ public:
   bool 			playerIsHuman(unsigned int currentPlayer);
   void 			playTeamHuman(unsigned int currentPlayer);
   void 			playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon);
-  void 			playTeamBot(unsigned int currentPlayer);
+  void 			playTeamBot(unsigned int currentPlayer, std::vector<GameNamespace::GameMap> const &gameMap);
 };
 
 #endif

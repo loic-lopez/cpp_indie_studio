@@ -96,6 +96,8 @@ namespace	GameNamespace
     std::vector<irr::core::vector3df>			wormsRelativePos;
     unsigned int					currentWormIdPlaying;
     unsigned int					currentTeamIdPlaying;
+    size_t 						weaponId;
+    bool 						weaponIsSelected;
 
     //Variables timer
     std::time_t						turnStart;

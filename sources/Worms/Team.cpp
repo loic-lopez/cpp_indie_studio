@@ -54,6 +54,11 @@ void 	Team::showWormWeapon(size_t currentPlayer, size_t selectedWeapon)
   this->teamPlayers.at(currentPlayer).inventory.showSelectedWeapon(selectedWeapon, this->teamPlayers.at(currentPlayer).wormGetPosition(), this->teamPlayers.at(currentPlayer).wormGetRotation());
 }
 
+void 	Team::deleteWormWeapon(size_t currentPlayer, size_t selectedWeapon)
+{
+  this->teamPlayers.at(currentPlayer).inventory.deleteWeapon(selectedWeapon);
+}
+
 bool	Team::updateTeamWormBullets(unsigned currentPlayer, size_t selectedWeapon)
 {
   return this->teamPlayers.at(currentPlayer).inventory.updateWeaponBullets(selectedWeapon);

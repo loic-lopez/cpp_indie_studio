@@ -47,6 +47,7 @@ enum						MenuInGameButton	: uint8_t
 
 enum 						InventoryButton		: uint8_t
 {
+  IN_STAND_BY					=			0,
   UZI						=			20,
   SHOTGUN					=			21,
   SURRENDER					=			22

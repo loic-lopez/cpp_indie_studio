@@ -35,6 +35,7 @@ class	Inventory
   void	setWeaponRotationToWormPosition(size_t const &weaponSelectedInGui,
 					      const irr::core::vector3df &rotation);
   bool	updateWeaponBullets(size_t const &weaponSelectedInGui);
+  void	deleteWeapon(size_t toDelete);
 };
 
 #endif //CPP_INDIE_STUDIO_INVENTORY_HPP

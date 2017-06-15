@@ -52,3 +52,8 @@ bool	Inventory::updateWeaponBullets(size_t const &weaponSelectedInGui)
 {
   return this->weaponsInInventory.at(weaponSelectedInGui)->updateBullets();
 }
+
+void	Inventory::deleteWeapon(size_t toDelete)
+{
+  this->weaponsInInventory.at(toDelete)->deleteWeapon();
+}

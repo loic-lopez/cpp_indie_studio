@@ -98,10 +98,11 @@ void	GameNamespace::GameEngine::setBlockProperties(int x, int y)
 
 EventStatus GameNamespace::GameEngine::launchModel()
 {
-  bool 		alreadyInMenu = false;
-  EventStatus 	eventStatusMenu = EventStatus::STAND_BY;
-  EventStatus 	eventStatusInventory = EventStatus::STAND_BY;
-  irr::s32	lastFPS = -1;
+  bool 			alreadyInMenu = false;
+  EventStatus 		eventStatusMenu = EventStatus::STAND_BY;
+  EventStatus 		eventStatusInventory = EventStatus::STAND_BY;
+  InventoryButton 	lastWeaponSelected = InventoryButton::IN_STAND_BY;
+  irr::s32		lastFPS = -1;
 
   this->menuInGame->setModelProperties(); // Set des propriétés du menu ingame
   this->inventoryModel->setModelProperties();
@@ -162,13 +163,13 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	this->turnNow = this->teams.at(this->currentTeamIdPlaying).turnOfThatTeam(this->currentWormIdPlaying, this->turnStart); // Revoie le temps écoulé depuis le début du tour
 
 	// Bloquage du timer en cas de pause
-	if (this->isGamePaused == false)
+	if (!this->isGamePaused)
 	  {
 	    this->timeBeforeSuddenDeathEndTurn = std::time(nullptr);
 	    this->turnTimeLeft = this->timeBeforePause - this->turnNow;
 	    this->timeBeforeSuddenDeath = 600 - this->suddenDeathTimeBeforePause - (std::difftime(this->timeBeforeSuddenDeathEndTurn, this->suddenDeathCooldown));
 	  }
-	else if (this->isGamePaused == true)
+	else if (this->isGamePaused)
 	    {
 	      this->turnTimeLeft = this->timeBeforePause;
 	      //	    this->timeBeforeSuddenDeath = 600;
@@ -220,8 +221,13 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->inventoryModel->launchModel();
 	    if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_I))
 	      {
-		if (this->weaponIsSelected)
-		  this->teams.at(this->currentTeamIdPlaying).showWormWeapon(this->currentWormIdPlaying, this->weaponId);
+		if (this->weaponIsSelected && lastWeaponSelected != this->weaponId + 20)
+		  {
+		    this->teams.at(this->currentTeamIdPlaying).showWormWeapon(this->currentWormIdPlaying, this->weaponId);
+		    if (lastWeaponSelected != this->weaponId + 20 && lastWeaponSelected != InventoryButton::IN_STAND_BY)
+		      this->teams.at(this->currentTeamIdPlaying).deleteWormWeapon(this->currentWormIdPlaying, lastWeaponSelected - 20);
+		    lastWeaponSelected = static_cast<InventoryButton>(this->weaponId + 20);
+		  }
 		eventStatusInventory = EventStatus::STAND_BY;
 		eventStatusMenu = EventStatus::STAND_BY;
 		this->inventoryModel->hideTabCtrl();

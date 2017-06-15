@@ -32,7 +32,7 @@ void InventoryModel::setModelProperties()
   irr::video::ITexture                  *texture;
   irr::video::ITexture			*cursor;
 
-  for (irr::s32 i = 0; i < irr::gui::EGDC_COUNT ; ++i)
+for (irr::s32 i = 0; i < irr::gui::EGDC_COUNT ; ++i)
     this->_guienv->getSkin()->setColor((irr::gui::EGUI_DEFAULT_COLOR) i, irr::video::SColor(0, 0, 0, 0));
   texture = this->_driver->getTexture("ressources/inventory/inventory.png");
   this->backgroundSize = texture->getSize();

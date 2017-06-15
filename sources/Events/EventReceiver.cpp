@@ -317,10 +317,9 @@ void EventReceiver::setWeaponsButtons(irr::gui::IGUITabControl *tabctrl)
   if (buttonTexture != nullptr)
     {
       image_size = buttonTexture->getSize();
-      this->uziButton = this->guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3) - (15 * 34) / 5,
-									      (image_size.Height / 2) + 38,
-									      (image_size.Width / 2) + 8 * 34,
-									      image_size.Height + 38),
+      this->uziButton = this->guienv->addButton(irr::core::rect<irr::s32>(50 + (image_size.Width / 4), (92 + (image_size.Height / 5)),
+									  50 + image_size.Width + (image_size.Width / 4),
+									      image_size.Height + 92 + (image_size.Height / 5)),
 						    tabctrl, InventoryButton::UZI, L"");
       this->uziButton->setImage(buttonTexture);
       this->uziButton->setUseAlphaChannel(true);

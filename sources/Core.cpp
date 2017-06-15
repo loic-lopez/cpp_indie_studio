@@ -131,7 +131,7 @@ void						Core::launchSplashScreen()
 {
   this->mainSound = this->soundEngine->play2D("ressources/sounds/CarlOrff.ogg", true,
 					      false, false, irrklang::E_STREAM_MODE::ESM_AUTO_DETECT, true);
-  std::unique_ptr<IModel> splashScreen(static_cast<IModel *>(new SplashScreen(this->smgr, this->driver, this->device)));
+  std::unique_ptr<IModel> splashScreen(reinterpret_cast<IModel *>(new SplashScreen(this->smgr, this->driver, this->device)));
 
   splashScreen->setModelProperties();
   splashScreen->launchModel();
@@ -140,7 +140,7 @@ void						Core::launchSplashScreen()
 void						Core::launchMenu()
 {
   this->device->getCursorControl()->setVisible(true);
-  std::unique_ptr<IModel> Menu(static_cast<IModel *>(new MenuModel(this->device, this->driver,
+  std::unique_ptr<IModel> Menu(reinterpret_cast<IModel *>(new MenuModel(this->device, this->driver,
 								   this->smgr, this->guienv, this->saves,
 								   this->playSound, this->drawWalls,
 								   &this->NbrHumanTeams, &this->NbrBotTeams,
@@ -155,13 +155,14 @@ void						Core::launchMenu()
 
 void						Core::launchGame()
 {
-  std::unique_ptr<IModel> GameEngine(new GameNamespace::GameEngine(this->smgr, this->driver,
+  std::unique_ptr<IModel> GameEngine(reinterpret_cast<IModel *>(new GameNamespace::GameEngine(this->smgr, this->driver,
 								   this->loadDir("./ressources/textures/ground/", ".bmp").size(),
 								   this->loadDir("./ressources/shapes/", ".dae").size(),
 								   this->device, this->playSound,
 								   this->drawWalls, this->NbrBotTeams, this->NbrHumanTeams,
 								   this->NbrTeams, this->WormsPerTeam,
-								   this->mainSound, &this->playMainSound, this->soundEngine));
+								   this->mainSound, &this->playMainSound,
+											 this->soundEngine)));
   if (GameEngine != nullptr)
     {
       this->device->getCursorControl()->setVisible(false);

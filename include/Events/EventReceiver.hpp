@@ -37,6 +37,7 @@ public:
   void						setMainButtonsHidden();
   void						setMainButtonsVisible();
   void 						setWeaponId(size_t *);
+  void 						setweaponIsSelected(bool *);
 
  protected:
   // ESSENTIALS
@@ -65,6 +66,7 @@ public:
   // OTHER
   EventStatus 					eventStatus;
   size_t					*idWeapon;
+  bool 						*weaponIsSelected;
 };
 
 #endif //EVENTRECEIVER_HPP

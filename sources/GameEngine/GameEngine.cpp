@@ -63,6 +63,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
   if (this->font != nullptr)
     this->guienv->getSkin()->setFont(this->font);
   this->eventReceiver.setWeaponId(&this->weaponId);
+  this->eventReceiver.setweaponIsSelected(&this->weaponIsSelected);
 }
 
 GameNamespace::GameEngine::~GameEngine()

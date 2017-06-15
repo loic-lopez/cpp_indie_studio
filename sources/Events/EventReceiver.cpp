@@ -137,6 +137,7 @@ bool	EventReceiver::OnEvent(const irr::SEvent& event)
 	      if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
 		{
 		  *this->idWeapon = InventoryButton::UZI - 20;
+		  *this->weaponIsSelected = true;
 		  break;
 		}
 	    }
@@ -329,4 +330,9 @@ void EventReceiver::setWeaponsButtons(irr::gui::IGUITabControl *tabctrl)
 void EventReceiver::setWeaponId(size_t *weaponid)
 {
   this->idWeapon = weaponid;
+}
+
+void EventReceiver::setweaponIsSelected(bool *isSelected)
+{
+  this->weaponIsSelected = isSelected;
 }

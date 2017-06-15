@@ -97,6 +97,7 @@ namespace	GameNamespace
     unsigned int					currentWormIdPlaying;
     unsigned int					currentTeamIdPlaying;
     size_t 						weaponId;
+    bool 						weaponIsSelected;
 
     //Variables timer
     std::time_t						turnStart;

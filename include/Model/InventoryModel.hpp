@@ -35,7 +35,6 @@ class 	InventoryModel
   EventReceiver					&eventReceiver;
   EventStatus 					eventStatus;
   irr::core::dimension2d<irr::u32>		backgroundSize;
-  irr::gui::IGUIButton				*shotgunButton;
   weaponsId 					*id;
 
  public:

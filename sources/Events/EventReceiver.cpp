@@ -141,6 +141,15 @@ bool	EventReceiver::OnEvent(const irr::SEvent& event)
 		  break;
 		}
 	    }
+	  case InventoryButton::SHOTGUN:
+	    {
+	      if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		{
+		  *this->idWeapon = InventoryButton::SHOTGUN - 20;
+		  *this->weaponIsSelected = true;
+		  break;
+		}
+	    }
 	  default:
 	    {
 	      break;
@@ -324,6 +333,17 @@ void EventReceiver::setWeaponsButtons(irr::gui::IGUITabControl *tabctrl)
 						    tabctrl, InventoryButton::UZI, L"");
       this->uziButton->setImage(buttonTexture);
       this->uziButton->setUseAlphaChannel(true);
+    }
+  buttonTexture = this->driver->getTexture("ressources/inventory/weapons/shotgun.png");
+  if (buttonTexture != nullptr)
+    {
+      this->shotgunButton = this->guienv->addButton(irr::core::rect<irr::s32>((42 + (image_size.Width / 4)) * 2,
+									      (92 + (image_size.Height / 5)),
+									      (42 + image_size.Width + (image_size.Width / 4)) * 2,
+									      (image_size.Height + 92) + (image_size.Height / 5)),
+						    tabctrl, InventoryButton::SHOTGUN, L"");
+      this->shotgunButton->setImage(buttonTexture);
+      this->shotgunButton->setUseAlphaChannel(true);
     }
 }
 

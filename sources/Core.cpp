@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:51:01 2017 Loïc Dupil
-// Last update Wed Jun 14 11:14:42 2017 Stanislas Deneubourg
+// Last update Wed Jun 14 21:03:20 2017 Stanislas Deneubourg
 //
 
 #include "Core.hpp"

@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:39:05 2017 Stanislas Deneubourg
-// Last update Wed Jun 14 17:57:03 2017 Stanislas Deneubourg
+// Last update Thu Jun 15 12:15:31 2017 Stanislas Deneubourg
 //
 
 #ifndef	WORM_HPP
@@ -65,6 +65,8 @@ private:
   void					setDamageReceived(int);
   irr::core::vector3d<irr::f32>		*edge;
   irr::core::aabbox3d<irr::f32>		boundingBox;
+  bool					collideLeft;
+  bool					collideRight;
 
  public:
 
@@ -85,8 +87,11 @@ private:
   void					wormMoveRight(size_t const &currentSelectedWeapon);
   const irr::core::vector3df 		&wormGetPosition() const;
   const irr::core::vector3df 		&wormGetRotation() const;
-  void 					wormGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
-						    std::vector<irr::core::vector3d<irr::f32> *> edges);
+  void 					wormGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects);
+  void					wormLeftCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
+							  size_t);
+  void					wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
+							   size_t);
 };
 
 #endif

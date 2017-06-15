@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:50:07 2017 Stanislas Deneubourg
-// Last update Wed Jun 14 18:10:25 2017 Stanislas Deneubourg
+// Last update Thu Jun 15 11:33:11 2017 Stanislas Deneubourg
 //
 
 #ifndef TEAM_HPP
@@ -41,8 +41,11 @@ public:
   bool			updateTeamWormBullets(unsigned currentPlayer, size_t selectedWeapon);
   void			teamResetAnimationSpeed(unsigned int);
   void 			poisonEffect();
-  void 			gravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
-				std::vector<irr::core::vector3d<irr::f32> *> edges);
+  void 			teamGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects);
+  void			teamLeftCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
+					  unsigned int, size_t);
+  void			teamRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
+					   unsigned int, size_t);
 };
 
 #endif

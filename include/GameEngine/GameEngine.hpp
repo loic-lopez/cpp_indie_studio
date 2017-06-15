@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Tue Jun 13 17:51:54 2017 Stanislas Deneubourg
+// Last update Thu Jun 15 11:37:39 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -127,7 +127,9 @@ namespace	GameNamespace
     virtual	void					setBlockProperties(int, int);
     virtual	void					triggerTimer();
     virtual 	void 					poisonEffect();
-    virtual 	void 					Gravity();
+    virtual 	void 					gravity();
+    virtual	void					leftCollision(size_t);
+    virtual	void					rightCollision(size_t);
 
    public:
 

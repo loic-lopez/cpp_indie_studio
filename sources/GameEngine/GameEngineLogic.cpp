@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Sat Jun  3 17:10:57 2017 Stanislas Deneubourg
-// Last update Wed Jun 14 18:13:26 2017 Stanislas Deneubourg
+// Last update Thu Jun 15 11:37:23 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -162,10 +162,20 @@ void 	GameNamespace::GameEngine::poisonEffect()
     }
 }
 
-void 	GameNamespace::GameEngine::Gravity()
+void 	GameNamespace::GameEngine::gravity()
 {
   for (unsigned int i = 0; i < this->teams.size(); i++)
   {
-    this->teams.at(i).gravity(this->groundObjects, this->terrainShapes);
+    this->teams.at(i).teamGravity(this->groundObjects);
   }
+}
+
+void    GameNamespace::GameEngine::leftCollision(size_t currentWeaponSelected)
+{
+  this->teams.at(this->currentTeamIdPlaying).teamLeftCollision(this->groundObjects, this->currentWormIdPlaying, currentWeaponSelected);
+}
+
+void    GameNamespace::GameEngine::rightCollision(size_t currentWeaponSelected)
+{
+  this->teams.at(this->currentTeamIdPlaying).teamRightCollision(this->groundObjects, this->currentWormIdPlaying, currentWeaponSelected);
 }

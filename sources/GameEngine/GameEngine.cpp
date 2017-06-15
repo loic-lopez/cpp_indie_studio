@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 //
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Wed Jun 14 14:14:34 2017 Stanislas Deneubourg
+// Last update Thu Jun 15 11:36:42 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -125,7 +125,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	this->cameraMovements();
 
-	this->Gravity();
+	this->gravity();
 
 	if (this->eventReceiver.IsKeyDown(irr::KEY_SPACE))
 	  {
@@ -184,9 +184,9 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_Q))
 	  this->teams.at(this->currentTeamIdPlaying).teamResetAnimationSpeed(this->currentWormIdPlaying);
 	if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_Q))
-	  this->teams.at(this->currentTeamIdPlaying).teamMoveLeft(this->currentWormIdPlaying, 1);
+	  this->leftCollision(1);
 	else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
-	  this->teams.at(this->currentTeamIdPlaying).teamMoveRight(this->currentWormIdPlaying, 1);
+	  this->rightCollision(1);
 	if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_D))
 	  this->teams.at(this->currentTeamIdPlaying).teamResetAnimationSpeed(this->currentWormIdPlaying);
 	  

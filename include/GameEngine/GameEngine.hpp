@@ -132,6 +132,8 @@ namespace	GameNamespace
     virtual 	void 					gravity();
     virtual	void					leftCollision(size_t);
     virtual	void					rightCollision(size_t);
+    virtual	void					leftCollision();
+    virtual	void					rightCollision();
 
    public:
 

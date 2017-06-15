@@ -62,6 +62,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
   this->font = this->guienv->getFont("ressources/fonts/SoftMarshmallow.png");
   if (this->font != nullptr)
     this->guienv->getSkin()->setFont(this->font);
+  this->weaponIsSelected = false;
   this->eventReceiver.setWeaponId(&this->weaponId);
   this->eventReceiver.setweaponIsSelected(&this->weaponIsSelected);
 }
@@ -105,7 +106,6 @@ EventStatus GameNamespace::GameEngine::launchModel()
   this->menuInGame->setModelProperties(); // Set des propriétés du menu ingame
   this->inventoryModel->setModelProperties();
   this->suddenDeathCooldown = std::time(nullptr);
-  this->teams.at(this->currentTeamIdPlaying).showWormWeapon(this->currentWormIdPlaying, 1);
   while(this->device->run())
     if (this->device->isWindowActive())
       {
@@ -129,11 +129,22 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	if (this->teams.at(this->currentTeamIdPlaying).playerIsHuman(this->currentWormIdPlaying))
 	  {
- 	    this->teams.at(this->currentTeamIdPlaying).playTeamHuman(this->currentWormIdPlaying);
-	    if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_Q))
-	      this->leftCollision(1);
-	    else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
-	      this->rightCollision(1);
+	    if(this->weaponIsSelected)
+	      {
+		if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_Q))
+		  this->leftCollision(this->weaponId);
+		else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
+		    this->rightCollision(this->weaponId);
+		this->teams.at(this->currentTeamIdPlaying).playTeamHuman(this->currentWormIdPlaying, this->weaponId);
+	      }
+	    else
+	      {
+		if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_Q))
+		  this->leftCollision();
+		else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
+		    this->rightCollision();
+		this->teams.at(this->currentTeamIdPlaying).playTeamHuman(this->currentWormIdPlaying);
+	      }
 	  }
 	else
 	  {
@@ -211,6 +222,8 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->inventoryModel->launchModel();
 	    if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_I))
 	      {
+		if (this->weaponIsSelected)
+		  this->teams.at(this->currentTeamIdPlaying).showWormWeapon(this->currentWormIdPlaying, this->weaponId);
 		eventStatusInventory = EventStatus::STAND_BY;
 		eventStatusMenu = EventStatus::STAND_BY;
 		this->inventoryModel->hideTabCtrl();

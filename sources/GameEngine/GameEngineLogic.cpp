@@ -179,3 +179,13 @@ void    GameNamespace::GameEngine::rightCollision(size_t currentWeaponSelected)
 {
   this->teams.at(this->currentTeamIdPlaying).teamRightCollision(this->groundObjects, this->currentWormIdPlaying, currentWeaponSelected);
 }
+
+void    GameNamespace::GameEngine::leftCollision()
+{
+  this->teams.at(this->currentTeamIdPlaying).teamLeftCollision(this->groundObjects, this->currentWormIdPlaying);
+}
+
+void    GameNamespace::GameEngine::rightCollision()
+{
+  this->teams.at(this->currentTeamIdPlaying).teamRightCollision(this->groundObjects, this->currentWormIdPlaying);
+}

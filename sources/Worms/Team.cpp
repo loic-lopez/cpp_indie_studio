@@ -100,6 +100,18 @@ void    Team::teamRightCollision(std::vector<irr::scene::IMeshSceneNode *> groun
   this->teamPlayers.at(player).wormRightCollision(groundObjects, currentSelectedWeapon);
 }
 
+void    Team::teamLeftCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
+				unsigned int player)
+{
+  this->teamPlayers.at(player).wormLeftCollision(groundObjects);
+}
+
+void    Team::teamRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
+				 unsigned int player)
+{
+  this->teamPlayers.at(player).wormRightCollision(groundObjects);
+}
+
 bool	Team::playerIsHuman(unsigned int currentPlayer)
 {
   return this->teamPlayers.at(currentPlayer).getWormType();
@@ -107,13 +119,6 @@ bool	Team::playerIsHuman(unsigned int currentPlayer)
 
 void	Team::playTeamHuman(unsigned int currentPlayer)
 {
-  if (this->eventReceiver.IsKeyDown(irr::KEY_SPACE))
-    {
-      canFire = this->teamFire(currentPlayer, 1);
-      displayBullet = true;
-    }
-  if (canFire || displayBullet)
-    displayBullet = this->updateTeamWormBullets(currentPlayer, 1);
   if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_Q))
     this->teamResetAnimationSpeed(currentPlayer);
   if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_D))
@@ -123,4 +128,30 @@ void	Team::playTeamHuman(unsigned int currentPlayer)
 void	Team::playTeamBot(unsigned int currentPlayer)
 {
 
+}
+
+void	Team::playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon)
+{
+  if (selectedWeapon == InventoryButton::UZI - 20)
+    {
+      if (this->eventReceiver.IsKeyDown(irr::KEY_SPACE))
+	{
+	  canFire = this->teamFire(currentPlayer, selectedWeapon);
+	  displayBullet = true;
+	}
+    }
+  else
+    {
+      if (this->eventReceiver.IsKeyUp(irr::KEY_SPACE))
+	{
+	  canFire = this->teamFire(currentPlayer, selectedWeapon);
+	  displayBullet = true;
+	}
+    }
+  if (canFire || displayBullet)
+    displayBullet = this->updateTeamWormBullets(currentPlayer, selectedWeapon);
+  if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_Q))
+    this->teamResetAnimationSpeed(currentPlayer);
+  if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_D))
+    this->teamResetAnimationSpeed(currentPlayer);
 }

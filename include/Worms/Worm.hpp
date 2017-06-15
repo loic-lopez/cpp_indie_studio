@@ -85,6 +85,8 @@ private:
   void					wormResetAnimationSpeed();
   void					wormMoveLeft(size_t const &currentSelectedWeapon);
   void					wormMoveRight(size_t const &currentSelectedWeapon);
+  void					wormMoveLeft();
+  void					wormMoveRight();
   const irr::core::vector3df 		&wormGetPosition() const;
   const irr::core::vector3df 		&wormGetRotation() const;
   void 					wormGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects);
@@ -92,6 +94,8 @@ private:
 							  size_t);
   void					wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
 							   size_t);
+  void					wormLeftCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects);
+  void					wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects);
   bool const 				&getWormType() const;
 };
 

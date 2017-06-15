@@ -19,6 +19,7 @@
 #include <cstdint>
 #include "Worms/Worm.hpp"
 #include "Events/EventReceiver.hpp"
+#include "Events/MenuButton.hpp"
 
 class	Team
 {
@@ -50,8 +51,11 @@ public:
 					  unsigned int, size_t);
   void			teamRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
 					   unsigned int, size_t);
+  void    		teamLeftCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects, unsigned int player);
+  void    		teamRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects, unsigned int player);
   bool 			playerIsHuman(unsigned int currentPlayer);
   void 			playTeamHuman(unsigned int currentPlayer);
+  void 			playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon);
   void 			playTeamBot(unsigned int currentPlayer);
 };
 

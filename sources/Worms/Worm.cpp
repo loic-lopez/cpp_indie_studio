@@ -112,7 +112,7 @@ void	Worm::wormMoveRight(size_t const &currentSelectedWeapon)
   if (this->lookingDirection == Worm::LookingDirection::LEFT
       || this->lookingDirection == Worm::LookingDirection::FRONT)
     {
-      this->wormMesh->setRotation(irr::core::vector3df(0.0, -90.0, 0.0));
+      this->wormMesh->setRotation(irr::core::vector3df(0.0, -90.0f, 0.0));
       this->lookingDirection = Worm::LookingDirection::RIGHT;
       this->inventory.setWeaponRotationToWormPosition(currentSelectedWeapon, this->wormMesh->getRotation());
     }
@@ -157,7 +157,7 @@ void	Worm::wormLeftCollision(std::vector<irr::scene::IMeshSceneNode *> groundObj
 				size_t currentSelectedWeapon)
 {
   int	collision = 0;
-  irr::f32	collision_pos;
+  irr::f32	collision_pos = 0;
   for (unsigned int i = 0; i < groundObjects.size(); i++)
     {
       if ((this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.8)
@@ -186,7 +186,7 @@ void	Worm::wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundOb
 				 size_t currentSelectedWeapon)
 {
   int	collision = 0;
-  irr::f32	collision_pos;
+  irr::f32	collision_pos = 0;
   for (unsigned int i = 0; i < groundObjects.size(); i++)
     {
       if ((this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.8)
@@ -214,4 +214,87 @@ void	Worm::wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundOb
 bool const 	&Worm::getWormType() const
 {
   return reinterpret_cast<const bool &>(this->wormType);
+}
+
+// WITHOUT WEAPON
+void	Worm::wormLeftCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects)
+{
+  int	collision = 0;
+  irr::f32	collision_pos = 0;
+  for (unsigned int i = 0; i < groundObjects.size(); i++)
+    {
+      if ((this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.8)
+	  && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X + 2.35)
+	  && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X + 2.25)
+	  && (this->collideRight == false))
+	{
+	  collision = 1;
+	  collision_pos = groundObjects.at(i)->getPosition().X + 2.4;
+	}
+    }
+  if (collision == 0)
+    {
+      this->collideLeft = false;
+      this->wormMoveLeft();
+    }
+  else
+    {
+      this->wormPos.X = collision_pos;
+      this->collideLeft = true;
+      //      this->wormMesh->setPosition(this->wormPos);
+    }
+}
+
+void	Worm::wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects)
+{
+  int	collision = 0;
+  irr::f32	collision_pos = 0;
+  for (unsigned int i = 0; i < groundObjects.size(); i++)
+    {
+      if ((this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.8)
+	  && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X - 2.35)
+	  && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X - 2.25)
+	  && (this->collideLeft == false))
+	{
+	  collision = 1;
+	  collision_pos = groundObjects.at(i)->getPosition().X - 2.4;
+	}
+    }
+  if (collision == 0)
+    {
+      this->collideRight = false;
+      this->wormMoveRight();
+    }
+  else
+    {
+      this->wormPos.X = collision_pos;
+      this->collideRight = true;
+      //      this->wormMesh->setPosition(this->wormPos);
+    }
+}
+
+void	Worm::wormMoveLeft()
+{
+  this->wormPos.X -= WORM_MOVEMENT_SPEED;
+  this->wormMesh->setAnimationSpeed(10);
+  if (this->lookingDirection == Worm::LookingDirection::RIGHT
+      || this->lookingDirection == Worm::LookingDirection::FRONT)
+    {
+      this->wormMesh->setRotation(irr::core::vector3df(0.0, 90.0f, 0.0));
+      this->lookingDirection = Worm::LookingDirection::LEFT;
+    }
+  this->wormMesh->setPosition(this->wormPos);
+}
+
+void	Worm::wormMoveRight()
+{
+  this->wormPos.X += WORM_MOVEMENT_SPEED;
+  this->wormMesh->setAnimationSpeed(10);
+  if (this->lookingDirection == Worm::LookingDirection::LEFT
+      || this->lookingDirection == Worm::LookingDirection::FRONT)
+    {
+      this->wormMesh->setRotation(irr::core::vector3df(0.0, -90.0, 0.0));
+      this->lookingDirection = Worm::LookingDirection::RIGHT;
+    }
+  this->wormMesh->setPosition(this->wormPos);
 }

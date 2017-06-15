@@ -92,6 +92,7 @@ private:
 							  size_t);
   void					wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
 							   size_t);
+  bool const 				&getWormType() const;
 };
 
 #endif

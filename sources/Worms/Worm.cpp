@@ -210,3 +210,8 @@ void	Worm::wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundOb
       //      this->wormMesh->setPosition(this->wormPos);
     }
 }
+
+bool const 	&Worm::getWormType() const
+{
+  return reinterpret_cast<const bool &>(this->wormType);
+}

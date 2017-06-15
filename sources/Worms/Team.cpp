@@ -14,13 +14,15 @@ Team::Team(unsigned int players_, unsigned int teamNb,
 	   std::vector<irr::core::vector3df> vectorPos,
 	   std::string const &wormFile, bool isBot,
 	   irr::IrrlichtDevice *device,
-	   irrklang::ISoundEngine *soundEngine)
+	   irrklang::ISoundEngine *soundEngine, EventReceiver  &eventReceiver) : eventReceiver(eventReceiver)
 {
   this->players = players_;
   this->teamName = "Humans ";
   this->teamName += std::to_string(teamNb);
   for (unsigned int i = 0; i < this->players; i++)
     this->teamPlayers.emplace_back(Worm(i, vectorPos.at(i), device, wormFile, isBot, soundEngine));
+  this->canFire = true;
+  this->displayBullet = false;
 }
 
 Team::~Team()
@@ -96,4 +98,29 @@ void    Team::teamRightCollision(std::vector<irr::scene::IMeshSceneNode *> groun
 				 unsigned int player, size_t currentSelectedWeapon)
 {
   this->teamPlayers.at(player).wormRightCollision(groundObjects, currentSelectedWeapon);
+}
+
+bool	Team::playerIsHuman(unsigned int currentPlayer)
+{
+  return this->teamPlayers.at(currentPlayer).getWormType();
+}
+
+void	Team::playTeamHuman(unsigned int currentPlayer)
+{
+  if (this->eventReceiver.IsKeyDown(irr::KEY_SPACE))
+    {
+      canFire = this->teamFire(currentPlayer, 1);
+      displayBullet = true;
+    }
+  if (canFire || displayBullet)
+    displayBullet = this->updateTeamWormBullets(currentPlayer, 1);
+  if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_Q))
+    this->teamResetAnimationSpeed(currentPlayer);
+  if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_D))
+    this->teamResetAnimationSpeed(currentPlayer);
+}
+
+void	Team::playTeamBot(unsigned int currentPlayer)
+{
+
 }

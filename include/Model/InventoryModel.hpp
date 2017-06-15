@@ -10,8 +10,9 @@
 #ifndef CPP_INDIE_STUDIO_INVENTORYMODEL_HPP
 #define CPP_INDIE_STUDIO_INVENTORYMODEL_HPP
 
-#include "Events/EventReceiver.hpp"
+#include <Events/EventReceiver.hpp>
 #include "Events/EventStatus.hpp"
+#include "Events/EventInventory.hpp"
 
 class 	InventoryModel
 {
@@ -32,13 +33,14 @@ class 	InventoryModel
   irr::core::dimension2du		 	screenSize;
   irr::gui::IGUISpriteBank			*spriteBank;
   irr::core::dimension2d<irr::u32> 		cursorSize;
-  EventReceiver 				&eventReceiver;
+  InventoryEvent 				event;
   EventStatus 					eventStatus;
   irr::core::dimension2d<irr::u32>		backgroundSize;
-
+  irr::gui::IGUIButton				*shotgunButton;
   weaponsId 					*id;
+
  public:
-  InventoryModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver, EventReceiver &receiver);
+  InventoryModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver);
   virtual ~InventoryModel();
   virtual void setModelProperties();
   virtual EventStatus launchModel();

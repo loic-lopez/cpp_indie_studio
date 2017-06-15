@@ -10,10 +10,11 @@
 
 #include "Model/InventoryModel.hpp"
 
-InventoryModel::InventoryModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver, EventReceiver &receiver) : eventReceiver(receiver)
+InventoryModel::InventoryModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver) : event(device)
 {
   this->_device = device;
   this->_driver = driver;
+  this->_device->setEventReceiver(&this->event);
   this->_guienv = this->_device->getGUIEnvironment();
   this->_skin = this->_guienv->createSkin(irr::gui::EGST_WINDOWS_METALLIC);
   this->_guienv->setSkin(this->_skin);
@@ -30,10 +31,12 @@ void InventoryModel::setModelProperties()
 {
   irr::video::ITexture                  *texture;
   irr::video::ITexture			*cursor;
+  irr::video::ITexture			*buttonTexture;
+  irr::core::dimension2d<irr::s32>	image_size;
 
 
-  /*for (irr::s32 i = 0; i < irr::gui::EGDC_COUNT ; ++i)
-    this->_guienv->getSkin()->setColor((irr::gui::EGUI_DEFAULT_COLOR) i, irr::video::SColor(0, 0, 0, 0));*/
+  for (irr::s32 i = 0; i < irr::gui::EGDC_COUNT ; ++i)
+    this->_guienv->getSkin()->setColor((irr::gui::EGUI_DEFAULT_COLOR) i, irr::video::SColor(0, 0, 0, 0));
   texture = this->_driver->getTexture("ressources/inventory/inventory.png");
   this->backgroundSize = texture->getSize();
   this->tabctrl = this->_guienv->addTabControl(irr::core::rect<int>(this->screenSize.Width / 3 + this->backgroundSize.Width / 5,
@@ -54,12 +57,25 @@ void InventoryModel::setModelProperties()
       this->cursorSize = cursor->getSize();
       this->spriteBank->addTextureAsSprite(cursor);
     }
-  this->eventReceiver.setInventoryButtons(this->tabctrl);
+  buttonTexture = this->_driver->getTexture("ressources/inventory/weapons/shotgun.png");
+  if (buttonTexture != nullptr)
+    {
+      image_size = buttonTexture->getSize();
+      this->shotgunButton = this->_guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3) - (15 * 34) / 5,
+									      (image_size.Height / 2) + 38,
+									      (image_size.Width / 2) + 8 * 34,
+									      image_size.Height + 38),
+						    tabctrl, InventoryButton::SHOTGUN, L"");
+      this->shotgunButton->setImage(buttonTexture);
+      this->shotgunButton->setUseAlphaChannel(true);
+    }
 }
 
 EventStatus InventoryModel::launchModel()
 {
-  this->eventStatus = this->eventReceiver.getEventStatus();
+  EventStatus	eventStatus = EventStatus::INVENTORY;
+
+  this->event.setEventStatus(eventStatus);
   if (this->spriteBank->getTexture(irr::u32(0)) != nullptr)
   this->spriteBank->draw2DSprite(irr::u32(0),
 				 irr::core::position2di(this->screenSize.Width / 3 + this->backgroundSize.Width / 5, this->screenSize.Height / 6),
@@ -75,7 +91,7 @@ EventStatus InventoryModel::launchModel()
 				     nullptr,
 				     irr::video::SColor(255, 255, 255, 255), 0);
     }
-  return (this->eventStatus);
+  return (eventStatus);
 }
 
 void	InventoryModel::showTabCtrl()

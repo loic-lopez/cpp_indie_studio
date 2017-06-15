@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:43:41 2017 Stanislas Deneubourg
-// Last update Thu Jun 15 16:54:56 2017 Jade Giangiacomi
+// Last update Thu Jun 15 18:09:25 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Worm.hpp"
@@ -39,6 +39,7 @@ Worm::Worm(int nb, irr::core::vector3df vectorPos,
   this->wormMesh->setFrameLoop(0, 20);
   this->wormMesh->setAnimationSpeed(0);
   this->wormMesh->setPosition(this->wormPos);
+  this->wormMesh->setScale(irr::core::vector3df(0.8, 0.8, 0.8));
   this->wormStatus = Worm::WormStatus::WALKING;
   this->isPoisoned = false;
   this->edge = new irr::core::vector3d<irr::f32>[8];
@@ -160,11 +161,15 @@ void	Worm::wormLeftCollision(std::vector<irr::scene::IMeshSceneNode *> groundObj
   irr::f32	collision_pos = 0;
   for (unsigned int i = 0; i < groundObjects.size(); i++)
     {
-      if ((this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.8)
+      if ((this->wormMesh->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 0.7 /* ((1.47075 / 2) - 0.6367) */ )
+	  && (this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.7 /* ((1.47075 / 2) - 0.6367) */ )
 	  && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X + 2.35)
 	  && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X + 2.25)
-	  && (this->collideRight == false))
+	  && (this->collideRight == false)
+	  )
 	{
+	  std::cout << "LEFT POS WORM : " << this->wormMesh->getPosition().Y << std::endl;
+	  std::cout << "LEFT POS MESH : " << groundObjects.at(i)->getPosition().Y << std::endl;
 	  collision = 1;
 	  collision_pos = groundObjects.at(i)->getPosition().X + 2.4;
 	}
@@ -189,11 +194,15 @@ void	Worm::wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundOb
   irr::f32	collision_pos = 0;
   for (unsigned int i = 0; i < groundObjects.size(); i++)
     {
-      if ((this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.8)
+      if ((this->wormMesh->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 0.7 /* ((1.47075 / 2) - 0.6367) */ )
+	  && (this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.7 /* ((1.47075 / 2) - 0.6367) */ )
 	  && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X - 2.35)
 	  && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X - 2.25)
-	  && (this->collideLeft == false))
+	  && (this->collideLeft == false)
+	  )
 	{
+	  std::cout << "RIGHT POS WORM : " << this->wormMesh->getPosition().Y << std::endl;
+	  std::cout << "RIGHT POS MESH : " << groundObjects.at(i)->getPosition().Y << std::endl;
 	  collision = 1;
 	  collision_pos = groundObjects.at(i)->getPosition().X - 2.4;
 	}
@@ -223,11 +232,15 @@ void	Worm::wormLeftCollision(std::vector<irr::scene::IMeshSceneNode *> groundObj
   irr::f32	collision_pos = 0;
   for (unsigned int i = 0; i < groundObjects.size(); i++)
     {
-      if ((this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.8)
+      if ((this->wormMesh->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 0.7 /* ((1.47075 / 2) - 0.6367) */ )
+	  && (this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.7 /* ((1.47075 / 2) - 0.6367) */ )
 	  && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X + 2.35)
 	  && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X + 2.25)
-	  && (this->collideRight == false))
+	  && (this->collideRight == false)
+	  )
 	{
+	  std::cout << "LEFT POS WORM : " << this->wormMesh->getPosition().Y << std::endl;
+	  std::cout << "LEFT POS MESH : " << groundObjects.at(i)->getPosition().Y << std::endl;
 	  collision = 1;
 	  collision_pos = groundObjects.at(i)->getPosition().X + 2.4;
 	}
@@ -251,11 +264,15 @@ void	Worm::wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundOb
   irr::f32	collision_pos = 0;
   for (unsigned int i = 0; i < groundObjects.size(); i++)
     {
-      if ((this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.8)
+      if ((this->wormMesh->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 0.7 /* ((1.47075 / 2) - 0.6367) */ )
+	  && (this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.7 /* ((1.47075 / 2) - 0.6367) */ )
 	  && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X - 2.35)
 	  && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X - 2.25)
-	  && (this->collideLeft == false))
+	  && (this->collideLeft == false)
+	  )
 	{
+	  std::cout << "RIGHT POS WORM : " << this->wormMesh->getPosition().Y << std::endl;
+	  std::cout << "RIGHT POS MESH : " << groundObjects.at(i)->getPosition().Y << std::endl;
 	  collision = 1;
 	  collision_pos = groundObjects.at(i)->getPosition().X - 2.4;
 	}

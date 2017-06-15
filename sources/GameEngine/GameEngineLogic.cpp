@@ -117,39 +117,39 @@ void	GameNamespace::GameEngine::triggerTimer()
 	stringSuddenDeathTime += std::to_string(timeBeforeSuddenDeathToInt % 60);
 
       this->spriteBank->draw2DSprite(irr::u32(0),
-				     irr::core::position2di(this->screenSize.Width * 9 / 10,
-							    this->screenSize.Height * 9 / 10),
+				     irr::core::position2di(this->screenSize.Width * 8 / 10,
+							    this->screenSize.Height * 8 / 10),
 				     nullptr,
 				     irr::video::SColor(255, 255, 255, 255), 0);
       // Affichage des deux timers dans la box                                                                                                                                                                
 
       if (this->turnTimeLeft > 10)
 	this->font->draw(stringTurnTimer.c_str(),
-			 irr::core::rect<irr::s32>(this->screenSize.Width * 9 / 10 + 30,
-						   this->screenSize.Height * 9 / 10 + 30,
-						   this->screenSize.Width * 9 / 10 + 60,
-						   this->screenSize.Height * 9 / 10 + 60),
+			 irr::core::rect<irr::s32>(this->screenSize.Width * 8 / 10 + this->timerSize.Width * 4 / 10,
+						   this->screenSize.Height * 8 / 10 + this->timerSize.Height * 6 / 10,
+						   this->screenSize.Width * 8 / 10,
+						   this->screenSize.Height * 8 / 10),
 			 irr::video::SColor(255, 255, 190, 0));
       else
 	this->font->draw(stringTurnTimer.c_str(),
-			 irr::core::rect<irr::s32>(this->screenSize.Width * 9 / 10 + 30,
-						   this->screenSize.Height * 9 / 10 + 30,
-						   this->screenSize.Width * 9 / 10 + 60,
-						   this->screenSize.Height * 9 / 10 + 60),
+			 irr::core::rect<irr::s32>(this->screenSize.Width * 8 / 10 + this->timerSize.Width * 4 / 10,
+						   this->screenSize.Height * 8 / 10 + this->timerSize.Height * 6 / 10,
+						   this->screenSize.Width *  8/ 10 + 60,
+						   this->screenSize.Height * 8 / 10 + 60),
 			 irr::video::SColor(255, 255, 0, 0));
       if (this->timeBeforeSuddenDeath > 60)
 	this->font->draw(stringSuddenDeathTime.c_str(),
-			 irr::core::rect<irr::s32>(this->screenSize.Width * 9 / 10 + 5,
-						   this->screenSize.Height * 9 / 10 + 5,
-						   this->screenSize.Width * 9 / 10 + 25,
-						   this->screenSize.Height * 9 / 10 + 25),
+			 irr::core::rect<irr::s32>(this->screenSize.Width * 8 / 10 + this->timerSize.Width / 3,
+						   this->screenSize.Height * 8 / 10 + this->timerSize.Height / 7,
+						   this->screenSize.Width * 8 / 10,
+						   this->screenSize.Height * 8 / 10),
 			 irr::video::SColor(255, 255, 190, 0));
       else
 	this->font->draw(stringSuddenDeathTime.c_str(),
-			 irr::core::rect<irr::s32>(this->screenSize.Width * 9 / 10 + 5,
-						   this->screenSize.Height * 9 / 10 + 5,
-						   this->screenSize.Width * 9 / 10 + 25,
-						   this->screenSize.Height * 9 / 10 + 25),
+			 irr::core::rect<irr::s32>(this->screenSize.Width * 8 / 10 + this->timerSize.Width * 4 / 10,
+						   this->screenSize.Height * 8 / 10 + this->timerSize.Height / 7,
+						   this->screenSize.Width * 8 / 10,
+						   this->screenSize.Height * 8 / 10),
 			 irr::video::SColor(255, 255, 0, 0));
     }
 }

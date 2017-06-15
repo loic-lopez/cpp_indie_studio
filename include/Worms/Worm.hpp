@@ -97,6 +97,7 @@ private:
   void					wormLeftCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects);
   void					wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects);
   bool const 				&getWormType() const;
+  void					playWormBot();
 };
 
 #endif

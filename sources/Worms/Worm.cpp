@@ -298,3 +298,8 @@ void	Worm::wormMoveRight()
     }
   this->wormMesh->setPosition(this->wormPos);
 }
+
+void	Worm::playWormBot()
+{
+
+}

@@ -47,10 +47,13 @@ enum						MenuInGameButton	: uint8_t
 
 enum 						InventoryButton		: uint8_t
 {
-  IN_STAND_BY					=			0,
+  IN_STAND_BY				=			0,
   UZI						=			20,
   SHOTGUN					=			21,
-  SURRENDER					=			22
+  SURRENDER					=			22,
+  SAINTBOMB					=			23,
+  CORDE						=			24,
+  ISSOU						=			25
 };
 
 #endif //CPP_INDIE_STUDIO_MENUBUTTON_HPP

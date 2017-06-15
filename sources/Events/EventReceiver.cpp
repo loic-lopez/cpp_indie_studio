@@ -159,6 +159,33 @@ bool	EventReceiver::OnEvent(const irr::SEvent& event)
 			  break;
 		  }
 		}
+	  case InventoryButton::SAINTBOMB:
+	  {
+		  if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		  {
+			  *this->idWeapon = InventoryButton::SAINTBOMB - 20;
+			  *this->weaponIsSelected = true;
+			  break;
+		  }
+	  }
+	  case InventoryButton::CORDE:
+	  {
+		  if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		  {
+			  *this->idWeapon = InventoryButton::CORDE - 20;
+			  *this->weaponIsSelected = true;
+			  break;
+		  }
+	  }
+	  case InventoryButton::ISSOU:
+	  {
+		  if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		  {
+			  *this->idWeapon = InventoryButton::ISSOU - 20;
+			  *this->weaponIsSelected = true;
+			  break;
+		  }
+	  }
 	  default:
 	    {
 	      break;
@@ -364,6 +391,39 @@ void EventReceiver::setWeaponsButtons(irr::gui::IGUITabControl *tabctrl)
 		  tabctrl, InventoryButton::SURRENDER, L"");
 	  this->surrenderButton->setImage(buttonTexture);
 	  this->surrenderButton->setUseAlphaChannel(true);
+  }
+  buttonTexture = this->driver->getTexture("ressources/inventory/weapons/saintBomb.png");
+  if (buttonTexture != nullptr)
+  {
+	  this->saintBombButton = this->guienv->addButton(irr::core::rect<irr::s32>((37 + (image_size.Width / 4)) * 4,
+		  (92 + (image_size.Height / 5)),
+		  (37 + image_size.Width + (image_size.Width / 4)) * 4,
+		  (image_size.Height + 92) + (image_size.Height / 5)),
+		  tabctrl, InventoryButton::SAINTBOMB, L"");
+	  this->saintBombButton->setImage(buttonTexture);
+	  this->saintBombButton->setUseAlphaChannel(true);
+  }
+  buttonTexture = this->driver->getTexture("ressources/inventory/weapons/corse.png");
+  if (buttonTexture != nullptr)
+  {
+	  this->cordeButton = this->guienv->addButton(irr::core::rect<irr::s32>((36 + (image_size.Width / 4)) * 5,
+		  (92 + (image_size.Height / 5)),
+		  (36 + image_size.Width + (image_size.Width / 4)) * 5,
+		  (image_size.Height + 92) + (image_size.Height / 5)),
+		  tabctrl, InventoryButton::CORDE, L"");
+	  this->cordeButton->setImage(buttonTexture);
+	  this->cordeButton->setUseAlphaChannel(true);
+  }
+  buttonTexture = this->driver->getTexture("ressources/inventory/weapons/issou.png");
+  if (buttonTexture != nullptr)
+  {
+	  this->issouButton = this->guienv->addButton(irr::core::rect<irr::s32>((36 + (image_size.Width / 4)) * 6,
+		  (92 + (image_size.Height / 5)),
+		  (36 + image_size.Width + (image_size.Width / 4)) * 6,
+		  (image_size.Height + 92) + (image_size.Height / 5)),
+		  tabctrl, InventoryButton::ISSOU, L"");
+	  this->issouButton->setImage(buttonTexture);
+	  this->issouButton->setUseAlphaChannel(true);
   }
 }
 

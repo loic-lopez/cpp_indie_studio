@@ -53,6 +53,9 @@ public:
   irr::gui::IGUIButton				*uziButton;
   irr::gui::IGUIButton				*shotgunButton;
   irr::gui::IGUIButton				*surrenderButton;
+  irr::gui::IGUIButton				*saintBombButton;
+  irr::gui::IGUIButton				*cordeButton;
+  irr::gui::IGUIButton				*issouButton;
   irr::gui::IGUIButton				*saveCurrentGameButton;
   irr::gui::IGUIButton				*soundOptionButton;
   irr::gui::IGUIButton				*backToMenuButton;

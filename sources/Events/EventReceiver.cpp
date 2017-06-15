@@ -136,7 +136,7 @@ bool	EventReceiver::OnEvent(const irr::SEvent& event)
 	    {
 	      if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
 		{
-		  std::cout << "Et voilà it works" << std::endl;
+		  *this->idWeapon = InventoryButton::UZI - 20;
 		  break;
 		}
 	    }
@@ -324,4 +324,9 @@ void EventReceiver::setWeaponsButtons(irr::gui::IGUITabControl *tabctrl)
       this->uziButton->setImage(buttonTexture);
       this->uziButton->setUseAlphaChannel(true);
     }
+}
+
+void EventReceiver::setWeaponId(size_t *weaponid)
+{
+  this->idWeapon = weaponid;
 }

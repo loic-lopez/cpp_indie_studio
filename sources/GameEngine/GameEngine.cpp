@@ -62,6 +62,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
   this->font = this->guienv->getFont("ressources/fonts/SoftMarshmallow.png");
   if (this->font != nullptr)
     this->guienv->getSkin()->setFont(this->font);
+  this->eventReceiver.setWeaponId(&this->weaponId);
 }
 
 GameNamespace::GameEngine::~GameEngine()

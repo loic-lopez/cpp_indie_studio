@@ -36,6 +36,7 @@ public:
   EventStatus 				const	&getEventStatus() const;
   void						setMainButtonsHidden();
   void						setMainButtonsVisible();
+  void 						setWeaponId(size_t *);
 
  protected:
   // ESSENTIALS
@@ -63,6 +64,7 @@ public:
 
   // OTHER
   EventStatus 					eventStatus;
+  size_t					*idWeapon;
 };
 
 #endif //EVENTRECEIVER_HPP

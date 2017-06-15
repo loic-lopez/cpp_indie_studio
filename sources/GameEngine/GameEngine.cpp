@@ -95,8 +95,6 @@ void	GameNamespace::GameEngine::setBlockProperties(int x, int y)
 
 EventStatus GameNamespace::GameEngine::launchModel()
 {
-  bool 		canFire = true;
-  bool 		displayBullet = false;
   bool 		alreadyInMenu = false;
   EventStatus 	eventStatusMenu = EventStatus::STAND_BY;
   EventStatus 	eventStatusInventory = EventStatus::STAND_BY;
@@ -127,15 +125,19 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	this->gravity();
 
-	if (this->eventReceiver.IsKeyDown(irr::KEY_SPACE))
+	if (this->teams.at(this->currentTeamIdPlaying).playerIsHuman(this->currentWormIdPlaying))
 	  {
-	    canFire = this->teams.at(this->currentTeamIdPlaying).teamFire(this->currentWormIdPlaying, 1);
-	    displayBullet = true;
+ 	    this->teams.at(this->currentTeamIdPlaying).playTeamHuman(this->currentWormIdPlaying);
+	    if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_Q))
+	      this->leftCollision(1);
+	    else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
+	      this->rightCollision(1);
+	  }
+	else
+	  {
+
 	  }
 
-	if (canFire || displayBullet)
-	  displayBullet = this->teams.at(this->currentTeamIdPlaying)
-		  .updateTeamWormBullets(this->currentWormIdPlaying, 1);
 
 	// BOUCLE DE JEU
 
@@ -180,15 +182,6 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	  }
 
 	// Fonctions de mouvements des worms
-	
-	if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_Q))
-	  this->teams.at(this->currentTeamIdPlaying).teamResetAnimationSpeed(this->currentWormIdPlaying);
-	if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_Q))
-	  this->leftCollision(1);
-	else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
-	  this->rightCollision(1);
-	if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_D))
-	  this->teams.at(this->currentTeamIdPlaying).teamResetAnimationSpeed(this->currentWormIdPlaying);
 	  
 
 	// FIN DE LA BOUCLE DE JEU

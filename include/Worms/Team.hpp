@@ -18,20 +18,24 @@
 #include <iostream>
 #include <cstdint>
 #include "Worms/Worm.hpp"
+#include "Events/EventReceiver.hpp"
 
 class	Team
 {
 private:
-  
+  EventReceiver				&eventReceiver;
   std::vector<Worm>			teamPlayers;
   std::string				teamName;
   unsigned int				players;
+  bool 					canFire;
+  bool 					displayBullet;
   std::vector<irr::core::vector3df>	humanWormsRelativePos;
   
 public:
   Team(unsigned int, unsigned int,
        std::vector<irr::core::vector3df>,
-       std::string const &, bool, irr::IrrlichtDevice *device, irrklang::ISoundEngine *soundEngine);
+       std::string const &, bool, irr::IrrlichtDevice *device,
+       irrklang::ISoundEngine *soundEngine, EventReceiver &eventReceiver);
   ~Team();
   double		turnOfThatTeam(unsigned int, std::time_t);
   void			teamMoveLeft(unsigned int, size_t selectedWeapon);
@@ -46,6 +50,9 @@ public:
 					  unsigned int, size_t);
   void			teamRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
 					   unsigned int, size_t);
+  bool 			playerIsHuman(unsigned int currentPlayer);
+  void 			playTeamHuman(unsigned int currentPlayer);
+  void 			playTeamBot(unsigned int currentPlayer);
 };
 
 #endif

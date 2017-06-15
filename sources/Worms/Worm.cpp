@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:43:41 2017 Stanislas Deneubourg
-// Last update Thu Jun 15 12:23:46 2017 Stanislas Deneubourg
+// Last update Thu Jun 15 15:31:09 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Worm.hpp"
@@ -161,12 +161,12 @@ void	Worm::wormLeftCollision(std::vector<irr::scene::IMeshSceneNode *> groundObj
   for (unsigned int i = 0; i < groundObjects.size(); i++)
     {
       if ((this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.8)
-	  && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X - 2.35)
-	  && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X - 2.25)
+	  && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X + 2.35)
+	  && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X + 2.25)
 	  && (this->collideRight == false))
 	{
 	  collision = 1;
-	  collision_pos = groundObjects.at(i)->getPosition().X - 2.4;
+	  collision_pos = groundObjects.at(i)->getPosition().X + 2.4;
 	}
     }
   if (collision == 0)
@@ -190,17 +190,17 @@ void	Worm::wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundOb
   for (unsigned int i = 0; i < groundObjects.size(); i++)
     {
       if ((this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.8)
-	  && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X + 2.35)
-	  && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X + 2.25)
+	  && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X - 2.35)
+	  && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X - 2.25)
 	  && (this->collideLeft == false))
 	{
 	  collision = 1;
-	  collision_pos = groundObjects.at(i)->getPosition().X + 2.4;
+	  collision_pos = groundObjects.at(i)->getPosition().X - 2.4;
 	}
     }
   if (collision == 0)
     {
-      this->collideRight = true;
+      this->collideRight = false;
       this->wormMoveRight(currentSelectedWeapon);
     }
   else

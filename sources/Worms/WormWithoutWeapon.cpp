@@ -5,29 +5,26 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. juin 15 19:16:29 2017 Loïc Lopez
-** Last update jeu. juin 15 19:16:29 2017 Loïc Lopez
+// Last update Thu Jun 15 20:00:18 2017 Stanislas Deneubourg
 */
 
 #include "Worms/Worm.hpp"
 
-void	Worm::wormLeftCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects)
+void    Worm::wormLeftCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects)
 {
-  int	collision = 0;
-  irr::f32	collision_pos = 0;
+  int		collision = 0;
+  irr::f32      collision_pos = 0;
   for (unsigned int i = 0; i < groundObjects.size(); i++)
     {
-      if ((this->wormMesh->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 0.7 /* ((1.47075 / 2) - 0.6367) */ )
-	  && (this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.7 /* ((1.47075 / 2) - 0.6367) */ )
-	  && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X + 2.35)
-	  && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X + 2.25)
-	  && (this->collideRight == false)
-	      )
-	{
-	  std::cout << "LEFT POS WORM : " << this->wormMesh->getPosition().Y << std::endl;
-	  std::cout << "LEFT POS MESH : " << groundObjects.at(i)->getPosition().Y << std::endl;
-	  collision = 1;
-	  collision_pos = groundObjects.at(i)->getPosition().X + 2.4;
-	}
+      if ((this->wormMesh->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 0.7f - 2.30f)
+          && (this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.7f - 2.30f)
+          && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X + 2.35f)
+          && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X + 2.25f)
+          && (this->collideRight == false))
+        {
+          collision = 1;
+          collision_pos = groundObjects.at(i)->getPosition().X + 2.4f;
+        }
     }
   if (collision == 0)
     {
@@ -38,28 +35,24 @@ void	Worm::wormLeftCollision(std::vector<irr::scene::IMeshSceneNode *> groundObj
     {
       this->wormPos.X = collision_pos;
       this->collideLeft = true;
-      //      this->wormMesh->setPosition(this->wormPos);
     }
 }
 
-void	Worm::wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects)
+void    Worm::wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects)
 {
-  int	collision = 0;
-  irr::f32	collision_pos = 0;
+  int		collision = 0;
+  irr::f32      collision_pos = 0;
   for (unsigned int i = 0; i < groundObjects.size(); i++)
     {
-      if ((this->wormMesh->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 0.7 /* ((1.47075 / 2) - 0.6367) */ )
-	  && (this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.7 /* ((1.47075 / 2) - 0.6367) */ )
-	  && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X - 2.35)
-	  && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X - 2.25)
-	  && (this->collideLeft == false)
-	      )
-	{
-	  std::cout << "RIGHT POS WORM : " << this->wormMesh->getPosition().Y << std::endl;
-	  std::cout << "RIGHT POS MESH : " << groundObjects.at(i)->getPosition().Y << std::endl;
-	  collision = 1;
-	  collision_pos = groundObjects.at(i)->getPosition().X - 2.4;
-	}
+      if ((this->wormMesh->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 0.7f - 2.30f)
+          && (this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.7f - 2.30f)
+          && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X - 2.35f)
+          && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X - 2.25f)
+          && (this->collideLeft == false))
+        {
+          collision = 1;
+          collision_pos = groundObjects.at(i)->getPosition().X - 2.4f;
+        }
     }
   if (collision == 0)
     {
@@ -70,7 +63,6 @@ void	Worm::wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundOb
     {
       this->wormPos.X = collision_pos;
       this->collideRight = true;
-      //      this->wormMesh->setPosition(this->wormPos);
     }
 }
 

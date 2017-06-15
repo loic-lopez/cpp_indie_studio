@@ -132,6 +132,8 @@
     <ClCompile Include="sources\worms\Team.cpp" />
     <ClCompile Include="sources\worms\Uzi.cpp" />
     <ClCompile Include="sources\worms\Worm.cpp" />
+    <ClCompile Include="sources\Worms\WormWithoutWeapon.cpp" />
+    <ClCompile Include="sources\Worms\WormWithWeapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core.hpp" />

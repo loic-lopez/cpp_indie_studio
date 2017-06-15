@@ -150,6 +150,15 @@ bool	EventReceiver::OnEvent(const irr::SEvent& event)
 		  break;
 		}
 	    }
+	  case InventoryButton::SURRENDER:
+		{
+		  if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		  {
+			  *this->idWeapon = InventoryButton::SURRENDER - 20;
+			  *this->weaponIsSelected = true;
+			  break;
+		  }
+		}
 	  default:
 	    {
 	      break;
@@ -345,6 +354,17 @@ void EventReceiver::setWeaponsButtons(irr::gui::IGUITabControl *tabctrl)
       this->shotgunButton->setImage(buttonTexture);
       this->shotgunButton->setUseAlphaChannel(true);
     }
+  buttonTexture = this->driver->getTexture("ressources/inventory/weapons/surrender.png");
+  if (buttonTexture != nullptr)
+  {
+	  this->surrenderButton = this->guienv->addButton(irr::core::rect<irr::s32>((38 + (image_size.Width / 4)) * 3,
+		  (92 + (image_size.Height / 5)),
+		  (38 + image_size.Width + (image_size.Width / 4)) * 3,
+		  (image_size.Height + 92) + (image_size.Height / 5)),
+		  tabctrl, InventoryButton::SURRENDER, L"");
+	  this->surrenderButton->setImage(buttonTexture);
+	  this->surrenderButton->setUseAlphaChannel(true);
+  }
 }
 
 void EventReceiver::setWeaponId(size_t *weaponid)

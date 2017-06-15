@@ -52,6 +52,7 @@ public:
   irr::gui::IGUIButton				*backToGameButton;
   irr::gui::IGUIButton				*uziButton;
   irr::gui::IGUIButton				*shotgunButton;
+  irr::gui::IGUIButton				*surrenderButton;
   irr::gui::IGUIButton				*saveCurrentGameButton;
   irr::gui::IGUIButton				*soundOptionButton;
   irr::gui::IGUIButton				*backToMenuButton;
@@ -59,14 +60,14 @@ public:
   irr::gui::IGUIButton				*soundCheckboxButton;
   irr::video::ITexture				*soundCheckboxCheckedButton;
   irr::video::ITexture				*soundCheckboxNotCheckedButton;
-  bool						isSoundCheckboxChecked;
+  bool								isSoundCheckboxChecked;
   irr::gui::IGUIButton				*backButton;
-  irrklang::ISound 				*mainSound;
+  irrklang::ISound 					*mainSound;
 
   // OTHER
-  EventStatus 					eventStatus;
-  size_t					*idWeapon;
-  bool 						*weaponIsSelected;
+  EventStatus 						eventStatus;
+  size_t							*idWeapon;
+  bool 								*weaponIsSelected;
 };
 
 #endif //EVENTRECEIVER_HPP

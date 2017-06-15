@@ -170,6 +170,14 @@ void 	GameNamespace::GameEngine::gravity()
   }
 }
 
+void 	GameNamespace::GameEngine::gravity(size_t currentWeapon)
+{
+  for (unsigned int i = 0; i < this->teams.size(); i++)
+    {
+      this->teams.at(i).teamGravity(this->groundObjects, currentWeapon);
+    }
+}
+
 void    GameNamespace::GameEngine::leftCollision(size_t currentWeaponSelected)
 {
   this->teams.at(this->currentTeamIdPlaying).teamLeftCollision(this->groundObjects, this->currentWormIdPlaying, currentWeaponSelected);

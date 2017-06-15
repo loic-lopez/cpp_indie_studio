@@ -115,6 +115,7 @@ namespace	GameNamespace
     virtual	void					triggerTimer();
     virtual 	void 					poisonEffect();
     virtual 	void 					gravity();
+    virtual 	void 					gravity(size_t);
     virtual	void					leftCollision(size_t);
     virtual	void					rightCollision(size_t);
     virtual	void					leftCollision();

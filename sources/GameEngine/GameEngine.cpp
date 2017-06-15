@@ -147,9 +147,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	      }
 	  }
 	else
-	  {
-
-	  }
+	  this->teams.at(this->currentTeamIdPlaying).playTeamBot(this->currentWormIdPlaying);
 
 
 	// BOUCLE DE JEU

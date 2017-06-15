@@ -9,7 +9,7 @@
 //
 
 #include "Events/EventReceiver.hpp"
-
+#include <iostream>
 
 EventStatus const &EventReceiver::getEventStatus() const
 {
@@ -129,6 +129,14 @@ bool	EventReceiver::OnEvent(const irr::SEvent& event)
 		  this->setMainButtonsVisible();
 		  this->soundCheckboxButton->setVisible(false);
 		  this->backButton->setVisible(false);
+		  break;
+		}
+	    }
+	  case InventoryButton::UZI:
+	    {
+	      if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		{
+		  std::cout << "Et voilà it works" << std::endl;
 		  break;
 		}
 	    }
@@ -298,4 +306,23 @@ void 	EventReceiver::setMainButtonsVisible()
 
 EventReceiver::SMouseState::SMouseState() : LeftButtonDown(false)
 {
+}
+
+void EventReceiver::setWeaponsButtons(irr::gui::IGUITabControl *tabctrl)
+{
+  irr::video::ITexture			*buttonTexture;
+  irr::core::dimension2d<irr::s32>	image_size;
+
+  buttonTexture = this->driver->getTexture("ressources/inventory/weapons/uzi.png");
+  if (buttonTexture != nullptr)
+    {
+      image_size = buttonTexture->getSize();
+      this->uziButton = this->guienv->addButton(irr::core::rect<irr::s32>((image_size.Width / 3) - (15 * 34) / 5,
+									      (image_size.Height / 2) + 38,
+									      (image_size.Width / 2) + 8 * 34,
+									      image_size.Height + 38),
+						    tabctrl, InventoryButton::UZI, L"");
+      this->uziButton->setImage(buttonTexture);
+      this->uziButton->setUseAlphaChannel(true);
+    }
 }

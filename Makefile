@@ -5,7 +5,7 @@
 ## Login   <jabbar_y@epitech.net>
 ## 
 ## Started on  Mon May  1 12:13:34 2017 Jabbari Yassir
-## Last update Thu Jun 15 03:59:22 2017 Jabbari Yassir
+## Last update Thu Jun 15 13:21:20 2017 Jabbari Yassir
 ##
 
 NAME            =       indie_studio
@@ -29,8 +29,7 @@ SRC             =	sources/main.cpp								\
 			sources/Worms/Inventory.cpp							\
 			sources/Worms/Shotgun.cpp							\
 			sources/Worms/Surrender.cpp							\
-			sources/Model/InventoryModel.cpp						\
-			sources/Events/EventInventory.cpp
+			sources/Model/InventoryModel.cpp						
 
 ECHO		=	/bin/echo -e
 

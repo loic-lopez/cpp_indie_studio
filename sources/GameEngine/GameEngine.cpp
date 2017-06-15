@@ -24,7 +24,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
 												       this->smgr,
 												       this->eventReceiver)),
 									     inventoryModel(new InventoryModel(this->device,
-													       this->driver)),
+													       this->driver, eventReceiver)),
 									     playSound(playSound),
 									     drawWalls(drawWalls)
 {

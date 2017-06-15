@@ -47,9 +47,9 @@ enum						MenuInGameButton	: uint8_t
 
 enum 						InventoryButton		: uint8_t
 {
-  SHOTGUN					=			1,
-  UZI						=			2,
-  GRENADE					=			3
+  UZI						=			20,
+  SHOTGUN					=			21,
+  SURRENDER					=			22
 };
 
 #endif //CPP_INDIE_STUDIO_MENUBUTTON_HPP

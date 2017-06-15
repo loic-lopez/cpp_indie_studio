@@ -12,7 +12,6 @@
 
 #include <Events/EventReceiver.hpp>
 #include "Events/EventStatus.hpp"
-#include "Events/EventInventory.hpp"
 
 class 	InventoryModel
 {
@@ -21,7 +20,7 @@ class 	InventoryModel
   {
     UZI = 0,
     SHOTGUN = 1,
-    GRENADE = 2
+    SURRENDER = 2
   };
 
  private:
@@ -33,14 +32,15 @@ class 	InventoryModel
   irr::core::dimension2du		 	screenSize;
   irr::gui::IGUISpriteBank			*spriteBank;
   irr::core::dimension2d<irr::u32> 		cursorSize;
-  InventoryEvent 				event;
+  EventReceiver					&eventReceiver;
   EventStatus 					eventStatus;
   irr::core::dimension2d<irr::u32>		backgroundSize;
   irr::gui::IGUIButton				*shotgunButton;
   weaponsId 					*id;
 
  public:
-  InventoryModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver);
+  InventoryModel(irr::IrrlichtDevice *device, irr::video::IVideoDriver *driver,
+		 EventReceiver &eventReceiver);
   virtual ~InventoryModel();
   virtual void setModelProperties();
   virtual EventStatus launchModel();

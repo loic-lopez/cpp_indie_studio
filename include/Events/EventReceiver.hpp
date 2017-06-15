@@ -32,6 +32,7 @@ public:
 
   // custom functions
   void 						setMenuInGameButtons(irr::gui::IGUITabControl *tabctrl);
+  void 						setWeaponsButtons(irr::gui::IGUITabControl *tabctrl);
   EventStatus 				const	&getEventStatus() const;
   void						setMainButtonsHidden();
   void						setMainButtonsVisible();
@@ -47,6 +48,8 @@ public:
 
   // BUTTONS
   irr::gui::IGUIButton				*backToGameButton;
+  irr::gui::IGUIButton				*uziButton;
+  irr::gui::IGUIButton				*shotgunButton;
   irr::gui::IGUIButton				*saveCurrentGameButton;
   irr::gui::IGUIButton				*soundOptionButton;
   irr::gui::IGUIButton				*backToMenuButton;

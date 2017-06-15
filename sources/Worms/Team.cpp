@@ -51,7 +51,9 @@ bool 	Team::teamFire(size_t currentPlayer, size_t selectedWeapon)
 
 void 	Team::showWormWeapon(size_t currentPlayer, size_t selectedWeapon)
 {
-  this->teamPlayers.at(currentPlayer).inventory.showSelectedWeapon(selectedWeapon, this->teamPlayers.at(currentPlayer).wormGetPosition(), this->teamPlayers.at(currentPlayer).wormGetRotation());
+  this->teamPlayers.at(currentPlayer).inventory.showSelectedWeapon(selectedWeapon,
+								   this->teamPlayers.at(currentPlayer).wormGetPosition(),
+								   this->teamPlayers.at(currentPlayer).wormGetRotation());
 }
 
 void 	Team::deleteWormWeapon(size_t currentPlayer, size_t selectedWeapon)
@@ -90,6 +92,14 @@ void 	Team::teamGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects)
   for (unsigned int i = 0; i < this->teamPlayers.size(); i++)
     {
       this->teamPlayers.at(i).wormGravity(groundObjects);
+    }
+}
+
+void 	Team::teamGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects, size_t currentWeapon)
+{
+  for (unsigned int i = 0; i < this->teamPlayers.size(); i++)
+    {
+      this->teamPlayers.at(i).wormGravity(groundObjects, currentWeapon);
     }
 }
 

@@ -25,6 +25,8 @@ SRC             =	sources/main.cpp								\
 			sources/Model/SetMenuModelMainOptions.cpp					\
 			sources/Worms/Team.cpp								\
 			sources/Worms/Worm.cpp								\
+			sources/Worms/WormWithWeapon.cpp						\
+			sources/Worms/WormWithoutWeapon.cpp						\
 			sources/Worms/Uzi.cpp								\
 			sources/Worms/Inventory.cpp							\
 			sources/Worms/Shotgun.cpp							\

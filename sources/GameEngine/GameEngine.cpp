@@ -126,12 +126,11 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	this->cameraMovements();
 
-	this->gravity();
-
 	if (this->teams.at(this->currentTeamIdPlaying).playerIsHuman(this->currentWormIdPlaying))
 	  {
 	    if(this->weaponIsSelected)
 	      {
+		this->gravity(this->weaponId);
 		if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_Q))
 		  this->leftCollision(this->weaponId);
 		else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
@@ -145,10 +144,14 @@ EventStatus GameNamespace::GameEngine::launchModel()
 		else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
 		    this->rightCollision();
 		this->teams.at(this->currentTeamIdPlaying).playTeamHuman(this->currentWormIdPlaying);
+		this->gravity();
 	      }
 	  }
 	else
-	  this->teams.at(this->currentTeamIdPlaying).playTeamBot(this->currentWormIdPlaying, this->gameMap);
+	  {
+	    this->gravity();
+	    this->teams.at(this->currentTeamIdPlaying).playTeamBot(this->currentWormIdPlaying, this->gameMap);
+	  }
 
 
 	// BOUCLE DE JEU
@@ -223,7 +226,8 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	      {
 		if (this->weaponIsSelected && lastWeaponSelected != this->weaponId + 20)
 		  {
-		    this->teams.at(this->currentTeamIdPlaying).showWormWeapon(this->currentWormIdPlaying, this->weaponId);
+		    this->teams.at(this->currentTeamIdPlaying).showWormWeapon(this->currentWormIdPlaying,
+									       this->weaponId);
 		    if (lastWeaponSelected != this->weaponId + 20 && lastWeaponSelected != InventoryButton::IN_STAND_BY)
 		      this->teams.at(this->currentTeamIdPlaying).deleteWormWeapon(this->currentWormIdPlaying, lastWeaponSelected - 20);
 		    lastWeaponSelected = static_cast<InventoryButton>(this->weaponId + 20);

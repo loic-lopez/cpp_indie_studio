@@ -48,6 +48,7 @@ public:
   void			teamResetAnimationSpeed(unsigned int);
   void 			poisonEffect();
   void 			teamGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects);
+  void			teamGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects, size_t currentWeapon);
   void			teamLeftCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
 					  unsigned int, size_t);
   void			teamRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects,

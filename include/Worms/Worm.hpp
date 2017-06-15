@@ -92,6 +92,7 @@ private:
   const irr::core::vector3df 		&wormGetPosition() const;
   const irr::core::vector3df 		&wormGetRotation() const;
   void 					wormGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects);
+  void					wormGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects, size_t currentSelectedWeapon);
   void					wormLeftCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
 							  size_t);
   void					wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects,

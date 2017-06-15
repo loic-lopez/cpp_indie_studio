@@ -68,6 +68,7 @@ private:
   irr::core::aabbox3d<irr::f32>		boundingBox;
   bool					collideLeft;
   bool					collideRight;
+  irr::scene::IBillboardTextSceneNode	*infos;
 
  public:
 
@@ -99,6 +100,8 @@ private:
   void					wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects);
   bool const 				&getWormType() const;
   void					playWormBot(std::vector<GameNamespace::GameMap> const &gameMap);
+  void 					addInfos(irr::IrrlichtDevice *);
+
 };
 
 #endif

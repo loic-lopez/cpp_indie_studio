@@ -47,6 +47,7 @@ Worm::Worm(int nb, irr::core::vector3df vectorPos,
   this->boundingBox.getEdges(this->edge);
   this->collideLeft = false;
   this->collideRight = false;
+  this->addInfos(device);
 }
 
 Worm::~Worm()
@@ -104,6 +105,7 @@ void	Worm::wormMoveLeft(size_t const &currentSelectedWeapon)
     }
   this->wormMesh->setPosition(this->wormPos);
   this->inventory.setWeaponPositionToWormPosition(currentSelectedWeapon, this->wormPos);
+  this->infos->setPosition(irr::core::vector3df(this->wormPos.X, this->wormPos.Y + 5.0f, this->wormPos.Z - 1.75f));
 }
 
 void	Worm::wormMoveRight(size_t const &currentSelectedWeapon)
@@ -119,6 +121,7 @@ void	Worm::wormMoveRight(size_t const &currentSelectedWeapon)
     }
   this->wormMesh->setPosition(this->wormPos);
   this->inventory.setWeaponPositionToWormPosition(currentSelectedWeapon, this->wormPos);
+  this->infos->setPosition(irr::core::vector3df(this->wormPos.X, this->wormPos.Y + 5.0f, this->wormPos.Z - 1.75f));
 }
 
 void	Worm::wormResetAnimationSpeed()
@@ -151,6 +154,7 @@ void 	Worm::wormGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects)
     {
       this->wormPos.Y -= WORM_MOVEMENT_SPEED;
       this->wormMesh->setPosition(this->wormPos);
+      this->infos->setPosition(irr::core::vector3df(this->wormPos.X, this->wormPos.Y + 5.0f, this->wormPos.Z - 1.75f));
     }
 }
 
@@ -301,6 +305,7 @@ void	Worm::wormMoveLeft()
       this->lookingDirection = Worm::LookingDirection::LEFT;
     }
   this->wormMesh->setPosition(this->wormPos);
+  this->infos->setPosition(irr::core::vector3df(this->wormPos.X, this->wormPos.Y + 5.0f, this->wormPos.Z - 1.75f));
 }
 
 void	Worm::wormMoveRight()
@@ -314,9 +319,24 @@ void	Worm::wormMoveRight()
       this->lookingDirection = Worm::LookingDirection::RIGHT;
     }
   this->wormMesh->setPosition(this->wormPos);
+  this->infos->setPosition(irr::core::vector3df(this->wormPos.X, this->wormPos.Y + 5.0f, this->wormPos.Z - 1.75f));
 }
 
 void	Worm::playWormBot(std::vector<GameNamespace::GameMap> const &gameMap)
 {
   
 }
+
+void 	Worm::addInfos(irr::IrrlichtDevice *device)
+{
+  irr::core::stringw	name = this->wormName.c_str();
+  name += L" : ";
+  name += std::to_string(this->getHealthPoints()).c_str();
+  irr::gui::IGUIFont	*font = device->getGUIEnvironment()->getFont("ressources/fonts/SoftMarshmallow.png");
+  irr::scene::ISceneManager	*smgr = device->getSceneManager();
+
+  this->infos = smgr->addBillboardTextSceneNode(font, name.c_str(), 0,
+					irr::core::dimension2d<irr::f32>(3.5f, 1.25f), irr::core::vector3df(this->wormPos.X, this->wormPos.Y + 5.0f, this->wormPos.Z - 1.75f),
+					-1, irr::video::SColor(0xFF00FF00), irr::video::SColor (0xFF00FF00));
+}
+

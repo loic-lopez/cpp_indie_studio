@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:43:41 2017 Stanislas Deneubourg
-// Last update Thu Jun 15 15:31:09 2017 Stanislas Deneubourg
+// Last update Thu Jun 15 16:54:56 2017 Jade Giangiacomi
 //
 
 #include "Worms/Worm.hpp"
@@ -299,7 +299,7 @@ void	Worm::wormMoveRight()
   this->wormMesh->setPosition(this->wormPos);
 }
 
-void	Worm::playWormBot()
+void	Worm::playWormBot(std::vector<GameNamespace::GameMap> const &gameMap)
 {
-
+  
 }

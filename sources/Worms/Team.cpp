@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:51:11 2017 Stanislas Deneubourg
-// Last update Thu Jun 15 11:39:59 2017 Stanislas Deneubourg
+// Last update Thu Jun 15 16:59:11 2017 Jade Giangiacomi
 //
 
 #include "Worms/Team.hpp"

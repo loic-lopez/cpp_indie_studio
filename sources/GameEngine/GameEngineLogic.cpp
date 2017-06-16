@@ -154,9 +154,17 @@ void	GameNamespace::GameEngine::triggerTimer()
       if (this->turnTimeLeft <= 60 && this->turnTimeLeft >= 57)
 	{
 	  std::string	com = this->teams.at(this->currentWormIdPlaying).getWormName(this->currentWormIdPlaying).c_str();
-	  com += " va tout dechirer";
+	  com += " ";
+	  if (!this->comm)
+	    {
+	      this->rng = this->genComm("begin");
+	      this->comm = true;
+	    }
+	  com += this->rng;
 	  this->font->draw(com.c_str() , irr::core::rect<irr::s32>(this->screenSize.Width / 2 - 100, this->screenSize.Height / 5, this->screenSize.Width / 2 + 700, this->screenSize.Height / 10 + 50), irr::video::SColor(255, 255, 0, 255));
 	}
+      if (this->turnTimeLeft < 57)
+	this->comm = false;
     }
 }
 
@@ -216,4 +224,17 @@ void    GameNamespace::GameEngine::leftCollision()
 void    GameNamespace::GameEngine::rightCollision()
 {
   this->teams.at(this->currentTeamIdPlaying).teamRightCollision(this->groundObjects, this->currentWormIdPlaying);
+}
+
+const char 	*GameNamespace::GameEngine::genComm(std::string const &which) const
+{
+  const char 	*begin[7] = {"va dechirer", "se prepare a faire mal", "comment vas-tu ?", "c'est à toi de jouer !",
+				  "se chauffe", "à mangé du lion ce matin...", "à une bonne tete de vainqueur"};
+  const char 	*deaths[5] = {"n'aura pas fait long feu", "va nourrir les vers...", "s'est éteint trop tôt",
+				  "n'apprecie guere le plomb", "tu resteras à jamais dans nos coeurs"};
+
+  if (which == "begin")
+    return (begin[rand()%7]);
+  else
+    return (deaths[rand()%5]);
 }

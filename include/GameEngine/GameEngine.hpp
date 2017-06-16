@@ -105,8 +105,11 @@ namespace	GameNamespace
     irr::core::dimension2du				screenSize;
     irr::gui::IGUISkin					*skin;
     irr::gui::IGUIFont					*font;
-    
-    
+    bool 						comm = false;
+    std::string						rng;
+
+
+
     virtual	void					setModelProperties();
     virtual	void					mapGen();
     virtual	void					backgroundGen();
@@ -122,6 +125,7 @@ namespace	GameNamespace
     virtual	void					rightCollision(size_t);
     virtual	void					leftCollision();
     virtual	void					rightCollision();
+    virtual 	const char				*genComm(std::string const &) const ;
 
    public:
 

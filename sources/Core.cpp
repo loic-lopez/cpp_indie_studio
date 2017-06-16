@@ -169,6 +169,7 @@ void						Core::launchGame()
       this->device->getCursorControl()->setVisible(false);
       GameEngine->setModelProperties();
       this->eventStatus = GameEngine->launchModel();
+      this->device->setEventReceiver(nullptr);
     }
 }
 

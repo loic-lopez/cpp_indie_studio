@@ -17,6 +17,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
 				      irrklang::ISound *mainSound, bool *playMainSound,
 				      irrklang::ISoundEngine *soundEngine) : smgr(smgr), driver(driver), device(device),
 									     nbShapes(nbShapes), eventReceiver(device,
+													       soundEngine,
 													       mainSound,
 													       playMainSound),
 									     menuInGame(new MenuInGame(this->device,

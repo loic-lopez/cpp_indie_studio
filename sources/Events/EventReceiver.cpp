@@ -16,7 +16,8 @@ EventStatus const &EventReceiver::getEventStatus() const
   return this->eventStatus;
 }
 
-EventReceiver::EventReceiver(irr::IrrlichtDevice *device, irrklang::ISound *mainSound, bool *playMainSound)
+EventReceiver::EventReceiver(irr::IrrlichtDevice *device, irrklang::ISoundEngine *soundEngine,
+			     irrklang::ISound *mainSound, bool *playMainSound)
 {
   for (irr::u32 i = 0; i < irr::KEY_KEY_CODES_COUNT; ++i)
     this->KeyIsDown[i] = false;
@@ -31,6 +32,7 @@ EventReceiver::EventReceiver(irr::IrrlichtDevice *device, irrklang::ISound *main
   this->isSoundCheckboxChecked = *playMainSound;
   this->playMainSound = playMainSound;
   this->mainSound = mainSound;
+  this->soundEngine = soundEngine;
 }
 
 bool	EventReceiver::OnEvent(const irr::SEvent& event)
@@ -179,12 +181,11 @@ bool	EventReceiver::OnEvent(const irr::SEvent& event)
 	  }
 	  case InventoryButton::ISSOU:
 	  {
-		  if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
-		  {
-			  *this->idWeapon = InventoryButton::ISSOU - 20;
-			  *this->weaponIsSelected = true;
-			  break;
-		  }
+	      if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		{
+		  this->soundEngine->play2D("ressources/sounds/issou.wav");
+		  break;
+		}
 	  }
 	  default:
 	    {

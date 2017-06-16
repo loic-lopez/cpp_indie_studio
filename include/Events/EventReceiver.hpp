@@ -25,6 +25,7 @@ public:
   } MouseState;
 
   explicit 					EventReceiver(irr::IrrlichtDevice *device,
+                                                                irrklang::ISoundEngine *soundEngine,
 								irrklang::ISound *mainSound, bool *playMainSound);
   bool 						OnEvent(const irr::SEvent& event) override;
   virtual 				bool	IsKeyDown(irr::EKEY_CODE keyCode) const;
@@ -47,6 +48,7 @@ public:
   irr::gui::IGUIEnvironment			*guienv;
   irr::video::IVideoDriver			*driver;
   irr::IrrlichtDevice				*device;
+  irrklang::ISoundEngine			*soundEngine;
 
   // BUTTONS
   irr::gui::IGUIButton				*backToGameButton;

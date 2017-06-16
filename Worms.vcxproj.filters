@@ -60,6 +60,9 @@
     <ClCompile Include="sources\worms\Grenade.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="sources\worms\HolyHandGrenade.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="sources\worms\Inventory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -78,10 +81,13 @@
     <ClCompile Include="sources\worms\Worm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sources\Worms\WormWithoutWeapon.cpp">
+    <ClCompile Include="sources\worms\WormBot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sources\Worms\WormWithWeapon.cpp">
+    <ClCompile Include="sources\worms\WormWithoutWeapon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\worms\WormWithWeapon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -131,6 +137,9 @@
     <ClInclude Include="include\gameengine\GameEngine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\gameengine\GameMap.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\interface\ICore.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -153,6 +162,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\worms\Grenade.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\worms\HolyHandGrenade.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\worms\Inventory.hpp">

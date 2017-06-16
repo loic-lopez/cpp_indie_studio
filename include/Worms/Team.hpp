@@ -24,7 +24,7 @@
 
 class	Team
 {
-private:
+protected:
   EventReceiver				&eventReceiver;
   std::vector<Worm>			teamPlayers;
   std::string				teamName;
@@ -58,13 +58,14 @@ public:
   bool 			playerIsHuman(unsigned int currentPlayer);
   void 			playTeamHuman(unsigned int currentPlayer);
   void 			playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon);
-  void 			playTeamBot(unsigned int currentPlayer, std::vector<GameNamespace::GameMap> const &gameMap);
+  void 			playTeamBot(unsigned int currentPlayer, std::vector<irr::scene::IMeshSceneNode *> groundObjects,  std::vector<irr::core::vector3df> allWormsPos);
   void 			deleteWormWeapon(size_t currentPlayer, size_t selectedWeapon);
   const unsigned int	getAliveTeamPlayers();
   irr::core::vector3df	getCurrentWormPosition(unsigned int currentPlayer);
   const bool 		&getWormIsDrowned(unsigned int currentPlayer);
   void 			setWormIsDrowned(unsigned int currentPlayer, bool isDrowned);
   std::string		const &getWormName(unsigned int) const;
+  std::vector<Worm>	getWorm();
 };
 
 #endif

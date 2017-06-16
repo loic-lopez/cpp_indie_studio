@@ -84,6 +84,7 @@ namespace	GameNamespace
     unsigned int					currentTeamIdPlaying;
     size_t 						weaponId;
     bool 						weaponIsSelected;
+    std::vector<irr::core::vector3df>			allWormsPos;
 
     //Variables timer
     std::time_t						turnStart;
@@ -133,6 +134,7 @@ namespace	GameNamespace
 
     virtual						~GameEngine();
     virtual EventStatus					launchModel();
+    void 						setAllWormsPos();
   };
 };
 

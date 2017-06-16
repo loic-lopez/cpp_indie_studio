@@ -140,9 +140,9 @@ void	Team::playTeamHuman(unsigned int currentPlayer)
     this->teamResetAnimationSpeed(currentPlayer);
 }
 
-void	Team::playTeamBot(unsigned int currentPlayer, std::vector<GameNamespace::GameMap> const &gameMap)
+void	Team::playTeamBot(unsigned int currentPlayer, std::vector<irr::scene::IMeshSceneNode *> groundObjects, std::vector<irr::core::vector3df> allWormsPos)
 {
-  this->teamPlayers.at(currentPlayer).playWormBot(gameMap);
+  this->teamPlayers.at(currentPlayer).playWormBot(groundObjects, allWormsPos);
 }
 
 void	Team::playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon)
@@ -194,4 +194,9 @@ const bool &Team::getWormIsDrowned(unsigned int currentPlayer)
 std::string	const &Team::getWormName(unsigned int currentPlayer) const
 {
   return (this->teamPlayers.at(currentPlayer).getWormName());
+}
+
+std::vector<Worm> Team::getWorm()
+{
+  return (this->teamPlayers);
 }

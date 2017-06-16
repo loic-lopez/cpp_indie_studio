@@ -153,9 +153,9 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	else
 	  {
 	    this->gravity();
-	    this->teams.at(this->currentTeamIdPlaying).playTeamBot(this->currentWormIdPlaying, this->gameMap);
+	    this->teams.at(this->currentTeamIdPlaying).playTeamBot(this->currentWormIdPlaying, this->groundObjects, this->allWormsPos);
 	  }
-
+	this->setAllWormsPos();
 	// BOUCLE DE JEU
 
 	if (!this->gameStart)
@@ -299,4 +299,8 @@ GameNamespace::GameMap::GameMap(int x, int y)
   this->terrain = GameNamespace::TerrainType::AIR;
   this->x = x;
   this->y = y;
+}
+
+void GameNamespace::GameEngine::setAllWormsPos()
+{
 }

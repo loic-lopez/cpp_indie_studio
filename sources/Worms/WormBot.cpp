@@ -10,7 +10,8 @@
 
 #include "Worms/Worm.hpp"
 
-void	Worm::playWormBot(std::vector<GameNamespace::GameMap> const &gamemap)
+void	Worm::playWormBot(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
+			      std::vector<irr::core::vector3df> allWormsPos)
 {
-  
+  this->wormLeftCollision(groundObjects);
 }

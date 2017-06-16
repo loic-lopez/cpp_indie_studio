@@ -100,7 +100,7 @@ private:
   void					wormLeftCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects);
   void					wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects);
   bool const 				&getWormType() const;
-  void					playWormBot(std::vector<GameNamespace::GameMap> const &gameMap);
+  void					playWormBot(std::vector<irr::scene::IMeshSceneNode *> groundObjects, std::vector<irr::core::vector3df> allWormsPos);
   void 					addInfos(irr::IrrlichtDevice *);
 
 };

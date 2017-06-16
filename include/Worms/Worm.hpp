@@ -82,7 +82,7 @@ private:
   void					setHealthPoints(int);
   unsigned int				getDamageDealt() const;
   unsigned int				getDamageReceived() const;
-  std::string				getWormName() const;
+  std::string	const 			&getWormName() const;
   double				wormTimerRollback(std::time_t);
   void					wormResetAnimationSpeed();
   void					wormMoveLeft(size_t const &currentSelectedWeapon);

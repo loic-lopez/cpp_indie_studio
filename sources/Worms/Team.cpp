@@ -175,3 +175,23 @@ const unsigned int	Team::getAliveTeamPlayers()
 {
   return (this->teamPlayers.size());
 }
+
+irr::core::vector3df	Team::getCurrentWormPosition(unsigned int currentPlayer)
+{
+  return this->teamPlayers.at(currentPlayer).wormGetPosition();
+}
+
+void 	Team::setWormIsDrowned(unsigned int currentPlayer, bool isDrowned)
+{
+  this->teamPlayers.at(currentPlayer).isDrowned = isDrowned;
+}
+
+const bool &Team::getWormIsDrowned(unsigned int currentPlayer)
+{
+  return this->teamPlayers.at(currentPlayer).isDrowned;
+}
+
+std::string	const &Team::getWormName(unsigned int currentPlayer) const
+{
+  return (this->teamPlayers.at(currentPlayer).getWormName());
+}

@@ -113,7 +113,7 @@ bool const 	&Worm::getWormType() const
   return reinterpret_cast<const bool &>(this->wormType);
 }
 
-std::string	Worm::getWormName() const
+std::string	const &Worm::getWormName() const
 {
   return (this->wormName);
 }

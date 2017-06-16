@@ -61,6 +61,10 @@ public:
   void 			playTeamBot(unsigned int currentPlayer, std::vector<GameNamespace::GameMap> const &gameMap);
   void 			deleteWormWeapon(size_t currentPlayer, size_t selectedWeapon);
   const unsigned int	getAliveTeamPlayers();
+  irr::core::vector3df	getCurrentWormPosition(unsigned int currentPlayer);
+  const bool 		&getWormIsDrowned(unsigned int currentPlayer);
+  void 			setWormIsDrowned(unsigned int currentPlayer, bool isDrowned);
+  std::string		const &getWormName(unsigned int) const;
 };
 
 #endif

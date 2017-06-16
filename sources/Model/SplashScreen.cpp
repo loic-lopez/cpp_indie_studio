@@ -98,9 +98,9 @@ EventStatus SplashScreen::launchModel()
 	if (this->font != nullptr)
 	  {
 	    this->font->draw("Powered By:",
-			     irr::core::rect<irr::s32>(((screenSize.Width / 2) - (textSize.Width * 6 / 10)),
+			     irr::core::rect<irr::s32>(((screenSize.Width / 2) - (textSize.Width * 3)),
 						       ((screenSize.Height / 2) - irrlichLogoSize.Height) -
-							       (textSize.Height * 2), textSize.Width * 12, 300),
+							       textSize.Height, textSize.Width * 12, 300),
 			     irr::video::SColor(alphaColorText, 255, 255, 255));
 	  }
 	this->driver->enableMaterial2D(false);

@@ -71,6 +71,7 @@ namespace	GameNamespace
     irr::f32						blockSize;
     irr::scene::ISceneNode				*skybox;
     irr::scene::ITerrainSceneNode			*backgroundTerrain;
+    irr::scene::IBillboardTextSceneNode			*commentary;
 
     //Données des tours
     unsigned int					wormsPerTeam;

@@ -79,10 +79,11 @@ private:
        irr::IrrlichtDevice *, std::string const &,
        bool, irrklang::ISoundEngine *soundEngine);
   ~Worm();
-  int					getHealthPoints();
+  int					getHealthPoints() const;
   void					setHealthPoints(int);
-  unsigned int				getDamageDealt();
-  unsigned int				getDamageReceived();
+  unsigned int				getDamageDealt() const;
+  unsigned int				getDamageReceived() const;
+  std::string				getWormName() const;
   double				wormTimerRollback(std::time_t);
   void					wormResetAnimationSpeed();
   void					wormMoveLeft(size_t const &currentSelectedWeapon);

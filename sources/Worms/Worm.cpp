@@ -70,17 +70,17 @@ void	Worm::setDamageReceived(int nb)
   this->damageReceived += nb;
 }
 
-int	Worm::getHealthPoints()
+int	Worm::getHealthPoints() const
 {
   return (this->healthPoints);
 }
 
-unsigned int Worm::getDamageDealt()
+unsigned int Worm::getDamageDealt() const
 {
   return (this->damageDealt);
 }
 
-unsigned int Worm::getDamageReceived()
+unsigned int Worm::getDamageReceived() const
 {
   return (this->damageReceived);
 }
@@ -110,5 +110,10 @@ const irr::core::vector3df	&Worm::wormGetRotation() const
 bool const 	&Worm::getWormType() const
 {
   return reinterpret_cast<const bool &>(this->wormType);
+}
+
+std::string	Worm::getWormName() const
+{
+  return (this->wormName);
 }
 

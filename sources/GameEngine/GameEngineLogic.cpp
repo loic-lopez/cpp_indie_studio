@@ -151,6 +151,12 @@ void	GameNamespace::GameEngine::triggerTimer()
 						   this->screenSize.Width * 8 / 10,
 						   this->screenSize.Height * 8 / 10),
 			 irr::video::SColor(255, 255, 0, 0));
+      if (this->turnTimeLeft <= 60 && this->turnTimeLeft >= 57)
+	{
+	  std::string	com = this->teams.at(this->currentWormIdPlaying).getWormName(this->currentWormIdPlaying).c_str();
+	  com += " va tout dechirer";
+	  this->font->draw(com.c_str() , irr::core::rect<irr::s32>(this->screenSize.Width / 2 - 100, this->screenSize.Height / 5, this->screenSize.Width / 2 + 700, this->screenSize.Height / 10 + 50), irr::video::SColor(255, 255, 0, 255));
+	}
     }
 }
 

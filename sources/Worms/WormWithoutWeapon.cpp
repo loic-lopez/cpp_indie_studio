@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. juin 15 19:16:29 2017 Loïc Lopez
-// Last update Thu Jun 15 20:00:18 2017 Stanislas Deneubourg
+// Last update Fri Jun 16 10:09:29 2017 Jade Giangiacomi
 */
 
 #include "Worms/Worm.hpp"
@@ -92,11 +92,6 @@ void	Worm::wormMoveRight()
     }
   this->wormMesh->setPosition(this->wormPos);
   this->infos->setPosition(irr::core::vector3df(this->wormPos.X, this->wormPos.Y + 5.0f, this->wormPos.Z - 1.75f));
-}
-
-void	Worm::playWormBot(std::vector<GameNamespace::GameMap> const &gameMap)
-{
-
 }
 
 void 	Worm::addInfos(irr::IrrlichtDevice *device)

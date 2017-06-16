@@ -5,7 +5,7 @@
 ## Login   <jabbar_y@epitech.net>
 ## 
 ## Started on  Mon May  1 12:13:34 2017 Jabbari Yassir
-## Last update Thu Jun 15 13:21:20 2017 Jabbari Yassir
+## Last update Fri Jun 16 13:21:31 2017 Jade Giangiacomi
 ##
 
 NAME            =       indie_studio
@@ -32,7 +32,8 @@ SRC             =	sources/main.cpp								\
 			sources/Worms/Shotgun.cpp							\
 			sources/Worms/Surrender.cpp							\
 			sources/Worms/HolyHandGrenade.cpp						\
-			sources/Model/InventoryModel.cpp
+			sources/Model/InventoryModel.cpp						\
+			sources/Worms/WormBot.cpp
 
 ECHO		=	/bin/echo -e
 

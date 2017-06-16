@@ -161,7 +161,7 @@ void	GameNamespace::GameEngine::triggerTimer()
 	      this->comm = true;
 	    }
 	  com += this->rng;
-	  this->font->draw(com.c_str() , irr::core::rect<irr::s32>(this->screenSize.Width / 2 - 100, this->screenSize.Height / 5, this->screenSize.Width / 2 + 700, this->screenSize.Height / 10 + 50), irr::video::SColor(255, 255, 0, 255));
+	  this->font->draw(com.c_str() , irr::core::rect<irr::s32>(this->screenSize.Width / 2 - 200, this->screenSize.Height / 5, this->screenSize.Width / 2 + 700, this->screenSize.Height / 10 + 50), irr::video::SColor(255, 255, 0, 255));
 	}
       if (this->turnTimeLeft < 57)
 	this->comm = false;
@@ -228,10 +228,10 @@ void    GameNamespace::GameEngine::rightCollision()
 
 const char 	*GameNamespace::GameEngine::genComm(std::string const &which) const
 {
-  const char 	*begin[7] = {"va dechirer", "se prepare a faire mal", "comment vas-tu ?", "c'est à toi de jouer !",
-				  "se chauffe", "à mangé du lion ce matin...", "à une bonne tete de vainqueur"};
-  const char 	*deaths[5] = {"n'aura pas fait long feu", "va nourrir les vers...", "s'est éteint trop tôt",
-				  "n'apprecie guere le plomb", "tu resteras à jamais dans nos coeurs"};
+  const char 	*begin[7] = {"va dechirer", "se prepare a faire mal", "comment vas-tu ?", "c'est a toi de jouer !",
+				  "se chauffe", "a mange du lion ce matin...", "a une bonne tete de vainqueur"};
+  const char 	*deaths[5] = {"n'aura pas fait long feu", "va nourrir les vers...", "s'est eteint trop tot",
+				  "n'apprecie guere le plomb", "tu resteras a jamais dans nos coeurs"};
 
   if (which == "begin")
     return (begin[rand()%7]);

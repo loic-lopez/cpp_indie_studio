@@ -16,15 +16,11 @@ InventoryModel::InventoryModel(irr::IrrlichtDevice *device, irr::video::IVideoDr
   this->_device = device;
   this->_driver = driver;
   this->_guienv = this->_device->getGUIEnvironment();
-  this->_skin = this->_guienv->createSkin(irr::gui::EGST_WINDOWS_METALLIC);
-  this->_guienv->setSkin(this->_skin);
-  this->_skin->drop();
   this->screenSize = this->_driver->getScreenSize();
 }
 
 InventoryModel::~InventoryModel()
 {
-  this->_guienv->clear();
 }
 
 void InventoryModel::setModelProperties()
@@ -32,8 +28,6 @@ void InventoryModel::setModelProperties()
   irr::video::ITexture                  *texture;
   irr::video::ITexture			*cursor;
 
-for (irr::s32 i = 0; i < irr::gui::EGDC_COUNT ; ++i)
-    this->_guienv->getSkin()->setColor((irr::gui::EGUI_DEFAULT_COLOR) i, irr::video::SColor(0, 0, 0, 0));
   texture = this->_driver->getTexture("ressources/inventory/inventory.png");
   this->backgroundSize = texture->getSize();
   this->tabctrl = this->_guienv->addTabControl(irr::core::rect<int>(this->screenSize.Width / 3 + this->backgroundSize.Width / 5,

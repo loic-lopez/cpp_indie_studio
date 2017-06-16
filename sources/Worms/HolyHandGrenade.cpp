@@ -70,6 +70,7 @@ void	HolyHandGrenade::setWeaponPosition(const irr::core::vector3df &position)
 				 position.Y + this->holyHandGrenadeBox.getExtent().getLength() / 2,
 				 position.Z - this->holyHandGrenadeBox.getExtent().getLength() / 6));
 
+  this->startGrenadeX = this->holyHandGrenadeSceneNode->getPosition().X;
 }
 
 void	HolyHandGrenade::setWeaponRotation(const irr::core::vector3df &rotation)
@@ -79,5 +80,33 @@ void	HolyHandGrenade::setWeaponRotation(const irr::core::vector3df &rotation)
 
 bool	HolyHandGrenade::updateBullets()
 {
-  return false;
+  irr::core::vector3df	grenadePos = this->holyHandGrenadeSceneNode->getPosition();
+
+  if (this->holyHandGrenadeSceneNode->getRotation().Y == 90.0f)
+    {
+      if (grenadePos.X < this->startGrenadeX + HOLY_GRENADE_RANGE)
+	{
+	  grenadePos.X += HOLY_GRENADE_SPEED;
+	  this->holyHandGrenadeSceneNode->setPosition(
+		  irr::core::vector3df(grenadePos.X + this->holyHandGrenadeBox.getExtent().getLength() / 6,
+				       grenadePos.Y + this->holyHandGrenadeBox.getExtent().getLength() / 2,
+				       grenadePos.Z - this->holyHandGrenadeBox.getExtent().getLength() / 6));
+	}
+      else
+	return false;
+    }
+  else
+    {
+      if (grenadePos.X > this->startGrenadeX - HOLY_GRENADE_RANGE)
+	{
+	  grenadePos.X -= HOLY_GRENADE_SPEED;
+	  this->holyHandGrenadeSceneNode->setPosition(
+		  irr::core::vector3df(grenadePos.X - this->holyHandGrenadeBox.getExtent().getLength() / 6,
+				       grenadePos.Y + this->holyHandGrenadeBox.getExtent().getLength() / 2,
+				       grenadePos.Z - this->holyHandGrenadeBox.getExtent().getLength() / 6));
+	}
+      else
+	return (false);
+    }
+  return true;
 }

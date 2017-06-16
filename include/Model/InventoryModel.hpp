@@ -27,7 +27,6 @@ class 	InventoryModel
   irr::IrrlichtDevice				*_device;
   irr::video::IVideoDriver			*_driver;
   irr::gui::IGUIEnvironment			*_guienv;
-  irr::gui::IGUISkin				*_skin;
   irr::gui::IGUITabControl			*tabctrl;
   irr::core::dimension2du		 	screenSize;
   irr::gui::IGUISpriteBank			*spriteBank;

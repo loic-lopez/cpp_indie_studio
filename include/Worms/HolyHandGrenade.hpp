@@ -13,6 +13,9 @@
 
 #include "Interface/IWeapon.hpp"
 
+#define	HOLY_GRENADE_SPEED	2.0f
+#define HOLY_GRENADE_RANGE	25.0f
+
 class	HolyHandGrenade : public IWeapon
 {
  private:
@@ -21,6 +24,9 @@ class	HolyHandGrenade : public IWeapon
   irrklang::ISoundEngine	*soundEngine;
   irr::scene::ISceneNode	*holyHandGrenadeSceneNode;
   irr::core::aabbox3d<irr::f32>	holyHandGrenadeBox;
+  irr::f32 			startGrenadeX;
+
+
  public:
   explicit HolyHandGrenade(irr::IrrlichtDevice *device, irrklang::ISoundEngine *soundEngine);
   ~HolyHandGrenade() override;

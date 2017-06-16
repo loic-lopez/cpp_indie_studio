@@ -137,7 +137,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 		if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_Q))
 		  this->leftCollision(this->weaponId);
 		else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
-		    this->rightCollision(this->weaponId);
+		  this->rightCollision(this->weaponId);
 		this->teams.at(this->currentTeamIdPlaying).playTeamHuman(this->currentWormIdPlaying, this->weaponId);
 	      }
 	    else
@@ -145,7 +145,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 		if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_Q))
 		  this->leftCollision();
 		else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
-		    this->rightCollision();
+		  this->rightCollision();
 		this->teams.at(this->currentTeamIdPlaying).playTeamHuman(this->currentWormIdPlaying);
 		this->gravity();
 	      }
@@ -200,7 +200,6 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	  }
 
 	// Fonctions de mouvements des worms
-	  
 
 	// FIN DE LA BOUCLE DE JEU
 	this->driver->beginScene();

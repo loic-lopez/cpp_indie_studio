@@ -71,8 +71,7 @@ private:
   irr::scene::IBillboardTextSceneNode	*infos;
 
  public:
-
-  //  Weapon				weaponSelected;
+  bool 					isDrowned;
   bool 					isPoisoned;
   Inventory             		inventory;
   Worm(int, irr::core::vector3df,

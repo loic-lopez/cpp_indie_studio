@@ -65,10 +65,10 @@ void	HolyHandGrenade::setWeaponPosition(const irr::core::vector3df &position)
 				 position.Y + this->holyHandGrenadeBox.getExtent().getLength() / 2,
 				 position.Z - this->holyHandGrenadeBox.getExtent().getLength() / 6));
   else if (yRotation == -90.0f)
-      this->holyHandGrenadeSceneNode->setPosition(
-	      irr::core::vector3df(position.X - this->holyHandGrenadeBox.getExtent().getLength() / 6,
-				   position.Y + this->holyHandGrenadeBox.getExtent().getLength() / 2,
-				   position.Z - this->holyHandGrenadeBox.getExtent().getLength() / 6));
+    this->holyHandGrenadeSceneNode->setPosition(
+	    irr::core::vector3df(position.X - this->holyHandGrenadeBox.getExtent().getLength() / 6,
+				 position.Y + this->holyHandGrenadeBox.getExtent().getLength() / 2,
+				 position.Z - this->holyHandGrenadeBox.getExtent().getLength() / 6));
 
 }
 

@@ -15,6 +15,7 @@ Worm::Worm(int nb, irr::core::vector3df vectorPos,
 	   bool	isBot, irrklang::ISoundEngine *soundEngine) : inventory(device, soundEngine)
 {
   int	dir = std::rand() % 3;
+  this->isDrowned = false;
   this->wormName = "Player ";
   this->wormName += std::to_string(nb);
   this->healthPoints = 100;

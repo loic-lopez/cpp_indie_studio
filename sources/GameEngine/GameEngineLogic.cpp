@@ -173,6 +173,13 @@ void 	GameNamespace::GameEngine::gravity()
   for (unsigned int i = 0; i < this->teams.size(); i++)
   {
     this->teams.at(i).teamGravity(this->groundObjects);
+      if (this->sea->getPosition().Y >=
+	  this->teams.at(i).getCurrentWormPosition(this->currentWormIdPlaying).Y
+	  && !this->teams.at(i).getWormIsDrowned(this->currentWormIdPlaying))
+	{
+	  this->teams.at(i).setWormIsDrowned(this->currentWormIdPlaying, true);
+	  this->soundEngine->play2D("ressources/sounds/Splash.wav");
+	}
   }
 }
 
@@ -181,6 +188,13 @@ void 	GameNamespace::GameEngine::gravity(size_t currentWeapon)
   for (unsigned int i = 0; i < this->teams.size(); i++)
     {
       this->teams.at(i).teamGravity(this->groundObjects, currentWeapon);
+      if (this->sea->getPosition().Y >=
+	  this->teams.at(i).getCurrentWormPosition(this->currentWormIdPlaying).Y
+	  && !this->teams.at(i).getWormIsDrowned(this->currentWormIdPlaying))
+	{
+	  this->teams.at(i).setWormIsDrowned(this->currentWormIdPlaying, true);
+	  this->soundEngine->play2D("ressources/sounds/Splash.wav");
+	}
     }
 }
 

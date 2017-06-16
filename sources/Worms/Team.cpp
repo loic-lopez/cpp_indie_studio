@@ -175,8 +175,3 @@ const unsigned int	Team::getAliveTeamPlayers()
 {
   return (this->teamPlayers.size());
 }
-
-std::string		Team::getWormName(unsigned int worm) const
-{
-  return (this->teamPlayers.at(worm).getWormName());
-}

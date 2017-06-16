@@ -13,7 +13,7 @@
 void	Worm::playWormBot(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
 			      std::vector<irr::core::vector3df> allWormsPos)
 {
-//  for (unsigned int i = 0; i < allWormsPos.size(); i++)
-  //  std::cout << allWormsPos.at(i).X << " | " << allWormsPos.at(i).Y << std::endl;
+  for (unsigned int i = 0; i < allWormsPos.size(); i++)
+    std::cout << allWormsPos.at(i).X << " | " << allWormsPos.at(i).Y << std::endl;
   this->wormLeftCollision(groundObjects);
 }

@@ -129,6 +129,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 
 	this->cameraMovements();
 
+	this->setAllWormsPos(this->currentTeamIdPlaying);
 	if (isHuman)
 	  {
 	    if(this->weaponIsSelected)
@@ -155,7 +156,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->gravity();
 	    this->teams.at(this->currentTeamIdPlaying).playTeamBot(this->currentWormIdPlaying, this->groundObjects, this->allWormsPos);
 	  }
-	this->setAllWormsPos();
+	this->allWormsPos.clear();
 	// BOUCLE DE JEU
 
 	if (!this->gameStart)
@@ -301,13 +302,16 @@ GameNamespace::GameMap::GameMap(int x, int y)
   this->y = y;
 }
 
-void GameNamespace::GameEngine::setAllWormsPos()
+void GameNamespace::GameEngine::setAllWormsPos(unsigned int team)
 {
   for (unsigned int i = 0; i < this->teams.size(); i++)
     {
-      for (unsigned int it = 0; it < this->teams.at(i).getWorm().size(); it++)
+      if (team != i)
 	{
-	  this->allWormsPos.push_back(this->teams.at(i).getWorm().at(it).wormGetPosition());
+	  for (unsigned int it = 0; it < this->teams.at(i).getWorm().size(); it++)
+	    {
+	      this->allWormsPos.push_back(this->teams.at(i).getWorm().at(it).wormGetPosition());
+	    }
 	}
     }
 }

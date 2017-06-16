@@ -134,7 +134,7 @@ namespace	GameNamespace
 
     virtual						~GameEngine();
     virtual EventStatus					launchModel();
-    void 						setAllWormsPos();
+    void 						setAllWormsPos(unsigned int team);
   };
 };
 

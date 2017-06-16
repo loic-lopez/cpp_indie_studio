@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:51:11 2017 Stanislas Deneubourg
-// Last update Fri Jun 16 09:32:19 2017 Stanislas Deneubourg
+// Last update Fri Jun 16 14:33:07 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Team.hpp"
@@ -125,6 +125,16 @@ void    Team::teamRightCollision(std::vector<irr::scene::IMeshSceneNode *> groun
 				 unsigned int player)
 {
   this->teamPlayers.at(player).wormRightCollision(groundObjects);
+}
+
+void    Team::teamJump(unsigned int player, size_t currentSelectedWeapon)
+{
+  this->teamPlayers.at(player).wormJump(currentSelectedWeapon);
+}
+
+void    Team::teamJump(unsigned int player)
+{
+  this->teamPlayers.at(player).wormJump();
 }
 
 bool	Team::playerIsHuman(unsigned int currentPlayer)

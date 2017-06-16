@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Sat Jun  3 17:10:57 2017 Stanislas Deneubourg
-// Last update Thu Jun 15 11:37:23 2017 Stanislas Deneubourg
+// Last update Fri Jun 16 18:51:27 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -237,4 +237,14 @@ const char 	*GameNamespace::GameEngine::genComm(std::string const &which) const
     return (begin[rand()%7]);
   else
     return (deaths[rand()%5]);
+}
+
+void    GameNamespace::GameEngine::jump(size_t currentWeaponSelected)
+{
+  this->teams.at(this->currentTeamIdPlaying).teamJump(this->currentWormIdPlaying, currentWeaponSelected);
+}
+
+void    GameNamespace::GameEngine::jump()
+{
+  this->teams.at(this->currentTeamIdPlaying).teamJump(this->currentWormIdPlaying);
 }

@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:39:05 2017 Stanislas Deneubourg
-// Last update Fri Jun 16 09:18:35 2017 Stanislas Deneubourg
+// Last update Fri Jun 16 16:36:38 2017 Stanislas Deneubourg
 //
 
 #ifndef	WORM_HPP
@@ -69,6 +69,10 @@ private:
   bool					collideLeft;
   bool					collideRight;
   irr::scene::IBillboardTextSceneNode	*infos;
+  irr::f32				jumpConstraintsY;
+  irr::f32				jumpConstraintsX;
+  bool					isJumping;
+  bool					isCollisioning;
 
  public:
   bool 					isDrowned;
@@ -102,6 +106,8 @@ private:
   bool const 				&getWormType() const;
   void					playWormBot(std::vector<irr::scene::IMeshSceneNode *> groundObjects, std::vector<irr::core::vector3df> allWormsPos);
   void 					addInfos(irr::IrrlichtDevice *);
+  void					wormJump(size_t);
+  void					wormJump();
 
 };
 

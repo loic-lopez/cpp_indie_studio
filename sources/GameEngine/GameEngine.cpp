@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 //
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Fri Jun 16 09:47:10 2017 Stanislas Deneubourg
+// Last update Fri Jun 16 17:52:28 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -83,7 +83,7 @@ void	GameNamespace::GameEngine::setBlockProperties(int x, int y)
       this->groundObject->setMaterialFlag(irr::video::EMF_LIGHTING, false);
       this->groundObject->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
       this->smgr->getMeshManipulator()->makePlanarTextureMapping(this->groundObject->getMesh(), 1.0f);
-      this->groundObject->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
+      this->groundObject->getMaterial(0).Shininess = 20.0f;
       irr::f32 minRadius = this->groundObject->getMesh()->getBoundingBox().getExtent().getLength() * 0.70f;
       this->blockSize = minRadius;
       this->theFarthestMapPoint = this->sizeX * minRadius;
@@ -142,6 +142,12 @@ EventStatus GameNamespace::GameEngine::launchModel()
 		  this->leftCollision(this->weaponId);
 		else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
 		  this->rightCollision(this->weaponId);
+		else
+                  {
+                    if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_S))
+                      this->jump(this->weaponId);
+                  }
+		this->teams.at(this->currentTeamIdPlaying).playTeamHuman(this->currentWormIdPlaying, this->weaponId);
 		if (this->teams.at(this->currentTeamIdPlaying).playTeamHuman(this->currentWormIdPlaying,
 									     this->weaponId))
 		  this->teams.erase(this->teams.begin() + this->currentWormIdPlaying);
@@ -152,6 +158,11 @@ EventStatus GameNamespace::GameEngine::launchModel()
 		  this->leftCollision();
 		else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
 		  this->rightCollision();
+		else
+		  {
+		    if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_S))
+		      this->jump();
+		  }
 		this->teams.at(this->currentTeamIdPlaying).playTeamHuman(this->currentWormIdPlaying);
 		this->gravity();
 	      }

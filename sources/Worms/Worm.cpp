@@ -1,11 +1,10 @@
-//
 // Worm.cpp for worm in /home/deneub_s/cpp_indie_studio/sources/Worms
 // 
 // Made by Stanislas Deneubourg
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:43:41 2017 Stanislas Deneubourg
-// Last update Fri Jun 16 09:19:16 2017 Stanislas Deneubourg
+// Last update Fri Jun 16 17:57:16 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Worm.hpp"
@@ -49,6 +48,10 @@ Worm::Worm(int nb, irr::core::vector3df vectorPos,
   this->collideLeft = false;
   this->collideRight = false;
   this->addInfos(device);
+  this->jumpConstraintsY = 0.1f;
+  this->jumpConstraintsX = 0.1f;
+  this->isCollisioning = false;
+  this->isJumping = false;
 }
 
 Worm::~Worm()
@@ -118,3 +121,33 @@ std::string	const &Worm::getWormName() const
   return (this->wormName);
 }
 
+void	Worm::wormJump()
+{
+  if (this->isJumping == false && this->isCollisioning == true)
+    {
+      for (irr::f32 i = 0; i < this->jumpConstraintsY; i = i + 0.001f)
+	{
+	  this->isJumping = true;
+	  this->wormPos.X += i;
+	  this->wormPos.Y += i;
+	  this->wormMesh->setPosition(this->wormPos);
+	}
+      this->isJumping = false;
+    }
+}
+
+void	Worm::wormJump(size_t currentSelectedWeapon)
+{
+  if (this->isJumping == false && this->isCollisioning == true)
+    {
+      for (irr::f32 i = jumpConstraintsY; i >= 0; i = i - 0.001f)
+        {
+          this->isJumping = true;
+          this->wormPos.X += i;
+          this->wormPos.Y += i;
+          this->wormMesh->setPosition(this->wormPos);
+        }
+      this->isJumping = false;
+    }
+  (void) currentSelectedWeapon;
+}

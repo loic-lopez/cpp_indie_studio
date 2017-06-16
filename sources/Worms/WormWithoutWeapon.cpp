@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. juin 15 19:16:29 2017 Loïc Lopez
-// Last update Fri Jun 16 10:09:29 2017 Jade Giangiacomi
+// Last update Fri Jun 16 16:38:16 2017 Stanislas Deneubourg
 */
 
 #include "Worms/Worm.hpp"
@@ -116,12 +116,16 @@ void 	Worm::wormGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects)
 	  && (this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y - 0.8)
 	  && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X - 2.3)
 	  && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X + 2.3))
-	collision = 1;
+	{
+	  collision = 1;
+	  this->isCollisioning = true;
+	}
     }
   if (collision == 0)
     {
       this->wormPos.Y -= WORM_MOVEMENT_SPEED;
       this->wormMesh->setPosition(this->wormPos);
       this->infos->setPosition(irr::core::vector3df(this->wormPos.X, this->wormPos.Y + 5.0f, this->wormPos.Z - 1.75f));
+      this->isCollisioning = false;
     }
 }

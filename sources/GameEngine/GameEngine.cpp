@@ -104,6 +104,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
   EventStatus 		eventStatusInventory = EventStatus::STAND_BY;
   InventoryButton 	lastWeaponSelected = InventoryButton::IN_STAND_BY;
   irr::s32		lastFPS = -1;
+  bool 			isHuman;
 
   this->menuInGame->setModelProperties(); // Set des propriétés du menu ingame
   this->inventoryModel->setModelProperties();
@@ -124,10 +125,11 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->device->setWindowCaption(caption.c_str());
 	    lastFPS = fps;
 	  }
+	isHuman = this->teams.at(this->currentTeamIdPlaying).playerIsHuman(this->currentWormIdPlaying);
 
 	this->cameraMovements();
 
-	if (this->teams.at(this->currentTeamIdPlaying).playerIsHuman(this->currentWormIdPlaying))
+	if (isHuman)
 	  {
 	    if(this->weaponIsSelected)
 	      {
@@ -205,14 +207,16 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	this->smgr->drawAll();
 	this->triggerTimer();
 	if (eventStatusInventory != EventStatus::INVENTORY
-	    && eventStatusMenu != EventStatus::IN_GAME_MENU && this->eventReceiver.IsKeyUp(irr::KEY_KEY_I) && !alreadyInMenu)
+	    && eventStatusMenu != EventStatus::IN_GAME_MENU && this->eventReceiver.IsKeyUp(irr::KEY_KEY_I) &&
+		!alreadyInMenu && isHuman)
 	  {
 	    this->inventoryModel->showTabCtrl();
 	    eventStatusInventory = EventStatus::INVENTORY;
 	    alreadyInMenu = true;
 	  }
 	else if (eventStatusMenu != EventStatus::IN_GAME_MENU
-	    && eventStatusInventory != EventStatus::INVENTORY && this->eventReceiver.IsKeyUp(irr::KEY_ESCAPE) && !alreadyInMenu)
+	    && eventStatusInventory != EventStatus::INVENTORY && this->eventReceiver.IsKeyUp(irr::KEY_ESCAPE) &&
+		  !alreadyInMenu)
 	  {
 	    eventStatusMenu = EventStatus::IN_GAME_MENU;
 	    this->menuInGame->showTabCtrl();

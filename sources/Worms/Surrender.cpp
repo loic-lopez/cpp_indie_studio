@@ -27,7 +27,8 @@ bool	Surrender::fire()
   if (!this->fired)
     {
       this->fired = true;
-      return (true);
+      this->soundEngine->play2D("ressources/sounds/Surrender.wav");
+      return (false);
     }
   return (false);
 }

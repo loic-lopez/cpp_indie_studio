@@ -38,6 +38,7 @@ public:
        std::vector<irr::core::vector3df>,
        std::string const &, bool, irr::IrrlichtDevice *device,
        irrklang::ISoundEngine *soundEngine, EventReceiver &eventReceiver);
+  Team	&operator=(Team const &);
   ~Team();
   double		teamTimerRollback(unsigned int, std::time_t);
   void			teamMoveLeft(unsigned int, size_t selectedWeapon);
@@ -57,7 +58,7 @@ public:
   void    		teamRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects, unsigned int player);
   bool 			playerIsHuman(unsigned int currentPlayer);
   void 			playTeamHuman(unsigned int currentPlayer);
-  void 			playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon);
+  bool 			playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon);
   void 			playTeamBot(unsigned int currentPlayer, std::vector<irr::scene::IMeshSceneNode *> groundObjects,  std::vector<irr::core::vector3df> allWormsPos);
   void 			deleteWormWeapon(size_t currentPlayer, size_t selectedWeapon);
   const unsigned int	getAliveTeamPlayers();

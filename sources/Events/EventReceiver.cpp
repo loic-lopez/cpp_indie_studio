@@ -434,12 +434,49 @@ void EventReceiver::setWeaponsButtons(irr::gui::IGUITabControl *tabctrl)
     }
 }
 
-void EventReceiver::setWeaponId(size_t *weaponid)
+void	EventReceiver::setWeaponId(size_t *weaponid)
 {
   this->idWeapon = weaponid;
 }
 
-void EventReceiver::setweaponIsSelected(bool *isSelected)
+void	EventReceiver::setweaponIsSelected(bool *isSelected)
 {
   this->weaponIsSelected = isSelected;
+}
+
+EventReceiver	&EventReceiver::operator=(EventReceiver const &eventReceiver)
+{
+  if (this != &eventReceiver)
+    {
+      for (int i = 0; i < irr::KEY_KEY_CODES_COUNT; ++i)
+	this->KeyIsDown[i] = eventReceiver.KeyIsDown[i];
+      for (int i = 0; i < irr::KEY_KEY_CODES_COUNT; ++i)
+	this->KeyIsUp[i] = eventReceiver.KeyIsUp[i];
+      this->playMainSound = eventReceiver.playMainSound;
+      this->guienv = eventReceiver.guienv;
+      this->driver = eventReceiver.driver;
+      this->device = eventReceiver.device;
+      this->soundEngine = eventReceiver.soundEngine;
+      this->backToGameButton = eventReceiver.backToGameButton;
+      this->uziButton = eventReceiver.uziButton;
+      this->shotgunButton = eventReceiver.shotgunButton;
+      this->surrenderButton = eventReceiver.surrenderButton;
+      this->saintBombButton = eventReceiver.saintBombButton;
+      this->cordeButton = eventReceiver.cordeButton;
+      this->issouButton = eventReceiver.issouButton;
+      this->saveCurrentGameButton = eventReceiver.saveCurrentGameButton;
+      this->soundOptionButton = eventReceiver.soundOptionButton;
+      this->backToMenuButton = eventReceiver.backToMenuButton;
+      this->exitGameButton = eventReceiver.exitGameButton;
+      this->soundCheckboxButton = eventReceiver.soundCheckboxButton;
+      this->soundCheckboxCheckedButton = eventReceiver.soundCheckboxCheckedButton;
+      this->soundCheckboxNotCheckedButton = eventReceiver.soundCheckboxNotCheckedButton;
+      this->isSoundCheckboxChecked = eventReceiver.isSoundCheckboxChecked;
+      this->backButton = eventReceiver.backButton;
+      this->mainSound = eventReceiver.mainSound;
+      this->eventStatus = eventReceiver.eventStatus;
+      this->idWeapon = eventReceiver.idWeapon;
+      this->weaponIsSelected = eventReceiver.weaponIsSelected;
+    }
+  return *this;
 }

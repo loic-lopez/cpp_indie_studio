@@ -125,11 +125,14 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->device->setWindowCaption(caption.c_str());
 	    lastFPS = fps;
 	  }
+
+	if (this->teams.size() == 1 && !this->soundEngine->isCurrentlyPlaying("ressources/sounds/Surrender.wav"))
+	  {
+	    eventStatusMenu = EventStatus::BACK_TO_MENU;
+	    break;
+	  }
 	isHuman = this->teams.at(this->currentTeamIdPlaying).playerIsHuman(this->currentWormIdPlaying);
-
 	this->cameraMovements();
-
-	this->setAllWormsPos(this->currentTeamIdPlaying);
 	if (isHuman)
 	  {
 	    if(this->weaponIsSelected)
@@ -139,7 +142,9 @@ EventStatus GameNamespace::GameEngine::launchModel()
 		  this->leftCollision(this->weaponId);
 		else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_D))
 		  this->rightCollision(this->weaponId);
-		this->teams.at(this->currentTeamIdPlaying).playTeamHuman(this->currentWormIdPlaying, this->weaponId);
+		if (this->teams.at(this->currentTeamIdPlaying).playTeamHuman(this->currentWormIdPlaying,
+									     this->weaponId))
+		  this->teams.erase(this->teams.begin() + this->currentWormIdPlaying - 1);
 	      }
 	    else
 	      {
@@ -156,7 +161,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->gravity();
 	    this->teams.at(this->currentTeamIdPlaying).playTeamBot(this->currentWormIdPlaying, this->groundObjects, this->allWormsPos);
 	  }
-	this->allWormsPos.clear();
+	this->setAllWormsPos(this->currentTeamIdPlaying);
 	// BOUCLE DE JEU
 
 	if (!this->gameStart)
@@ -302,7 +307,7 @@ GameNamespace::GameMap::GameMap(int x, int y)
   this->y = y;
 }
 
-void GameNamespace::GameEngine::setAllWormsPos(unsigned int team)
+void	GameNamespace::GameEngine::setAllWormsPos(unsigned int team)
 {
   for (unsigned int i = 0; i < this->teams.size(); i++)
     {

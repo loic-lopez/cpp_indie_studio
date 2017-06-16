@@ -145,7 +145,7 @@ void	Team::playTeamBot(unsigned int currentPlayer, std::vector<irr::scene::IMesh
   this->teamPlayers.at(currentPlayer).playWormBot(groundObjects, allWormsPos);
 }
 
-void	Team::playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon)
+bool	Team::playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon)
 {
   if (selectedWeapon == InventoryButton::UZI - 20)
     {
@@ -160,6 +160,8 @@ void	Team::playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon)
       if (this->eventReceiver.IsKeyUp(irr::KEY_SPACE))
 	{
 	  canFire = this->teamFire(currentPlayer, selectedWeapon);
+	  if (selectedWeapon == InventoryButton::SURRENDER - 20)
+	    return true;
 	  displayBullet = true;
 	}
     }
@@ -169,6 +171,7 @@ void	Team::playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon)
     this->teamResetAnimationSpeed(currentPlayer);
   if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_D))
     this->teamResetAnimationSpeed(currentPlayer);
+  return false;
 }
 
 const unsigned int	Team::getAliveTeamPlayers()
@@ -199,4 +202,18 @@ std::string	const &Team::getWormName(unsigned int currentPlayer) const
 std::vector<Worm> Team::getWorm()
 {
   return (this->teamPlayers);
+}
+
+Team	&Team::operator=(Team const &team)
+{
+  if (this != &team)
+    {
+      this->teamPlayers = team.teamPlayers;
+      this->teamName = team.teamName;
+      this->players = team.players;
+      this->canFire = team.canFire;
+      this->displayBullet = team.displayBullet;
+      this->humanWormsRelativePos = team.humanWormsRelativePos;
+    }
+  return (*this);
 }

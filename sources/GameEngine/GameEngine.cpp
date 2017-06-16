@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 //
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Fri Jun 16 09:17:58 2017 Stanislas Deneubourg
+// Last update Fri Jun 16 09:47:10 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -153,7 +153,6 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->teams.at(this->currentTeamIdPlaying).playTeamBot(this->currentWormIdPlaying, this->gameMap);
 	  }
 
-
 	// BOUCLE DE JEU
 
 	if (!this->gameStart)
@@ -161,6 +160,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->soundEngine->play2D("ressources/sounds/StartRound.wav");
 	    this->turnStart = std::time(nullptr); // Set du timer a chaque tour
 	    this->gameStart = true;
+	    std::cout << "TEAM N° " << this->currentTeamIdPlaying << ", TURN OF WORM N° " << this->currentWormIdPlaying << " (" << this->teams.at(this->currentTeamIdPlaying).playerIsHuman(this->currentWormIdPlaying) << ")" << std::endl;
 	  }
 
 	this->turnNow = this->teams.at(this->currentTeamIdPlaying).teamTimerRollback(this->currentWormIdPlaying, this->turnStart); // Revoie le temps écoulé depuis le début du tour
@@ -180,12 +180,13 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	// Si le temps est écoulé, au joueur suivant de jouer
 	if (this->turnTimeLeft < 0)
 	  {
-	    if (this->currentTeamIdPlaying < this->numberOfTeams - 1)
+	    this->teams.at(this->currentTeamIdPlaying).teamResetAnimationSpeed(this->currentWormIdPlaying);
+	    if (this->currentTeamIdPlaying < this->teams.size() - 1)
 	      this->currentTeamIdPlaying++;
 	    else
 	      {
 		this->currentTeamIdPlaying = 0;
-		if (this->currentWormIdPlaying < this->wormsPerTeam - 1)
+		if (this->currentWormIdPlaying < this->teams.at(this->currentTeamIdPlaying).getAliveTeamPlayers() - 1)
 		  this->currentWormIdPlaying++;
 		else
 		  this->currentWormIdPlaying = 0;

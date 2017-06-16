@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:51:11 2017 Stanislas Deneubourg
-// Last update Fri Jun 16 09:18:57 2017 Stanislas Deneubourg
+// Last update Fri Jun 16 09:32:19 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Team.hpp"
@@ -169,4 +169,9 @@ void	Team::playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon)
     this->teamResetAnimationSpeed(currentPlayer);
   if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_D))
     this->teamResetAnimationSpeed(currentPlayer);
+}
+
+const unsigned int	Team::getAliveTeamPlayers()
+{
+  return (this->teamPlayers.size());
 }

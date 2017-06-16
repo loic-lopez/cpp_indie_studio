@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:50:07 2017 Stanislas Deneubourg
-// Last update Fri Jun 16 09:18:20 2017 Stanislas Deneubourg
+// Last update Fri Jun 16 09:31:59 2017 Stanislas Deneubourg
 //
 
 #ifndef TEAM_HPP
@@ -60,6 +60,7 @@ public:
   void 			playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon);
   void 			playTeamBot(unsigned int currentPlayer, std::vector<GameNamespace::GameMap> const &gameMap);
   void 			deleteWormWeapon(size_t currentPlayer, size_t selectedWeapon);
+  const unsigned int	getAliveTeamPlayers();
 };
 
 #endif

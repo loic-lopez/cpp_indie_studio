@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:43:41 2017 Stanislas Deneubourg
-// Last update Thu Jun 15 18:09:25 2017 Stanislas Deneubourg
+// Last update Fri Jun 16 09:19:16 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Worm.hpp"
@@ -85,7 +85,7 @@ unsigned int Worm::getDamageReceived()
   return (this->damageReceived);
 }
 
-double	Worm::turnOfThatWorm(std::time_t turn_start)
+double	Worm::wormTimerRollback(std::time_t turn_start)
 {
   std::time_t	end = std::time(nullptr);
   this->totalTime = std::difftime(end, turn_start);
@@ -111,3 +111,4 @@ bool const 	&Worm::getWormType() const
 {
   return reinterpret_cast<const bool &>(this->wormType);
 }
+

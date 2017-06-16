@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 //
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Thu Jun 15 11:36:42 2017 Stanislas Deneubourg
+// Last update Fri Jun 16 09:17:58 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -163,7 +163,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->gameStart = true;
 	  }
 
-	this->turnNow = this->teams.at(this->currentTeamIdPlaying).turnOfThatTeam(this->currentWormIdPlaying, this->turnStart); // Revoie le temps écoulé depuis le début du tour
+	this->turnNow = this->teams.at(this->currentTeamIdPlaying).teamTimerRollback(this->currentWormIdPlaying, this->turnStart); // Revoie le temps écoulé depuis le début du tour
 
 	// Bloquage du timer en cas de pause
 	if (!this->isGamePaused)
@@ -175,7 +175,6 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	else if (this->isGamePaused)
 	    {
 	      this->turnTimeLeft = this->timeBeforePause;
-	      //	    this->timeBeforeSuddenDeath = 600;
 	    }
 
 	// Si le temps est écoulé, au joueur suivant de jouer

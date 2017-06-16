@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:51:11 2017 Stanislas Deneubourg
-// Last update Thu Jun 15 16:59:11 2017 Jade Giangiacomi
+// Last update Fri Jun 16 09:18:57 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Team.hpp"
@@ -29,9 +29,9 @@ Team::~Team()
 {
 }
 
-double	Team::turnOfThatTeam(unsigned currentPlayer, std::time_t turnStart)
+double	Team::teamTimerRollback(unsigned currentPlayer, std::time_t turnStart)
 {
-  return (this->teamPlayers.at(currentPlayer).turnOfThatWorm(turnStart));
+  return (this->teamPlayers.at(currentPlayer).wormTimerRollback(turnStart));
 }
 
 void	Team::teamMoveLeft(unsigned currentPlayer, size_t selectedWeapon)

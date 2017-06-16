@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:50:07 2017 Stanislas Deneubourg
-// Last update Thu Jun 15 11:33:11 2017 Stanislas Deneubourg
+// Last update Fri Jun 16 09:18:20 2017 Stanislas Deneubourg
 //
 
 #ifndef TEAM_HPP
@@ -39,7 +39,7 @@ public:
        std::string const &, bool, irr::IrrlichtDevice *device,
        irrklang::ISoundEngine *soundEngine, EventReceiver &eventReceiver);
   ~Team();
-  double		turnOfThatTeam(unsigned int, std::time_t);
+  double		teamTimerRollback(unsigned int, std::time_t);
   void			teamMoveLeft(unsigned int, size_t selectedWeapon);
   void			teamMoveRight(unsigned int, size_t selectedWeapon);
   bool			teamFire(size_t, size_t selectedWeapon);

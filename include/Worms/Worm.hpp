@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:39:05 2017 Stanislas Deneubourg
-// Last update Thu Jun 15 12:15:31 2017 Stanislas Deneubourg
+// Last update Fri Jun 16 09:18:35 2017 Stanislas Deneubourg
 //
 
 #ifndef	WORM_HPP
@@ -83,7 +83,7 @@ private:
   void					setHealthPoints(int);
   unsigned int				getDamageDealt();
   unsigned int				getDamageReceived();
-  double				turnOfThatWorm(std::time_t);
+  double				wormTimerRollback(std::time_t);
   void					wormResetAnimationSpeed();
   void					wormMoveLeft(size_t const &currentSelectedWeapon);
   void					wormMoveRight(size_t const &currentSelectedWeapon);

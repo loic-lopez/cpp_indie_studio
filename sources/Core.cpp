@@ -150,6 +150,7 @@ void						Core::launchMenu()
     {
       Menu->setModelProperties();
       this->eventStatus = Menu->launchModel();
+      this->device->setEventReceiver(nullptr);
     }
 }
 

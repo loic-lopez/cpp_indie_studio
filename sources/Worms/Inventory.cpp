@@ -18,6 +18,7 @@ Inventory::Inventory(irr::IrrlichtDevice *device,
   this->weaponsInInventory.emplace_back(reinterpret_cast<IWeapon *>(new Uzi(device, soundEngine)));
   this->weaponsInInventory.emplace_back(reinterpret_cast<IWeapon *>(new Shotgun(device, soundEngine)));
   this->weaponsInInventory.emplace_back(reinterpret_cast<IWeapon *>(new Surrender(device, soundEngine)));
+  this->weaponsInInventory.emplace_back(reinterpret_cast<IWeapon *>(new HolyHandGrenade(device, soundEngine)));
 }
 
 Inventory::~Inventory()

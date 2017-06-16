@@ -1,0 +1,26 @@
+# Blender MTL File: 'Holy Hand Grenade.blend'
+# Material Count: 2
+
+newmtl RefRep.250_Ball.png
+Ns 92.156863
+Ka 1.000000 1.000000 1.000000
+Kd 0.512000 0.512000 0.512000
+Ks 0.250000 0.250000 0.250000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Textures/Cross.png
+map_Tr Textures/Ball.png
+
+newmtl RefRep.252_Cross.png
+Ns 92.156863
+Ka 1.000000 1.000000 1.000000
+Kd 0.512000 0.512000 0.512000
+Ks 0.250000 0.250000 0.250000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Textures/Cross.png
+map_Tr Textures/Cross.png

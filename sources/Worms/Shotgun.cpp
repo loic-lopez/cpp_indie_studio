@@ -31,17 +31,17 @@ bool	Shotgun::fire()
 {
   if (this->chargerNumber > 0)
     {
-	  if (this->shotgunSceneNode != nullptr)
-	  {
-		  irr::core::vector3df	position = this->shotgunSceneNode->getPosition();
-		  irr::core::vector3df	rotation = this->shotgunSceneNode->getRotation();
-		  this->soundEngine->play2D("ressources/sounds/Shotgun.wav");
-		  for (size_t i = 0; i < SHOTGUN_BULLETS_PER_CHARGER; i++)
-			  this->firedBullets.emplace_back(position, rotation, this->device, this->shotgunBox);
-		  this->chargerNumber--;
-		  std::cout << "FIRE SHOTGUN" << std::endl;
-		  return (true);
-	  }
+      if (this->shotgunSceneNode != nullptr)
+	{
+	  irr::core::vector3df	position = this->shotgunSceneNode->getPosition();
+	  irr::core::vector3df	rotation = this->shotgunSceneNode->getRotation();
+	  this->soundEngine->play2D("ressources/sounds/Shotgun.wav");
+	  for (size_t i = 0; i < SHOTGUN_BULLETS_PER_CHARGER; i++)
+	    this->firedBullets.emplace_back(position, rotation, this->device, this->shotgunBox);
+	  this->chargerNumber--;
+	  std::cout << "FIRE SHOTGUN" << std::endl;
+	  return (true);
+	}
     }
   std::cout << "NO MORE " << std::endl;
   return (false);

@@ -303,4 +303,11 @@ GameNamespace::GameMap::GameMap(int x, int y)
 
 void GameNamespace::GameEngine::setAllWormsPos()
 {
+  for (unsigned int i = 0; i < this->teams.size(); i++)
+    {
+      for (unsigned int it = 0; it < this->teams.at(i).getWorm().size(); it++)
+	{
+	  this->allWormsPos.push_back(this->teams.at(i).getWorm().at(it).wormGetPosition());
+	}
+    }
 }

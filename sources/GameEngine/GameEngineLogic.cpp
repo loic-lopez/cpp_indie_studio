@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Sat Jun  3 17:10:57 2017 Stanislas Deneubourg
-// Last update Fri Jun 16 18:51:27 2017 Stanislas Deneubourg
+// Last update Sat Jun 17 10:20:21 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -229,14 +229,17 @@ void    GameNamespace::GameEngine::rightCollision()
 const char 	*GameNamespace::GameEngine::genComm(std::string const &which) const
 {
   const char 	*begin[7] = {"va dechirer", "se prepare a faire mal", "comment vas-tu ?", "c'est a toi de jouer !",
-				  "se chauffe", "a mange du lion ce matin...", "a une bonne tete de vainqueur"};
+			     "se chauffe", "a mange du lion ce matin...", "a une bonne tete de vainqueur"};
   const char 	*deaths[5] = {"n'aura pas fait long feu", "va nourrir les vers...", "s'est eteint trop tot",
-				  "n'apprecie guere le plomb", "tu resteras a jamais dans nos coeurs"};
+			      "n'apprecie guere le plomb", "tu resteras a jamais dans nos coeurs"};
+  const char	*drown[3] = {"va nourrir les poissons !", "a fini comme appat de peche !", "voulait devenir une sirene..."};
 
   if (which == "begin")
-    return (begin[rand()%7]);
+    return (begin[std::rand()%7]);
+  else if (which == "deaths")
+    return (deaths[std::rand()%5]);
   else
-    return (deaths[rand()%5]);
+    return (drown[std::rand()%3]);
 }
 
 void    GameNamespace::GameEngine::jump(size_t currentWeaponSelected)

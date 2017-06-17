@@ -5,7 +5,7 @@
 // Login   <dupil_l@epitech.net>
 // 
 // Started on  Wed May  3 13:51:01 2017 Loïc Dupil
-// Last update Wed Jun 14 21:03:20 2017 Stanislas Deneubourg
+// Last update Fri Jun 16 21:03:38 2017 Stanislas Deneubourg
 //
 
 #include "Core.hpp"
@@ -176,7 +176,7 @@ void						Core::launchGame()
 void						Core::launch()
 {
   // TODO: REMOVE COMMENT !
-  // this->launchSplashScreen();
+  this->launchSplashScreen();
   while(device->run())
     {
       if (this->eventStatus == EventStatus::QUIT)

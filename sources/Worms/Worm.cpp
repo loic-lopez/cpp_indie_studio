@@ -4,7 +4,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:43:41 2017 Stanislas Deneubourg
-// Last update Fri Jun 16 17:57:16 2017 Stanislas Deneubourg
+// Last update Sat Jun 17 10:19:39 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Worm.hpp"
@@ -15,8 +15,7 @@ Worm::Worm(int nb, irr::core::vector3df vectorPos,
 {
   int	dir = std::rand() % 3;
   this->isDrowned = false;
-  this->wormName = "Player ";
-  this->wormName += std::to_string(nb);
+  this->wormName = this->genName();
   this->healthPoints = 100;
   this->damageReceived = 0;
   this->damageDealt = 0;
@@ -150,4 +149,12 @@ void	Worm::wormJump(size_t currentSelectedWeapon)
       this->isJumping = false;
     }
   (void) currentSelectedWeapon;
+}
+
+const char      *Worm::genName() const
+{
+  const char    *names[17] = {"Ver-nissage", "A-ver-se", "Ver-mifuge", "Ver-tical", "Ver-tige", "Ver-tebre", "Ver-t", "Ver-so", "Ver-satile", "Ver-ger",
+			      "Ver-dir", "Ver-rouiller", "Ver-sion", "Ver-mine", "Ver-rine", "Ver-glas", "Uni-ver"};
+
+  return (names[std::rand()%17]);
 }

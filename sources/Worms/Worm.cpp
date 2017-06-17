@@ -4,7 +4,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:43:41 2017 Stanislas Deneubourg
-// Last update Sat Jun 17 10:19:39 2017 Stanislas Deneubourg
+// Last update Sat Jun 17 10:51:47 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Worm.hpp"
@@ -122,32 +122,67 @@ std::string	const &Worm::getWormName() const
 
 void	Worm::wormJump()
 {
-  if (this->isJumping == false && this->isCollisioning == true)
+  if (this->lookingDirection == Worm::LookingDirection::RIGHT)
     {
-      for (irr::f32 i = 0; i < this->jumpConstraintsY; i = i + 0.001f)
-	{
-	  this->isJumping = true;
-	  this->wormPos.X += i;
-	  this->wormPos.Y += i;
-	  this->wormMesh->setPosition(this->wormPos);
-	}
-      this->isJumping = false;
+      if (this->isJumping == false && this->isCollisioning == true)
+        {
+          for (irr::f32 i = jumpConstraintsY; i >= 0; i = i - 0.001f)
+            {
+              this->isJumping = true;
+              this->wormPos.X += i;
+              this->wormPos.Y += i;
+              this->wormMesh->setPosition(this->wormPos);
+            }
+          this->isJumping = false;
+        }
+    }
+  else if (this->lookingDirection == Worm::LookingDirection::LEFT)
+    {
+      if (this->isJumping == false && this->isCollisioning == true)
+        {
+          for (irr::f32 i = -jumpConstraintsY; i <= 0; i = i + 0.001f)
+            {
+              this->isJumping = true;
+              this->wormPos.X += i;
+              this->wormPos.Y -= i;
+              this->wormMesh->setPosition(this->wormPos);
+            }
+          this->isJumping = false;
+        }
     }
 }
 
 void	Worm::wormJump(size_t currentSelectedWeapon)
 {
-  if (this->isJumping == false && this->isCollisioning == true)
+  if (this->lookingDirection == Worm::LookingDirection::RIGHT)
     {
-      for (irr::f32 i = jumpConstraintsY; i >= 0; i = i - 0.001f)
-        {
-          this->isJumping = true;
-          this->wormPos.X += i;
-          this->wormPos.Y += i;
-          this->wormMesh->setPosition(this->wormPos);
-        }
-      this->isJumping = false;
+      if (this->isJumping == false && this->isCollisioning == true)
+	{
+	  for (irr::f32 i = jumpConstraintsY; i >= 0; i = i - 0.001f)
+	    {
+	      this->isJumping = true;
+	      this->wormPos.X += i;
+	      this->wormPos.Y += i;
+	      this->wormMesh->setPosition(this->wormPos);
+	    }
+	  this->isJumping = false;
+	}
     }
+  else if (this->lookingDirection == Worm::LookingDirection::LEFT)
+    {
+      if (this->isJumping == false && this->isCollisioning == true)
+        {
+          for (irr::f32 i = -jumpConstraintsY; i <= 0; i = i + 0.001f)
+            {
+              this->isJumping = true;
+              this->wormPos.X += i;
+              this->wormPos.Y += i;
+              this->wormMesh->setPosition(this->wormPos);
+            }
+          this->isJumping = false;
+        }
+    }
+
   (void) currentSelectedWeapon;
 }
 

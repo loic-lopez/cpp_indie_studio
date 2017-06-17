@@ -20,7 +20,7 @@ Team::Team(unsigned int players_, unsigned int teamNb,
   this->teamName = "Humans ";
   this->teamName += std::to_string(teamNb);
   for (unsigned int i = 0; i < this->players; i++)
-    this->teamPlayers.emplace_back(Worm(i, vectorPos.at(i), device, wormFile, isBot, soundEngine));
+    this->teamPlayers.emplace_back(Worm(i, vectorPos.at(i), device, wormFile, isBot, soundEngine, this->teamColor));
   this->canFire = true;
   this->displayBullet = false;
 }
@@ -226,4 +226,14 @@ Team	&Team::operator=(Team const &team)
       this->humanWormsRelativePos = team.humanWormsRelativePos;
     }
   return (*this);
+}
+
+irr::video::SColor	Team::getTeamColor() const
+{
+  return (this->teamColor);
+}
+
+void 	Team::setTeamColor(irr::video::SColor teamColor)
+{
+  this->teamColor = teamColor;
 }

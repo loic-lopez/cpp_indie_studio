@@ -251,3 +251,14 @@ void    GameNamespace::GameEngine::jump()
 {
   this->teams.at(this->currentTeamIdPlaying).teamJump(this->currentWormIdPlaying);
 }
+
+irr::video::SColor	GameNamespace::GameEngine::genTeamColor(unsigned int i)
+{
+  irr::video::SColor	colors[] =
+	  {
+		  irr::video::SColor(255, 255, 0, 255), irr::video::SColor(255, 0, 255, 255), irr::video::SColor(255, 255, 255, 0), irr::video::SColor(255, 255, 255, 255),
+		  irr::video::SColor(255, 255, 255/2, 255), irr::video::SColor(255, 255/2, 255, 255), irr::video::SColor(255, 255, 255, 255/2), irr::video::SColor(255, 255/2, 255/2, 255/2)
+	  };
+
+  return (colors[i]);
+}

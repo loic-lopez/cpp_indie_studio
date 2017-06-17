@@ -128,6 +128,7 @@ namespace	GameNamespace
     virtual 	const char				*genComm(std::string const &) const ;
     virtual	void					jump(size_t);
     virtual	void					jump();
+    virtual 	irr::video::SColor 			genTeamColor(unsigned int);
 
    public:
 

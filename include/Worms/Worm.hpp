@@ -73,6 +73,7 @@ private:
   irr::f32				jumpConstraintsX;
   bool					isJumping;
   bool					isCollisioning;
+  irr::video::SColor			teamColor;
 
  public:
   bool 					isDrowned;
@@ -80,7 +81,7 @@ private:
   Inventory             		inventory;
   Worm(int, irr::core::vector3df,
        irr::IrrlichtDevice *, std::string const &,
-       bool, irrklang::ISoundEngine *soundEngine);
+       bool, irrklang::ISoundEngine *soundEngine, irr::video::SColor teamColor);
   ~Worm();
   int					getHealthPoints() const;
   void					setHealthPoints(int);

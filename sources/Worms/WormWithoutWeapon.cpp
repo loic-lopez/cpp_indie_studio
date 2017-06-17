@@ -104,7 +104,7 @@ void 	Worm::addInfos(irr::IrrlichtDevice *device)
 
   this->infos = smgr->addBillboardTextSceneNode(font, name.c_str(), 0,
 						irr::core::dimension2d<irr::f32>(3.5f, 1.25f), irr::core::vector3df(this->wormPos.X, this->wormPos.Y + 5.0f, this->wormPos.Z - 1.75f),
-						-1, irr::video::SColor(0xFF00FF00), irr::video::SColor (0xFF00FF00));
+						-1, this->teamColor, this->teamColor);
 }
 
 void 	Worm::wormGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects)

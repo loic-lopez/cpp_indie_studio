@@ -32,6 +32,7 @@ protected:
   bool 					canFire;
   bool 					displayBullet;
   std::vector<irr::core::vector3df>	humanWormsRelativePos;
+  irr::video::SColor			teamColor;
   
 public:
   Team(unsigned int, unsigned int,
@@ -69,6 +70,8 @@ public:
   void 			setWormIsDrowned(unsigned int currentPlayer, bool isDrowned);
   std::string		const &getWormName(unsigned int) const;
   std::vector<Worm>	getWorm();
+  irr::video::SColor	getTeamColor() const;
+  void 			setTeamColor(irr::video::SColor);
 };
 
 #endif

@@ -160,6 +160,7 @@ void	GameNamespace::GameEngine::teamsGen()
 	  humanTeamsLeftToEmplace--;
 	  totalTeamsLeftToEmplace--;
 	}
+      this->teams.at(i).setTeamColor(this->genTeamColor(i));
       this->wormsRelativePos.clear();
     }
 }

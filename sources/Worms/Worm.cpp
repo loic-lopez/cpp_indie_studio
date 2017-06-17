@@ -11,7 +11,7 @@
 
 Worm::Worm(int nb, irr::core::vector3df vectorPos,
 	   irr::IrrlichtDevice *device, std::string const &wormFile,
-	   bool	isBot, irrklang::ISoundEngine *soundEngine) : inventory(device, soundEngine)
+	   bool	isBot, irrklang::ISoundEngine *soundEngine, irr::video::SColor teamColor) : inventory(device, soundEngine)
 {
   int	dir = std::rand() % 3;
   this->isDrowned = false;
@@ -51,6 +51,7 @@ Worm::Worm(int nb, irr::core::vector3df vectorPos,
   this->jumpConstraintsX = 0.1f;
   this->isCollisioning = false;
   this->isJumping = false;
+  this->teamColor = teamColor;
 }
 
 Worm::~Worm()

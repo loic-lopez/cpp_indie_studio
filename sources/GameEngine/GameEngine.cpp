@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 //
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Fri Jun 16 17:52:28 2017 Stanislas Deneubourg
+// Last update Sat Jun 17 13:42:22 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -146,6 +146,13 @@ EventStatus GameNamespace::GameEngine::launchModel()
                   {
                     if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_S))
                       this->jump(this->weaponId);
+		    // else if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_A))
+		    //   this->increaseWeaponAngling();
+		    // else
+		    //   {
+		    // 	if (this->eventReceiver.IsKeyDown(irr::KEY_KEY_E))
+		    // 	  this->decreaseWeaponAngling();
+		    //   }
                   }
 		this->teams.at(this->currentTeamIdPlaying).playTeamHuman(this->currentWormIdPlaying, this->weaponId);
 		if (this->teams.at(this->currentTeamIdPlaying).playTeamHuman(this->currentWormIdPlaying,

@@ -154,7 +154,6 @@ EventStatus GameNamespace::GameEngine::launchModel()
 		    // 	  this->decreaseWeaponAngling();
 		    //   }
                   }
-		this->teams.at(this->currentTeamIdPlaying).playTeamHuman(this->currentWormIdPlaying, this->weaponId);
 		if (this->teams.at(this->currentTeamIdPlaying).playTeamHuman(this->currentWormIdPlaying,
 									     this->weaponId))
 		  this->teams.erase(this->teams.begin() + this->currentWormIdPlaying);

@@ -166,7 +166,7 @@ bool	MenuEvent::OnEvent(const irr::SEvent &event)
 		  {
 		    if (*this->NbrHumanTeams + *this->NbrBotTeams < *this->NbrTeams)
 		      *this->NbrHumanTeams += 1;
-		    else if (*this->NbrHumanTeams + *this->NbrBotTeams == *this->NbrTeams && *this->NbrBotTeams > 1)
+		    else if (*this->NbrHumanTeams + *this->NbrBotTeams == *this->NbrTeams && *this->NbrBotTeams > 0)
 		      {
 			*this->NbrHumanTeams += 1;
 			*this->NbrBotTeams -= 1;
@@ -178,7 +178,7 @@ bool	MenuEvent::OnEvent(const irr::SEvent &event)
 		  {
 		    if (*this->NbrHumanTeams + *this->NbrBotTeams > *this->NbrTeams)
 		      *this->NbrHumanTeams -= 1;
-		    else if (*this->NbrHumanTeams + *this->NbrBotTeams == *this->NbrTeams && *this->NbrHumanTeams > 1)
+		    else if (*this->NbrHumanTeams + *this->NbrBotTeams == *this->NbrTeams && *this->NbrHumanTeams > 0)
 		      {
 			*this->NbrHumanTeams -= 1;
 			*this->NbrBotTeams += 1;
@@ -190,7 +190,7 @@ bool	MenuEvent::OnEvent(const irr::SEvent &event)
 		  {
 		    if (*this->NbrHumanTeams + *this->NbrBotTeams < *this->NbrTeams)
 		      *this->NbrBotTeams += 1;
-		    else if (*this->NbrHumanTeams + *this->NbrBotTeams == *this->NbrTeams && *this->NbrHumanTeams > 1)
+		    else if (*this->NbrHumanTeams + *this->NbrBotTeams == *this->NbrTeams && *this->NbrHumanTeams > 0)
 		      {
 			*this->NbrHumanTeams -= 1;
 			*this->NbrBotTeams += 1;
@@ -204,7 +204,7 @@ bool	MenuEvent::OnEvent(const irr::SEvent &event)
 		      {
 			*this->NbrBotTeams -= 1;
 		      }
-		    else if (*this->NbrHumanTeams + *this->NbrBotTeams == *this->NbrTeams && *this->NbrBotTeams > 1)
+		    else if (*this->NbrHumanTeams + *this->NbrBotTeams == *this->NbrTeams && *this->NbrBotTeams > 0)
 		      {
 			  *this->NbrBotTeams -= 1;
 			  *this->NbrHumanTeams += 1;

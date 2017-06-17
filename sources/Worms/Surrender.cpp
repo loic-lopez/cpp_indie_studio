@@ -77,3 +77,8 @@ bool	Surrender::updateBullets()
 {
   return false;
 }
+
+irr::core::vector3df const &Surrender::getWeaponRotation() const
+{
+  return this->surrenderSceneNode->getRotation();
+}

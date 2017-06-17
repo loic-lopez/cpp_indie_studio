@@ -129,6 +129,11 @@ bool	Shotgun::updateBullets()
   return !this->firedBullets.empty();
 }
 
+irr::core::vector3df const &Shotgun::getWeaponRotation() const
+{
+  return this->shotgunSceneNode->getRotation();
+}
+
 Shotgun::Bullet::Bullet(const irr::core::vector3df &position, const irr::core::vector3df &rotation,
 			irr::IrrlichtDevice *device, irr::core::aabbox3d<irr::f32> const &uziBox)
 {

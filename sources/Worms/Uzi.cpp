@@ -117,6 +117,11 @@ bool	Uzi::updateBullets()
   return !this->firedBullets.empty();
 }
 
+irr::core::vector3df const &Uzi::getWeaponRotation() const
+{
+  return this->uziSceneNode->getRotation();
+}
+
 
 Uzi::Bullet::Bullet(const irr::core::vector3df &position,
 		    const irr::core::vector3df &rotation,

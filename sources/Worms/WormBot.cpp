@@ -10,11 +10,16 @@
 
 #include "Worms/Worm.hpp"
 
-void	Worm::playWormBot(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
-			      std::vector<irr::core::vector3df> allWormsPos)
+void Worm::playWormBot(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
+		       std::vector<irr::core::vector3df> allWormsPos)
 {
-  if (!this->collideLeft)
+  if (!this->collideRight && !this->collideLeft)
     this->wormLeftCollision(groundObjects);
-  else if (!this->collideRight)
+  else if (!this->collideRight && !this->collideLeft)
     this->wormRightCollision(groundObjects);
+
+  if (collideLeft)
+    this->collideLeft = false;
+  else if (collideRight)
+    this->collideRight = false;
 }

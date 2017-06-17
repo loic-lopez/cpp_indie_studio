@@ -51,6 +51,7 @@ public:
   void	setWeaponPosition(const irr::core::vector3df &position) override;
   void	setWeaponRotation(const irr::core::vector3df &rotation) override;
   bool	updateBullets() override;
+  irr::core::vector3df	const &getWeaponRotation() const override;
 };
 
 #endif

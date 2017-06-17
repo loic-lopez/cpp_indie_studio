@@ -110,3 +110,8 @@ bool	HolyHandGrenade::updateBullets()
     }
   return true;
 }
+
+irr::core::vector3df const &HolyHandGrenade::getWeaponRotation() const
+{
+  return this->holyHandGrenadeSceneNode->getRotation();
+}

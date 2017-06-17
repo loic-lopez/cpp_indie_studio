@@ -24,6 +24,7 @@ public:
   virtual 	void	setWeaponPosition(const irr::core::vector3df &position) = 0;
   virtual 	void	setWeaponRotation(const irr::core::vector3df &rotation) = 0;
   virtual 	bool	updateBullets() = 0;
+  virtual 	irr::core::vector3df	const &getWeaponRotation() const = 0;
 };
 
 #endif

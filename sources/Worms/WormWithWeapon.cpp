@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. juin 15 19:15:02 2017 Loïc Lopez
-// Last update Fri Jun 16 16:38:51 2017 Stanislas Deneubourg
+// Last update Sat Jun 17 13:19:48 2017 Stanislas Deneubourg
 */
 
 #include "Worms/Worm.hpp"
@@ -51,12 +51,12 @@ void    Worm::wormLeftCollision(std::vector<irr::scene::IMeshSceneNode *> ground
     {
       if ((this->wormMesh->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 0.7f - 2.30f)
           && (this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.7f - 2.30f)
-          && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X + 2.35f)
-          && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X + 2.25f)
+          && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X + 3.35f)
+          && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X + 3.25f)
           && (this->collideRight == false))
         {
           collision = 1;
-          collision_pos = groundObjects.at(i)->getPosition().X + 2.4f;
+          collision_pos = groundObjects.at(i)->getPosition().X + 3.4f;
         }
     }
   if (collision == 0)
@@ -80,12 +80,12 @@ void    Worm::wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groun
     {
       if ((this->wormMesh->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 0.7f - 2.30f)
           && (this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.7f - 2.30f)
-          && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X - 2.35f)
-          && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X - 2.25f)
+          && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X - 3.35f)
+          && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X - 3.25f)
           && (this->collideLeft == false))
         {
           collision = 1;
-          collision_pos = groundObjects.at(i)->getPosition().X - 2.4f;
+          collision_pos = groundObjects.at(i)->getPosition().X - 3.4f;
         }
     }
   if (collision == 0)
@@ -105,10 +105,10 @@ void 	Worm::wormGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
   int collision = 0;
   for (unsigned int i = 0; i < groundObjects.size(); i++)
     {
-      if ((this->wormMesh->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 1.0)
-	  && (this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y - 0.8)
-	  && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X - 2.3)
-	  && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X + 2.3))
+      if ((this->wormMesh->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 1.0f)
+	  && (this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y - 0.8f)
+	  && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X - 2.3f)
+	  && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X + 2.3f))
 	{
 	  collision = 1;
 	  this->isCollisioning = true;

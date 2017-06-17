@@ -10,7 +10,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Textures/Cross.png
+map_Kd Textures/Ball.png
 map_Tr Textures/Ball.png
 
 newmtl RefRep.252_Cross.png

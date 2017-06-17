@@ -153,31 +153,31 @@ bool	EventReceiver::OnEvent(const irr::SEvent& event)
 		}
 	    }
 	  case InventoryButton::SURRENDER:
+	    {
+	      if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
 		{
-		  if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
-		  {
-			  *this->idWeapon = InventoryButton::SURRENDER - 20;
-			  *this->weaponIsSelected = true;
-			  break;
-		  }
+		  *this->idWeapon = InventoryButton::SURRENDER - 20;
+		  *this->weaponIsSelected = true;
+		  break;
 		}
+	    }
 	  case InventoryButton::SAINTBOMB:
-	  {
-		  if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
-		  {
-			  *this->idWeapon = InventoryButton::SAINTBOMB - 20;
-			  *this->weaponIsSelected = true;
-			  break;
-		  }
-	  }
+	    {
+	      if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		{
+		  *this->idWeapon = InventoryButton::SAINTBOMB - 20;
+		  *this->weaponIsSelected = true;
+		  break;
+		}
+	    }
 	  case InventoryButton::CORDE:
-	  {
-		  if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
-		  {
-			  *this->idWeapon = InventoryButton::CORDE - 20;
-			  *this->weaponIsSelected = true;
-			  break;
-		  }
+	    {
+	      if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
+		{
+		  *this->idWeapon = InventoryButton::CORDE - 20;
+		  *this->weaponIsSelected = true;
+		  break;
+		}
 	  }
 	  case InventoryButton::ISSOU:
 	  {

@@ -42,6 +42,7 @@ void	HolyHandGrenade::showWeapon(const irr::core::vector3df &position, const irr
 {
   this->holyHandGrenadeSceneNode = this->device->getSceneManager()->addMeshSceneNode
 	  (this->device->getSceneManager()->getMesh("ressources/weapons/HolyHandGrenade/HolyHandGrenade.obj"));
+  std::cout << this->holyHandGrenadeSceneNode << std::endl;
   this->holyHandGrenadeSceneNode->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   this->holyHandGrenadeSceneNode->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
   this->setWeaponRotation(rotation);

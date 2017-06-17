@@ -155,7 +155,7 @@ void	Team::playTeamBot(unsigned int currentPlayer, std::vector<irr::scene::IMesh
   this->teamPlayers.at(currentPlayer).playWormBot(groundObjects, allWormsPos);
 }
 
-bool	Team::playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon)
+bool	Team::playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon, InventoryButton const &lastWeaponSelected)
 {
   if (selectedWeapon == InventoryButton::UZI - 20)
     {
@@ -175,7 +175,7 @@ bool	Team::playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon)
 	  displayBullet = true;
 	}
     }
-  if (canFire || displayBullet)
+  if (displayBullet && lastWeaponSelected != InventoryButton::IN_STAND_BY)
     displayBullet = this->updateTeamWormBullets(currentPlayer, selectedWeapon);
   if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_Q))
     this->teamResetAnimationSpeed(currentPlayer);

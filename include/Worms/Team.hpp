@@ -60,7 +60,7 @@ public:
   bool 			playerIsHuman(unsigned int currentPlayer);
   void 			playTeamHuman(unsigned int currentPlayer);
   void 			playTeamBot(unsigned int currentPlayer, std::vector<irr::scene::IMeshSceneNode *> groundObjects,  std::vector<irr::core::vector3df> allWormsPos);
-  bool 			playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon);
+  bool 			playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon, InventoryButton const &lastWeaponSelected);
   void 			teamJump(unsigned int, size_t);
   void 			teamJump(unsigned int);
   void 			deleteWormWeapon(size_t currentPlayer, size_t selectedWeapon);

@@ -4,7 +4,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:43:41 2017 Stanislas Deneubourg
-// Last update Sat Jun 17 10:51:47 2017 Stanislas Deneubourg
+// Last update Sat Jun 17 11:25:01 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Worm.hpp"
@@ -189,8 +189,10 @@ void	Worm::wormJump(size_t currentSelectedWeapon)
 
 const char      *Worm::genName() const
 {
-  const char    *names[17] = {"Ver-nissage", "A-ver-se", "Ver-mifuge", "Ver-tical", "Ver-tige", "Ver-tebre", "Ver-t", "Ver-so", "Ver-satile", "Ver-ger",
-			      "Ver-dir", "Ver-rouiller", "Ver-sion", "Ver-mine", "Ver-rine", "Ver-glas", "Uni-ver"};
+  const char    *names[32] = {"Ver-nissage", "Ver-mifuge", "Ver-tical", "Ver-tige", "Ver-tebre", "Ver-satile", "Ver-ger", "Ver-dir", "Ver-rouiller", "Ver-sion",
+			      "Ver-mine", "Ver-glas", "Ver-dict", "Ver-doyant", "Ver-tex", "Ver-gogne", "Ta-ver-ne", "Uni-ver-s", "Tra-ver-s", "Cou-ver-ture",
+			      "A-ver-se", "Ren-ver-ser", "Revol-ver", "Hi-ver-nale", "Bali-ver-ne", "Tergi-ver-ser", "In-ver-te-bre", "Per-ver-s", "Ad-ver-saire", "Intro-ver-ti",
+			      "Fait-di-ver-s", "Culti-ver"};
 
-  return (names[std::rand()%17]);
+  return (names[std::rand()%32]);
 }

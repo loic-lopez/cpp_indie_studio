@@ -5,7 +5,7 @@
 // Login   <giangi_j@epitech.net>
 // 
 // Started on  Fri Jun 16 10:08:37 2017 Jade Giangiacomi
-// Last update Fri Jun 16 13:09:27 2017 Jade Giangiacomi
+// Last update Sat Jun 17 11:26:35 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Worm.hpp"
@@ -13,7 +13,7 @@
 void	Worm::playWormBot(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
 			      std::vector<irr::core::vector3df> allWormsPos)
 {
-  for (unsigned int i = 0; i < allWormsPos.size(); i++)
-    std::cout << allWormsPos.at(i).X << " | " << allWormsPos.at(i).Y << std::endl;
+  // for (unsigned int i = 0; i < allWormsPos.size(); i++)
+  //   std::cout << allWormsPos.at(i).X << " | " << allWormsPos.at(i).Y << std::endl;
   this->wormLeftCollision(groundObjects);
 }

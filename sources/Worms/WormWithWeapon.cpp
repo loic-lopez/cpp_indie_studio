@@ -46,17 +46,16 @@ void    Worm::wormLeftCollision(std::vector<irr::scene::IMeshSceneNode *> ground
                                 size_t currentSelectedWeapon)
 {
   int		collision = 0;
-  irr::f32      collision_pos = 0;
+  irr::f32      collisionPos = 0;
   for (unsigned int i = 0; i < groundObjects.size(); i++)
     {
       if ((this->wormMesh->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 0.7f - 2.30f)
           && (this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.7f - 2.30f)
           && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X + 3.35f)
-          && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X + 3.25f)
-          && (this->collideRight == false))
+          && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X + 3.25f))
         {
           collision = 1;
-          collision_pos = groundObjects.at(i)->getPosition().X + 3.4f;
+          collisionPos = groundObjects.at(i)->getPosition().X + 3.4f;
         }
     }
   if (collision == 0)
@@ -66,8 +65,9 @@ void    Worm::wormLeftCollision(std::vector<irr::scene::IMeshSceneNode *> ground
     }
   else
     {
-      this->wormPos.X = collision_pos;
+      this->wormPos.X = collisionPos;
       this->collideLeft = true;
+      this->collideRight = false;
     }
 }
 
@@ -75,17 +75,16 @@ void    Worm::wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groun
                                  size_t currentSelectedWeapon)
 {
   int		collision = 0;
-  irr::f32      collision_pos = 0;
+  irr::f32      collisionPos = 0;
   for (unsigned int i = 0; i < groundObjects.size(); i++)
     {
       if ((this->wormMesh->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 0.7f - 2.30f)
           && (this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.7f - 2.30f)
           && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X - 3.35f)
-          && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X - 3.25f)
-          && (this->collideLeft == false))
+          && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X - 3.25f))
         {
           collision = 1;
-          collision_pos = groundObjects.at(i)->getPosition().X - 3.4f;
+          collisionPos = groundObjects.at(i)->getPosition().X - 3.4f;
         }
     }
   if (collision == 0)
@@ -95,8 +94,9 @@ void    Worm::wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groun
     }
   else
     {
-      this->wormPos.X = collision_pos;
+      this->wormPos.X = collisionPos;
       this->collideRight = true;
+      this->collideLeft = false;
     }
 }
 

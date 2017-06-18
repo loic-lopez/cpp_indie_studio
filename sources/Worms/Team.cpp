@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:51:11 2017 Stanislas Deneubourg
-// Last update Fri Jun 16 14:33:07 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 12:13:08 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Team.hpp"
@@ -226,4 +226,12 @@ Team	&Team::operator=(Team const &team)
       this->humanWormsRelativePos = team.humanWormsRelativePos;
     }
   return (*this);
+}
+
+void    Team::teamUpCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects)
+{
+  for (unsigned int i = 0; i < this->teamPlayers.size(); i++)
+    {
+      this->teamPlayers.at(i).wormUpCollision(groundObjects);
+    }
 }

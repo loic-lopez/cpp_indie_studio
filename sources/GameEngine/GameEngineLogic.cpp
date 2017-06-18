@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Sat Jun  3 17:10:57 2017 Stanislas Deneubourg
-// Last update Sat Jun 17 10:20:21 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 12:17:16 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -263,4 +263,12 @@ irr::gui::IGUIFont	*GameNamespace::GameEngine::genTeamColor(unsigned int i)
 	  };
 
   return (colors[i]);
+}
+
+void    GameNamespace::GameEngine::upCollision()
+{
+  for (unsigned int i = 0; i < this->teams.size(); i++)
+    {
+      this->teams.at(i).teamUpCollision(this->groundObjects);
+    }
 }

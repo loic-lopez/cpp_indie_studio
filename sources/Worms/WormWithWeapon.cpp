@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. juin 15 19:15:02 2017 Loïc Lopez
-// Last update Sat Jun 17 13:19:48 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 12:14:09 2017 Stanislas Deneubourg
 */
 
 #include "Worms/Worm.hpp"
@@ -122,4 +122,38 @@ void 	Worm::wormGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
       this->infos->setPosition(irr::core::vector3df(this->wormPos.X, this->wormPos.Y + 5.0f, this->wormPos.Z - 1.75f));
       this->isCollisioning = false;
     }
+}
+
+void    Worm::wormJump(size_t currentSelectedWeapon)
+{
+  if (this->lookingDirection == Worm::LookingDirection::RIGHT)
+    {
+      if (this->isJumping == false && this->isCollisioning == true)
+        {
+          for (irr::f32 i = jumpConstraintsY; i >= 0; i = i - 0.001f)
+            {
+              this->isJumping = true;
+              this->wormPos.X += i;
+              this->wormPos.Y += i;
+              this->wormMesh->setPosition(this->wormPos);
+            }
+          this->isJumping = false;
+        }
+    }
+  else if (this->lookingDirection == Worm::LookingDirection::LEFT)
+    {
+      if (this->isJumping == false && this->isCollisioning == true)
+        {
+          for (irr::f32 i = -jumpConstraintsY; i <= 0; i = i + 0.001f)
+            {
+              this->isJumping = true;
+              this->wormPos.X += i;
+              this->wormPos.Y += i;
+              this->wormMesh->setPosition(this->wormPos);
+            }
+          this->isJumping = false;
+        }
+    }
+
+  (void) currentSelectedWeapon;
 }

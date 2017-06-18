@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:39:05 2017 Stanislas Deneubourg
-// Last update Sat Jun 17 10:19:23 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 12:09:18 2017 Stanislas Deneubourg
 //
 
 #ifndef	WORM_HPP
@@ -113,6 +113,7 @@ private:
   void					wormJump(size_t);
   void					wormJump();
   const char				*genName() const;
+  void					wormUpCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects);
 };
 
 #endif

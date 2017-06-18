@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:50:07 2017 Stanislas Deneubourg
-// Last update Fri Jun 16 17:55:35 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 12:08:33 2017 Stanislas Deneubourg
 //
 
 #ifndef TEAM_HPP
@@ -69,6 +69,7 @@ public:
   void 			setWormIsDrowned(unsigned int currentPlayer, bool isDrowned);
   std::string		const &getWormName(unsigned int) const;
   std::vector<Worm>	getWorm();
+  void	                teamUpCollision(std::vector<irr::scene::IMeshSceneNode *>);
 
 };
 

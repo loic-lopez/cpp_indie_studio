@@ -4,7 +4,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:43:41 2017 Stanislas Deneubourg
-// Last update Sat Jun 17 11:25:01 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 12:16:50 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Worm.hpp"
@@ -121,72 +121,6 @@ std::string	const &Worm::getWormName() const
   return (this->wormName);
 }
 
-void	Worm::wormJump()
-{
-  if (this->lookingDirection == Worm::LookingDirection::RIGHT)
-    {
-      if (this->isJumping == false && this->isCollisioning == true)
-        {
-          for (irr::f32 i = jumpConstraintsY; i >= 0; i = i - 0.001f)
-            {
-              this->isJumping = true;
-              this->wormPos.X += i;
-              this->wormPos.Y += i;
-              this->wormMesh->setPosition(this->wormPos);
-            }
-          this->isJumping = false;
-        }
-    }
-  else if (this->lookingDirection == Worm::LookingDirection::LEFT)
-    {
-      if (this->isJumping == false && this->isCollisioning == true)
-        {
-          for (irr::f32 i = -jumpConstraintsY; i <= 0; i = i + 0.001f)
-            {
-              this->isJumping = true;
-              this->wormPos.X += i;
-              this->wormPos.Y -= i;
-              this->wormMesh->setPosition(this->wormPos);
-            }
-          this->isJumping = false;
-        }
-    }
-}
-
-void	Worm::wormJump(size_t currentSelectedWeapon)
-{
-  if (this->lookingDirection == Worm::LookingDirection::RIGHT)
-    {
-      if (this->isJumping == false && this->isCollisioning == true)
-	{
-	  for (irr::f32 i = jumpConstraintsY; i >= 0; i = i - 0.001f)
-	    {
-	      this->isJumping = true;
-	      this->wormPos.X += i;
-	      this->wormPos.Y += i;
-	      this->wormMesh->setPosition(this->wormPos);
-	    }
-	  this->isJumping = false;
-	}
-    }
-  else if (this->lookingDirection == Worm::LookingDirection::LEFT)
-    {
-      if (this->isJumping == false && this->isCollisioning == true)
-        {
-          for (irr::f32 i = -jumpConstraintsY; i <= 0; i = i + 0.001f)
-            {
-              this->isJumping = true;
-              this->wormPos.X += i;
-              this->wormPos.Y += i;
-              this->wormMesh->setPosition(this->wormPos);
-            }
-          this->isJumping = false;
-        }
-    }
-
-  (void) currentSelectedWeapon;
-}
-
 const char      *Worm::genName() const
 {
   const char    *names[32] = {"Ver-nissage", "Ver-mifuge", "Ver-tical", "Ver-tige", "Ver-tebre", "Ver-satile", "Ver-ger", "Ver-dir", "Ver-rouiller", "Ver-sion",
@@ -200,4 +134,30 @@ const char      *Worm::genName() const
 irr::gui::IGUIFont *Worm::getTeamFont() const
 {
   return (this->teamFont);
+}
+
+void    Worm::wormUpCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects)
+{
+  int		collision = 0;
+  irr::f32      collision_pos = 0;
+  for (unsigned int i = 0; i < groundObjects.size(); i++)
+    {
+      if ((this->wormMesh->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 1.3f)
+          && (this->wormMesh->getPosition().Y >= groundObjects.at(i)->getPosition().Y + 1.1f)
+          && (this->wormMesh->getPosition().X >= groundObjects.at(i)->getPosition().X - 3.35f)
+          && (this->wormMesh->getPosition().X <= groundObjects.at(i)->getPosition().X + 3.35f))
+	{
+	  collision = 1;
+          this->isCollisioning = true;
+          collision_pos = groundObjects.at(i)->getPosition().Y + 1.4f;
+	}
+    }
+  if (collision == 1)
+    {
+      this->wormPos.Y = collision_pos;
+      this->wormMesh->setPosition(this->wormPos);
+      this->infos->setPosition(irr::core::vector3df(this->wormPos.X, this->wormPos.Y + 5.0f, this->wormPos.Z - 1.75f));
+    }
+  else
+    this->isCollisioning = false;
 }

@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Fri Jun 16 18:51:53 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 12:08:03 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -133,6 +133,7 @@ namespace	GameNamespace
     virtual	void					jump(size_t);
     virtual	void					jump();
     virtual 	irr::gui::IGUIFont 			*genTeamColor(unsigned int);
+    virtual	void                                    upCollision();
 
    public:
 
@@ -145,7 +146,7 @@ namespace	GameNamespace
 
     virtual						~GameEngine();
     virtual EventStatus					launchModel();
-    void 						setAllWormsPos(unsigned int team);
+    virtual void 					setAllWormsPos(unsigned int team);
   };
 };
 

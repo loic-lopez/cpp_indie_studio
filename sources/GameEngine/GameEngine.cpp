@@ -66,6 +66,10 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
   this->weaponIsSelected = false;
   this->eventReceiver.setWeaponId(&this->weaponId);
   this->eventReceiver.setweaponIsSelected(&this->weaponIsSelected);
+  this->redFont = this->guienv->getFont("ressources/fonts/SoftMarshmallowSmallWhite.png");
+  this->blueFont = this->guienv->getFont("ressources/fonts/SoftMarshmallowSmallBlue.png");
+  this->greenFont = this->guienv->getFont("ressources/fonts/SoftMarshmallowSmallGreen.png");
+  this->yellowFont = this->guienv->getFont("ressources/fonts/SoftMarshmallowSmallYellow.png");
 }
 
 GameNamespace::GameEngine::~GameEngine()
@@ -220,6 +224,8 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->poisonEffect();
 	    this->gameStart = false;
 	    this->timeBeforePause = 59;
+	    this->weaponIsSelected = false;
+	    lastWeaponSelected = InventoryButton::IN_STAND_BY;
 	  }
 
 	// Fonctions de mouvements des worms

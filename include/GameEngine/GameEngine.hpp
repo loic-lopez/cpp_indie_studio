@@ -105,6 +105,10 @@ namespace	GameNamespace
     irr::core::dimension2du				screenSize;
     irr::gui::IGUISkin					*skin;
     irr::gui::IGUIFont					*font;
+    irr::gui::IGUIFont					*redFont;
+    irr::gui::IGUIFont					*blueFont;
+    irr::gui::IGUIFont					*greenFont;
+    irr::gui::IGUIFont					*yellowFont;
     bool 						comm = false;
     std::string						rng;
 
@@ -128,7 +132,7 @@ namespace	GameNamespace
     virtual 	const char				*genComm(std::string const &) const ;
     virtual	void					jump(size_t);
     virtual	void					jump();
-    virtual 	irr::video::SColor 			genTeamColor(unsigned int);
+    virtual 	irr::gui::IGUIFont 			*genTeamColor(unsigned int);
 
    public:
 

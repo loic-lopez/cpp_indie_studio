@@ -14,13 +14,13 @@ Team::Team(unsigned int players_, unsigned int teamNb,
 	   std::vector<irr::core::vector3df> vectorPos,
 	   std::string const &wormFile, bool isBot,
 	   irr::IrrlichtDevice *device,
-	   irrklang::ISoundEngine *soundEngine, EventReceiver  &eventReceiver) : eventReceiver(eventReceiver)
+	   irrklang::ISoundEngine *soundEngine, EventReceiver  &eventReceiver, irr::gui::IGUIFont *teamFont) : eventReceiver(eventReceiver)
 {
   this->players = players_;
   this->teamName = "Humans ";
   this->teamName += std::to_string(teamNb);
   for (unsigned int i = 0; i < this->players; i++)
-    this->teamPlayers.emplace_back(Worm(i, vectorPos.at(i), device, wormFile, isBot, soundEngine, this->teamColor));
+    this->teamPlayers.emplace_back(Worm(i, vectorPos.at(i), device, wormFile, isBot, soundEngine, teamFont));
   this->canFire = true;
   this->displayBullet = false;
 }
@@ -226,14 +226,4 @@ Team	&Team::operator=(Team const &team)
       this->humanWormsRelativePos = team.humanWormsRelativePos;
     }
   return (*this);
-}
-
-irr::video::SColor	Team::getTeamColor() const
-{
-  return (this->teamColor);
-}
-
-void 	Team::setTeamColor(irr::video::SColor teamColor)
-{
-  this->teamColor = teamColor;
 }

@@ -99,12 +99,11 @@ void 	Worm::addInfos(irr::IrrlichtDevice *device)
   irr::core::stringw	name = this->wormName.c_str();
   name += L" : ";
   name += std::to_string(this->getHealthPoints()).c_str();
-  irr::gui::IGUIFont	*font = device->getGUIEnvironment()->getFont("ressources/fonts/SoftMarshmallow.png");
   irr::scene::ISceneManager	*smgr = device->getSceneManager();
 
-  this->infos = smgr->addBillboardTextSceneNode(font, name.c_str(), 0,
+  this->infos = smgr->addBillboardTextSceneNode(this->teamFont, name.c_str(), 0,
 						irr::core::dimension2d<irr::f32>(3.5f, 1.25f), irr::core::vector3df(this->wormPos.X, this->wormPos.Y + 5.0f, this->wormPos.Z - 1.75f),
-						-1, this->teamColor, this->teamColor);
+						-1, irr::video::SColor(255, 255, 255, 255), irr::video::SColor(255, 255, 255, 255));
 }
 
 void 	Worm::wormGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects)

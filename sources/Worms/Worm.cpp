@@ -11,9 +11,10 @@
 
 Worm::Worm(int nb, irr::core::vector3df vectorPos,
 	   irr::IrrlichtDevice *device, std::string const &wormFile,
-	   bool	isBot, irrklang::ISoundEngine *soundEngine, irr::video::SColor teamColor) : inventory(device, soundEngine)
+	   bool	isBot, irrklang::ISoundEngine *soundEngine, irr::gui::IGUIFont *teamColor) : inventory(device, soundEngine)
 {
   int	dir = std::rand() % 3;
+  this->teamFont = teamColor;
   this->isDrowned = false;
   this->wormName = this->genName();
   this->healthPoints = 100;
@@ -51,7 +52,6 @@ Worm::Worm(int nb, irr::core::vector3df vectorPos,
   this->jumpConstraintsX = 0.1f;
   this->isCollisioning = false;
   this->isJumping = false;
-  this->teamColor = teamColor;
 }
 
 Worm::~Worm()
@@ -195,4 +195,9 @@ const char      *Worm::genName() const
 			      "Fait-di-ver-s", "Culti-ver"};
 
   return (names[std::rand()%32]);
+}
+
+irr::gui::IGUIFont *Worm::getTeamFont() const
+{
+  return (this->teamFont);
 }

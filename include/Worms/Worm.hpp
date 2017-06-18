@@ -73,7 +73,7 @@ private:
   irr::f32				jumpConstraintsX;
   bool					isJumping;
   bool					isCollisioning;
-  irr::video::SColor			teamColor;
+  irr::gui::IGUIFont			*teamFont;
 
  public:
   bool 					isDrowned;
@@ -81,7 +81,7 @@ private:
   Inventory             		inventory;
   Worm(int, irr::core::vector3df,
        irr::IrrlichtDevice *, std::string const &,
-       bool, irrklang::ISoundEngine *soundEngine, irr::video::SColor teamColor);
+       bool, irrklang::ISoundEngine *soundEngine, irr::gui::IGUIFont *teamColor);
   ~Worm();
   int					getHealthPoints() const;
   void					setHealthPoints(int);
@@ -98,6 +98,9 @@ private:
   const irr::core::vector3df 		&wormGetRotation() const;
   void 					wormGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects);
   void					wormGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects, size_t currentSelectedWeapon);
+
+  irr::gui::IGUIFont *getTeamFont() const;
+
   void					wormLeftCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects,
 							  size_t);
   void					wormRightCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects,

@@ -32,13 +32,12 @@ protected:
   bool 					canFire;
   bool 					displayBullet;
   std::vector<irr::core::vector3df>	humanWormsRelativePos;
-  irr::video::SColor			teamColor;
-  
+
 public:
   Team(unsigned int, unsigned int,
        std::vector<irr::core::vector3df>,
        std::string const &, bool, irr::IrrlichtDevice *device,
-       irrklang::ISoundEngine *soundEngine, EventReceiver &eventReceiver);
+       irrklang::ISoundEngine *soundEngine, EventReceiver &eventReceiver, irr::gui::IGUIFont *teamFont);
   Team	&operator=(Team const &);
   ~Team();
   double		teamTimerRollback(unsigned int, std::time_t);
@@ -70,8 +69,7 @@ public:
   void 			setWormIsDrowned(unsigned int currentPlayer, bool isDrowned);
   std::string		const &getWormName(unsigned int) const;
   std::vector<Worm>	getWorm();
-  irr::video::SColor	getTeamColor() const;
-  void 			setTeamColor(irr::video::SColor);
+
 };
 
 #endif

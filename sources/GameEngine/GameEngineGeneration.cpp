@@ -147,18 +147,17 @@ void	GameNamespace::GameEngine::teamsGen()
 	{
 	  this->teams.emplace_back(this->wormsPerTeam, i, this->wormsRelativePos,
 				   this->worm, false,
-				   this->device, this->soundEngine, this->eventReceiver);
+				   this->device, this->soundEngine, this->eventReceiver, genTeamColor(i));
 	  botTeamsLeftToEmplace--;
 	  totalTeamsLeftToEmplace--;
 	}
       else if (humanTeamsLeftToEmplace > 0)
 	{
 	  this->teams.emplace_back(this->wormsPerTeam, i, this->wormsRelativePos,
-				   this->worm, true, this->device, this->soundEngine, this->eventReceiver);
+				   this->worm, true, this->device, this->soundEngine, this->eventReceiver, genTeamColor(i));
 	  humanTeamsLeftToEmplace--;
 	  totalTeamsLeftToEmplace--;
 	}
-      this->teams.at(i).setTeamColor(this->genTeamColor(i));
       this->wormsRelativePos.clear();
     }
 }

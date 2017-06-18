@@ -153,7 +153,7 @@ void	GameNamespace::GameEngine::triggerTimer()
 			 irr::video::SColor(255, 255, 0, 0));
       if (this->turnTimeLeft <= 60 && this->turnTimeLeft >= 57)
 	{
-	  std::string	com = this->teams.at(this->currentWormIdPlaying).getWormName(this->currentWormIdPlaying).c_str();
+	  std::string	com = this->teams.at(this->currentTeamIdPlaying).getWormName(this->currentWormIdPlaying);
 	  com += " ";
 	  if (!this->comm)
 	    {
@@ -252,12 +252,14 @@ void    GameNamespace::GameEngine::jump()
   this->teams.at(this->currentTeamIdPlaying).teamJump(this->currentWormIdPlaying);
 }
 
-irr::video::SColor	GameNamespace::GameEngine::genTeamColor(unsigned int i)
+irr::gui::IGUIFont	*GameNamespace::GameEngine::genTeamColor(unsigned int i)
 {
-  irr::video::SColor	colors[] =
+  irr::gui::IGUIFont	*colors[] =
 	  {
-		  irr::video::SColor(255, 255, 0, 255), irr::video::SColor(255, 0, 255, 255), irr::video::SColor(255, 255, 255, 0), irr::video::SColor(255, 255, 255, 255),
-		  irr::video::SColor(255, 255, 255/2, 255), irr::video::SColor(255, 255/2, 255, 255), irr::video::SColor(255, 255, 255, 255/2), irr::video::SColor(255, 255/2, 255/2, 255/2)
+		  this->redFont,
+		  this->blueFont,
+		  this->greenFont,
+		  this->yellowFont
 	  };
 
   return (colors[i]);

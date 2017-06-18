@@ -17,6 +17,7 @@
 #include "Worms/Shotgun.hpp"
 #include "Worms/Surrender.hpp"
 #include "Worms/HolyHandGrenade.hpp"
+#include "Worms/SkipGo.hpp"
 
 class	Inventory
 {

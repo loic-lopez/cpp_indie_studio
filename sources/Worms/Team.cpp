@@ -31,7 +31,10 @@ Team::~Team()
 
 double	Team::teamTimerRollback(unsigned currentPlayer, std::time_t turnStart)
 {
-  return (this->teamPlayers.at(currentPlayer).wormTimerRollback(turnStart));
+  if (!this->canFire)
+    return (5);
+  else
+    return (this->teamPlayers.at(currentPlayer).wormTimerRollback(turnStart));
 }
 
 void	Team::teamMoveLeft(unsigned currentPlayer, size_t selectedWeapon)
@@ -170,6 +173,8 @@ bool	Team::playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon, Inve
       if (this->eventReceiver.IsKeyUp(irr::KEY_SPACE))
 	{
 	  canFire = this->teamFire(currentPlayer, selectedWeapon);
+	  if (!canFire)
+
 	  if (selectedWeapon == InventoryButton::SURRENDER - 20)
 	    return true;
 	  displayBullet = true;
@@ -233,5 +238,13 @@ void    Team::teamUpCollision(std::vector<irr::scene::IMeshSceneNode *> groundOb
   for (unsigned int i = 0; i < this->teamPlayers.size(); i++)
     {
       this->teamPlayers.at(i).wormUpCollision(groundObjects);
+    }
+}
+
+void	Team::removeWormsInCurrentTeam()
+{
+  for (size_t len = 0; len < this->teamPlayers.size(); len++)
+    {
+      this->teamPlayers.at(len).removeMeshSceneNode();
     }
 }

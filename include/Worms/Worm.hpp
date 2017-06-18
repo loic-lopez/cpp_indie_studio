@@ -114,6 +114,7 @@ private:
   void					wormJump();
   const char				*genName() const;
   void					wormUpCollision(std::vector<irr::scene::IMeshSceneNode *> groundObjects);
+  void					removeMeshSceneNode();
 };
 
 #endif

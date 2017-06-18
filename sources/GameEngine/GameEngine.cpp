@@ -137,7 +137,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	  }
 	isHuman = this->teams.at(this->currentTeamIdPlaying).playerIsHuman(this->currentWormIdPlaying);
 	this->cameraMovements();
-	if (isHuman)
+	if (isHuman && this->turnTimeLeft > 0)
 	  {
 	    if(this->weaponIsSelected)
 	      {
@@ -154,7 +154,12 @@ EventStatus GameNamespace::GameEngine::launchModel()
                   }
 		if (this->teams.at(this->currentTeamIdPlaying).playTeamHuman(this->currentWormIdPlaying,
 									     this->weaponId, lastWeaponSelected))
-		  this->teams.erase(this->teams.begin() + this->currentWormIdPlaying);
+		  {
+
+		    this->teams.at(currentTeamIdPlaying).removeWormsInCurrentTeam();
+		    this->teams.at(this->currentTeamIdPlaying).deleteWormWeapon(this->currentWormIdPlaying, lastWeaponSelected - 20);
+		    this->teams.erase(this->teams.begin() + this->currentTeamIdPlaying);
+		  }
 	      }
 	    else
 	      {
@@ -256,7 +261,6 @@ EventStatus GameNamespace::GameEngine::launchModel()
 		  {
 		    this->teams.at(this->currentTeamIdPlaying).showWormWeapon(this->currentWormIdPlaying,
 									       this->weaponId);
-		    std::cout << "CREATED" << std::endl;
 		    if (lastWeaponSelected != this->weaponId + 20 && lastWeaponSelected != InventoryButton::IN_STAND_BY)
 		      this->teams.at(this->currentTeamIdPlaying).deleteWormWeapon(this->currentWormIdPlaying, lastWeaponSelected - 20);
 		    lastWeaponSelected = static_cast<InventoryButton>(this->weaponId + 20);

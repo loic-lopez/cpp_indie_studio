@@ -70,7 +70,7 @@ public:
   std::string		const &getWormName(unsigned int) const;
   std::vector<Worm>	getWorm();
   void	                teamUpCollision(std::vector<irr::scene::IMeshSceneNode *>);
-
+  void 			removeWormsInCurrentTeam();
 };
 
 #endif

@@ -32,11 +32,9 @@ bool	Uzi::fire()
       this->firedBullets.emplace_back(this->uziSceneNode->getPosition(),
 				      this->uziSceneNode->getRotation(), this->device, this->uziBox);
       this->soundEngine->play2D("ressources/sounds/Uzi.wav");
-      std::cout << "FIRE WITH UZI" << std::endl;
       this->bulletsNumber--;
       return (true);
     }
-  std::cout << "NO MORE BULLETS IN UZI" << std::endl;
   return (false);
 }
 

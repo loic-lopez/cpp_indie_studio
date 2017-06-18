@@ -157,3 +157,9 @@ void    Worm::wormJump(size_t currentSelectedWeapon)
 
   (void) currentSelectedWeapon;
 }
+
+void	Worm::removeMeshSceneNode()
+{
+  this->wormMesh->getParent()->removeChild(this->wormMesh);
+  this->infos->getParent()->removeChild(this->infos);
+}

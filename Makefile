@@ -33,6 +33,7 @@ SRC             =	sources/main.cpp								\
 			sources/Worms/Surrender.cpp							\
 			sources/Worms/HolyHandGrenade.cpp						\
 			sources/Model/InventoryModel.cpp						\
+			sources/Worms/SkipGo.cpp							\
 			sources/Worms/WormBot.cpp
 
 ECHO		=	/bin/echo -e

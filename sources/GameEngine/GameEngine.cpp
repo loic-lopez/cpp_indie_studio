@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 //
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Sun Jun 18 12:19:10 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 14:38:27 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -70,6 +70,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
   this->blueFont = this->guienv->getFont("ressources/fonts/SoftMarshmallowSmallBlue.png");
   this->greenFont = this->guienv->getFont("ressources/fonts/SoftMarshmallowSmallGreen.png");
   this->yellowFont = this->guienv->getFont("ressources/fonts/SoftMarshmallowSmallYellow.png");
+  this->surr = false;
 }
 
 GameNamespace::GameEngine::~GameEngine()
@@ -130,7 +131,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    lastFPS = fps;
 	  }
 
-	if (this->teams.size() == 1 && !this->soundEngine->isCurrentlyPlaying("ressources/sounds/Surrender.wav"))
+	if (this->teams.size() == 1 && !this->soundEngine->isCurrentlyPlaying("ressources/sounds/This->Surrender.wav"))
 	  {
 	    eventStatusMenu = EventStatus::BACK_TO_MENU;
 	    break;
@@ -159,6 +160,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 		    this->teams.at(currentTeamIdPlaying).removeWormsInCurrentTeam();
 		    this->teams.at(this->currentTeamIdPlaying).deleteWormWeapon(this->currentWormIdPlaying, lastWeaponSelected - 20);
 		    this->teams.erase(this->teams.begin() + this->currentTeamIdPlaying);
+		    this->surr = true;
 		  }
 	      }
 	    else
@@ -199,7 +201,13 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	if (!this->isGamePaused)
 	  {
 	    this->timeBeforeSuddenDeathEndTurn = std::time(nullptr);
-	    this->turnTimeLeft = this->timeBeforePause - this->turnNow;
+	    if (this->surr == false)
+	      this->turnTimeLeft = this->timeBeforePause - this->turnNow;
+	    else
+	      {
+		this->turnTimeLeft = -1;
+		this->surr = false;
+	      }
 	    this->timeBeforeSuddenDeath = 600 - this->suddenDeathTimeBeforePause - (std::difftime(this->timeBeforeSuddenDeathEndTurn, this->suddenDeathCooldown));
 	  }
 	else if (this->isGamePaused)

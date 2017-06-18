@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Sun Jun 18 12:08:03 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 14:37:30 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -85,6 +85,7 @@ namespace	GameNamespace
     size_t 						weaponId;
     bool 						weaponIsSelected;
     std::vector<irr::core::vector3df>			allWormsPos;
+    bool						surr;
 
     //Variables timer
     std::time_t						turnStart;

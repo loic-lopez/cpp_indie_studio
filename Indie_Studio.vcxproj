@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{52E5F283-63EE-40C8-8654-E94186DF5012}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>.</OutDir>
+    <IncludePath>C:\Users\frenc\Documents\Shared\cpp_indie_studio\irrlicht\include;C:\Users\frenc\Documents\Shared\cpp_indie_studio\irrKlang\include;C:\Users\frenc\Documents\Shared\cpp_indie_studio\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\frenc\Documents\Shared\cpp_indie_studio\irrlicht\lib\Win64-visualStudio;C:\Users\frenc\Documents\Shared\cpp_indie_studio\irrKlang\lib\Winx64-visualStudio;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="sources\Core.cpp" />
+    <ClCompile Include="sources\Encap.cpp" />
+    <ClCompile Include="sources\events\EventReceiver.cpp" />
+    <ClCompile Include="sources\events\MenuEvent.cpp" />
+    <ClCompile Include="sources\events\MenuEventSubMenu.cpp" />
+    <ClCompile Include="sources\gameengine\GameEngine.cpp" />
+    <ClCompile Include="sources\gameengine\GameEngineGeneration.cpp" />
+    <ClCompile Include="sources\gameengine\GameEngineLogic.cpp" />
+    <ClCompile Include="sources\main.cpp" />
+    <ClCompile Include="sources\model\InventoryModel.cpp" />
+    <ClCompile Include="sources\model\MenuInGameModel.cpp" />
+    <ClCompile Include="sources\model\MenuModel.cpp" />
+    <ClCompile Include="sources\model\SetMenuModelMainOptions.cpp" />
+    <ClCompile Include="sources\model\SplashScreen.cpp" />
+    <ClCompile Include="sources\worms\Grenade.cpp" />
+    <ClCompile Include="sources\worms\HolyHandGrenade.cpp" />
+    <ClCompile Include="sources\worms\Inventory.cpp" />
+    <ClCompile Include="sources\worms\Shotgun.cpp" />
+    <ClCompile Include="sources\worms\SkipGo.cpp" />
+    <ClCompile Include="sources\worms\Surrender.cpp" />
+    <ClCompile Include="sources\worms\Team.cpp" />
+    <ClCompile Include="sources\worms\Uzi.cpp" />
+    <ClCompile Include="sources\worms\Worm.cpp" />
+    <ClCompile Include="sources\worms\WormBot.cpp" />
+    <ClCompile Include="sources\worms\WormWithoutWeapon.cpp" />
+    <ClCompile Include="sources\worms\WormWithWeapon.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Core.hpp" />
+    <ClInclude Include="include\dependencies\bits\dirent.h" />
+    <ClInclude Include="include\dependencies\bits\types.h" />
+    <ClInclude Include="include\dependencies\Dependencies.hpp" />
+    <ClInclude Include="include\dependencies\dirent.h" />
+    <ClInclude Include="include\dependencies\features.h" />
+    <ClInclude Include="include\dependencies\getopt.h" />
+    <ClInclude Include="include\dependencies\unistd.h" />
+    <ClInclude Include="include\Encap.hpp" />
+    <ClInclude Include="include\events\buttonState.hpp" />
+    <ClInclude Include="include\events\EventReceiver.hpp" />
+    <ClInclude Include="include\events\EventStatus.hpp" />
+    <ClInclude Include="include\events\MenuButton.hpp" />
+    <ClInclude Include="include\events\MenuEvent.hpp" />
+    <ClInclude Include="include\gameengine\GameEngine.hpp" />
+    <ClInclude Include="include\gameengine\GameMap.hpp" />
+    <ClInclude Include="include\interface\ICore.hpp" />
+    <ClInclude Include="include\interface\IModel.hpp" />
+    <ClInclude Include="include\interface\IWeapon.hpp" />
+    <ClInclude Include="include\model\InventoryModel.hpp" />
+    <ClInclude Include="include\model\MenuInGameModel.hpp" />
+    <ClInclude Include="include\model\MenuModel.hpp" />
+    <ClInclude Include="include\model\SplashScreen.hpp" />
+    <ClInclude Include="include\worms\Grenade.hpp" />
+    <ClInclude Include="include\worms\HolyHandGrenade.hpp" />
+    <ClInclude Include="include\worms\Inventory.hpp" />
+    <ClInclude Include="include\worms\Shotgun.hpp" />
+    <ClInclude Include="include\worms\SkipGo.hpp" />
+    <ClInclude Include="include\worms\Surrender.hpp" />
+    <ClInclude Include="include\worms\Team.hpp" />
+    <ClInclude Include="include\worms\Uzi.hpp" />
+    <ClInclude Include="include\worms\Worm.hpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

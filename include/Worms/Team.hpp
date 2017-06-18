@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:50:07 2017 Stanislas Deneubourg
-// Last update Sun Jun 18 12:08:33 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 15:23:59 2017 Stanislas Deneubourg
 //
 
 #ifndef TEAM_HPP
@@ -71,6 +71,7 @@ public:
   std::vector<Worm>	getWorm();
   void	                teamUpCollision(std::vector<irr::scene::IMeshSceneNode *>);
   void 			removeWormsInCurrentTeam();
+  const	bool		&getCanFire() const;
 };
 
 #endif

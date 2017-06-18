@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  ven. juin 16 10:35:53 2017 Loïc Lopez
-// Last update ven. juin 16 10:35:53 2017 Loïc Lopez
+// Last update Sun Jun 18 16:28:04 2017 Stanislas Deneubourg
 //
 
 #include <iostream>
@@ -16,6 +16,12 @@ HolyHandGrenade::HolyHandGrenade(irr::IrrlichtDevice *device, irrklang::ISoundEn
   this->device = device;
   this->soundEngine = soundEngine;
   this->chargerNumber = 1;
+  this->maxSpeedX = 0.2f;
+  this->actualSpeedX = this->maxSpeedX;
+  this->maxSpeedY = 0.2f;
+  this->actualSpeedY = this->maxSpeedY;
+  this->updateReverseConstraints = false;
+  this->updateZeroConstraints = false;
 }
 
 HolyHandGrenade::~HolyHandGrenade()
@@ -85,13 +91,35 @@ bool	HolyHandGrenade::updateBullets()
 
   if (this->holyHandGrenadeSceneNode->getRotation().Y == 90.0f)
     {
-      if (grenadePos.X < this->startGrenadeX + HOLY_GRENADE_RANGE)
+      if (this->updateZeroConstraints == false)
 	{
-	  grenadePos.X += HOLY_GRENADE_SPEED;
-	  this->holyHandGrenadeSceneNode->setPosition(
-		  irr::core::vector3df(grenadePos.X + this->holyHandGrenadeBox.getExtent().getLength() / 6,
-				       grenadePos.Y + this->holyHandGrenadeBox.getExtent().getLength() / 2,
-				       grenadePos.Z - this->holyHandGrenadeBox.getExtent().getLength() / 6));
+	  if (this->actualSpeedY > 0 && this->updateReverseConstraints == false)
+	    {
+	      grenadePos.X += this->actualSpeedX;
+	      grenadePos.Y += this->actualSpeedY;
+	      this->holyHandGrenadeSceneNode->setPosition(grenadePos);
+	      this->actualSpeedX -= 0.001f;
+	      this->actualSpeedY -= 0.001f;
+	    }
+	  if (this->actualSpeedY <= 0 && this->updateReverseConstraints == false)
+	    {
+	      this->actualSpeedY = 0;
+	      this->updateReverseConstraints = true;
+	    }
+	  if (this->actualSpeedY < this->maxSpeedY && this->updateReverseConstraints == true)
+	    {
+              grenadePos.X -= this->actualSpeedX;
+              grenadePos.Y -= this->actualSpeedY;
+              this->holyHandGrenadeSceneNode->setPosition(grenadePos);
+              this->actualSpeedX -= 0.001f;
+              this->actualSpeedY -= 0.001f;
+            }
+          if (this->actualSpeedY >= this->maxSpeedY)
+            {
+              this->actualSpeedY = this->maxSpeedY;
+	      this->actualSpeedX = this->maxSpeedX;
+              this->update = true;
+            }
 	}
       else
 	return false;

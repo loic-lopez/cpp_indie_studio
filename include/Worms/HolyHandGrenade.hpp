@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  ven. juin 16 10:35:53 2017 Loïc Lopez
-// Last update ven. juin 16 10:35:53 2017 Loïc Lopez
+// Last update Sun Jun 18 15:11:53 2017 Stanislas Deneubourg
 //
 
 #ifndef CPP_INDIE_STUDIO_HOLYHANDGRENADE_HPP
@@ -25,6 +25,12 @@ class	HolyHandGrenade : public IWeapon
   irr::scene::ISceneNode	*holyHandGrenadeSceneNode;
   irr::core::aabbox3d<irr::f32>	holyHandGrenadeBox;
   irr::f32 			startGrenadeX;
+  irr::f32			actualSpeedX;
+  irr::f32			maxSpeedX;
+  irr::f32			actualSpeedY;
+  irr::f32			maxSpeedY;
+  bool				updateReverseConstraints;
+  bool				updateZeroConstraints;
 
 
  public:

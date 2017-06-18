@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:51:11 2017 Stanislas Deneubourg
-// Last update Sun Jun 18 12:13:08 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 15:29:37 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Team.hpp"
@@ -247,4 +247,9 @@ void	Team::removeWormsInCurrentTeam()
     {
       this->teamPlayers.at(len).removeMeshSceneNode();
     }
+}
+
+const bool	&Team::getCanFire() const
+{
+  return (this->canFire);
 }

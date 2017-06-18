@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. juin 15 19:15:02 2017 Loïc Lopez
-// Last update Sun Jun 18 12:14:09 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 16:27:36 2017 Stanislas Deneubourg
 */
 
 #include "Worms/Worm.hpp"
@@ -136,6 +136,7 @@ void    Worm::wormJump(size_t currentSelectedWeapon)
               this->wormPos.X += i;
               this->wormPos.Y += i;
               this->wormMesh->setPosition(this->wormPos);
+	      this->inventory.setWeaponPositionToWormPosition(currentSelectedWeapon, this->wormPos);
             }
           this->isJumping = false;
         }
@@ -148,14 +149,13 @@ void    Worm::wormJump(size_t currentSelectedWeapon)
             {
               this->isJumping = true;
               this->wormPos.X += i;
-              this->wormPos.Y += i;
+              this->wormPos.Y -= i;
               this->wormMesh->setPosition(this->wormPos);
+	      this->inventory.setWeaponPositionToWormPosition(currentSelectedWeapon, this->wormPos);
             }
           this->isJumping = false;
         }
     }
-
-  (void) currentSelectedWeapon;
 }
 
 void	Worm::removeMeshSceneNode()

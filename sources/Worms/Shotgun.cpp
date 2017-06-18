@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Thu Jun  1 08:05:48 2017 Stanislas Deneubourg
-// Last update Sun Jun 18 17:11:59 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 19:54:42 2017 Stanislas Deneubourg
 //
 
 // TODO: ENLEVER LES PRINTS
@@ -39,11 +39,9 @@ bool	Shotgun::fire()
 	  for (size_t i = 0; i < SHOTGUN_BULLETS_PER_CHARGER; i++)
 	    this->firedBullets.emplace_back(position, rotation, this->device, this->shotgunBox);
 	  this->chargerNumber--;
-	  std::cout << "FIRE SHOTGUN" << std::endl;
 	  return (true);
 	}
     }
-  std::cout << "NO MORE " << std::endl;
   return (false);
 }
 

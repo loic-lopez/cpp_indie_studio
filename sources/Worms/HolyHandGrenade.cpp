@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  ven. juin 16 10:35:53 2017 Loïc Lopez
-// Last update Sun Jun 18 18:53:15 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 19:54:31 2017 Stanislas Deneubourg
 //
 
 #include <iostream>
@@ -44,11 +44,9 @@ bool	HolyHandGrenade::fire()
 	    this->throwRight = true;
 	  else
 	    this->throwLeft = true;
-	  std::cout << "FIRE HOLY" << std::endl;
 	  return (true);
 	}
     }
-  std::cout << "NO MORE " << std::endl;
   return (false);
 }
 
@@ -112,8 +110,8 @@ bool	HolyHandGrenade::updateBullets(std::vector<irr::scene::IMeshSceneNode *> gr
 	  
 	  for (unsigned int i = 0; i < groundObjects.size(); i++)
 	    {
-	      if ((this->holyHandGrenadeSceneNode->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 1.5f)
-		  && (this->holyHandGrenadeSceneNode->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 1.5f)
+	      if ((this->holyHandGrenadeSceneNode->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 2.5f)
+		  && (this->holyHandGrenadeSceneNode->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 2.5f)
 		  && (this->holyHandGrenadeSceneNode->getPosition().X <= groundObjects.at(i)->getPosition().X + 3.35f)
 		  && (this->holyHandGrenadeSceneNode->getPosition().X >= groundObjects.at(i)->getPosition().X + 3.25f))
 		{
@@ -136,8 +134,8 @@ bool	HolyHandGrenade::updateBullets(std::vector<irr::scene::IMeshSceneNode *> gr
 	  
 	  for (unsigned int i = 0; i < groundObjects.size(); i++)
 	    {
-	      if ((this->holyHandGrenadeSceneNode->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 1.5f)
-		  && (this->holyHandGrenadeSceneNode->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 1.5f)
+	      if ((this->holyHandGrenadeSceneNode->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 2.5f)
+		  && (this->holyHandGrenadeSceneNode->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 2.5f)
 		  && (this->holyHandGrenadeSceneNode->getPosition().X >= groundObjects.at(i)->getPosition().X - 3.35f)
 		  && (this->holyHandGrenadeSceneNode->getPosition().X <= groundObjects.at(i)->getPosition().X - 3.25f))
 		{
@@ -155,26 +153,6 @@ bool	HolyHandGrenade::updateBullets(std::vector<irr::scene::IMeshSceneNode *> gr
 	  collision = 0;
 	  collisionPos = 0;
 
-	  //GRAVITE
-
-	  for (unsigned int i = 0; i < groundObjects.size(); i++)
-	    {
-	      if ((this->holyHandGrenadeSceneNode->getPosition().Y >= groundObjects.at(i)->getPosition().Y + 1.0)
-		  && (this->holyHandGrenadeSceneNode->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.8)
-		  && (this->holyHandGrenadeSceneNode->getPosition().X >= groundObjects.at(i)->getPosition().X - 2.3)
-		  && (this->holyHandGrenadeSceneNode->getPosition().X <= groundObjects.at(i)->getPosition().X + 2.3))
-		collision = 1;
-	    }
-	  if (collision == 0)
-	    {
-	      this->holyHandGrenadeSceneNode->setPosition
-		(irr::core::vector3d<irr::f32>(this->holyHandGrenadeSceneNode->getPosition().X,
-					       this->holyHandGrenadeSceneNode->getPosition().Y - 0.3f,
-					       this->holyHandGrenadeSceneNode->getPosition().Z));
-	    }
-	  collision = 0;
-	  collisionPos = 0;
-	  
 	  //BALLISTIQUE
   
 	  if (this->actualSpeedY > 0.0f && this->updateReverseConstraints == false)
@@ -207,10 +185,29 @@ bool	HolyHandGrenade::updateBullets(std::vector<irr::scene::IMeshSceneNode *> gr
 	}
       else
 	{
-	  this->updateZeroConstraints = false;
-	  this->updateReverseConstraints = false;
-	  this->throwRight = false;
-	  return false;
+	  for (unsigned int i = 0; i < groundObjects.size(); i++)
+            {
+              if ((this->holyHandGrenadeSceneNode->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.9)
+                  && (this->holyHandGrenadeSceneNode->getPosition().Y >= groundObjects.at(i)->getPosition().Y + 0.7)
+                  && (this->holyHandGrenadeSceneNode->getPosition().X >= groundObjects.at(i)->getPosition().X - 3.0)
+                  && (this->holyHandGrenadeSceneNode->getPosition().X <= groundObjects.at(i)->getPosition().X + 3.0))
+                collision = 1;
+            }
+          if (collision == 0)
+            {
+              this->holyHandGrenadeSceneNode->setPosition
+                (irr::core::vector3d<irr::f32>(this->holyHandGrenadeSceneNode->getPosition().X,
+                                               this->holyHandGrenadeSceneNode->getPosition().Y - 0.1f,
+                                               this->holyHandGrenadeSceneNode->getPosition().Z));
+            }
+	  if (collision == 1)
+	    {
+	      this->updateZeroConstraints = false;
+	      this->updateReverseConstraints = false;
+	      this->throwRight = false;
+	      this->soundEngine->play2D("ressources/sounds/holygrenade.wav");
+	      return false;
+	    }
 	}
     }
   else if (this->throwLeft == true)
@@ -265,26 +262,6 @@ bool	HolyHandGrenade::updateBullets(std::vector<irr::scene::IMeshSceneNode *> gr
           collision = 0;
           collisionPos = 0;
 
-	  //GRAVITE
-
-	  for (unsigned int i = 0; i < groundObjects.size(); i++)
-            {
-              if ((this->holyHandGrenadeSceneNode->getPosition().Y >= groundObjects.at(i)->getPosition().Y + 1.0)
-                  && (this->holyHandGrenadeSceneNode->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.8)
-                  && (this->holyHandGrenadeSceneNode->getPosition().X >= groundObjects.at(i)->getPosition().X - 2.3)
-                  && (this->holyHandGrenadeSceneNode->getPosition().X <= groundObjects.at(i)->getPosition().X + 2.3))
-                collision = 1;
-            }
-          if (collision == 0)
-            {
-              this->holyHandGrenadeSceneNode->setPosition
-                (irr::core::vector3d<irr::f32>(this->holyHandGrenadeSceneNode->getPosition().Y - 0.3f,
-                                               this->holyHandGrenadeSceneNode->getPosition().Y,
-                                               this->holyHandGrenadeSceneNode->getPosition().Z));
-            }
-          collision = 0;
-          collisionPos = 0;
-
 	  //BALLISTIQUE
 	  
           if (this->actualSpeedY > 0.0f && this->updateReverseConstraints == false)
@@ -317,10 +294,29 @@ bool	HolyHandGrenade::updateBullets(std::vector<irr::scene::IMeshSceneNode *> gr
         }
       else
 	{
-	  this->updateZeroConstraints = false;
-          this->updateReverseConstraints = false;
-	  this->throwLeft = false;
-	  return (false);
+	  for (unsigned int i = 0; i < groundObjects.size(); i++)
+            {
+              if ((this->holyHandGrenadeSceneNode->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.9)
+                  && (this->holyHandGrenadeSceneNode->getPosition().Y >= groundObjects.at(i)->getPosition().Y + 0.7)
+                  && (this->holyHandGrenadeSceneNode->getPosition().X >= groundObjects.at(i)->getPosition().X - 3.0)
+                  && (this->holyHandGrenadeSceneNode->getPosition().X <= groundObjects.at(i)->getPosition().X + 3.0))
+                collision = 1;
+            }
+          if (collision == 0)
+            {
+              this->holyHandGrenadeSceneNode->setPosition
+                (irr::core::vector3d<irr::f32>(this->holyHandGrenadeSceneNode->getPosition().X,
+                                               this->holyHandGrenadeSceneNode->getPosition().Y - 0.1f,
+                                               this->holyHandGrenadeSceneNode->getPosition().Z));
+            }
+          if (collision == 1)
+            {
+	      this->updateZeroConstraints = false;
+	      this->updateReverseConstraints = false;
+	      this->throwLeft = false;
+	      this->soundEngine->play2D("ressources/sounds/holygrenade.wav");
+	      return (false);
+	    }
 	}
     }
   return true;

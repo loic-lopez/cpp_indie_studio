@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 //
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Sun Jun 18 19:08:15 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 19:14:05 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -72,6 +72,7 @@ GameNamespace::GameEngine::GameEngine(irr::scene::ISceneManager *smgr, irr::vide
   this->yellowFont = this->guienv->getFont("ressources/fonts/SoftMarshmallowSmallYellow.png");
   this->surr = false;
   this->wormHasNotShotYet = true;
+  this->fiveSecondsTrigger = false;
 }
 
 GameNamespace::GameEngine::~GameEngine()
@@ -187,12 +188,14 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	this->setAllWormsPos(this->currentTeamIdPlaying);
 	// BOUCLE DE JEU
 
-	this->wormHasNotShotYet = this->teams.at(this->currentTeamIdPlaying).getCanFire();
+	if (!this->fiveSecondsTrigger)
+	  this->wormHasNotShotYet = this->teams.at(this->currentTeamIdPlaying).getCanFire();
 
-	if (!this->wormHasNotShotYet)
+	if (!this->wormHasNotShotYet && !this->fiveSecondsTrigger)
 	  {
 	    this->timeBeforePause = 5;
-	    this->turnStart = std::time(nullptr);
+	    this->turnFiveSecondsStart = std::time(nullptr);
+	    this->fiveSecondsTrigger = true;
 	  }
 	
 	if (!this->gameStart)
@@ -203,14 +206,22 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    std::cout << "TEAM N° " << this->currentTeamIdPlaying << ", TURN OF WORM N° " << this->currentWormIdPlaying << " (" << this->teams.at(this->currentTeamIdPlaying).playerIsHuman(this->currentWormIdPlaying) << ")" << std::endl;
 	  }
 
-	this->turnNow = this->teams.at(this->currentTeamIdPlaying).teamTimerRollback(this->currentWormIdPlaying, this->turnStart); // Revoie le temps écoulé depuis le début du tour
+	if (!this->fiveSecondsTrigger)
+	  this->turnNow = this->teams.at(this->currentTeamIdPlaying).teamTimerRollback(this->currentWormIdPlaying, this->turnStart); // Revoie le temps écoulé depuis le début du tour
+	else
+	  this->turnFiveSecondsNow = this->teams.at(this->currentTeamIdPlaying).teamTimerRollback(this->currentWormIdPlaying, this->turnFiveSecondsStart);
 
 	// Bloquage du timer en cas de pause
 	if (!this->isGamePaused)
 	  {
 	    this->timeBeforeSuddenDeathEndTurn = std::time(nullptr);
 	    if (this->surr == false)
-	      this->turnTimeLeft = this->timeBeforePause - this->turnNow;
+	      {
+		if (!this->fiveSecondsTrigger)
+		  this->turnTimeLeft = this->timeBeforePause - this->turnNow;
+		else
+		  this->turnTimeLeft = this->timeBeforePause - this->turnFiveSecondsNow;
+	      }
 	    else
 	      {
 		this->turnTimeLeft = -1;
@@ -242,6 +253,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->timeBeforePause = 59;
 	    this->weaponIsSelected = false;
 	    this->wormHasNotShotYet = true;
+	    this->fiveSecondsTrigger = false;
 	    lastWeaponSelected = InventoryButton::IN_STAND_BY;
 	  }
 

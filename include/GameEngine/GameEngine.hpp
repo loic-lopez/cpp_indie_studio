@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May  3 18:17:30 2017 Stanislas Deneubourg
-// Last update Sun Jun 18 19:04:23 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 19:11:26 2017 Stanislas Deneubourg
 //
 
 #ifndef	GAME_ENGINE_HPP__
@@ -87,6 +87,7 @@ namespace	GameNamespace
     std::vector<irr::core::vector3df>			allWormsPos;
     bool						surr;
     bool						wormHasNotShotYet;
+    bool						fiveSecondsTrigger;
 
     //Variables timer
     std::time_t						turnStart;

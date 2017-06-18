@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  ven. juin 16 10:35:53 2017 Loïc Lopez
-// Last update Sun Jun 18 17:36:54 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 18:52:45 2017 Stanislas Deneubourg
 //
 
 #ifndef CPP_INDIE_STUDIO_HOLYHANDGRENADE_HPP
@@ -29,6 +29,8 @@ class	HolyHandGrenade : public IWeapon
   irr::f32			maxSpeedX;
   irr::f32			actualSpeedY;
   irr::f32			maxSpeedY;
+  irr::f32			actualLeftSpeedX;
+  irr::f32			actualLeftSpeedY;
   bool				updateReverseConstraints;
   bool				updateZeroConstraints;
   bool				throwLeft;

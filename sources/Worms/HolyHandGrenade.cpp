@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  ven. juin 16 10:35:53 2017 Loïc Lopez
-// Last update Sun Jun 18 17:42:17 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 18:53:15 2017 Stanislas Deneubourg
 //
 
 #include <iostream>
@@ -20,6 +20,8 @@ HolyHandGrenade::HolyHandGrenade(irr::IrrlichtDevice *device, irrklang::ISoundEn
   this->actualSpeedX = this->maxSpeedX;
   this->maxSpeedY = 0.2f;
   this->actualSpeedY = this->maxSpeedY;
+  this->actualLeftSpeedX = -(this->maxSpeedX);
+  this->actualLeftSpeedY = -(this->maxSpeedY);
   this->updateReverseConstraints = false;
   this->updateZeroConstraints = false;
   this->throwLeft = false;
@@ -54,7 +56,6 @@ void	HolyHandGrenade::showWeapon(const irr::core::vector3df &position, const irr
 {
   this->holyHandGrenadeSceneNode = this->device->getSceneManager()->addMeshSceneNode
 	  (this->device->getSceneManager()->getMesh("ressources/weapons/HolyHandGrenade/HolyHandGrenade.obj"));
-  std::cout << this->holyHandGrenadeSceneNode << std::endl;
   this->holyHandGrenadeSceneNode->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   this->holyHandGrenadeSceneNode->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, false);
   this->setWeaponRotation(rotation);
@@ -102,8 +103,7 @@ bool	HolyHandGrenade::updateBullets(std::vector<irr::scene::IMeshSceneNode *> gr
   int			collision = 0;
   irr::f32		collisionPos = 0;
   
-  if (// this->holyHandGrenadeSceneNode->getRotation().Y == 90.0f
-      this->throwRight == true)
+  if (this->throwRight == true)
     {
       // SI ON LANCE VERS LA DROITE
       if (this->updateZeroConstraints == false)
@@ -168,8 +168,8 @@ bool	HolyHandGrenade::updateBullets(std::vector<irr::scene::IMeshSceneNode *> gr
 	  if (collision == 0)
 	    {
 	      this->holyHandGrenadeSceneNode->setPosition
-		(irr::core::vector3d<irr::f32>(this->holyHandGrenadeSceneNode->getPosition().Y - 0.3f,
-					       this->holyHandGrenadeSceneNode->getPosition().Y,
+		(irr::core::vector3d<irr::f32>(this->holyHandGrenadeSceneNode->getPosition().X,
+					       this->holyHandGrenadeSceneNode->getPosition().Y - 0.3f,
 					       this->holyHandGrenadeSceneNode->getPosition().Z));
 	    }
 	  collision = 0;
@@ -177,7 +177,7 @@ bool	HolyHandGrenade::updateBullets(std::vector<irr::scene::IMeshSceneNode *> gr
 	  
 	  //BALLISTIQUE
   
-	  if (this->actualSpeedY > 0.005f && this->updateReverseConstraints == false)
+	  if (this->actualSpeedY > 0.0f && this->updateReverseConstraints == false)
 	    {
 	      grenadePos.X += this->actualSpeedX;
 	      grenadePos.Y += this->actualSpeedY;
@@ -185,9 +185,9 @@ bool	HolyHandGrenade::updateBullets(std::vector<irr::scene::IMeshSceneNode *> gr
 	      this->actualSpeedX -= 0.001f;
 	      this->actualSpeedY -= 0.001f;
 	    }
-	  if (this->actualSpeedY <= 0.005f && this->updateReverseConstraints == false)
+	  if (this->actualSpeedY <= 0.0f && this->updateReverseConstraints == false)
 	    {
-	      this->actualSpeedY = 0.005f;
+	      this->actualSpeedY = 0.0f;
 	      this->updateReverseConstraints = true;
 	    }
 	  if (this->actualSpeedY < this->maxSpeedY && this->updateReverseConstraints == true)
@@ -287,7 +287,7 @@ bool	HolyHandGrenade::updateBullets(std::vector<irr::scene::IMeshSceneNode *> gr
 
 	  //BALLISTIQUE
 	  
-          if (this->actualSpeedY > 0.005f && this->updateReverseConstraints == false)
+          if (this->actualSpeedY > 0.0f && this->updateReverseConstraints == false)
             {
               grenadePos.X += this->actualSpeedX;
               grenadePos.Y -= this->actualSpeedY;
@@ -295,9 +295,9 @@ bool	HolyHandGrenade::updateBullets(std::vector<irr::scene::IMeshSceneNode *> gr
               this->actualSpeedX -= 0.001f;
               this->actualSpeedY -= 0.001f;
             }
-          if (this->actualSpeedY <= 0.005f && this->updateReverseConstraints == false)
+          if (this->actualSpeedY <= 0.0f && this->updateReverseConstraints == false)
             {
-              this->actualSpeedY = 0.005f;
+              this->actualSpeedY = 0.0f;
               this->updateReverseConstraints = true;
             }
           if (this->actualSpeedY < this->maxSpeedY && this->updateReverseConstraints == true)

@@ -160,7 +160,7 @@ void	Team::playTeamBot(unsigned int currentPlayer,
 
 bool	Team::playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon,
 			    InventoryButton const &lastWeaponSelected,
-			    std::vector<irr::scene::IMeshSceneNode *> groundObjects)
+			    std::vector<irr::scene::IMeshSceneNode *> groundObjects, bool &alreadyFired)
 {
   if (selectedWeapon == InventoryButton::UZI - 20)
     {
@@ -168,6 +168,7 @@ bool	Team::playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon,
 	{
 	  canFire = this->teamFire(currentPlayer, selectedWeapon);
 	  displayBullet = true;
+	  alreadyFired = true;
 	}
     }
   else
@@ -175,8 +176,7 @@ bool	Team::playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon,
       if (this->eventReceiver.IsKeyUp(irr::KEY_SPACE))
 	{
 	  canFire = this->teamFire(currentPlayer, selectedWeapon);
-	  if (!canFire)
-
+	  alreadyFired = true;
 	  if (selectedWeapon == InventoryButton::SURRENDER - 20)
 	    return true;
 	  displayBullet = true;

@@ -112,6 +112,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
   InventoryButton 	lastWeaponSelected = InventoryButton::IN_STAND_BY;
   irr::s32		lastFPS = -1;
   bool 			isHuman;
+  bool 			alreadyFired = false;
 
   this->menuInGame->setModelProperties(); // Set des propriétés du menu ingame
   this->inventoryModel->setModelProperties();
@@ -156,7 +157,8 @@ EventStatus GameNamespace::GameEngine::launchModel()
                       this->jump(this->weaponId);
                   }
 		if (this->teams.at(this->currentTeamIdPlaying).playTeamHuman(this->currentWormIdPlaying,
-									     this->weaponId, lastWeaponSelected, this->groundObjects))
+									     this->weaponId, lastWeaponSelected,
+									     this->groundObjects, alreadyFired))
 		  {
 
 		    this->teams.at(currentTeamIdPlaying).removeWormsInCurrentTeam();
@@ -203,7 +205,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	    this->soundEngine->play2D("ressources/sounds/StartRound.wav");
 	    this->turnStart = std::time(nullptr); // Set du timer a chaque tour
 	    this->gameStart = true;
-	    std::cout << "TEAM N° " << this->currentTeamIdPlaying << ", TURN OF WORM N° " << this->currentWormIdPlaying << " (" << this->teams.at(this->currentTeamIdPlaying).playerIsHuman(this->currentWormIdPlaying) << ")" << std::endl;
+	    alreadyFired = false;
 	  }
 
 	if (!this->fiveSecondsTrigger)
@@ -265,7 +267,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
 	this->triggerTimer();
 	if (eventStatusInventory != EventStatus::INVENTORY
 	    && eventStatusMenu != EventStatus::IN_GAME_MENU && this->eventReceiver.IsKeyUp(irr::KEY_KEY_I) &&
-		!alreadyInMenu && isHuman)
+		!alreadyInMenu && isHuman && !alreadyFired)
 	  {
 	    this->inventoryModel->showTabCtrl();
 	    eventStatusInventory = EventStatus::INVENTORY;

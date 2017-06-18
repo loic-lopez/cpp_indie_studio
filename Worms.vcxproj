@@ -71,8 +71,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>.</OutDir>
-    <IncludePath>C:\Users\Yassir\Documents\Shared\cpp_indie_studio\irrlicht\include;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\irrKlang\include;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Yassir\Documents\Shared\cpp_indie_studio\irrlicht\lib\Win64-visualStudio;C:\Users\Yassir\Documents\Shared\cpp_indie_studio\irrKlang\lib\Winx64-visualStudio;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\frenc\Documents\Shared\cpp_indie_studio\irrlicht\include;C:\Users\frenc\Documents\Shared\cpp_indie_studio\irrKlang\include;C:\Users\frenc\Documents\Shared\cpp_indie_studio\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\frenc\Documents\Shared\cpp_indie_studio\irrlicht\lib\Win64-visualStudio;C:\Users\frenc\Documents\Shared\cpp_indie_studio\irrKlang\lib\Winx64-visualStudio;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

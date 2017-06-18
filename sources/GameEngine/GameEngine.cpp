@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 //
 // Started on  Wed May  3 18:20:40 2017 Stanislas Deneubourg
-// Last update Sun Jun 18 14:38:27 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 16:49:09 2017 Stanislas Deneubourg
 //
 
 #include "GameEngine/GameEngine.hpp"
@@ -154,7 +154,7 @@ EventStatus GameNamespace::GameEngine::launchModel()
                       this->jump(this->weaponId);
                   }
 		if (this->teams.at(this->currentTeamIdPlaying).playTeamHuman(this->currentWormIdPlaying,
-									     this->weaponId, lastWeaponSelected))
+									     this->weaponId, lastWeaponSelected, this->groundObjects))
 		  {
 
 		    this->teams.at(currentTeamIdPlaying).removeWormsInCurrentTeam();

@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  ven. juin 09 14:31:33 2017 Loïc Lopez
-// Last update Mon Jun 12 18:23:21 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 16:53:07 2017 Stanislas Deneubourg
 */
 
 // TODO: REMOVE PRINT
@@ -50,9 +50,13 @@ void	Inventory::setWeaponRotationToWormPosition(size_t const &weaponSelectedInGu
   this->weaponsInInventory.at(weaponSelectedInGui)->setWeaponRotation(rotation);
 }
 
-bool	Inventory::updateWeaponBullets(size_t const &weaponSelectedInGui)
+bool	Inventory::updateWeaponBullets(size_t const &weaponSelectedInGui,
+				       std::vector<irr::scene::IMeshSceneNode *> groundObjects)
 {
-  return this->weaponsInInventory.at(weaponSelectedInGui)->updateBullets();
+  if (weaponSelectedInGui == 3)
+    return this->weaponsInInventory.at(weaponSelectedInGui)->updateBullets(groundObjects);
+  else
+    return this->weaponsInInventory.at(weaponSelectedInGui)->updateBullets();
 }
 
 void	Inventory::deleteWeapon(size_t toDelete)

@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:50:07 2017 Stanislas Deneubourg
-// Last update Sun Jun 18 15:23:59 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 16:47:50 2017 Stanislas Deneubourg
 //
 
 #ifndef TEAM_HPP
@@ -45,7 +45,8 @@ public:
   void			teamMoveRight(unsigned int, size_t selectedWeapon);
   bool			teamFire(size_t, size_t selectedWeapon);
   void 			showWormWeapon(size_t, size_t);
-  bool			updateTeamWormBullets(unsigned currentPlayer, size_t selectedWeapon);
+  bool			updateTeamWormBullets(unsigned currentPlayer, size_t selectedWeapon,
+					      std::vector<irr::scene::IMeshSceneNode *> groundObjects);
   void			teamResetAnimationSpeed(unsigned int);
   void 			poisonEffect();
   void 			teamGravity(std::vector<irr::scene::IMeshSceneNode *> groundObjects);
@@ -59,7 +60,9 @@ public:
   bool 			playerIsHuman(unsigned int currentPlayer);
   void 			playTeamHuman(unsigned int currentPlayer);
   void 			playTeamBot(unsigned int currentPlayer, std::vector<irr::scene::IMeshSceneNode *> groundObjects,  std::vector<irr::core::vector3df> allWormsPos);
-  bool 			playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon, InventoryButton const &lastWeaponSelected);
+  bool 			playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon,
+				      InventoryButton const &lastWeaponSelected,
+				      std::vector<irr::scene::IMeshSceneNode *> groundObjects);
   void 			teamJump(unsigned int, size_t);
   void 			teamJump(unsigned int);
   void 			deleteWormWeapon(size_t currentPlayer, size_t selectedWeapon);

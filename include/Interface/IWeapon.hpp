@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Thu Jun  1 07:49:15 2017 Stanislas Deneubourg
-// Last update Thu Jun  1 07:53:21 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 17:07:09 2017 Stanislas Deneubourg
 //
 
 #ifndef	IWEAPON_HPP
@@ -24,6 +24,7 @@ public:
   virtual 	void	setWeaponPosition(const irr::core::vector3df &position) = 0;
   virtual 	void	setWeaponRotation(const irr::core::vector3df &rotation) = 0;
   virtual 	bool	updateBullets() = 0;
+  virtual	bool	updateBullets(std::vector<irr::scene::IMeshSceneNode*>) = 0;
   virtual 	irr::core::vector3df	const &getWeaponRotation() const = 0;
 };
 

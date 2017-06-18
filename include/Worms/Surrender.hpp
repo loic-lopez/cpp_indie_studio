@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  mer. juin 14 13:40:06 2017 Loïc Lopez
-// Last update mer. juin 14 13:40:06 2017 Loïc Lopez
+// Last update Sun Jun 18 17:13:26 2017 Stanislas Deneubourg
 //
 
 #ifndef CPP_INDIE_STUDIO_SURRENDER_HPP
@@ -32,6 +32,7 @@ class Surrender : public IWeapon
   void	setWeaponPosition(const irr::core::vector3df &position) override;
   void	setWeaponRotation(const irr::core::vector3df &rotation) override;
   bool	updateBullets() override;
+  bool  updateBullets(std::vector<irr::scene::IMeshSceneNode*>);
   irr::core::vector3df	const &getWeaponRotation() const override;
 };
 

@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  dim. juin 18 11:52:27 2017 Loïc Lopez
-** Last update dim. juin 18 11:52:27 2017 Loïc Lopez
+// Last update Sun Jun 18 17:12:34 2017 Stanislas Deneubourg
 */
 
 #ifndef SKIP_GO_HPP
@@ -30,6 +30,8 @@ class	SkipGo : public IWeapon
   void		setWeaponPosition(const irr::core::vector3df &position) override;
   void		setWeaponRotation(const irr::core::vector3df &rotation) override;
   bool		updateBullets() override;
+  bool		updateBullets(std::vector<irr::scene::IMeshSceneNode*>);
+
   irr::core::vector3df	const &getWeaponRotation() const override;
 };
 

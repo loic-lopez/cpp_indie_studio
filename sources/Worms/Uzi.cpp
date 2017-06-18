@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  ven. juin 09 14:45:54 2017 Loïc Lopez
-// Last update Tue Jun 13 17:48:25 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 17:10:28 2017 Stanislas Deneubourg
 */
 
 // TODO: ENLEVER LES PRINTS
@@ -75,6 +75,12 @@ void 	Uzi::setWeaponPosition(const irr::core::vector3df &position)
 void 	Uzi::setWeaponRotation(const irr::core::vector3df &rotation)
 {
   this->uziSceneNode->setRotation(irr::core::vector3df(rotation.X, -rotation.Y, rotation.Z));
+}
+
+bool	Uzi::updateBullets(std::vector<irr::scene::IMeshSceneNode*> groundObjects)
+{
+  (void)groundObjects;
+  return true;
 }
 
 bool	Uzi::updateBullets()

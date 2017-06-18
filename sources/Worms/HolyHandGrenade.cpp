@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  ven. juin 16 10:35:53 2017 Loïc Lopez
-// Last update Sun Jun 18 16:28:04 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 17:42:17 2017 Stanislas Deneubourg
 //
 
 #include <iostream>
@@ -22,6 +22,8 @@ HolyHandGrenade::HolyHandGrenade(irr::IrrlichtDevice *device, irrklang::ISoundEn
   this->actualSpeedY = this->maxSpeedY;
   this->updateReverseConstraints = false;
   this->updateZeroConstraints = false;
+  this->throwLeft = false;
+  this->throwRight = false;
 }
 
 HolyHandGrenade::~HolyHandGrenade()
@@ -36,6 +38,10 @@ bool	HolyHandGrenade::fire()
       if (this->holyHandGrenadeSceneNode != nullptr)
 	{
 	  this->chargerNumber--;
+	  if (this->holyHandGrenadeSceneNode->getRotation().Y == 90.0f)
+	    this->throwRight = true;
+	  else
+	    this->throwLeft = true;
 	  std::cout << "FIRE HOLY" << std::endl;
 	  return (true);
 	}
@@ -87,13 +93,91 @@ void	HolyHandGrenade::setWeaponRotation(const irr::core::vector3df &rotation)
 
 bool	HolyHandGrenade::updateBullets()
 {
-  irr::core::vector3df	grenadePos = this->holyHandGrenadeSceneNode->getPosition();
+  return true;
+}
 
-  if (this->holyHandGrenadeSceneNode->getRotation().Y == 90.0f)
+bool	HolyHandGrenade::updateBullets(std::vector<irr::scene::IMeshSceneNode *> groundObjects)
+{
+  irr::core::vector3df	grenadePos = this->holyHandGrenadeSceneNode->getPosition();
+  int			collision = 0;
+  irr::f32		collisionPos = 0;
+  
+  if (// this->holyHandGrenadeSceneNode->getRotation().Y == 90.0f
+      this->throwRight == true)
     {
+      // SI ON LANCE VERS LA DROITE
       if (this->updateZeroConstraints == false)
 	{
-	  if (this->actualSpeedY > 0 && this->updateReverseConstraints == false)
+	  //COLLISION GAUCHE
+	  
+	  for (unsigned int i = 0; i < groundObjects.size(); i++)
+	    {
+	      if ((this->holyHandGrenadeSceneNode->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 1.5f)
+		  && (this->holyHandGrenadeSceneNode->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 1.5f)
+		  && (this->holyHandGrenadeSceneNode->getPosition().X <= groundObjects.at(i)->getPosition().X + 3.35f)
+		  && (this->holyHandGrenadeSceneNode->getPosition().X >= groundObjects.at(i)->getPosition().X + 3.25f))
+		{
+		  collision = 1;
+		  collisionPos = groundObjects.at(i)->getPosition().X + 3.4f;
+		}
+	    }
+	  if (collision == 1)
+	    {
+	      this->holyHandGrenadeSceneNode->setPosition
+		(irr::core::vector3d<irr::f32>(collisionPos,
+					       this->holyHandGrenadeSceneNode->getPosition().Y,
+					       this->holyHandGrenadeSceneNode->getPosition().Z));
+	      
+	    }
+	  collision = 0;
+	  collisionPos = 0;
+
+	  //COLLISION DROITE
+	  
+	  for (unsigned int i = 0; i < groundObjects.size(); i++)
+	    {
+	      if ((this->holyHandGrenadeSceneNode->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 1.5f)
+		  && (this->holyHandGrenadeSceneNode->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 1.5f)
+		  && (this->holyHandGrenadeSceneNode->getPosition().X >= groundObjects.at(i)->getPosition().X - 3.35f)
+		  && (this->holyHandGrenadeSceneNode->getPosition().X <= groundObjects.at(i)->getPosition().X - 3.25f))
+		{
+		  collision = 1;
+		  collisionPos = groundObjects.at(i)->getPosition().X - 3.4f;
+		}
+	    }
+	  if (collision == 1)
+	    {
+	      this->holyHandGrenadeSceneNode->setPosition
+		(irr::core::vector3d<irr::f32>(collisionPos,
+					       this->holyHandGrenadeSceneNode->getPosition().Y,
+					       this->holyHandGrenadeSceneNode->getPosition().Z));
+	    }
+	  collision = 0;
+	  collisionPos = 0;
+
+	  //GRAVITE
+
+	  for (unsigned int i = 0; i < groundObjects.size(); i++)
+	    {
+	      if ((this->holyHandGrenadeSceneNode->getPosition().Y >= groundObjects.at(i)->getPosition().Y + 1.0)
+		  && (this->holyHandGrenadeSceneNode->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.8)
+		  && (this->holyHandGrenadeSceneNode->getPosition().X >= groundObjects.at(i)->getPosition().X - 2.3)
+		  && (this->holyHandGrenadeSceneNode->getPosition().X <= groundObjects.at(i)->getPosition().X + 2.3))
+		collision = 1;
+	    }
+	  if (collision == 0)
+	    {
+	      this->holyHandGrenadeSceneNode->setPosition
+		(irr::core::vector3d<irr::f32>(this->holyHandGrenadeSceneNode->getPosition().Y - 0.3f,
+					       this->holyHandGrenadeSceneNode->getPosition().Y,
+					       this->holyHandGrenadeSceneNode->getPosition().Z));
+	    }
+	  collision = 0;
+	  collisionPos = 0;
+	  
+	  //BALLISTIQUE
+  
+	  if (this->actualSpeedY > 0.005f && this->updateReverseConstraints == false)
 	    {
 	      grenadePos.X += this->actualSpeedX;
 	      grenadePos.Y += this->actualSpeedY;
@@ -101,9 +185,9 @@ bool	HolyHandGrenade::updateBullets()
 	      this->actualSpeedX -= 0.001f;
 	      this->actualSpeedY -= 0.001f;
 	    }
-	  if (this->actualSpeedY <= 0 && this->updateReverseConstraints == false)
+	  if (this->actualSpeedY <= 0.005f && this->updateReverseConstraints == false)
 	    {
-	      this->actualSpeedY = 0;
+	      this->actualSpeedY = 0.005f;
 	      this->updateReverseConstraints = true;
 	    }
 	  if (this->actualSpeedY < this->maxSpeedY && this->updateReverseConstraints == true)
@@ -112,30 +196,132 @@ bool	HolyHandGrenade::updateBullets()
               grenadePos.Y -= this->actualSpeedY;
               this->holyHandGrenadeSceneNode->setPosition(grenadePos);
               this->actualSpeedX -= 0.001f;
-              this->actualSpeedY -= 0.001f;
+              this->actualSpeedY += 0.001f;
             }
           if (this->actualSpeedY >= this->maxSpeedY)
             {
               this->actualSpeedY = this->maxSpeedY;
 	      this->actualSpeedX = this->maxSpeedX;
-              this->update = true;
+              this->updateZeroConstraints = true;
             }
 	}
       else
-	return false;
-    }
-  else
-    {
-      if (grenadePos.X > this->startGrenadeX - HOLY_GRENADE_RANGE)
 	{
-	  grenadePos.X -= HOLY_GRENADE_SPEED;
-	  this->holyHandGrenadeSceneNode->setPosition(
-		  irr::core::vector3df(grenadePos.X - this->holyHandGrenadeBox.getExtent().getLength() / 6,
-				       grenadePos.Y + this->holyHandGrenadeBox.getExtent().getLength() / 2,
-				       grenadePos.Z - this->holyHandGrenadeBox.getExtent().getLength() / 6));
+	  this->updateZeroConstraints = false;
+	  this->updateReverseConstraints = false;
+	  this->throwRight = false;
+	  return false;
 	}
+    }
+  else if (this->throwLeft == true)
+    {
+      // SI ON LANCE VERS LA GAUCHE
+      if (this->updateZeroConstraints == false)
+        {
+	  //COLLISION GAUCHE
+
+	  for (unsigned int i = 0; i < groundObjects.size(); i++)
+            {
+              if ((this->holyHandGrenadeSceneNode->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 0.7f)
+                  && (this->holyHandGrenadeSceneNode->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.7f)
+                  && (this->holyHandGrenadeSceneNode->getPosition().X <= groundObjects.at(i)->getPosition().X + 3.35f)
+                  && (this->holyHandGrenadeSceneNode->getPosition().X >= groundObjects.at(i)->getPosition().X + 3.25f))
+                {
+                  collision = 1;
+                  collisionPos = groundObjects.at(i)->getPosition().X + 3.4f;
+                }
+            }
+          if (collision == 1)
+            {
+              this->holyHandGrenadeSceneNode->setPosition
+                (irr::core::vector3d<irr::f32>(collisionPos,
+                                               this->holyHandGrenadeSceneNode->getPosition().Y,
+                                               this->holyHandGrenadeSceneNode->getPosition().Z));
+
+            }
+          collision = 0;
+          collisionPos = 0;
+
+	  //COLLISION DROITE
+
+	  for (unsigned int i = 0; i < groundObjects.size(); i++)
+            {
+              if ((this->holyHandGrenadeSceneNode->getPosition().Y >= groundObjects.at(i)->getPosition().Y - 0.7f)
+                  && (this->holyHandGrenadeSceneNode->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.7f)
+                  && (this->holyHandGrenadeSceneNode->getPosition().X >= groundObjects.at(i)->getPosition().X - 3.35f)
+                  && (this->holyHandGrenadeSceneNode->getPosition().X <= groundObjects.at(i)->getPosition().X - 3.25f))
+                {
+                  collision = 1;
+                  collisionPos = groundObjects.at(i)->getPosition().X - 3.4f;
+                }
+            }
+          if (collision == 1)
+            {
+              this->holyHandGrenadeSceneNode->setPosition
+                (irr::core::vector3d<irr::f32>(collisionPos,
+                                               this->holyHandGrenadeSceneNode->getPosition().Y,
+                                               this->holyHandGrenadeSceneNode->getPosition().Z));
+            }
+          collision = 0;
+          collisionPos = 0;
+
+	  //GRAVITE
+
+	  for (unsigned int i = 0; i < groundObjects.size(); i++)
+            {
+              if ((this->holyHandGrenadeSceneNode->getPosition().Y >= groundObjects.at(i)->getPosition().Y + 1.0)
+                  && (this->holyHandGrenadeSceneNode->getPosition().Y <= groundObjects.at(i)->getPosition().Y + 0.8)
+                  && (this->holyHandGrenadeSceneNode->getPosition().X >= groundObjects.at(i)->getPosition().X - 2.3)
+                  && (this->holyHandGrenadeSceneNode->getPosition().X <= groundObjects.at(i)->getPosition().X + 2.3))
+                collision = 1;
+            }
+          if (collision == 0)
+            {
+              this->holyHandGrenadeSceneNode->setPosition
+                (irr::core::vector3d<irr::f32>(this->holyHandGrenadeSceneNode->getPosition().Y - 0.3f,
+                                               this->holyHandGrenadeSceneNode->getPosition().Y,
+                                               this->holyHandGrenadeSceneNode->getPosition().Z));
+            }
+          collision = 0;
+          collisionPos = 0;
+
+	  //BALLISTIQUE
+	  
+          if (this->actualSpeedY > 0.005f && this->updateReverseConstraints == false)
+            {
+              grenadePos.X += this->actualSpeedX;
+              grenadePos.Y -= this->actualSpeedY;
+              this->holyHandGrenadeSceneNode->setPosition(grenadePos);
+              this->actualSpeedX -= 0.001f;
+              this->actualSpeedY -= 0.001f;
+            }
+          if (this->actualSpeedY <= 0.005f && this->updateReverseConstraints == false)
+            {
+              this->actualSpeedY = 0.005f;
+              this->updateReverseConstraints = true;
+            }
+          if (this->actualSpeedY < this->maxSpeedY && this->updateReverseConstraints == true)
+            {
+              grenadePos.X -= this->actualSpeedX;
+              grenadePos.Y += this->actualSpeedY;
+              this->holyHandGrenadeSceneNode->setPosition(grenadePos);
+              this->actualSpeedX -= 0.001f;
+              this->actualSpeedY -= 0.001f;
+            }
+          if (this->actualSpeedY >= this->maxSpeedY)
+            {
+              this->actualSpeedY = this->maxSpeedY;
+              this->actualSpeedX = this->maxSpeedX;
+              this->updateZeroConstraints = true;
+            }
+        }
       else
-	return (false);
+	{
+	  this->updateZeroConstraints = false;
+          this->updateReverseConstraints = false;
+	  this->throwLeft = false;
+	  return (false);
+	}
     }
   return true;
 }

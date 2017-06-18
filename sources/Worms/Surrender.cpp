@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  mer. juin 14 13:40:06 2017 Loïc Lopez
-// Last update mer. juin 14 13:40:06 2017 Loïc Lopez
+// Last update Sun Jun 18 17:13:48 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Surrender.hpp"
@@ -71,6 +71,12 @@ void	Surrender::setWeaponRotation(const irr::core::vector3df &rotation)
     this->surrenderSceneNode->setRotation(irr::core::vector3df(rotation.X, rotation.Y - 90, rotation.Z));
   else
     this->surrenderSceneNode->setRotation(irr::core::vector3df(rotation.X, rotation.Y + 90, rotation.Z));
+}
+
+bool    Surrender::updateBullets(std::vector<irr::scene::IMeshSceneNode*> groundObjects)
+{
+  (void)groundObjects;
+  return false;
 }
 
 bool	Surrender::updateBullets()

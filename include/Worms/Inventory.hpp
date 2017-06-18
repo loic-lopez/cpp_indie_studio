@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  ven. juin 09 14:13:50 2017 Loïc Lopez
-** Last update ven. juin 09 14:13:50 2017 Loïc Lopez
+// Last update Sun Jun 18 16:49:36 2017 Stanislas Deneubourg
 */
 
 #ifndef CPP_INDIE_STUDIO_INVENTORY_HPP
@@ -36,7 +36,8 @@ class	Inventory
 					      const irr::core::vector3df &position);
   void	setWeaponRotationToWormPosition(size_t const &weaponSelectedInGui,
 					      const irr::core::vector3df &rotation);
-  bool	updateWeaponBullets(size_t const &weaponSelectedInGui);
+  bool	updateWeaponBullets(size_t const &weaponSelectedInGui,
+			    std::vector<irr::scene::IMeshSceneNode *> groundObjects);
   void	deleteWeapon(size_t toDelete);
 };
 

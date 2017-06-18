@@ -5,7 +5,7 @@
 // Login   <deneub_s@epitech.net>
 // 
 // Started on  Wed May 31 19:51:11 2017 Stanislas Deneubourg
-// Last update Sun Jun 18 15:29:37 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 16:48:25 2017 Stanislas Deneubourg
 //
 
 #include "Worms/Team.hpp"
@@ -64,9 +64,10 @@ void 	Team::deleteWormWeapon(size_t currentPlayer, size_t selectedWeapon)
   this->teamPlayers.at(currentPlayer).inventory.deleteWeapon(selectedWeapon);
 }
 
-bool	Team::updateTeamWormBullets(unsigned currentPlayer, size_t selectedWeapon)
+bool	Team::updateTeamWormBullets(unsigned currentPlayer, size_t selectedWeapon,
+				    std::vector<irr::scene::IMeshSceneNode *> groundObjects)
 {
-  return this->teamPlayers.at(currentPlayer).inventory.updateWeaponBullets(selectedWeapon);
+  return this->teamPlayers.at(currentPlayer).inventory.updateWeaponBullets(selectedWeapon, groundObjects);
 }
 
 void    Team::teamResetAnimationSpeed(unsigned int currentWormIdPlaying)
@@ -153,12 +154,16 @@ void	Team::playTeamHuman(unsigned int currentPlayer)
     this->teamResetAnimationSpeed(currentPlayer);
 }
 
-void	Team::playTeamBot(unsigned int currentPlayer, std::vector<irr::scene::IMeshSceneNode *> groundObjects, std::vector<irr::core::vector3df> allWormsPos)
+void	Team::playTeamBot(unsigned int currentPlayer,
+			  std::vector<irr::scene::IMeshSceneNode *> groundObjects,
+			  std::vector<irr::core::vector3df> allWormsPos)
 {
   this->teamPlayers.at(currentPlayer).playWormBot(groundObjects, allWormsPos);
 }
 
-bool	Team::playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon, InventoryButton const &lastWeaponSelected)
+bool	Team::playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon,
+			    InventoryButton const &lastWeaponSelected,
+			    std::vector<irr::scene::IMeshSceneNode *> groundObjects)
 {
   if (selectedWeapon == InventoryButton::UZI - 20)
     {
@@ -181,7 +186,7 @@ bool	Team::playTeamHuman(unsigned int currentPlayer, size_t selectedWeapon, Inve
 	}
     }
   if (displayBullet && lastWeaponSelected != InventoryButton::IN_STAND_BY)
-    displayBullet = this->updateTeamWormBullets(currentPlayer, selectedWeapon);
+    displayBullet = this->updateTeamWormBullets(currentPlayer, selectedWeapon, groundObjects);
   if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_Q))
     this->teamResetAnimationSpeed(currentPlayer);
   if (this->eventReceiver.IsKeyUp(irr::KEY_KEY_D))

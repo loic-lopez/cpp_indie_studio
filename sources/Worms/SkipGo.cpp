@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  dim. juin 18 11:44:16 2017 Loïc Lopez
-** Last update dim. juin 18 11:44:16 2017 Loïc Lopez
+// Last update Sun Jun 18 17:12:57 2017 Stanislas Deneubourg
 */
 
 #include "Worms/SkipGo.hpp"
@@ -63,6 +63,13 @@ void	SkipGo::setWeaponRotation(const irr::core::vector3df &rotation)
 {
   this->skipGoSceneNode->setRotation(irr::core::vector3df(rotation.X, -rotation.Y, rotation.Z));
 }
+
+bool    SkipGo::updateBullets(std::vector<irr::scene::IMeshSceneNode*> groundObjects)
+{
+  (void)groundObjects;
+  return false;
+}
+
 
 bool	SkipGo::updateBullets()
 {

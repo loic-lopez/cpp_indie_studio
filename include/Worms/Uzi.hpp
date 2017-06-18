@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  ven. juin 09 14:34:24 2017 Loïc Lopez
-// Last update Mon Jun 12 18:20:15 2017 Stanislas Deneubourg
+// Last update Sun Jun 18 17:09:53 2017 Stanislas Deneubourg
 */
 
 #ifndef CPP_INDIE_STUDIO_UZI_HPP
@@ -47,6 +47,7 @@ class	Uzi : public IWeapon
   void		setWeaponPosition(const irr::core::vector3df &position) override;
   void		setWeaponRotation(const irr::core::vector3df &rotation) override;
   bool		updateBullets() override;
+  bool		updateBullets(std::vector<irr::scene::IMeshSceneNode*>) override;
   irr::core::vector3df	const &getWeaponRotation() const override;
 };
 
